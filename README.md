@@ -1,7 +1,8 @@
 FinApps Ruby-Client
 ===================
 
-Ruby client for Finapps
+Ruby client for Finapps.
+
 A simple library for communicating with the FinApps REST API.
 
 ## Installation
