@@ -1,4 +1,0 @@
-#!/usr/bin/env ruby
-require 'finapps/cli'
-
-FinApps::CLI.start
