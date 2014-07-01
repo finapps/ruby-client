@@ -19,13 +19,6 @@ To manually install `finapps` via [Rubygems][rubygems] simply gem install:
 gem install finapps
 ```
 
-To build and install the development branch yourself from the latest source:
-
-```bash
-git clone git@github.com/finapps/ruby-client.git
-cd finapps
-make install
-```
 
 ## Usage
 
