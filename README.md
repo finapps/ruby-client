@@ -1,9 +1,9 @@
 FinApps Ruby-Client
 ===================
 
-Ruby client for Finapps.
+Ruby client for [FinApps][financialapps].
 
-A simple library for communicating with the FinApps REST API.
+A simple library for communicating with the [FinApps][financialapps] REST API.
 
 ## Installation
 
@@ -59,6 +59,9 @@ company_token = 'my-company-token'
 ```
 
 
+[FinancialApps.com][financialapps]
+
 [builder]: http://builder.rubyforge.org/
 [bundler]: http://bundler.io
 [rubygems]: http://rubygems.org
+[financialapps]: https://financialapps.com
