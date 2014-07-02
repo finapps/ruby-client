@@ -11,6 +11,9 @@ module FinApps
 
         company_identifier = @options[:company_identifier]
         company_token = @options[:company_token]
+
+
+
         env[:request_headers]['X-FinApps-Token'] = "#{company_identifier.trim}=#{company_token.trim}" unless company_identifier.nil? || company_token.nil?
 
         @app.call(env)

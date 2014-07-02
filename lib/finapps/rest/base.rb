@@ -3,8 +3,8 @@ module FinApps
     class Base
 
       # @param [Hash] h
-      def update_from_hash(h)
-        h.each { |k, v| instance_variable_set("@#{k}", v) unless v.nil? }
+      def initialize(h)
+        h.each { |k, v| instance_variable_set("@#{k}", v) unless v.nil? } if h.present?
         self
       end
 

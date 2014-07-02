@@ -18,7 +18,7 @@ module FinApps
           :proxy_user => nil,
           :proxy_pass => nil,
           :retry_limit => 1,
-          :log_level => 'INFO'
+          :log_level => Logger::DEBUG
       }
 
 
@@ -26,6 +26,8 @@ module FinApps
           :users_create => 'users/new',
           :users_login => 'users/login'
       }
+
+      PROTECTED_KEYS = [:password, :password_confirm]
 
     end
   end

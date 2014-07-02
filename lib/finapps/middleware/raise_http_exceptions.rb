@@ -2,13 +2,17 @@ module FinApps
   module Middleware
 
     class RaiseHttpExceptions < Faraday::Response::Middleware
+
       CLIENT_ERROR_STATUSES = 400...600
 
       def initialize(app, logger = nil)
         super(app)
-        @logger = logger||begin
+        @logger = logger || begin
           require 'logger'
-          ::Logger.new(STDOUT)
+          ::Logger.new(STDOUT).tap do |log|
+            log.progname = 'FinApps::Middleware::RaiseHttpExceptions'
+            log.debug '#initialize => Logger instance created'
+          end
         end
       end
 
@@ -45,6 +49,7 @@ module FinApps
 
           when CLIENT_ERROR_STATUSES
             raise FinApps::REST::Error, response_values(env, 'Unexpected error.')
+
           else
             # 200..206 Success codes
             # all good!
@@ -67,7 +72,7 @@ module FinApps
               end
             end
           else
-            @logger.info 'Response does not contain valid JSON.'
+            @logger.info 'Cannot extract errors: response does not contain valid JSON.'
           end
 
         end
