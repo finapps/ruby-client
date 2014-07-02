@@ -39,23 +39,19 @@ company_token = 'my-company-token'
 ### Create User
 
 ``` ruby
-@client.users.create(
-  :first_name => 'John',
-  :last_name => 'Smith',
-  :postal_code => '33021',
-  :email => 'j.smith@example.com',
-  :password => 'myP@ssw0rd',
-  :password_confirm => 'myP@ssw0rd'
-)
+user, error_messages = @client.users.create ({:email => 'j.smith@example.com',
+                                             :password => password,
+                                             :password_confirm => password,
+                                             :first_name => 'John'
+                                             :last_name => 'Smith',
+                                             :postal_code => '33021'})
 ```
 
 ### Login User
 
 ``` ruby
-@client.users.login(
-  :email => 'j.smith@example.com',
-  :password => 'myP@ssw0rd'
-)
+user, error_messages = @client.users.create ({:email => 'j.smith@example.com',
+                                             :password => password})
 ```
 
 

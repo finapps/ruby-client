@@ -31,6 +31,12 @@ module FinApps
       def inspect
         %(#<#{self.class}>)
       end
+
+      # @return [Array]
+      def error_messages
+        @response.present? ? @response[:error_messages] : []
+      end
+
     end
 
     # Raised when required arguments are missing

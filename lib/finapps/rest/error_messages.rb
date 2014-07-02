@@ -1,6 +1,9 @@
 module FinApps
   module REST
     module ErrorMessages
+
+      # @param [FinApps::REST::Error] error
+      # @return [Array]
       def parse_to_error_messages(error)
         error_messages= Array.new
         if error.respond_to? :response
@@ -10,6 +13,7 @@ module FinApps
         end
         error_messages
       end
+
     end
   end
 end
