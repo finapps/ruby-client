@@ -21,6 +21,12 @@ module FinApps
           :log_level => 'INFO'
       }
 
+
+      END_POINTS = {
+          :users_create => 'users/new',
+          :users_login => 'users/login'
+      }
+
     end
   end
 end

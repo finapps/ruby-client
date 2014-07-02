@@ -1,7 +1,6 @@
 module FinApps
   module REST
     class Client
-
       include FinApps::REST::Defaults
       attr_reader :users
 
@@ -35,22 +34,32 @@ module FinApps
       end
 
       # Perform an HTTP GET request
-      def get(path, params = {})
-        #logger.debug "FinApps::REST#Client => GET, #{path} : #{params}"
-        @connection.get do |req|
-          req.url path
+      def get(path)
+        response, error_messages = nil, nil
+        begin
+          response = @connection.get do |req|
+            req.url path
+          end
+        rescue FinApps::REST::Error => error
+          error_messages = error.error_messages
         end
+        return response, error_messages
       end
 
       # Perform an HTTP POST request
       def post(path, params = {})
-        ::Logger.new(STDOUT).debug "FinApps::REST#Client => POST, #{path} : #{params}"
+        response, error_messages = nil, nil
 
-        @connection.post do |req|
-          req.url path
-          req.body = params
+        begin
+          response = @connection.post do |req|
+            req.url path
+            req.body = params
+          end
+        rescue FinApps::REST::Error => error
+          error_messages = error.error_messages
         end
 
+        return response, error_messages
       end
 
       private

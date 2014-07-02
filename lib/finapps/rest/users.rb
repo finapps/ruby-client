@@ -1,9 +1,8 @@
-require File.expand_path(File.dirname(__FILE__) + '/error_messages.rb')
 module FinApps
   module REST
 
     class Users
-      include ErrorMessages
+      include FinApps::REST::Defaults
 
       # @param [FinApps::REST::Client] client
       # @return [FinApps::REST::Users]
@@ -12,17 +11,11 @@ module FinApps
       end
 
       # @param [Hash] params
-      # @return [FinApps::REST::User]
+      # @return [FinApps::REST::User, Array]
       def create(params = {})
         raise "Can't create a resource without a REST Client" unless @client
 
-        begin
-          response = @client.post 'users/new', params
-          parse_to_user(response)
-        rescue StandardError => error
-          User.new nil, nil, parse_to_error_messages(error)
-        end
-
+        post(END_POINTS[:users_create], params)
       end
 
       # @param [Hash] params
@@ -30,38 +23,36 @@ module FinApps
       def login(params = {})
         raise "Can't login without a REST Client" unless @client
 
-        begin
-          response = @client.post 'users/login', params
-          parse_to_user(response)
-        rescue StandardError => error
-          User.new nil, nil, parse_to_error_messages(error)
-        end
+        post(END_POINTS[:users_login], params)
       end
 
       private
-      def parse_to_user(response)
+
+      def post(end_point, params={})
+        response, error_messages = @client.post(end_point, params)
+        return Users.faraday_response_to_user(response) , error_messages
+      end
+
+      def self.faraday_response_to_user(response)
         if response.respond_to? :body
-          rashie = response.body
-          user = User.new(rashie.public_id, rashie.token)
-          user.email = rashie.email if rashie.respond_to? :email
-          user.first_name = rashie.first_name if rashie.respond_to? :first_name
-          user.last_name = rashie.last_name if rashie.respond_to? :last_name
-          user.postal_code = rashie.postal_code if rashie.respond_to? :postal_code
-          user
+          user_hash = response.body
+
+          user = User.new(user_hash.public_id, user_hash.token)
+          user.update_from_hash user_hash
         end
       end
 
     end
 
-    class User < Base
+    class User < FinApps::REST::Base
       attr_accessor :email, :first_name, :last_name, :postal_code
       attr_reader :public_id, :token
 
-      def initialize(public_id=nil, token=nil, error_messages=nil)
+      def initialize(public_id=nil, token=nil)
         @public_id = public_id
         @token = token
-        super(error_messages)
       end
+
     end
 
   end
