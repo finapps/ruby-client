@@ -7,13 +7,11 @@ module FinApps
   class CLI < Thor
 
     desc 'create_client', 'initialize API REST Client'
-
     def create_client
       puts client
     end
 
     desc 'user_create', 'creates a new API user'
-
     def user_create(email=nil, password=nil)
 
       begin
@@ -41,7 +39,6 @@ module FinApps
     end
 
     desc 'user_login', 'creates a new API user and signs in'
-
     def user_login(email, password)
 
       begin
@@ -76,7 +73,7 @@ module FinApps
       host = ENV['FA_URL']
       raise 'Invalid API host url. Please setup the FA_URL environment variable.' if host.blank?
 
-      @client ||= FinApps::REST::Client.new company_id, company_token, {:host => host}
+      @client ||= FinApps::REST::Client.new company_id, company_token, {:host => host, :log_level => Logger::DEBUG}
     end
 
     def rescue_standard_error(error)

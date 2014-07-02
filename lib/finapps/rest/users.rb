@@ -8,51 +8,56 @@ module FinApps
       # @return [FinApps::REST::Users]
       def initialize(client)
         @client = client
+        @logger = client.logger
+        @logger.debug 'FinApps::REST::Users => initialized'
       end
 
       # @param [Hash] params
       # @return [FinApps::REST::User, Array]
       def create(params = {})
+        @logger.debug 'FinApps::REST::Users#create => Started'
+
         raise "Can't create a resource without a REST Client" unless @client
 
-        post(END_POINTS[:users_create], params)
+        user, error_messages = post(END_POINTS[:users_create], params)
+        @logger.debug 'FinApps::REST::Users#create => Completed'
+
+        return user, error_messages
       end
 
       # @param [Hash] params
       # @return [FinApps::REST::User]
       def login(params = {})
+        @logger.debug 'FinApps::REST::Users#login => Started'
+
         raise "Can't login without a REST Client" unless @client
 
-        post(END_POINTS[:users_login], params)
+        user, error_messages = post(END_POINTS[:users_login], params)
+        @logger.debug 'FinApps::REST::Users#login => Completed'
+
+        return user, error_messages
       end
 
       private
 
       def post(end_point, params={})
+        @logger.debug 'FinApps::REST::Users#post => Started'
+
         response, error_messages = @client.post(end_point, params)
-        return Users.faraday_response_to_user(response) , error_messages
-      end
+        @logger.debug "FinApps::REST::Users#post => #{error_messages.inspect}" if error_messages.present?
 
-      def self.faraday_response_to_user(response)
-        if response.respond_to? :body
-          user_hash = response.body
+        user = response.present? ? User.new(response.body) : nil
+        @logger.debug "FinApps::REST::Users#post => #{user.inspect}" if user.present?
 
-          user = User.new(user_hash.public_id, user_hash.token)
-          user.update_from_hash user_hash
-        end
+        @logger.debug 'FinApps::REST::Users#post => Completed'
+
+        return user, error_messages
       end
 
     end
 
     class User < FinApps::REST::Base
-      attr_accessor :email, :first_name, :last_name, :postal_code
-      attr_reader :public_id, :token
-
-      def initialize(public_id=nil, token=nil)
-        @public_id = public_id
-        @token = token
-      end
-
+      attr_accessor :public_id, :token, :email, :first_name, :last_name, :postal_code
     end
 
   end
