@@ -89,6 +89,34 @@ module FinApps
         return resource, error_messages
       end
 
+      def delete(path, params = {}, &proc)
+        logger.debug 'FinApps::REST::Client#delete => Started'
+
+        response, resource, error_messages = nil, nil, nil
+
+        begin
+          logger.debug "FinApps::REST::Client#delete => POST path:#{path} params:#{params.reject { |k, _| PROTECTED_KEYS.include? k }}"
+          response = @connection.delete do |req|
+            req.url path
+            req.body = params
+          end
+          if response.present?
+            logger.debug "FinApps::REST::Client#delete => response: #{response.pretty_inspect}"
+            if block_given?
+              resource = proc.call(response)
+              logger.debug "FinApps::REST::Client#delete => resource: #{resource.pretty_inspect}" if resource.present?
+            end
+          end
+
+        rescue FinApps::REST::Error => error
+          error_messages = error.error_messages
+          logger.debug "FinApps::REST::Client#delete => error_messages: #{error_messages.pretty_inspect}" if error_messages.present?
+        end
+
+        logger.debug 'FinApps::REST::Client#delete => Completed'
+        return resource, error_messages
+      end
+
       private
 
       def set_up_resources

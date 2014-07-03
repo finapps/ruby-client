@@ -61,6 +61,27 @@ module FinApps
 
     end
 
+    desc 'user_delete', 'deletes an API user'
+    def user_delete(public_id)
+
+      begin
+        _, error_messages = client.users.delete (public_id)
+        if error_messages.blank?
+          puts
+          puts 'user deleted!'
+        else
+          puts
+          puts 'unable to delete user:'
+          error_messages.each { |m| puts m }
+        end
+        puts
+
+      rescue StandardError => error
+        rescue_standard_error(error)
+      end
+
+    end
+
     private
 
     def client
@@ -73,7 +94,7 @@ module FinApps
       host = ENV['FA_URL']
       raise 'Invalid API host url. Please setup the FA_URL environment variable.' if host.blank?
 
-      @client ||= FinApps::REST::Client.new company_id, company_token, {:host => host, :log_level => Logger::INFO}
+      @client ||= FinApps::REST::Client.new company_id, company_token, {:host => host, :log_level => Logger::DEBUG}
     end
 
     def rescue_standard_error(error)

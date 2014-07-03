@@ -16,7 +16,7 @@ module FinApps
       # @return [FinApps::REST::User, Array]
       def create(params = {})
         @logger.debug 'FinApps::REST::Users#create => Started'
-        user, error_messages = @client.post(END_POINTS[:users_create], params){|r| User.new(r.body)}
+        user, error_messages = @client.post(END_POINTS[:users_create], params) { |r| User.new(r.body) }
         @logger.debug 'FinApps::REST::Users#create => Completed'
 
         return user, error_messages
@@ -26,12 +26,23 @@ module FinApps
       # @return [FinApps::REST::User]
       def login(params = {})
         @logger.debug 'FinApps::REST::Users#login => Started'
-        user, error_messages = @client.post(END_POINTS[:users_login], params){|r| User.new(r.body)}
+        user, error_messages = @client.post(END_POINTS[:users_login], params) { |r| User.new(r.body) }
         @logger.debug 'FinApps::REST::Users#login => Completed'
 
         return user, error_messages
       end
 
+      def delete(public_id)
+        @logger.debug 'FinApps::REST::Users#delete => Started'
+
+        raise MissingArgumentsError.new 'Missing argument: public_id.' if public_id.blank?
+
+        path = END_POINTS[:users_delete].sub! ':public_id', public_id.to_s
+        user, error_messages = @client.delete(path, {}) { |r| User.new(r.body) }
+        @logger.debug 'FinApps::REST::Users#delete => Completed'
+
+        return user, error_messages
+      end
 
     end
 
