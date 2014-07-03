@@ -40,8 +40,8 @@ company_token = 'my-company-token'
 
 ``` ruby
 user, error_messages = @client.users.create ({:email => 'j.smith@example.com',
-                                             :password => password,
-                                             :password_confirm => password,
+                                             :password => 'Password-1',
+                                             :password_confirm => 'Password-1',
                                              :first_name => 'John'
                                              :last_name => 'Smith',
                                              :postal_code => '33021'})
@@ -51,7 +51,7 @@ user, error_messages = @client.users.create ({:email => 'j.smith@example.com',
 
 ``` ruby
 user, error_messages = @client.users.login ({:email => 'j.smith@example.com',
-                                             :password => password})
+                                             :password => 'Password-1'})
 ```
 
 
