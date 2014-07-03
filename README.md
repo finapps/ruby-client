@@ -50,7 +50,7 @@ user, error_messages = @client.users.create ({:email => 'j.smith@example.com',
 ### Login User
 
 ``` ruby
-user, error_messages = @client.users.create ({:email => 'j.smith@example.com',
+user, error_messages = @client.users.login ({:email => 'j.smith@example.com',
                                              :password => password})
 ```
 

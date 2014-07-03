@@ -70,7 +70,7 @@ module FinApps
           raise InvalidArgumentsError.new "Invalid #{credential} specified: #{value.inspect} must be a string or symbol." unless value.is_a?(String) || value.is_a?(Symbol)
         end
 
-        logger.debug "FinApps::REST::Connection#validate_company_credentials! =>  company_credentials: #{company_credentials}"
+        logger.debug "FinApps::REST::Connection#validate_company_credentials! =>  company_credentials: #{company_credentials.pretty_inspect}"
       end
 
       def validate_host_url!(host_url)

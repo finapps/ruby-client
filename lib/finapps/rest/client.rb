@@ -29,33 +29,42 @@ module FinApps
       # Performs an HTTP GET request
       #
       # @param [String] path
-      def get(path)
+      # @param [Proc] proc
+      # @return [Object,Array]
+      def get(path, &proc)
         logger.debug 'FinApps::REST::Client#post => Started'
-        response, error_messages = nil, nil
+        response, resource, error_messages = nil, nil, nil
         begin
           logger.debug "FinApps::REST::Client#get => GET path:#{path}"
           response = @connection.get do |req|
             req.url path
           end
+          if response.present?
+            logger.debug "FinApps::REST::Client#post => response: #{response.pretty_inspect}"
+            if block_given?
+              resource = proc.call(response)
+              logger.debug "FinApps::REST::Client#post => resource: #{resource.pretty_inspect}" if resource.present?
+            end
+          end
         rescue FinApps::REST::Error => error
           error_messages = error.error_messages
+          logger.debug "FinApps::REST::Client#get => error_messages: #{error_messages.pretty_inspect}" if error_messages.present?
         end
 
-        logger.debug "FinApps::REST::Client#get => response: #{response.pretty_inspect}" if response.present?
-        logger.debug "FinApps::REST::Client#get => error_messages: #{error_messages.pretty_inspect}" if error_messages.present?
-
         logger.debug 'FinApps::REST::Client#get => Completed'
-        return response, error_messages
+        return resource, error_messages
       end
 
       # Performs an HTTP POST request
       #
       # @param [String] path
       # @param [Hash] params
-      # @return [Faraday::Response,Array]
-      def post(path, params = {})
+      # @param [Proc] proc
+      # @return [Object,Array]
+      def post(path, params = {}, &proc)
         logger.debug 'FinApps::REST::Client#post => Started'
-        response, error_messages = nil, nil
+
+        response, resource, error_messages = nil, nil, nil
 
         begin
           logger.debug "FinApps::REST::Client#post => POST path:#{path} params:#{params.reject { |k, _| PROTECTED_KEYS.include? k }}"
@@ -63,15 +72,21 @@ module FinApps
             req.url path
             req.body = params
           end
+          if response.present?
+            logger.debug "FinApps::REST::Client#post => response: #{response.pretty_inspect}"
+            if block_given?
+              resource = proc.call(response)
+              logger.debug "FinApps::REST::Client#post => resource: #{resource.pretty_inspect}" if resource.present?
+            end
+          end
+
         rescue FinApps::REST::Error => error
           error_messages = error.error_messages
+          logger.debug "FinApps::REST::Client#post => error_messages: #{error_messages.pretty_inspect}" if error_messages.present?
         end
 
-        logger.debug "FinApps::REST::Client#post => response: #{response.pretty_inspect}" if response.present?
-        logger.debug "FinApps::REST::Client#post => error_messages: #{error_messages.pretty_inspect}" if error_messages.present?
-
         logger.debug 'FinApps::REST::Client#post => Completed'
-        return response, error_messages
+        return resource, error_messages
       end
 
       private

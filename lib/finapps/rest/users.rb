@@ -16,7 +16,7 @@ module FinApps
       # @return [FinApps::REST::User, Array]
       def create(params = {})
         @logger.debug 'FinApps::REST::Users#create => Started'
-        user, error_messages = post(END_POINTS[:users_create], params)
+        user, error_messages = @client.post(END_POINTS[:users_create], params){|r| User.new(r.body)}
         @logger.debug 'FinApps::REST::Users#create => Completed'
 
         return user, error_messages
@@ -26,28 +26,12 @@ module FinApps
       # @return [FinApps::REST::User]
       def login(params = {})
         @logger.debug 'FinApps::REST::Users#login => Started'
-        user, error_messages = post(END_POINTS[:users_login], params)
+        user, error_messages = @client.post(END_POINTS[:users_login], params){|r| User.new(r.body)}
         @logger.debug 'FinApps::REST::Users#login => Completed'
 
         return user, error_messages
       end
 
-      private
-
-      def post(end_point, params={})
-        @logger.debug 'FinApps::REST::Users#post => Started'
-
-        raise "Can't post without a REST Client" unless @client
-
-        response, error_messages = @client.post(end_point, params)
-
-        user = response.present? ? User.new(response.body) : nil
-        @logger.debug "FinApps::REST::Users#post => user: #{user.pretty_inspect}" if user.present?
-
-        @logger.debug 'FinApps::REST::Users#post => Completed'
-
-        return user, error_messages
-      end
 
     end
 
