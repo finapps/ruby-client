@@ -32,16 +32,18 @@ module FinApps
         return user, error_messages
       end
 
+      # @param [String] public_id
+      # @return [Array]
       def delete(public_id)
         @logger.debug 'FinApps::REST::Users#delete => Started'
 
         raise MissingArgumentsError.new 'Missing argument: public_id.' if public_id.blank?
 
         path = END_POINTS[:users_delete].sub! ':public_id', public_id.to_s
-        user, error_messages = @client.delete(path, {}) { |r| User.new(r.body) }
-        @logger.debug 'FinApps::REST::Users#delete => Completed'
+        _, error_messages = @client.delete(path, {})
 
-        return user, error_messages
+        @logger.debug 'FinApps::REST::Users#delete => Completed'
+        error_messages
       end
 
     end

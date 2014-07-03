@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
-require 'finapps/cli'
+require 'finapps/cli/common'
+require 'finapps/cli/users'
 
 FinApps::CLI.start

@@ -37,7 +37,7 @@ $ gem install finapps
 require 'rubygems' # not necessary with ruby 1.9 but included for completeness
 require 'finapps'
 
-# put your own credentials here
+# replace with your own credentials here
 company_identifier = 'my-company-identifier'
 company_token = 'my-company-token'
 
@@ -61,6 +61,12 @@ user, error_messages = @client.users.create ({:email => 'j.smith@example.com',
 ``` ruby
 user, error_messages = @client.users.login ({:email => 'j.smith@example.com',
                                              :password => 'Password-1'})
+```
+
+### Delete User
+
+``` ruby
+user, error_messages = @client.users.delete (public_id)
 ```
 
 
