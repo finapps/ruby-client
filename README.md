@@ -7,11 +7,18 @@ A simple library for communicating with the [FinApps][financialapps] REST API.
 
 ## Installation
 
-To install using [Bundler][bundler] grab the latest stable version:
+To install using [Bundler][bundler] :
 
 ```ruby
+# Gemfile
 gem 'finapps'
 ```
+then run the command bundle install. 
+
+```bash
+bundle install
+```
+
 
 To manually install `finapps` via [Rubygems][rubygems] simply gem install:
 
