@@ -10,6 +10,7 @@ module FinApps
         @logger = logger || begin
           require 'logger'
           ::Logger.new(STDOUT).tap do |log|
+            # noinspection SpellCheckingInspection
             log.progname = 'FinApps::Middleware::RaiseHttpExceptions'
             log.debug '#initialize => Logger instance created'
           end

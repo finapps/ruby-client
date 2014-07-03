@@ -73,7 +73,7 @@ module FinApps
       host = ENV['FA_URL']
       raise 'Invalid API host url. Please setup the FA_URL environment variable.' if host.blank?
 
-      @client ||= FinApps::REST::Client.new company_id, company_token, {:host => host, :log_level => Logger::DEBUG}
+      @client ||= FinApps::REST::Client.new company_id, company_token, {:host => host, :log_level => Logger::INFO}
     end
 
     def rescue_standard_error(error)

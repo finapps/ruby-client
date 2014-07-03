@@ -12,13 +12,14 @@ module FinApps
       # @param [Hash] options
       # @return [FinApps::REST::Client]
       def initialize(company_identifier, company_token, options = {})
+        logger.debug 'FinApps::REST::Client#initialize => Started'
 
         config = DEFAULTS.merge! options
-        logger.info "FinApps::REST::Client#initialize => updating log_level from #{logger.level} to #{config[:log_level]}"
-        logger.level = config[:log_level]
 
-        @connection = set_up_connection({:company_identifier => company_identifier.trim,
-                                         :company_token => company_token.trim,
+        set_up_logger_level config[:log_level]
+
+        @connection = set_up_connection({:company_identifier => company_identifier,
+                                         :company_token => company_token,
                                          :config => config})
         set_up_resources
 
@@ -39,6 +40,9 @@ module FinApps
         rescue FinApps::REST::Error => error
           error_messages = error.error_messages
         end
+
+        logger.debug "FinApps::REST::Client#get => response: #{response.pretty_inspect}" if response.present?
+        logger.debug "FinApps::REST::Client#get => error_messages: #{error_messages.pretty_inspect}" if error_messages.present?
 
         logger.debug 'FinApps::REST::Client#get => Completed'
         return response, error_messages
@@ -63,6 +67,9 @@ module FinApps
           error_messages = error.error_messages
         end
 
+        logger.debug "FinApps::REST::Client#post => response: #{response.pretty_inspect}" if response.present?
+        logger.debug "FinApps::REST::Client#post => error_messages: #{error_messages.pretty_inspect}" if error_messages.present?
+
         logger.debug 'FinApps::REST::Client#post => Completed'
         return response, error_messages
       end
@@ -70,7 +77,9 @@ module FinApps
       private
 
       def set_up_resources
+        logger.debug 'FinApps::REST::Client#set_up_resources => Started'
         @users ||= FinApps::REST::Users.new self
+        logger.debug 'FinApps::REST::Client#set_up_resources => Completed'
       end
 
     end

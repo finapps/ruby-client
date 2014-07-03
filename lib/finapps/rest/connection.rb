@@ -4,7 +4,7 @@ module FinApps
       include FinApps::REST::Defaults
 
       # @param [Hash] params
-      def set_up_connection(params)
+      def set_up_connection(params = {})
         logger.debug 'FinApps::REST::Connection#set_up_connection =>  Started'
 
         company_credentials = {:company_identifier => params[:company_identifier],
@@ -37,7 +37,7 @@ module FinApps
                                       :user_agent => HEADERS[:user_agent]}) do |conn|
 
           # Request Middleware
-          conn.use FinApps::Middleware::ApiToken, company_credentials
+          conn.use FinApps::Middleware::ApiToken, company_credentials, logger
           conn.request :json
           conn.request :retry
           conn.request :multipart

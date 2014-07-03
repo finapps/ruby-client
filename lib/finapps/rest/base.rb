@@ -2,9 +2,9 @@ module FinApps
   module REST
     class Base
 
-      # @param [Hash] h
-      def initialize(h)
-        h.each { |k, v| instance_variable_set("@#{k}", v) unless v.nil? } if h.present?
+      # @param [Hash] hash
+      def initialize(hash)
+        hash.each { |k, v| instance_variable_set("@#{k}", v) unless v.nil? } if hash.present?
         self
       end
 
