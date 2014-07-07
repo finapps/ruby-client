@@ -53,7 +53,7 @@ company_token = 'my-company-token'
 
 ## More Information
 
-Please check the FinApps wiki for extended documentation.
+Please check the [FinApps wiki][wiki] for extended documentation.
 
 
 [FinancialApps.com][financialapps]
@@ -61,3 +61,4 @@ Please check the FinApps wiki for extended documentation.
 
 [bundler]: http://bundler.io
 [financialapps]: https://financialapps.com
+[wiki]: https://github.com/finapps/ruby-client/wiki
