@@ -31,7 +31,7 @@ $ gem install finapps
 
 
 
-## Usage
+## Getting started with FinApps REST client
 
 ### Setup
 
@@ -51,7 +51,9 @@ company_token = 'my-company-token'
 @client = FinApps::REST::Client.new company_identifier, company_token
 ```
 
+## More Information
 
+Please check the FinApps wiki for extended documentation.
 
 
 [FinancialApps.com][financialapps]
