@@ -32,7 +32,7 @@ module FinApps
         %(#<#{self.class}>)
       end
 
-      # @return [Array]
+      # @return [Array<String>]
       def error_messages
         @response.present? ? @response[:error_messages] : []
       end

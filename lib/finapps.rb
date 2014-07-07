@@ -11,8 +11,10 @@ require 'finapps/rest/errors'
 require 'finapps/utils/logging'
 require 'finapps/utils/utils'
 
-require 'finapps/rest/base'
+require 'finapps/rest/resource'
+require 'finapps/rest/resources'
 require 'finapps/rest/users'
+require 'finapps/rest/institutions'
 
 require 'finapps/middleware/api_token'
 require 'finapps/middleware/raise_http_exceptions'

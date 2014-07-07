@@ -5,6 +5,12 @@ require 'finapps'
 module FinApps
   class CLI < Thor
 
+    desc 'create_client', 'initialize API REST Client'
+
+    def create_client
+      puts client
+    end
+
     private
 
     def client

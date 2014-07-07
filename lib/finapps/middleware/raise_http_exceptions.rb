@@ -64,18 +64,22 @@ module FinApps
         error_array = Array.new
 
         if body.present? && body.kind_of?(String)
-          parsed = ::JSON.parse(body)
-          if parsed
-            parsed.each do |key, value|
-              value.each do |message|
-                @logger.debug "#{key} => #{message}"
-                error_array.push message.to_s
+          begin
+            parsed = ::JSON.parse(body)
+            if parsed
+              parsed.each do |key, value|
+                value.each do |message|
+                  @logger.debug "#{key} => #{message}"
+                  error_array.push message.to_s
+                end
               end
+            else
+              @logger.info 'Cannot extract errors: response does not contain valid JSON.'
             end
-          else
-            @logger.info 'Cannot extract errors: response does not contain valid JSON.'
+          rescue ::JSON::ParserError => e
+            @logger.error 'Cannot extract errors: unexpected error while parsing response.'
+            @logger.error e.message
           end
-
         end
 
         error_array

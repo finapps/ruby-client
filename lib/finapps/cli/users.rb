@@ -6,12 +6,6 @@ require 'pp'
 module FinApps
   class CLI < Thor
 
-    desc 'create_client', 'initialize API REST Client'
-
-    def create_client
-      puts client
-    end
-
     desc 'user_create', 'creates a new API user'
 
     def user_create(email=nil, password=nil)
@@ -29,7 +23,7 @@ module FinApps
           pp user
         else
           puts
-          puts 'unable to create user:'
+          puts 'unable to create user'
           error_messages.each { |m| puts m } if error_messages.present?
         end
         puts
@@ -54,7 +48,7 @@ module FinApps
           pp user
         else
           puts
-          puts 'unable to login user:'
+          puts 'unable to login user'
           error_messages.each { |m| puts m } if error_messages.present?
         end
         puts
@@ -78,7 +72,7 @@ module FinApps
           puts 'user deleted!'
         else
           puts
-          puts 'unable to delete user:'
+          puts 'unable to delete user'
           error_messages.each { |m| puts m }
         end
         puts

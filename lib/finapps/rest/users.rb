@@ -1,19 +1,10 @@
 module FinApps
   module REST
 
-    class Users
-      include FinApps::REST::Defaults
-
-      # @param [FinApps::REST::Client] client
-      # @return [FinApps::REST::Users]
-      def initialize(client)
-        @client = client
-        @logger = client.logger
-        @logger.debug 'FinApps::REST::Users => initialized'
-      end
+    class Users < FinApps::REST::Resources
 
       # @param [Hash] params
-      # @return [FinApps::REST::User, Array]
+      # @return [FinApps::REST::User, Array<String>]
       def create(params = {})
         @logger.debug 'FinApps::REST::Users#create => Started'
         user, error_messages = @client.post(END_POINTS[:users_create], params) { |r| User.new(r.body) }
@@ -23,17 +14,18 @@ module FinApps
       end
 
       # @param [Hash] params
-      # @return [FinApps::REST::User]
+      # @return [FinApps::REST::User, Array<String>]
       def login(params = {})
         @logger.debug 'FinApps::REST::Users#login => Started'
-        user, error_messages = @client.post(END_POINTS[:users_login], params) { |r| User.new(r.body) }
-        @logger.debug 'FinApps::REST::Users#login => Completed'
 
+        user, error_messages = @client.post(END_POINTS[:users_login], params) { |r| User.new(r.body) }
+
+        @logger.debug 'FinApps::REST::Users#login => Completed'
         return user, error_messages
       end
 
       # @param [String] public_id
-      # @return [Array]
+      # @return [Array<String>]
       def delete(public_id)
         @logger.debug 'FinApps::REST::Users#delete => Started'
 
@@ -48,7 +40,7 @@ module FinApps
 
     end
 
-    class User < FinApps::REST::Base
+    class User < FinApps::REST::Resource
       attr_accessor :public_id, :token, :email, :first_name, :last_name, :postal_code
     end
 
