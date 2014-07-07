@@ -5,6 +5,8 @@ Ruby client for [FinApps][financialapps].
 
 A simple library for communicating with the [FinApps][financialapps] REST API.
 
+
+
 ## Installation
 
 
@@ -33,8 +35,12 @@ $ gem install finapps
 
 ### Setup
 
+You will need to authenticate every API call using your FinApps company credentials. 
+
+Please visit [FinApps][financialapps] if you still haven't setup your account with Financial Apps or have any issues locating your company credentials.
+
+
 ``` ruby
-require 'rubygems' # not necessary with ruby 1.9 but included for completeness
 require 'finapps'
 
 # replace with your own credentials here
@@ -45,34 +51,11 @@ company_token = 'my-company-token'
 @client = FinApps::REST::Client.new company_identifier, company_token
 ```
 
-### Create User
 
-``` ruby
-user, error_messages = @client.users.create ({:email => 'j.smith@example.com',
-                                             :password => 'Password-1',
-                                             :password_confirm => 'Password-1',
-                                             :first_name => 'John'
-                                             :last_name => 'Smith',
-                                             :postal_code => '33021'})
-```
-
-### Login User
-
-``` ruby
-user, error_messages = @client.users.login ({:email => 'j.smith@example.com',
-                                             :password => 'Password-1'})
-```
-
-### Delete User
-
-``` ruby
-user, error_messages = @client.users.delete (public_id)
-```
 
 
 [FinancialApps.com][financialapps]
 
-[builder]: http://builder.rubyforge.org/
+
 [bundler]: http://bundler.io
-[rubygems]: http://rubygems.org
 [financialapps]: https://financialapps.com
