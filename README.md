@@ -7,17 +7,26 @@ A simple library for communicating with the [FinApps][financialapps] REST API.
 
 ## Installation
 
-To install using [Bundler][bundler] grab the latest stable version:
+
+To install using [Bundler][bundler], add this line to your application's Gemfile:
 
 ```ruby
+# Gemfile
 gem 'finapps'
 ```
 
-To manually install `finapps` via [Rubygems][rubygems] simply gem install:
+And then execute:
 
 ```bash
-gem install finapps
+$ bundle
 ```
+
+Or install it yourself as:
+
+```bash
+$ gem install finapps
+```
+
 
 
 ## Usage
@@ -28,7 +37,7 @@ gem install finapps
 require 'rubygems' # not necessary with ruby 1.9 but included for completeness
 require 'finapps'
 
-# put your own credentials here
+# replace with your own credentials here
 company_identifier = 'my-company-identifier'
 company_token = 'my-company-token'
 
@@ -40,8 +49,8 @@ company_token = 'my-company-token'
 
 ``` ruby
 user, error_messages = @client.users.create ({:email => 'j.smith@example.com',
-                                             :password => password,
-                                             :password_confirm => password,
+                                             :password => 'Password-1',
+                                             :password_confirm => 'Password-1',
                                              :first_name => 'John'
                                              :last_name => 'Smith',
                                              :postal_code => '33021'})
@@ -50,8 +59,14 @@ user, error_messages = @client.users.create ({:email => 'j.smith@example.com',
 ### Login User
 
 ``` ruby
-user, error_messages = @client.users.create ({:email => 'j.smith@example.com',
-                                             :password => password})
+user, error_messages = @client.users.login ({:email => 'j.smith@example.com',
+                                             :password => 'Password-1'})
+```
+
+### Delete User
+
+``` ruby
+user, error_messages = @client.users.delete (public_id)
 ```
 
 

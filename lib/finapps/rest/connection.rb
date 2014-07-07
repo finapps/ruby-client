@@ -3,15 +3,14 @@ module FinApps
     module Connection
       include FinApps::REST::Defaults
 
-      # @param [Hash] params
-      def set_up_connection(params = {})
+      # @param [Hash] company_credentials
+      # @param [Hash] config
+      # @return [Faraday::Connection]
+      def set_up_connection(company_credentials, config)
         logger.debug 'FinApps::REST::Connection#set_up_connection =>  Started'
 
-        company_credentials = {:company_identifier => params[:company_identifier],
-                               :company_token => params[:company_token]}
-        validate_company_credentials!(company_credentials)
-
-        config = params[:config]
+        company_credentials.validate_required_strings!
+        logger.debug 'FinApps::REST::Connection#set_up_connection =>  company credentials format validated'
 
         host = config[:host]
         validate_host_url! host
@@ -23,18 +22,18 @@ module FinApps
         logger.debug "FinApps::REST::Connection#set_up_connection => timeout: #{timeout}"
 
         user_identifier = config[:user_identifier]
-        logger.debug "FinApps::REST::Connection#set_up_connection => user_identifier: #{user_identifier.blank? ? 'nil' : user_identifier}"
+        logger.debug "FinApps::REST::Connection#set_up_connection => user_identifier: #{user_identifier}" if user_identifier.present?
 
         user_token = config[:user_token]
-        logger.debug "FinApps::REST::Connection#set_up_connection => user_token: #{user_token.blank? ? 'nil' : user_token}"
+        logger.debug "FinApps::REST::Connection#set_up_connection => user_token: #{user_token}" if user_token.present?
 
         connection = Faraday.new(:url => base_url,
-                                  :request => {
-                                      :open_timeout => timeout,
-                                      :timeout => timeout},
-                                  :headers => {
-                                      :accept => HEADERS[:accept],
-                                      :user_agent => HEADERS[:user_agent]}) do |conn|
+                                 :request => {
+                                     :open_timeout => timeout,
+                                     :timeout => timeout},
+                                 :headers => {
+                                     :accept => HEADERS[:accept],
+                                     :user_agent => HEADERS[:user_agent]}) do |conn|
 
           # Request Middleware
           conn.use FinApps::Middleware::ApiToken, company_credentials, logger
@@ -64,14 +63,6 @@ module FinApps
       end
 
       private
-      def validate_company_credentials!(company_credentials)
-        company_credentials.each do |credential, value|
-          raise MissingArgumentsError.new "Missing argument: #{credential}." if value.blank?
-          raise InvalidArgumentsError.new "Invalid #{credential} specified: #{value.inspect} must be a string or symbol." unless value.is_a?(String) || value.is_a?(Symbol)
-        end
-
-        logger.debug "FinApps::REST::Connection#validate_company_credentials! =>  company_credentials: #{company_credentials}"
-      end
 
       def validate_host_url!(host_url)
         raise MissingArgumentsError.new 'Missing argument: host_url.' if host_url.blank?

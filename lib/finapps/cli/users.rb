@@ -6,12 +6,8 @@ require 'pp'
 module FinApps
   class CLI < Thor
 
-    desc 'create_client', 'initialize API REST Client'
-    def create_client
-      puts client
-    end
-
     desc 'user_create', 'creates a new API user'
+
     def user_create(email=nil, password=nil)
 
       begin
@@ -27,7 +23,7 @@ module FinApps
           pp user
         else
           puts
-          puts 'unable to create user:'
+          puts 'unable to create user'
           error_messages.each { |m| puts m } if error_messages.present?
         end
         puts
@@ -39,10 +35,12 @@ module FinApps
     end
 
     desc 'user_login', 'creates a new API user and signs in'
-    def user_login(email, password)
+
+    def user_login(email=nil, password=nil)
 
       begin
-
+        email ||= "test-#{SecureRandom.uuid}@powerwallet.com"
+        password ||= 'WrongPassword'
         user, error_messages = client.users.login ({:email => email, :password => password})
         if user.present?
           puts
@@ -50,7 +48,7 @@ module FinApps
           pp user
         else
           puts
-          puts 'unable to login user:'
+          puts 'unable to login user'
           error_messages.each { |m| puts m } if error_messages.present?
         end
         puts
@@ -61,27 +59,28 @@ module FinApps
 
     end
 
-    private
+    desc 'user_delete', 'deletes an API user'
 
-    def client
-      company_id = ENV['FA_ID']
-      raise 'Invalid company identifier. Please setup the FA_ID environment variable.' if company_id.blank?
+    def user_delete(public_id=nil)
 
-      company_token = ENV['FA_TOKEN']
-      raise 'Invalid company token. Please setup the FA_TOKEN environment variable.' if company_token.blank?
+      begin
+        public_id ||= SecureRandom.uuid.to_s
 
-      host = ENV['FA_URL']
-      raise 'Invalid API host url. Please setup the FA_URL environment variable.' if host.blank?
+        error_messages = client.users.delete (public_id)
+        if error_messages.blank?
+          puts
+          puts 'user deleted!'
+        else
+          puts
+          puts 'unable to delete user'
+          error_messages.each { |m| puts m }
+        end
+        puts
 
-      @client ||= FinApps::REST::Client.new company_id, company_token, {:host => host, :log_level => Logger::INFO}
-    end
+      rescue StandardError => error
+        rescue_standard_error(error)
+      end
 
-    def rescue_standard_error(error)
-      puts '=============================='
-      puts 'Error:'
-      p error
-      puts "Backtrace:\n\t#{error.backtrace.join("\n\t")}"
-      puts '=============================='
     end
 
   end

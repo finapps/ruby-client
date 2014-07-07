@@ -1,57 +1,46 @@
 module FinApps
   module REST
 
-    class Users
-      include FinApps::REST::Defaults
-
-      # @param [FinApps::REST::Client] client
-      # @return [FinApps::REST::Users]
-      def initialize(client)
-        @client = client
-        @logger = client.logger
-        @logger.debug 'FinApps::REST::Users => initialized'
-      end
+    class Users < FinApps::REST::Resources
 
       # @param [Hash] params
-      # @return [FinApps::REST::User, Array]
+      # @return [FinApps::REST::User, Array<String>]
       def create(params = {})
         @logger.debug 'FinApps::REST::Users#create => Started'
-        user, error_messages = post(END_POINTS[:users_create], params)
+        user, error_messages = @client.post(END_POINTS[:users_create], params) { |r| User.new(r.body) }
         @logger.debug 'FinApps::REST::Users#create => Completed'
 
         return user, error_messages
       end
 
       # @param [Hash] params
-      # @return [FinApps::REST::User]
+      # @return [FinApps::REST::User, Array<String>]
       def login(params = {})
         @logger.debug 'FinApps::REST::Users#login => Started'
-        user, error_messages = post(END_POINTS[:users_login], params)
-        @logger.debug 'FinApps::REST::Users#login => Completed'
 
+        user, error_messages = @client.post(END_POINTS[:users_login], params) { |r| User.new(r.body) }
+
+        @logger.debug 'FinApps::REST::Users#login => Completed'
         return user, error_messages
       end
 
-      private
+      # @param [String] public_id
+      # @return [Array<String>]
+      def delete(public_id)
+        @logger.debug 'FinApps::REST::Users#delete => Started'
 
-      def post(end_point, params={})
-        @logger.debug 'FinApps::REST::Users#post => Started'
+        raise MissingArgumentsError.new 'Missing argument: public_id.' if public_id.blank?
 
-        raise "Can't post without a REST Client" unless @client
+        path = END_POINTS[:users_delete].sub! ':public_id', public_id.to_s
+        _, error_messages = @client.delete(path, {})
 
-        response, error_messages = @client.post(end_point, params)
-
-        user = response.present? ? User.new(response.body) : nil
-        @logger.debug "FinApps::REST::Users#post => user: #{user.pretty_inspect}" if user.present?
-
-        @logger.debug 'FinApps::REST::Users#post => Completed'
-
-        return user, error_messages
+        @logger.debug 'FinApps::REST::Users#delete => Completed'
+        error_messages
       end
 
     end
 
-    class User < FinApps::REST::Base
+    class User < FinApps::REST::Resource
       attr_accessor :public_id, :token, :email, :first_name, :last_name, :postal_code
     end
 

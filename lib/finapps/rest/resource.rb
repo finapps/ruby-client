@@ -1,6 +1,6 @@
 module FinApps
   module REST
-    class Base
+    class Resource
 
       # @param [Hash] hash
       def initialize(hash)

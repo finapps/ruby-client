@@ -24,7 +24,11 @@ module FinApps
 
       END_POINTS = {
           :users_create => 'users/new',
-          :users_login => 'users/login'
+          :users_login => 'users/login',
+          :users_delete => 'users/:public_id/delete',
+          :institutions_search => 'institutions/:search_term/search',
+          :institutions_form => 'institutions/:site_id/form',
+          :institutions_add => 'institutions/:site_id/add',
       }
 
       PROTECTED_KEYS = [:password, :password_confirm]
