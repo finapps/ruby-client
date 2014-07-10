@@ -49,7 +49,7 @@ module FinApps
           end
 
           # Response Middleware
-          conn.use FinApps::Middleware::RaiseHttpExceptions, logger
+          conn.use FinApps::Middleware::RaiseHttpExceptions
           conn.response :rashify
           conn.response :json, :content_type => /\bjson$/
           conn.response :logger, logger
