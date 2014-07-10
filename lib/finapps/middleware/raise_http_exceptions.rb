@@ -8,11 +8,11 @@ module FinApps
       def initialize(app, logger = nil)
         super(app)
         @logger = logger || begin
-          require 'logger'
+          require 'logger' unless defined?(::Logger)
           ::Logger.new(STDOUT).tap do |log|
             # noinspection SpellCheckingInspection
-            log.progname = 'FinApps::Middleware::RaiseHttpExceptions'
-            log.debug '#initialize => Logger instance created'
+            log.progname = "#{self.class.to_s}"
+            log.debug "##{__method__.to_s} => Logger instance created"
           end
         end
       end
@@ -54,6 +54,7 @@ module FinApps
           else
             # 200..206 Success codes
             # all good!
+            @logger.debug "##{__method__.to_s} => Success response. Status code: [#{env[:status]}]."
         end
 
       end
@@ -74,10 +75,10 @@ module FinApps
                 end
               end
             else
-              @logger.info 'Cannot extract errors: response does not contain valid JSON.'
+              @logger.info "##{__method__.to_s} => Cannot extract errors: unexpected error while parsing response."
             end
           rescue ::JSON::ParserError => e
-            @logger.error 'Cannot extract errors: unexpected error while parsing response.'
+            @logger.error "##{__method__.to_s} => Unable to parse JSON response."
             @logger.error e.message
           end
         end
