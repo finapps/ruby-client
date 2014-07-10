@@ -18,7 +18,7 @@ module FinApps
           :proxy_user => nil,
           :proxy_pass => nil,
           :retry_limit => 1,
-          :log_level => Logger::DEBUG
+          :log_level => Logger::INFO
       }
 
 

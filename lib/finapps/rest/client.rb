@@ -12,20 +12,21 @@ module FinApps
       # @param [Hash] options
       # @return [FinApps::REST::Client]
       def initialize(company_identifier, company_token, options = {})
-        logger.debug 'FinApps::REST::Client#initialize => Started'
+        logger.debug "#{__method__.to_s} => Started"
 
         @config = DEFAULTS.merge! options
 
         set_up_logger_level @config[:log_level]
 
-        @company_credentials = {:company_identifier => company_identifier, :company_token => company_token}
+        @company_credentials = {:company_identifier => company_identifier,
+                                :company_token => company_token}
         @connection = set_up_connection(@company_credentials, @config)
-        logger.debug 'FinApps::REST::Client#initialize => Connection object initialized'
+        logger.debug 'Connection object initialized'
 
         set_up_resources
-        logger.debug 'FinApps::REST::Client#initialize => Resource objects initialized'
+        logger.debug 'Resource objects initialized'
 
-        logger.debug 'FinApps::REST::Client#initialize => Completed'
+        logger.debug "##{__method__.to_s} => Completed"
       end
 
       # Performs an HTTP GET request. You shouldn't need to use this method directly,
@@ -36,7 +37,7 @@ module FinApps
       # @param [Proc] proc
       # @return [Hash,Array<String>]
       def get(path, &proc)
-        logger.debug 'FinApps::REST::Client#post => Started'
+        logger.debug "#{__method__.to_s} => Started"
 
         response, result, error_messages = nil, nil, nil
 
@@ -57,7 +58,7 @@ module FinApps
           logger.debug "FinApps::REST::Client#get => error_messages: #{error_messages.pretty_inspect}" if error_messages.present?
         end
 
-        logger.debug 'FinApps::REST::Client#get => Completed'
+        logger.debug "##{__method__.to_s} => Completed"
         return result, error_messages
       end
 
@@ -70,7 +71,7 @@ module FinApps
       # @param [Proc] proc
       # @return [Hash,Array<String>]
       def post(path, params = {}, &proc)
-        logger.debug 'FinApps::REST::Client#post => Started'
+        logger.debug "#{__method__.to_s} => Started"
 
         response, result, error_messages = nil, nil, nil
 
@@ -93,7 +94,7 @@ module FinApps
           logger.debug "FinApps::REST::Client#post => error_messages: #{error_messages.pretty_inspect}" if error_messages.present?
         end
 
-        logger.debug 'FinApps::REST::Client#post => Completed'
+        logger.debug "##{__method__.to_s} => Completed"
         return result, error_messages
       end
 
@@ -106,7 +107,7 @@ module FinApps
       # @param [Proc] proc
       # @return [Hash,Array<String>]
       def delete(path, params = {}, &proc)
-        logger.debug 'FinApps::REST::Client#delete => Started'
+        logger.debug "#{__method__.to_s} => Started"
 
         response, result, error_messages = nil, nil, nil
 
@@ -129,23 +130,23 @@ module FinApps
           logger.debug "FinApps::REST::Client#delete => error_messages: #{error_messages.pretty_inspect}" if error_messages.present?
         end
 
-        logger.debug 'FinApps::REST::Client#delete => Completed'
+        logger.debug "##{__method__.to_s} => Completed"
         return result, error_messages
       end
 
       # @param [String] user_identifier
       # @param [String] user_token
       def user_credentials!(user_identifier, user_token)
-        logger.debug 'FinApps::REST::Client#user_credentials! => Started'
+        logger.debug "#{__method__.to_s} => Started"
 
         {:user_identifier => user_identifier, :user_token => user_token}.validate_required_strings!
-        logger.debug 'FinApps::REST::Client#user_credentials! => credentials format validated'
+        logger.debug 'Credentials format validated. Attempting to set user credentials on current connection.'
 
         @config[:user_identifier] = user_identifier
         @config[:user_token] = user_token
         @connection = set_up_connection(@company_credentials, @config)
 
-        logger.debug 'FinApps::REST::Client#user_credentials! => Completed'
+        logger.debug "##{__method__.to_s} => Completed"
       end
 
       private
