@@ -32,8 +32,12 @@ module FinApps
 
     # @param [Hash] hash
     def skip_sensitive_data(hash)
-      hash.update(hash) { |key, v1| (PROTECTED_KEYS.include? key) ? '[REDACTED]' : v1 } if hash.is_a? Hash
-      hash
+      if hash.is_a? Hash
+        redacted = hash.clone
+        redacted.update(redacted) { |key, v1| (PROTECTED_KEYS.include? key) ? '[REDACTED]' : v1 }
+      else
+        hash
+      end
     end
 
     private
