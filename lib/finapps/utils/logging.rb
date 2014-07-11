@@ -10,7 +10,6 @@ module FinApps
 
     # noinspection SpellCheckingInspection
     def logger
-<<<<<<< HEAD
 
       @logger ||= begin
         require 'logger' unless defined?(::Logger)
@@ -20,14 +19,6 @@ module FinApps
             "[%s#%d] %5s -- %s: %s\n" % [format_datetime(time), $$, severity, progname, msg2str(msg)]
           end
         end
-=======
-      @logger ||= ::Logger.new(STDOUT).tap do |log|
-        log.progname = "#{self.class.to_s} "
-        log.formatter = proc do |severity, time, progname, msg|
-          format % [format_datetime(time), $$, severity, progname, msg2str(msg)]
-        end
-        log.debug "##{__method__.to_s} => Logger instance created"
->>>>>>> c8eb56c73da0329b3834b9f7f3c985dfbb503a0b
       end
 
     end
@@ -39,7 +30,6 @@ module FinApps
       end
     end
 
-<<<<<<< HEAD
     # @param [Hash] hash
     def skip_sensitive_data(hash)
       hash.update(hash) { |key, v1| (PROTECTED_KEYS.include? key) ? '[REDACTED]' : v1 } if hash.is_a? Hash
@@ -47,13 +37,6 @@ module FinApps
     end
 
     private
-=======
-    private
-    def format
-      "[%s#%d] %5s -- %s%s\n"
-    end
-
->>>>>>> c8eb56c73da0329b3834b9f7f3c985dfbb503a0b
     def format_datetime(time)
       time.strftime('%Y-%m-%dT%H:%M:%S.') << '%06d ' % time.usec
     end
@@ -68,9 +51,6 @@ module FinApps
           msg.inspect
       end
     end
-<<<<<<< HEAD
 
-=======
->>>>>>> c8eb56c73da0329b3834b9f7f3c985dfbb503a0b
   end
 end

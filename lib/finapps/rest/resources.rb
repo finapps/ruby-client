@@ -1,7 +1,7 @@
 module FinApps
   module REST
     class Resources
-      
+
       include FinApps::REST::Defaults
       include FinApps::Logging
 
