@@ -31,8 +31,6 @@ module FinApps
           :institutions_add => 'institutions/:site_id/add',
       }
 
-      PROTECTED_KEYS = [:password, :password_confirm]
-
     end
   end
 end

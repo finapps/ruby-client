@@ -6,9 +6,9 @@ module FinApps
       # @param [Hash] params
       # @return [FinApps::REST::User, Array<String>]
       def create(params = {})
-        @logger.debug 'FinApps::REST::Users#create => Started'
+        logger.debug "##{__method__.to_s} => Started"
         user, error_messages = @client.post(END_POINTS[:users_create], params) { |r| User.new(r.body) }
-        @logger.debug 'FinApps::REST::Users#create => Completed'
+        logger.debug "##{__method__.to_s} => Completed"
 
         return user, error_messages
       end
@@ -16,25 +16,21 @@ module FinApps
       # @param [Hash] params
       # @return [FinApps::REST::User, Array<String>]
       def login(params = {})
-        @logger.debug 'FinApps::REST::Users#login => Started'
-
+        logger.debug "##{__method__.to_s} => Started"
         user, error_messages = @client.post(END_POINTS[:users_login], params) { |r| User.new(r.body) }
+        logger.debug "##{__method__.to_s} => Completed"
 
-        @logger.debug 'FinApps::REST::Users#login => Completed'
         return user, error_messages
       end
 
       # @param [String] public_id
       # @return [Array<String>]
       def delete(public_id)
-        @logger.debug 'FinApps::REST::Users#delete => Started'
-
+        logger.debug "##{__method__.to_s} => Started"
         raise MissingArgumentsError.new 'Missing argument: public_id.' if public_id.blank?
+        _, error_messages = @client.delete(END_POINTS[:users_delete].sub! ':public_id', public_id.to_s)
+        logger.debug "##{__method__.to_s} => Completed"
 
-        path = END_POINTS[:users_delete].sub! ':public_id', public_id.to_s
-        _, error_messages = @client.delete(path, {})
-
-        @logger.debug 'FinApps::REST::Users#delete => Completed'
         error_messages
       end
 
