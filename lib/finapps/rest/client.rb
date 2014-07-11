@@ -129,6 +129,7 @@ module FinApps
         {:user_identifier => user_identifier, :user_token => user_token}.validate_required_strings!
         logger.debug "##{__method__.to_s} => Credentials passed validation. Attempting to set user credentials on current connection."
 
+
         @config[:user_identifier] = user_identifier
         @config[:user_token] = user_token
         @connection = set_up_connection(@company_credentials, @config)
