@@ -4,6 +4,10 @@ module FinApps
     SEVERITY_LABEL = %w(DEBUG INFO WARN ERROR FATAL UNKNOWN)
     PROTECTED_KEYS = [:password, :password_confirm]
 
+    class << self;
+      attr_accessor :tag;
+    end
+
     def logger=(logger)
       @logger = logger
     end
@@ -16,7 +20,10 @@ module FinApps
         ::Logger.new(STDOUT).tap do |log|
           log.progname = "#{self.class.to_s}"
           log.formatter = proc do |severity, time, progname, msg|
-            "[%s#%d] %5s -- %s: %s\n" % [format_datetime(time), $$, severity, progname, msg2str(msg)]
+            Logging.tag.present? ?
+                "[%s#%d] %5s -- %s %s: %s\n" % [format_datetime(time), $$, severity, Logging.tag.to_s, progname, msg2str(msg)] :
+                "[%s#%d] %5s -- %s: %s\n" % [format_datetime(time), $$, severity, progname, msg2str(msg)]
+
           end
         end
       end
@@ -27,6 +34,17 @@ module FinApps
       unless logger_level.blank? || @logger.level == logger_level
         @logger.info "##{__method__.to_s} => Setting logger level to #{SEVERITY_LABEL[logger_level]}"
         @logger.level = logger_level
+      end
+    end
+
+    # noinspection SpellCheckingInspection
+    def set_up_logger_session_params(uuid, session_id)
+      if uuid.present? || session_id.present?
+        uuid ||= '-'
+        session_id ||= '-'
+        logger.formatter = proc do |severity, time, progname, msg|
+          "[%s#%d] %5s -- %s: [#{uuid}] [#{session_id}] %s\n" % [format_datetime(time), $$, severity, progname, msg2str(msg)]
+        end
       end
     end
 

@@ -15,8 +15,13 @@ module FinApps
         logger.debug "##{__method__.to_s} => Started"
 
         @config = DEFAULTS.merge! options
+        if @config[:logger_tag].present?
+          Logging.tag= @config[:logger_tag]
+          logger.info "##{__method__.to_s} => Added custom tag for logger."
+        end
 
         set_up_logger_level @config[:log_level]
+        logger.info "##{__method__.to_s} => Current logger level #{SEVERITY_LABEL[logger.level]}"
 
         @company_credentials = {:company_identifier => company_identifier,
                                 :company_token => company_token}
