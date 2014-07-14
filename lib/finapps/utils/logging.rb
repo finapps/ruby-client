@@ -21,7 +21,7 @@ module FinApps
           log.progname = "#{self.class.to_s}"
           log.formatter = proc do |severity, time, progname, msg|
             Logging.tag.present? ?
-                "[%s#%d] %5s -- %s %s: %s\n" % [format_datetime(time), $$, severity, Logging.tag.to_s, progname, msg2str(msg)] :
+                "[%s#%d] %5s -- %s: %s %s\n" % [format_datetime(time), $$, severity, progname, Logging.tag.to_s, msg2str(msg)] :
                 "[%s#%d] %5s -- %s: %s\n" % [format_datetime(time), $$, severity, progname, msg2str(msg)]
 
           end
