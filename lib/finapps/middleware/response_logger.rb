@@ -24,9 +24,9 @@ module FinApps
       def filter_sensitive_header_values(key, value)
         case key
           when 'X-FinApps-Token', 'Basic-Authorization'
-            value.inspect
-          else
             '[REDACTED]'
+          else
+            value.inspect
         end
       end
 
