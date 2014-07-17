@@ -27,7 +27,7 @@ module FinApps
         logger.debug " user_identifier: #{user_identifier}" if user_identifier.present?
 
         user_token = config[:user_token]
-        logger.debug " user_token: #{user_token}" if user_token.present?
+        logger.debug ' user_token: [REDACTED]' if user_token.present?
 
         connection = Faraday.new(:url => base_url,
                                  :request => {
@@ -47,7 +47,7 @@ module FinApps
             logger.debug "##{__method__.to_s} => User credentials were not provided. Authentication header not set."
           else
             conn.request :basic_auth, user_identifier, user_token
-            logger.debug "##{__method__.to_s} => Authentication header set for user: #{user_identifier}"
+            logger.debug "##{__method__.to_s} => Basic Authentication header set for provided user credentials."
           end
 
           # Response Middleware

@@ -18,7 +18,16 @@ module FinApps
 
       private
       def dump_headers(headers)
-        "\n" << headers.map { |k, v| "  #{k}: #{v.inspect}" }.join("\n")
+        "\n" << headers.map { |k, v| "  #{k}: #{filter_sensitive_header_values(k,v)}" }.join("\n")
+      end
+
+      def filter_sensitive_header_values(key, value)
+        case key
+          when 'X-FinApps-Token', 'Basic-Authorization'
+            value.inspect
+          else
+            '[REDACTED]'
+        end
       end
 
       def dump_body(body)
