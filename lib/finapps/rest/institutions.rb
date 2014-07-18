@@ -1,6 +1,8 @@
 module FinApps
   module REST
 
+    require 'erb'
+
     class Institutions < FinApps::REST::Resources
       include FinApps::REST::Defaults
 
@@ -15,7 +17,7 @@ module FinApps
         end_point = Defaults::END_POINTS[:institutions_search]
         logger.debug "##{__method__.to_s} => end_point: #{end_point}"
 
-        path = end_point.sub ':search_term', term.to_s
+        path = end_point.sub ':search_term', ERB::Util.url_encode(term)
         logger.debug "##{__method__.to_s} => path: #{path}"
 
         institutions, error_messages = @client.get(path) do |r|
