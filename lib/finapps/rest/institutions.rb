@@ -12,6 +12,7 @@ module FinApps
         logger.debug "##{__method__.to_s} => term: #{term}"
 
         path = END_POINTS[:institutions_search].sub! ':search_term', term.to_s
+        logger.debug "##{__method__.to_s} => path: #{path}"
 
         institutions, error_messages = @client.get(path) do |r|
           r.body.each { |i| Institution.new(i) }
