@@ -2,6 +2,7 @@ module FinApps
   module REST
 
     class Institutions < FinApps::REST::Resources
+      include FinApps::REST::Defaults
 
       # @param [String] term
       # @return [Array<FinApps::REST::Institution>, Array<String>]
@@ -11,7 +12,10 @@ module FinApps
         raise MissingArgumentsError.new 'Missing argument: term.' if term.blank?
         logger.debug "##{__method__.to_s} => term: #{term}"
 
-        path = END_POINTS[:institutions_search].sub! ':search_term', term.to_s
+        end_point = Defaults::END_POINTS[:institutions_search]
+        logger.debug "##{__method__.to_s} => end_point: #{end_point}"
+
+        path = end_point.sub ':search_term', term.to_s
         logger.debug "##{__method__.to_s} => path: #{path}"
 
         institutions, error_messages = @client.get(path) do |r|
@@ -21,7 +25,6 @@ module FinApps
         logger.debug "##{__method__.to_s} => Completed"
         return institutions, error_messages
       end
-
 
     end
 

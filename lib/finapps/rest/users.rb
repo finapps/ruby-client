@@ -3,6 +3,7 @@ module FinApps
 
     class Users < FinApps::REST::Resources
       include FinApps::Logging
+      include FinApps::REST::Defaults
 
       # @param [Hash] params
       # @return [FinApps::REST::User, Array<String>]

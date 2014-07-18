@@ -43,11 +43,14 @@ module FinApps
       # @return [Hash,Array<String>]
       def get(path, &proc)
         logger.debug "##{__method__.to_s} => Started"
+        raise MissingArgumentsError.new 'Missing argument: path.' if path.blank?
         response, result, error_messages = nil, nil, nil
 
         begin
           logger.debug "##{__method__.to_s} => GET path:#{path}"
-          response = @connection.get { |req| req.url path }
+          response = @connection.get do |req|
+            req.url path
+          end
           if response.present? && block_given?
             result = proc.call(response)
             logger.debug "##{__method__.to_s} => parsed result: #{result.pretty_inspect}" if result.present?
@@ -72,6 +75,7 @@ module FinApps
       # @return [Hash,Array<String>]
       def post(path, params = {}, &proc)
         logger.debug "##{__method__.to_s} => Started"
+        raise MissingArgumentsError.new 'Missing argument: path.' if path.blank?
         response, result, error_messages = nil, nil, nil
 
         begin
@@ -104,6 +108,7 @@ module FinApps
       # @return [Hash,Array<String>]
       def delete(path, params = {}, &proc)
         logger.debug "##{__method__.to_s} => Started"
+        raise MissingArgumentsError.new 'Missing argument: path.' if path.blank?
         response, result, error_messages = nil, nil, nil
 
         begin
