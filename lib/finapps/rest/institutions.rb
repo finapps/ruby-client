@@ -28,6 +28,25 @@ module FinApps
         return institutions, error_messages
       end
 
+      # @param [Integer] site_id
+      def form(site_id)
+        logger.debug "##{__method__.to_s} => Started"
+
+        raise MissingArgumentsError.new 'Missing argument: site_id.' if site_id.blank?
+        logger.debug "##{__method__.to_s} => site_id: #{site_id}"
+
+        end_point = Defaults::END_POINTS[:institutions_form]
+        logger.debug "##{__method__.to_s} => end_point: #{end_point}"
+
+        path = end_point.sub ':site_id', ERB::Util.url_encode(site_id)
+        logger.debug "##{__method__.to_s} => path: #{path}"
+
+        form, error_messages = @client.get(path) { |r| String.new(r.body) }
+
+        logger.debug "##{__method__.to_s} => Completed"
+        return form, error_messages
+      end
+
     end
 
     class Institution < FinApps::REST::Resource
