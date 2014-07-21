@@ -41,16 +41,16 @@ module FinApps
         path = end_point.sub ':site_id', ERB::Util.url_encode(site_id)
         logger.debug "##{__method__.to_s} => path: #{path}"
 
-        form, error_messages = @client.get(path) { |r| String.new(r.body) }
+        institution, error_messages = @client.get(path) { |r| Institution.new(r.body) }
 
         logger.debug "##{__method__.to_s} => Completed"
-        return form, error_messages
+        return institution, error_messages
       end
 
     end
 
     class Institution < FinApps::REST::Resource
-      attr_accessor :base_url, :display_name, :site_id, :org_display_name
+      attr_accessor :base_url, :display_name, :site_id, :org_display_name, :login_form_html
     end
 
   end
