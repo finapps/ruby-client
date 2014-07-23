@@ -152,6 +152,7 @@ module FinApps
       def set_up_resources
         @users ||= FinApps::REST::Users.new self
         @institutions ||= FinApps::REST::Institutions.new self
+        @user_institutions ||= FinApps::REST::UserInstitutions.new self
       end
 
     end
