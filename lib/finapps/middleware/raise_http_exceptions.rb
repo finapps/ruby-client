@@ -41,9 +41,9 @@ module FinApps
             raise FinApps::REST::Error, response_values(env, 'Unexpected error.')
 
           else
-            # 200..206 Success codes
-            # all good!
-            logger.debug "##{__method__.to_s} => Status code: [#{env[:status]}]."
+              # 200..206 Success codes
+              # all good!
+              logger.debug "##{__method__.to_s} => Status code: [#{env[:status]}]."
         end
 
       end

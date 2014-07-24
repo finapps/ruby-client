@@ -21,7 +21,9 @@ module FinApps
         path = end_point.sub ':site_id', ERB::Util.url_encode(site_id)
         logger.debug "##{__method__.to_s} => path: #{path}"
 
-        user_institution, error_messages = @client.post(path, :parameters => parameters ) { |r| UserInstitution.new(r.body) }
+        user_institution, error_messages = @client.send(path, :post, :parameters => parameters ) do |r|
+          UserInstitution.new(r.body)
+        end
 
         logger.debug "##{__method__.to_s} => Completed"
         return user_institution, error_messages
@@ -30,7 +32,7 @@ module FinApps
     end
 
     class UserInstitution < FinApps::REST::Resource
-      attr_accessor :_id, :account_id, :user_public_id, :institution_name, :status, :status_message
+      attr_accessor :_id, :account_id, :user_public_id, :institution_name, :status, :status_message, :last_refreshed
     end
 
   end
