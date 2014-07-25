@@ -18,6 +18,26 @@ module FinApps
         return accounts, error_messages
       end
 
+      def show(account_id)
+        logger.debug "##{__method__.to_s} => Started"
+
+        raise MissingArgumentsError.new 'Missing argument: account_id.' if account_id.blank?
+        logger.debug "##{__method__.to_s} => site_id: #{site_id}"
+
+        end_point = Defaults::END_POINTS[:accounts_show]
+        logger.debug "##{__method__.to_s} => end_point: #{end_point}"
+
+        path = end_point.sub ':account_id', ERB::Util.url_encode(account_id)
+        logger.debug "##{__method__.to_s} => path: #{path}"
+
+        account, error_messages = @client.send(path, :get ) do |r|
+          Account.new(r.body)
+        end
+
+        logger.debug "##{__method__.to_s} => Completed"
+        return account, error_messages
+      end
+
     end
 
     class Account < FinApps::REST::Resource
