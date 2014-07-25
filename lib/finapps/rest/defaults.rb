@@ -7,7 +7,7 @@ module FinApps
       HEADERS = {
           :accept => 'application/json',
           :user_agent => "finapps-ruby/#{FinApps::VERSION} (#{RUBY_ENGINE}/#{RUBY_PLATFORM} #{RUBY_VERSION}-p#{RUBY_PATCHLEVEL})"
-      }
+      }.freeze
 
       # noinspection SpellCheckingInspection
       DEFAULTS = {
@@ -28,8 +28,9 @@ module FinApps
           :users_delete => 'users/:public_id/delete',
           :institutions_search => 'institutions/:search_term/search',
           :institutions_form => 'institutions/:site_id/form',
-          :user_institutions_add => 'institutions/:site_id/add'
-      }
+          :user_institutions_add => 'institutions/:site_id/add',
+          :accounts_list => 'accounts/list'
+      }.freeze
 
     end
   end
