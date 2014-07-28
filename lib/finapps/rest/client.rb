@@ -35,9 +35,8 @@ module FinApps
       end
 
       # Performs HTTP GET, POST, UPDATE and DELETE requests.
-      # You shouldn't need to use this method directly,
-      # but it can be useful for debugging. Returns a hash obtained from parsing
-      # the JSON object in the response body.
+      # You shouldn't need to use this method directly, but it can be useful for debugging.
+      # Returns a hash obtained from parsing the JSON object in the response body.
       #
       # @param [String] path
       # @param [String] method
@@ -63,9 +62,13 @@ module FinApps
               raise StandardError "Method not supported: #{method}."
           end
 
-          if response.present? && block_given?
-            result = proc.call(response)
-            logger.debug "##{__method__.to_s} => parsed result: #{result.pretty_inspect}" if result.present?
+          if block_given?
+            if response.present?
+              result = proc.call(response)
+              logger.debug "##{__method__.to_s} => parsed result: #{result.pretty_inspect}"
+            else
+              logger.error "##{__method__.to_s} => Null response found. Unable to process it."
+            end
           end
 
         rescue FinApps::REST::Error => error
@@ -75,7 +78,7 @@ module FinApps
           logger.debug "##{__method__.to_s} => Faraday::ParsingError, #{error.to_s}"
         rescue Exception => error
           error_messages = ['Unexpected error.']
-          logger.debug "##{__method__.to_s} => Exception, #{error.to_s}"
+          logger.error "##{__method__.to_s} => Exception, #{error.to_s}"
         ensure
           logger.debug "##{__method__.to_s} => Failed, error_messages: #{error_messages.pretty_inspect}" if error_messages.present?
         end
@@ -102,8 +105,8 @@ module FinApps
 
       private
 
-      # Performs an HTTP GET request. You shouldn't need to use this method directly,
-      # but it can be useful for debugging. Returns a hash obtained from parsing
+      # Performs an HTTP GET request.
+      # Returns a hash obtained from parsing
       # the JSON object in the response body.
       #
       # @param [String] path
@@ -121,8 +124,8 @@ module FinApps
         response
       end
 
-      # Performs an HTTP POST request. You shouldn't need to use this method directly,
-      # but it can be useful for debugging. Returns a hash obtained from parsing
+      # Performs an HTTP POST request.
+      # Returns a hash obtained from parsing
       # the JSON object in the response body.
       #
       # @param [String] path
@@ -142,8 +145,8 @@ module FinApps
         response
       end
 
-      # Performs an HTTP DELETE request. You shouldn't need to use this method directly,
-      # but it can be useful for debugging. Returns a hash obtained from parsing
+      # Performs an HTTP DELETE request.
+      # Returns a hash obtained from parsing
       # the JSON object in the response body.
       #
       # @param [String] path

@@ -30,7 +30,7 @@ module FinApps
         path = end_point.sub ':account_id', ERB::Util.url_encode(account_id)
         logger.debug "##{__method__.to_s} => path: #{path}"
 
-        account, error_messages = @client.send(path, :get ) do |r|
+        account, error_messages = @client.send(path, :get) do |r|
           Account.new(r.body)
         end
 
@@ -41,8 +41,8 @@ module FinApps
     end
 
     class Account < FinApps::REST::Resource
-      attr_accessor :_id, :institution_name, :account_id, :account_type, :account_name, :account_holder, :account_display_name,
-                    :details
+      attr_accessor :_id, :user_institution_id, :user_institution_name, :account_id, :account_type,
+                    :account_name, :account_holder, :account_display_name, :details
 
       def initialize(hash)
         super
@@ -51,7 +51,12 @@ module FinApps
     end
 
     class AccountDetails < FinApps::REST::Resource
-      attr_accessor :available_balance, :current_balance, :routing_number
+      attr_accessor :available_balance, :current_balance, :routing_number,
+                    :min_payment, :account_close_date, :account_number, :account_open_date,
+                    :account_type, :amount_due, :apr, :as_of_date,
+                    :available_credit, :available_cash, :card_type, :cash_apr,
+                    :due_date, :last_payment, :last_payment_date, :new_charges, :payments, :pending_charges,
+                    :running_balance, :total_cash_limit, :total_credit_line
     end
 
   end
