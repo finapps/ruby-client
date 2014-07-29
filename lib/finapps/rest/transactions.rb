@@ -14,7 +14,7 @@ module FinApps
         path = Defaults::END_POINTS[:transactions_search]
         logger.debug "##{__method__.to_s} => path: #{path}"
 
-        transactions, error_messages = @client.send(path, :post, params) do |r|
+        transactions, error_messages = @client.send(path, :post, params.compact) do |r|
           r.body.transactions.each { |i| Transaction.new(i) }
         end
 

@@ -48,4 +48,8 @@ class Hash
       raise InvalidArgumentsError.new "Invalid #{key} specified: #{value.inspect} must be a string or symbol." unless value.is_a?(String) || value.is_a?(Symbol)
     end
   end
+
+  def compact
+    self.delete_if { |_, v| v.nil? }
+  end
 end
