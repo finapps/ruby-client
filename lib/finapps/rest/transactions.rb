@@ -15,7 +15,7 @@ module FinApps
         logger.debug "##{__method__.to_s} => path: #{path}"
 
         transactions, error_messages = @client.send(path, :post, params) do |r|
-          r.body.each { |i| Transaction.new(i) }
+          r.body.transactions.each { |i| Transaction.new(i) }
         end
 
         logger.debug "##{__method__.to_s} => Completed"
