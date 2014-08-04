@@ -1,3 +1,5 @@
+[![Gem Version](https://badge.fury.io/rb/finapps.svg)](http://badge.fury.io/rb/finapps)
+
 FinApps Ruby-Client
 ===================
 
