@@ -41,11 +41,13 @@ class Object
   end
 end
 
+
+
 class Hash
   def validate_required_strings!
     self.each do |key, value|
-      raise MissingArgumentsError.new "Missing argument: #{key}." if value.blank?
-      raise InvalidArgumentsError.new "Invalid #{key} specified: #{value.inspect} must be a string or symbol." unless value.is_a?(String) || value.is_a?(Symbol)
+      raise FinApps::REST::MissingArgumentsError.new "Missing argument: #{key}." if value.blank?
+      raise FinApps::REST::InvalidArgumentsError.new "Invalid #{key} specified: #{value.inspect} must be a string or symbol." unless value.is_a?(String) || value.is_a?(Symbol)
     end
   end
 

@@ -5,7 +5,7 @@ module FinApps
       include FinApps::Logging
       include FinApps::REST::Connection
 
-      attr_reader :users, :institutions, :user_institutions, :accounts, :transactions
+      attr_reader :connection, :users, :institutions, :user_institutions, :accounts, :transactions
 
       # @param [String] company_identifier
       # @param [String] company_token
