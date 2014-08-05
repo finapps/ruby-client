@@ -1,7 +1,5 @@
-[![Gem Version](https://badge.fury.io/rb/finapps.svg)](http://badge.fury.io/rb/finapps) 
+[![Gem Version](http://img.shields.io/gem/v/finapps.svg)][gem]
 ![Build Status](http://teamciti.powerwallet.com/app/rest/builds/buildType:(id:FaRuby_BuildMaster)/statusIcon)
-
-
 
 
 FinApps Ruby-Client
@@ -68,3 +66,8 @@ Please check the [FinApps wiki][wiki] for extended documentation.
 [bundler]: http://bundler.io
 [financialapps]: https://financialapps.com
 [wiki]: https://github.com/finapps/ruby-client/wiki
+[builder]: http://builder.rubyforge.org/
+[wiki]: https://github.com/twilio/twilio-ruby/wiki
+[bundler]: http://bundler.io
+[rubygems]: http://rubygems.org
+[gem]: https://rubygems.org/gems/finapps
