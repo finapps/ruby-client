@@ -1,5 +1,7 @@
 [![Gem Version](https://badge.fury.io/rb/finapps.svg)](http://badge.fury.io/rb/finapps) 
-<img src="http://teamciti.powerwallet.com/app/rest/builds/buildType:(id:FaRuby_BuildMaster)/statusIcon">
+![Build Status](http://teamciti.powerwallet.com/app/rest/builds/buildType:(id:FaRuby_BuildMaster)/statusIcon)
+
+
 
 
 FinApps Ruby-Client
