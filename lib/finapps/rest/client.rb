@@ -75,10 +75,10 @@ module FinApps
           error_messages = error.error_messages
         rescue Faraday::ParsingError => error
           error_messages = ['Unable to parse the server response.']
-          logger.debug "##{__method__.to_s} => Faraday::ParsingError, #{error.to_s}"
+          logger.error "##{__method__.to_s} => Faraday::ParsingError, #{error.to_s}"
         rescue Exception => error
           error_messages = ['Unexpected error.']
-          logger.error "##{__method__.to_s} => Exception, #{error.to_s}"
+          logger.fatal "##{__method__.to_s} => Exception, #{error.to_s}"
         ensure
           logger.debug "##{__method__.to_s} => Failed, error_messages: #{error_messages.pretty_inspect}" if error_messages.present?
         end
