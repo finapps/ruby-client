@@ -2,7 +2,7 @@ module FinApps
   module Logging
 
     SEVERITY_LABEL = %w(DEBUG INFO WARN ERROR FATAL UNKNOWN)
-    PROTECTED_KEYS = [:password, :password_confirm]
+    PROTECTED_KEYS = %w(password password_confirm user_token token)
 
     class << self;
       attr_accessor :tag;
