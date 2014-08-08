@@ -30,11 +30,12 @@ module FinApps
           :institutions_search => 'institutions/:search_term/search',
           :institutions_form => 'institutions/:site_id/form',
 
+          :user_institutions_list => 'institutions/user',
           :user_institutions_add => 'institutions/:site_id/add',
+          :user_institutions_show => 'institutions/user/:user_institution_id',
           :user_institutions_status => 'institutions/user/:user_institution_id/status',
-          :user_institutions_refresh_all => 'institutions/user/refresh/all',
+          :user_institutions_refresh => 'institutions/user/refresh',
 
-          :accounts_list => 'accounts/list',
           :accounts_show => 'accounts/:account_id/show',
 
           :transactions_search => 'transactions/search'

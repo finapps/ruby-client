@@ -4,20 +4,6 @@ module FinApps
     class Accounts < FinApps::REST::Resources
       include FinApps::REST::Defaults
 
-      def list
-        logger.debug "##{__method__.to_s} => Started"
-
-        path = Defaults::END_POINTS[:accounts_list]
-        logger.debug "##{__method__.to_s} => path: #{path}"
-
-        accounts, error_messages = @client.send(path, :get) do |r|
-          r.body.each { |i| Account.new(i) }
-        end
-
-        logger.debug "##{__method__.to_s} => Completed"
-        return accounts, error_messages
-      end
-
       def show(account_id)
         logger.debug "##{__method__.to_s} => Started"
 
@@ -41,8 +27,7 @@ module FinApps
     end
 
     class Account < FinApps::REST::Resource
-      attr_accessor :_id, :user_institution_id, :user_institution_name, :account_id, :account_type,
-                    :account_name, :account_holder, :account_display_name, :details
+      attr_accessor :_id, :account_type, :account_name, :account_holder, :account_display_name, :details
 
       def initialize(hash)
         super
