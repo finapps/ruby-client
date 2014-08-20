@@ -174,7 +174,6 @@ module FinApps
         @users ||= FinApps::REST::Users.new self
         @institutions ||= FinApps::REST::Institutions.new self
         @user_institutions ||= FinApps::REST::UserInstitutions.new self
-        @accounts ||= FinApps::REST::Accounts.new self
         @transactions ||= FinApps::REST::Transactions.new self
       end
 
