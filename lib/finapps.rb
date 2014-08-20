@@ -20,7 +20,6 @@ require 'finapps/rest/resources'
 require 'finapps/rest/users'
 require 'finapps/rest/institutions'
 require 'finapps/rest/user_institutions'
-require 'finapps/rest/accounts'
 require 'finapps/rest/transactions'
 
 require 'finapps/rest/connection'

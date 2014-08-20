@@ -1,6 +1,8 @@
 module FinApps
   module REST
 
+    require 'erb'
+
     class Users < FinApps::REST::Resources
       include FinApps::Logging
       include FinApps::REST::Defaults
