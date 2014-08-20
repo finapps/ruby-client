@@ -20,9 +20,7 @@ module FinApps
         path = end_point.sub ':search_term', ERB::Util.url_encode(term)
         logger.debug "##{__method__.to_s} => path: #{path}"
 
-        institutions, error_messages = @client.send(path, :get) do |r|
-          r.body.each { |i| Institution.new(i) }
-        end
+        institutions, error_messages = @client.send(path, :get)
 
         logger.debug "##{__method__.to_s} => Completed"
         return institutions, error_messages
@@ -50,7 +48,7 @@ module FinApps
     end
 
     class Institution < FinApps::REST::Resource
-      attr_accessor :base_url, :display_name, :site_id, :org_display_name, :login_form_html
+      attr_accessor :login_form_html
     end
 
   end
