@@ -2,7 +2,7 @@ module FinApps
   module Logging
 
     SEVERITY_LABEL = %w(DEBUG INFO WARN ERROR FATAL UNKNOWN)
-    PROTECTED_KEYS = %w(password password_confirm user_token token)
+    PROTECTED_KEYS = %w(password password1 token)
 
     class << self;
       attr_accessor :tag;
@@ -51,8 +51,8 @@ module FinApps
     # @param [Hash] hash
     def skip_sensitive_data(hash)
       if hash.is_a? Hash
-        redacted = hash.clone
-        redacted.update(redacted) { |key, v1| (PROTECTED_KEYS.include? key.to_s.downcase) ? '[REDACTED]' : v1 }
+        filtered_hash = hash.clone
+        filtered_hash.update(filtered_hash) { |key, v1| filter_sensitive_values(key, v1) }
       else
         hash
       end
@@ -61,6 +61,10 @@ module FinApps
     private
     def format_datetime(time)
       time.strftime('%Y-%m-%dT%H:%M:%S.') << '%06d ' % time.usec
+    end
+
+    def filter_sensitive_values(key, v1)
+      (PROTECTED_KEYS.include? key.to_s.downcase) ? '[REDACTED]' : v1
     end
 
     def msg2str(msg)
