@@ -62,14 +62,13 @@ module FinApps
               raise StandardError "Method not supported: #{method}."
           end
 
-          if block_given?
-            if response.present?
-              result = proc.call(response)
-              logger.debug "##{__method__.to_s} => parsed result: #{result.pretty_inspect}"
-            else
-              logger.error "##{__method__.to_s} => Null response found. Unable to process it."
-            end
+          if response.present?
+            result = block_given? ? proc.call(response) : response.body
+            logger.debug "##{__method__.to_s} => parsed result: #{result.pretty_inspect}"
+          else
+            logger.error "##{__method__.to_s} => Null response found. Unable to process it."
           end
+
 
         rescue FinApps::REST::Error => error
           error_messages = error.error_messages
