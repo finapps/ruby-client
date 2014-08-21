@@ -67,12 +67,6 @@ module FinApps
       end
     end
 
-    describe '.accounts' do
-      it 'returns a Accounts object' do
-        expect(@client.accounts).to be_an_instance_of(FinApps::REST::Accounts)
-      end
-    end
-
     describe '.transactions' do
       it 'returns a Transactions object' do
         expect(@client.transactions).to be_an_instance_of(FinApps::REST::Transactions)
