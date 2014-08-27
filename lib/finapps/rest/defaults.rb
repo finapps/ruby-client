@@ -38,7 +38,10 @@ module FinApps
 
           :accounts_show => 'accounts/:account_id/show',
 
-          :transactions_search => 'transactions/search'
+          :transactions_search => 'transactions/search',
+
+          :categories_list => 'categories'
+
       }.freeze
 
     end
