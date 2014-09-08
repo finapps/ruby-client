@@ -40,7 +40,13 @@ module FinApps
 
           :transactions_search => 'transactions/search',
 
-          :categories_list => 'categories'
+          :categories_list => 'categories',
+
+          :geo_record_by_ip_address => 'geo/maxmind/record/:ip_address',
+          :geo_record_by_region => 'geo/maxmind/record/:region/:city',
+          :geo_postal_record_by_region => 'geo/maxmind/postal/:region/:city',
+          :geo_postal_record_by_postal_code => 'geo/maxmind/postal/:postal',
+          :geo_us_record_by_region => 'geo/us/region/:region/:city'
 
       }.freeze
 
