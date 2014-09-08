@@ -37,7 +37,13 @@ module FinApps
         message_array = []
 
         body = response_body
-        message_array = body[:error_messages] if body.present? && body.respond_to?(:error_messages)
+        if body.present?
+          if body.respond_to?(:error_messages)
+            message_array = body[:error_messages]
+          else
+            message_array = body[:messages] if body.respond_to?(:messages)
+          end
+        end
 
         message_array
       end
