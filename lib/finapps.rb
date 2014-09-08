@@ -22,6 +22,7 @@ require 'finapps/rest/institutions'
 require 'finapps/rest/user_institutions'
 require 'finapps/rest/transactions'
 require 'finapps/rest/categories'
+require 'finapps/rest/geo'
 
 require 'finapps/rest/connection'
 require 'finapps/rest/client'

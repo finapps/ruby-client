@@ -46,7 +46,13 @@ module FinApps
           :geo_record_by_region => 'geo/maxmind/record/:region/:city',
           :geo_postal_record_by_region => 'geo/maxmind/postal/:region/:city',
           :geo_postal_record_by_postal_code => 'geo/maxmind/postal/:postal',
-          :geo_us_record_by_region => 'geo/us/region/:region/:city'
+          :geo_us_record_by_region => 'geo/us/region/:region/:city',
+
+          :relevance_ruleset_names => 'relevance/ruleset/names',
+          :relevance_ruleset_by_name => 'relevance/ruleset/:ruleset_name',
+          :relevance_update_ruleset_script => 'relevance/script/update',
+          :relevance_run_ruleset_by_name => 'relevance/run',
+          :relevance_run_ruleset_custom => 'relevance/run/custom'
 
       }.freeze
 
