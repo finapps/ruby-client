@@ -38,10 +38,10 @@ module FinApps
 
         body = response_body
         if body.present?
-          if body.respond_to?(:error_messages)
+          if body.has_key?(:error_messages)
             message_array = body[:error_messages]
           else
-            message_array = body[:messages] if body.respond_to?(:messages)
+            message_array = body[:messages] if body.has_key?(:messages)
           end
         end
 
@@ -52,7 +52,7 @@ module FinApps
       def response_body
         body = nil
         if @response.present?
-          @response.respond_to?(:body) ? body = @response[:body] : body = @response
+          @response.has_key?(:body) ? body = @response[:body] : body = @response
         end
 
         body
