@@ -63,6 +63,7 @@ module FinApps
                   error_array.push message.to_s
                 end
               end
+              logger.info "##{__method__.to_s} => Extracted errors: #{error_array.inspect}."
             else
               logger.info "##{__method__.to_s} => Cannot extract errors: unexpected error while parsing response."
             end
