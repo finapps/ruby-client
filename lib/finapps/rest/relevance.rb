@@ -5,10 +5,10 @@ module FinApps
 
     class Relevance < FinApps::REST::Resources
 
-      def ruleset_names
+      def rulesets
         logger.debug "##{__method__.to_s} => Started"
 
-        end_point = Defaults::END_POINTS[:relevance_ruleset_names]
+        end_point = Defaults::END_POINTS[:relevance_rulesets]
         logger.debug "##{__method__.to_s} => end_point: #{end_point}"
 
         path = end_point
@@ -38,14 +38,13 @@ module FinApps
         return results, error_messages
       end
 
-
-      def update_ruleset_script(params = {})
+      def update_ruleset(params = {})
         logger.debug "##{__method__.to_s} => Started"
 
         raise MissingArgumentsError.new 'Missing argument: params.' if params.blank?
         logger.debug "##{__method__.to_s} => params: #{params.inspect}"
 
-        end_point = Defaults::END_POINTS[:relevance_update_ruleset_script]
+        end_point = Defaults::END_POINTS[:relevance_update_ruleset]
         logger.debug "##{__method__.to_s} => end_point: #{end_point}"
 
         path = end_point
@@ -74,7 +73,6 @@ module FinApps
         logger.debug "##{__method__.to_s} => Completed"
         return results, error_messages
       end
-
 
       def run_ruleset_custom(params = {})
         logger.debug "##{__method__.to_s} => Started"
