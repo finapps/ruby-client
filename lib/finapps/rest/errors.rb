@@ -34,7 +34,28 @@ module FinApps
 
       # @return [Array<String>]
       def error_messages
-        @response.present? ? @response[:error_messages] : []
+        message_array = []
+
+        body = response_body
+        if body.present?
+          if body.key?(:error_messages)
+            message_array = body[:error_messages]
+          else
+            message_array = body[:messages] if body.key?(:messages)
+          end
+        end
+
+        message_array
+      end
+
+      private
+      def response_body
+        body = nil
+        if @response.present?
+          @response.key?(:body) ? body = @response[:body] : body = @response
+        end
+
+        body
       end
 
     end

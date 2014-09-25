@@ -14,7 +14,7 @@ module FinApps
         raise MissingArgumentsError.new 'Missing argument: term.' if term.blank?
         logger.debug "##{__method__.to_s} => term: #{term}"
 
-        end_point = Defaults::END_POINTS[:institutions_search]
+        end_point = Defaults::END_POINTS[:institutions_list]
         logger.debug "##{__method__.to_s} => end_point: #{end_point}"
 
         path = end_point.sub ':search_term', ERB::Util.url_encode(term)

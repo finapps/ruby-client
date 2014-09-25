@@ -17,7 +17,7 @@ module FinApps
         @config = DEFAULTS.merge! options
         if @config[:logger_tag].present?
           Logging.tag= @config[:logger_tag]
-          logger.info "##{__method__.to_s} => Added custom tag for logger."
+          logger.info "##{__method__.to_s} => Custom tag for logs: #{@config[:logger_tag]}"
         end
 
         set_up_logger_level @config[:log_level]

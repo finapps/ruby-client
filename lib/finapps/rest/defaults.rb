@@ -24,10 +24,11 @@ module FinApps
 
       END_POINTS = {
           :users_create => 'users/new',
-          :users_login => 'users/login',
           :users_delete => 'users/:public_id/delete',
+          :users_login => 'users/login',
 
-          :institutions_search => 'institutions/:search_term/search',
+
+          :institutions_list => 'institutions/:search_term/search',
           :institutions_form => 'institutions/:site_id/form',
 
           :user_institutions_list => 'institutions/user',
@@ -36,9 +37,27 @@ module FinApps
           :user_institutions_status => 'institutions/user/:user_institution_id/status',
           :user_institutions_refresh => 'institutions/user/refresh',
 
-          :accounts_show => 'accounts/:account_id/show',
+          :transactions_list => 'transactions/search',
 
-          :transactions_search => 'transactions/search'
+          :categories_list => 'categories',
+
+          :geo_record_by_ip_address => 'geo/maxmind/record/:ip_address',
+          :geo_record_by_region => 'geo/maxmind/record/:region/:city',
+          :geo_postal_record_by_region => 'geo/maxmind/postal/:region/:city',
+          :geo_postal_record_by_postal_code => 'geo/maxmind/postal/:postal',
+          :geo_us_record_by_region => 'geo/us/region/:region/:city',
+
+          :relevance_rulesets_list => 'relevance/ruleset/names',
+          :relevance_rulesets_show => 'relevance/ruleset/:ruleset_name',
+          :relevance_rulesets_run => 'relevance/run',
+
+          :inventory_feeds_list => 'inventory/feed/names',
+          :inventory_feed_show => 'inventory/feed/:feed_name',
+
+          :inventory_feed_categories_list => 'inventory/feed/categories/unique/:feed_name',
+          :inventory_feed_categories_list_by_region => 'inventory/feed/categories/unique/:feed_name/:region/:city'
+
+
       }.freeze
 
     end

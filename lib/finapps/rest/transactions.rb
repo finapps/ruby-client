@@ -9,7 +9,7 @@ module FinApps
       def search(params={})
         logger.debug "##{__method__.to_s} => Started"
 
-        path = Defaults::END_POINTS[:transactions_search]
+        path = Defaults::END_POINTS[:transactions_list]
 
         logger.debug "##{__method__.to_s} => path: #{path}"
 
