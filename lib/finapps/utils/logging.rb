@@ -3,6 +3,10 @@ module FinApps
 
     SEVERITY_LABEL = %w(DEBUG INFO WARN ERROR FATAL UNKNOWN)
     PROTECTED_KEYS = %w(login password password_confirm password1 token)
+    FORMAT = "\033[%sm[%s#%d] %5s -- %s: %s\033[0m\n"
+    FORMAT_TAG = "\033[%sm[%s#%d] %5s -- %s: %s %s\033[0m\n"
+    SEVERITY_COLOR_MAP = {:debug => '0', :info => '32', :warn => '33', :error => '31', :fatal => '31', :unknown => '0;37'}
+
 
     class << self;
       attr_accessor :tag;
@@ -21,9 +25,8 @@ module FinApps
           log.progname = "#{self.class.to_s}"
           log.formatter = proc do |severity, time, progname, msg|
             Logging.tag.present? ?
-                "[%s#%d] %5s -- %s: %s %s\n" % [format_datetime(time), $$, severity, progname, Logging.tag.to_s, msg2str(msg)] :
-                "[%s#%d] %5s -- %s: %s\n" % [format_datetime(time), $$, severity, progname, msg2str(msg)]
-
+                FORMAT_TAG % [severity_to_color(severity), format_datetime(time), $$, severity, progname, Logging.tag.to_s, msg2str(msg)] :
+                FORMAT % [severity_to_color(severity), format_datetime(time), $$, severity, progname, msg2str(msg)]
           end
         end
       end
@@ -76,6 +79,10 @@ module FinApps
         else
           msg.inspect
       end
+    end
+
+    def severity_to_color(severity)
+      SEVERITY_COLOR_MAP[severity.downcase.to_sym]
     end
 
   end
