@@ -51,11 +51,6 @@ module FinApps
           path = end_point
           logger.debug "##{__method__.to_s} => path: #{path}"
 
-          # ToDo: API is expecting a valid variable_script json value
-          unless params.key?(:variable_script)
-            params.merge!(:variable_script => "{\"a\": \"a\"}")
-          end
-
           results, error_messages = @client.send(path, :post, params)
 
           logger.debug "##{__method__.to_s} => Completed"
