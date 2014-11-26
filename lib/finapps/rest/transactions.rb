@@ -19,6 +19,20 @@ module FinApps
         return transactions, error_messages
       end
 
+      # @param [Hash] params
+      def edit(params={})
+        logger.debug "##{__method__.to_s} => Started"
+
+        path = Defaults::END_POINTS[:transactions_list]
+
+        logger.debug "##{__method__.to_s} => path: #{path}"
+
+        transactions, error_messages = @client.send(path, :put, params.compact)
+
+        logger.debug "##{__method__.to_s} => Completed"
+        return transactions, error_messages
+      end
+
     end
 
   end

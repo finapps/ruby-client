@@ -38,8 +38,13 @@ module FinApps
           :user_institutions_refresh => 'institutions/user/refresh',
 
           :transactions_list => 'transactions/search',
+          :transactions_edit => 'transactions/edit',
 
           :categories_list => 'categories',
+          :categories_new => 'categories',
+          :categories_edit => 'categories',
+          :categories_show => 'categories/:category_id',
+          :categories_delete => 'categories/:category_id',
 
           :geo_record_by_ip_address => 'geo/maxmind/record/:ip_address',
           :geo_record_by_region => 'geo/maxmind/record/:region/:city',
