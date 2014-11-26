@@ -147,6 +147,27 @@ module FinApps
         response
       end
 
+      # Performs an HTTP PUT request.
+      # Returns a hash obtained from parsing
+      # the JSON object in the response body.
+      #
+      # @param [String] path
+      # @param [Hash] params
+      # @return [Hash,Array<String>]
+      def put(path, params = {})
+        logger.debug "##{__method__.to_s} => Started"
+        raise MissingArgumentsError.new 'Missing argument: path.' if path.blank?
+
+        logger.debug "##{__method__.to_s} => PUT path:#{path} params:#{skip_sensitive_data(params)}"
+        response = @connection.put do |req|
+          req.url path
+          req.body = params
+        end
+
+        logger.debug "##{__method__.to_s} => Completed"
+        response
+      end
+
       # Performs an HTTP DELETE request.
       # Returns a hash obtained from parsing
       # the JSON object in the response body.
