@@ -6,30 +6,19 @@ module FinApps
 
       # @transaction_id [String]
       # # @return [Hash, Array<String>]
-      def search_by_id(transaction_id)
+      def show(transaction_id)
         logger.debug "##{__method__.to_s} => Started"
 
-        transactions, error_messages =  search_by_ids([transaction_id])
+        end_point = Defaults::END_POINTS[:transactions_show]
+        logger.debug "##{__method__.to_s} => end_point: #{end_point}"
 
-        # get one
-        transaction = transactions.present? ? transactions.first : nil
+        path = end_point.sub ':user_institution_id', ERB::Util.url_encode(transaction_id)
+        logger.debug "##{__method__.to_s} => path: #{path}"
+
+        transaction, error_messages =  @client.send(path, :post, params.compact)
 
         logger.debug "##{__method__.to_s} => Completed"
         return transaction, error_messages
-      end
-
-      # @transaction_ids [Array<String>]
-      # # @return [Array<Hash>, Array<String>]
-      def search_by_ids(transaction_ids)
-        logger.debug "##{__method__.to_s} => Started"
-
-        transactions, error_messages = search
-
-        # filter by given ids
-        transactions = transactions.present? ? transactions.select { |t| transaction_ids.include?(t[:_id]) } : nil
-
-        logger.debug "##{__method__.to_s} => Completed"
-        return transactions, error_messages
       end
 
 
