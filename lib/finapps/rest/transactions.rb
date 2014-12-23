@@ -15,7 +15,7 @@ module FinApps
         path = end_point.sub ':user_institution_id', ERB::Util.url_encode(transaction_id)
         logger.debug "##{__method__.to_s} => path: #{path}"
 
-        transaction, error_messages =  @client.send(path, :post, params.compact)
+        transaction, error_messages =  @client.send(path, :get)
 
         logger.debug "##{__method__.to_s} => Completed"
         return transaction, error_messages
