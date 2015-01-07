@@ -4,8 +4,26 @@ module FinApps
     class Transactions < FinApps::REST::Resources
       include FinApps::REST::Defaults
 
+      # @transaction_id [String]
+      # # @return [Hash, Array<String>]
+      def show(transaction_id)
+        logger.debug "##{__method__.to_s} => Started"
+
+        end_point = Defaults::END_POINTS[:transactions_show]
+        logger.debug "##{__method__.to_s} => end_point: #{end_point}"
+
+        path = end_point.sub ':user_institution_id', ERB::Util.url_encode(transaction_id)
+        logger.debug "##{__method__.to_s} => path: #{path}"
+
+        transaction, error_messages =  @client.send(path, :get)
+
+        logger.debug "##{__method__.to_s} => Completed"
+        return transaction, error_messages
+      end
+
+
       # @param [Hash] params
-      # @return [Array<FinApps::REST::Transaction>, Array<String>]
+      # @return [Array<Hash>, Array<String>]
       def search(params={})
         logger.debug "##{__method__.to_s} => Started"
 
@@ -20,6 +38,7 @@ module FinApps
       end
 
       # @param [Hash] params
+      # @return [Array<Hash>, Array<String>]
       def edit(params={})
         logger.debug "##{__method__.to_s} => Started"
 

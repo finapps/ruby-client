@@ -37,6 +37,7 @@ module FinApps
           :user_institutions_status => 'institutions/user/:user_institution_id/status',
           :user_institutions_refresh => 'institutions/user/refresh',
 
+          :transactions_show => 'transaction/:transaction_id',
           :transactions_list => 'transactions/search',
           :transactions_edit => 'transactions/edit',
 
