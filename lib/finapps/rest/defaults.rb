@@ -27,7 +27,6 @@ module FinApps
           :users_delete => 'users/:public_id/delete',
           :users_login => 'users/login',
 
-
           :institutions_list => 'institutions/:search_term/search',
           :institutions_form => 'institutions/:site_id/form',
 
@@ -39,7 +38,7 @@ module FinApps
 
           :transactions_show => 'transaction/:transaction_id',
           :transactions_list => 'transactions/search',
-          :transactions_edit => 'transactions/edit',
+          :transactions_update => 'transactions/edit',
 
           :categories_list => 'categories',
           :categories_new => 'categories',
