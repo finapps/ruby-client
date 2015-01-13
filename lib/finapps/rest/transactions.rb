@@ -28,7 +28,6 @@ module FinApps
         logger.debug "##{__method__.to_s} => Started"
 
         path = Defaults::END_POINTS[:transactions_list]
-
         logger.debug "##{__method__.to_s} => path: #{path}"
 
         transactions, error_messages = @client.send(path, :post, params.compact)
@@ -42,14 +41,13 @@ module FinApps
       def update(params={})
         logger.debug "##{__method__.to_s} => Started"
 
-        path = Defaults::END_POINTS[:transactions_list]
-
+        path = Defaults::END_POINTS[:transactions_update]
         logger.debug "##{__method__.to_s} => path: #{path}"
 
-        transactions, error_messages = @client.send(path, :put, params.compact)
+        _, error_messages = @client.send(path, :put, params.compact)
 
         logger.debug "##{__method__.to_s} => Completed"
-        return transactions, error_messages
+        error_messages
       end
 
     end
