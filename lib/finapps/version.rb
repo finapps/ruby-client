@@ -1,3 +1,3 @@
 module FinApps
-  VERSION = '0.8.3.pre'
+  VERSION = '0.8.4.pre'
 end
