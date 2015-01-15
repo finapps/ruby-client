@@ -28,6 +28,7 @@ require 'finapps/rest/inventory/feed_categories'
 require 'finapps/rest/inventory/feeds'
 require 'finapps/rest/relevance/rulesets'
 require 'finapps/rest/budget_models'
+require 'finapps/rest/budget'
 
 require 'finapps/rest/connection'
 require 'finapps/rest/client'
