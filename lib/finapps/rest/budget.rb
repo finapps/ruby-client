@@ -6,8 +6,9 @@ module FinApps
     class Budget < FinApps::REST::Resources
       include FinApps::REST::Defaults
 
+      # @param [Hash] params
       # @return [Array<Hash>, Array<String>]
-      def create
+      def create(params = {})
         logger.debug "##{__method__.to_s} => Started"
 
         raise MissingArgumentsError.new 'Missing argument: params.' if params.blank?
@@ -23,6 +24,7 @@ module FinApps
 
       # @param [Date] start_date
       # @param [Date] end_date
+      # @return [Hash, Array<String>]
       def show(start_date, end_date)
         logger.debug "##{__method__.to_s} => Started"
 
