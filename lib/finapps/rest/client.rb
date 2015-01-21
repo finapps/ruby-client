@@ -5,7 +5,7 @@ module FinApps
       include FinApps::Logging
       include FinApps::REST::Connection
 
-      attr_reader :connection, :users, :institutions, :user_institutions, :transactions, :categories, :rule_sets, :budget_models, :budget
+      attr_reader :connection, :users, :institutions, :user_institutions, :transactions, :categories, :rule_sets, :budget_models, :budget, :cashflow
 
       # @param [String] company_identifier
       # @param [String] company_token
@@ -198,6 +198,7 @@ module FinApps
         @rule_sets ||= FinApps::REST::Relevance::Rulesets.new self
         @budget_models ||= FinApps::REST::BudgetModels.new self
         @budget ||= FinApps::REST::Budget.new self
+        @cashflow ||= FinApps::REST::Cashflow.new self
       end
 
     end
