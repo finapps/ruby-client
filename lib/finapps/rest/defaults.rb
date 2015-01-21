@@ -52,6 +52,8 @@ module FinApps
           :budget_create => 'budget/template',
           :budget_show => 'budget/:start_date/:end_date',
 
+          :cashflow_show => 'cashflow/:start_date/:end_date',
+
           :geo_record_by_ip_address => 'geo/maxmind/record/:ip_address',
           :geo_record_by_region => 'geo/maxmind/record/:region/:city',
           :geo_postal_record_by_region => 'geo/maxmind/postal/:region/:city',
