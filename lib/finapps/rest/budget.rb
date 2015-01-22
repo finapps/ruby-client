@@ -45,6 +45,22 @@ module FinApps
         return budget, error_messages
       end
 
+      # @param [Hash] params
+      # @return [Array<Hash>, Array<String>]
+      def update(params={})
+        logger.debug "##{__method__.to_s} => Started"
+
+        raise MissingArgumentsError.new 'Missing argument: params.' if params.blank?
+
+        end_point = Defaults::END_POINTS[:budget_update]
+        logger.debug "##{__method__.to_s} => end_point: #{end_point}"
+
+        budget, error_messages = @client.send(end_point, :put, params)
+        logger.debug "##{__method__.to_s} => Completed"
+
+        return budget, error_messages
+      end
+
     end
   end
 end
