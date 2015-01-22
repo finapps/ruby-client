@@ -6,22 +6,6 @@ module FinApps
     class Budget < FinApps::REST::Resources
       include FinApps::REST::Defaults
 
-      # @param [Hash] params
-      # @return [Array<Hash>, Array<String>]
-      def create(params = {})
-        logger.debug "##{__method__.to_s} => Started"
-
-        raise MissingArgumentsError.new 'Missing argument: params.' if params.blank?
-
-        end_point = Defaults::END_POINTS[:budget_create]
-        logger.debug "##{__method__.to_s} => end_point: #{end_point}"
-
-        budget, error_messages = @client.send(end_point, :post, params)
-        logger.debug "##{__method__.to_s} => Completed"
-
-        return budget, error_messages
-      end
-
       # @param [Date] start_date
       # @param [Date] end_date
       # @return [Hash, Array<String>]
