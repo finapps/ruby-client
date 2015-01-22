@@ -35,9 +35,23 @@ module FinApps
       # @return [Array<String>]
       def error_messages
         message_array = []
-
         body = response_body
-        if body.present?
+
+        if body.present? && body.kind_of?(String)
+          begin
+            parsed = ::JSON.parse(body)
+            if parsed
+              body = parsed
+            else
+              logger.info "##{__method__.to_s} => Cannot extract errors: unexpected error while parsing response."
+            end
+          rescue ::JSON::ParserError => e
+            logger.error "##{__method__.to_s} => Unable to parse JSON response."
+            logger.error e
+          end
+        end
+
+        if body.present? && body.is_a?(Hash)
           if body.key?(:error_messages)
             message_array = body[:error_messages]
           else
