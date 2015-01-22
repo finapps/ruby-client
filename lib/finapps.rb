@@ -25,6 +25,7 @@ require 'finapps/rest/user_institutions'
 require 'finapps/rest/transactions'
 require 'finapps/rest/categories'
 require 'finapps/rest/budget_models'
+require 'finapps/rest/budget_calculation'
 require 'finapps/rest/budget'
 require 'finapps/rest/cashflow'
 
