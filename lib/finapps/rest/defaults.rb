@@ -49,7 +49,7 @@ module FinApps
           :budget_models_list => 'budget/templates',
           :budget_models_show => 'budget/template/:budget_model_id',
 
-          :budget_calculation_create => 'budget/template',
+          :budget_calculation_create => 'budget/template/:budget_model_id/:income',
           :budget_calculation_show => 'categories',
 
           :budget_update => 'budget',

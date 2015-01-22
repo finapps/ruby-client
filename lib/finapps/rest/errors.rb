@@ -52,11 +52,21 @@ module FinApps
         end
 
         if body.present? && body.is_a?(Hash)
+
           if body.key?(:error_messages)
             message_array = body[:error_messages]
           else
-            message_array = body[:messages] if body.key?(:messages)
+            if body.key?('error_messages')
+              message_array = body['error_messages']
+            else
+              if body.key?(:messages)
+                message_array = body[:messages]
+              else
+                message_array = body['messages'] if body.key?('messages')
+              end
+            end
           end
+
         end
 
         message_array
