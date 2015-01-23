@@ -18,7 +18,7 @@ module FinApps
     end
 
     it 'responds to public api methods' do
-      [:connection, :users, :institutions, :user_institutions, :accounts, :transactions].each do |method|
+      [:budget, :budget_calculation, :budget_models, :cashflow, :categories, :institutions, :transactions, :user_institutions, :users].each do |method|
         expect(@client).to respond_to(method)
       end
     end
