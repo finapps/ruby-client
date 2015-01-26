@@ -57,21 +57,17 @@ module FinApps
 
           :cashflow_show => 'cashflow/:start_date/:end_date',
 
-          :geo_record_by_ip_address => 'geo/maxmind/record/:ip_address',
-          :geo_record_by_region => 'geo/maxmind/record/:region/:city',
-          :geo_postal_record_by_region => 'geo/maxmind/postal/:region/:city',
-          :geo_postal_record_by_postal_code => 'geo/maxmind/postal/:postal',
-          :geo_us_record_by_region => 'geo/us/region/:region/:city',
+          :alert_list => 'alerts/:page/:requested/:sort/:asc/:read',
+          :alert_update => 'alerts',
 
-          :relevance_rulesets_list => 'relevance/ruleset/names',
-          :relevance_rulesets_show => 'relevance/ruleset/:ruleset_name',
-          :relevance_rulesets_run => 'relevance/run',
+          :alert_definition_list => 'alerts/definitions',
+          :alert_definition_show => 'alerts/definitions/:alert_name',
 
-          :inventory_feeds_list => 'inventory/feed/names',
-          :inventory_feed_show => 'inventory/feed/:feed_name',
+          :alert_setting_list => 'alerts/settings',
+          :alert_setting_update => 'alerts/settings',
 
-          :inventory_feed_categories_list => 'inventory/feed/categories/unique/:feed_name',
-          :inventory_feed_categories_list_by_region => 'inventory/feed/categories/unique/:feed_name/:region/:city'
+          :alert_preference_list => 'alerts/preferences',
+          :alert_preference_update => 'alerts/preferences'
 
 
       }.freeze
