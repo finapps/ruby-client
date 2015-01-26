@@ -57,6 +57,9 @@ module FinApps
 
           :cashflow_show => 'cashflow/:start_date/:end_date',
 
+          :alert_list => 'alerts/:page/:requested/:sort/:asc/:read',
+          :alert_update => 'alerts',
+
           :alert_definition_list => 'alerts/definitions',
           :alert_definition_show => 'alerts/definitions/:alert_name',
 
