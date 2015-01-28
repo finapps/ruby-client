@@ -27,6 +27,10 @@ module FinApps
           :users_delete => 'users/:public_id/delete',
           :users_login => 'users/login',
 
+          :relevance_rulesets_list => 'relevance/ruleset/names',
+          :relevance_rulesets_show => 'relevance/ruleset/:ruleset_name',
+          :relevance_rulesets_run => 'relevance/run',
+
           :institutions_list => 'institutions/:search_term/search',
           :institutions_form => 'institutions/:site_id/form',
 
