@@ -7,7 +7,7 @@ module FinApps
       include FinApps::REST::Defaults
 
       # @return [Hash, Array<String>]
-      def list(page = 1, requested=100, sort='date', asc=false, read=false)
+      def list(page = 1, requested=100, sort='date', asc=false, read='all')
         logger.debug "##{__method__.to_s} => Started"
 
         end_point = Defaults::END_POINTS[:alert_list]
@@ -27,19 +27,22 @@ module FinApps
       end
 
       # @return [Hash, Array<String>]
-      def update(params)
+      def update(alert_id, read=true)
         logger.debug "##{__method__.to_s} => Started"
 
-        raise MissingArgumentsError.new 'Missing argument: params.' if params.blank?
-        logger.debug "##{__method__.to_s} => params: #{params.inspect}"
+        raise MissingArgumentsError.new 'Missing argument: alert_id.' if alert_id.blank?
+        logger.debug "##{__method__.to_s} => alert_id: #{alert_id.inspect}"
+        raise MissingArgumentsError.new 'Missing argument: alert_id.' if read.blank?
+        logger.debug "##{__method__.to_s} => alert_id: #{read.inspect}"
 
         end_point = Defaults::END_POINTS[:alert_update]
         logger.debug "##{__method__.to_s} => end_point: #{end_point}"
 
-        path = end_point
+        path = end_point.sub ':alert_id', ERB::Util.url_encode(alert_id)
+        path = path.sub ':read', ERB::Util.url_encode(read)
         logger.debug "##{__method__.to_s} => path: #{path}"
 
-        _, error_messages = @client.send(path, :put, params.compact)
+        _, error_messages = @client.send(path, :put)
 
         logger.debug "##{__method__.to_s} => Completed"
         error_messages

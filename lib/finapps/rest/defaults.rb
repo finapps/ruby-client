@@ -27,6 +27,10 @@ module FinApps
           :users_delete => 'users/:public_id/delete',
           :users_login => 'users/login',
 
+          :relevance_rulesets_list => 'relevance/ruleset/names',
+          :relevance_rulesets_show => 'relevance/ruleset/:ruleset_name',
+          :relevance_rulesets_run => 'relevance/run',
+
           :institutions_list => 'institutions/:search_term/search',
           :institutions_form => 'institutions/:site_id/form',
 
@@ -58,7 +62,7 @@ module FinApps
           :cashflow_show => 'cashflow/:start_date/:end_date',
 
           :alert_list => 'alerts/:page/:requested/:sort/:asc/:read',
-          :alert_update => 'alerts',
+          :alert_update => 'alerts/:alert_id/:read',
 
           :alert_definition_list => 'alerts/definitions',
           :alert_definition_show => 'alerts/definitions/:alert_name',

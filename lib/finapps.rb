@@ -32,5 +32,7 @@ require 'finapps/rest/alert'
 require 'finapps/rest/alert_definition'
 require 'finapps/rest/alert_setting'
 
+require 'finapps/rest/relevance/rulesets'
+
 require 'finapps/rest/connection'
 require 'finapps/rest/client'
