@@ -63,6 +63,7 @@ module FinApps
 
           :alert_list => 'alerts/:page/:requested/:sort/:asc/:read',
           :alert_update => 'alerts/:alert_id/:read',
+          :alert_delete => 'alerts/:alert_id',
 
           :alert_definition_list => 'alerts/definitions',
           :alert_definition_show => 'alerts/definitions/:alert_name',

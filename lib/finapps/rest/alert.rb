@@ -48,6 +48,28 @@ module FinApps
         error_messages
       end
 
+      # @return [Hash, Array<String>]
+      def delete(alert_id)
+        logger.debug "##{__method__.to_s} => Started"
+
+        raise MissingArgumentsError.new 'Missing argument: alert_id.' if alert_id.blank?
+        logger.debug "##{__method__.to_s} => alert_id: #{alert_id.inspect}"
+        raise MissingArgumentsError.new 'Missing argument: alert_id.' if read.blank?
+        logger.debug "##{__method__.to_s} => alert_id: #{read.inspect}"
+
+        end_point = Defaults::END_POINTS[:alert_delete]
+        logger.debug "##{__method__.to_s} => end_point: #{end_point}"
+
+        path = end_point.sub ':alert_id', ERB::Util.url_encode(alert_id)
+        path = path.sub ':read', ERB::Util.url_encode(read)
+        logger.debug "##{__method__.to_s} => path: #{path}"
+
+        _, error_messages = @client.send(path, :delete)
+
+        logger.debug "##{__method__.to_s} => Completed"
+        error_messages
+      end
+
     end
   end
 end
