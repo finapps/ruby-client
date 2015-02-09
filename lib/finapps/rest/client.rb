@@ -7,7 +7,7 @@ module FinApps
 
       attr_reader :connection, :users, :institutions, :user_institutions,
                   :transactions, :categories,
-                  :budget_models, :budget_calculation, :budget, :cashflow,
+                  :budget_models, :budget_calculation, :budgets, :cashflow,
                   :alert, :alert_definition, :alert_setting,
                   :rule_sets
 
@@ -201,7 +201,7 @@ module FinApps
         @categories ||= FinApps::REST::Categories.new self
         @budget_models ||= FinApps::REST::BudgetModels.new self
         @budget_calculation ||= FinApps::REST::BudgetCalculation.new self
-        @budget ||= FinApps::REST::Budget.new self
+        @budgets ||= FinApps::REST::Budgets.new self
         @cashflow ||= FinApps::REST::Cashflow.new self
         @alert ||= FinApps::REST::Alert.new self
         @alert_definition ||= FinApps::REST::AlertDefinition.new self
