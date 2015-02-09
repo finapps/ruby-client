@@ -1,6 +1,9 @@
 require 'thor'
 require 'finapps'
 
+# export FINAPPS_COMPANY_IDENTIFIER=2e9cfb18-8ac4-4d9d-5695-aa16154f71f6
+# export FINAPPS_COMPANY_TOKEN=uExvlQ0XQBt1PR+Nlfj96pgOMmd9bgKnnWx/kiygmrc=
+# export FINAPPS_BASE_URL=https://finapps-qa.herokuapp.com
 
 module FinApps
   class CLI < Thor
@@ -14,13 +17,13 @@ module FinApps
     private
 
     def client
-      company_id = ENV['FA_ID']
+      company_id = ENV['FINAPPS_COMPANY_IDENTIFIER']
       raise 'Invalid company identifier. Please setup the FA_ID environment variable.' if company_id.blank?
 
-      company_token = ENV['FA_TOKEN']
+      company_token = ENV['FINAPPS_COMPANY_TOKEN']
       raise 'Invalid company token. Please setup the FA_TOKEN environment variable.' if company_token.blank?
 
-      host = ENV['FA_URL']
+      host = ENV['FINAPPS_BASE_URL']
       raise 'Invalid API host url. Please setup the FA_URL environment variable.' if host.blank?
 
       @client ||= FinApps::REST::Client.new company_id, company_token, {:host => host, :log_level => Logger::DEBUG,

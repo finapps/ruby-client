@@ -28,24 +28,37 @@ module FinApps
         result, error_messages = @client.send(path, :get)
         if result.present? && error_messages.blank?
           transactions = result.find { |r| r.has_key?('trans') }
+          transactions = transactions['trans'] if transactions.present?
+          logger.debug transactions.pretty_inspect
+
           categories = result.find { |r| r.has_key?('cats') }
+          logger.debug categories.pretty_inspect
 
           raise 'Category results set for budget is not an array.' unless categories.respond_to?(:each)
           categories['cats'].each do |c|
-
-            raise 'Unable to locate category id for current category record.' unless c.key?['cat_id']
+            logger.debug "---------------------------------------------"
+            raise 'Unable to locate category id for current category record.' unless c.key?('cat_id')
             category_id = c['cat_id']
+            logger.debug "category_id: #{category_id}"
 
-            raise 'Unable to locate budget_amount for current category record.' unless c.key?['budget_amount'] && c.key?['days']
-            raise 'Unable to locate number of days for current category record.' unless c.key?['days']
-            budget_amount = c['budget_amount'].to_f * c['days'].to_i
-
-            raise 'Unable to locate category name for current category record.' unless c.key?['name']
+            raise 'Unable to locate category name for current category record.' unless c.key?('name')
             category_name = c['name']
+            logger.debug "category_name: #{category_name}"
+
+            raise 'Unable to locate budget_amount for current category record.' unless c.key?('budget_amount')
+            budget_amount = c['budget_amount']
+            logger.debug "daily_budget_amount: #{budget_amount}"
+
+            raise 'Unable to locate number of days for current category record.' unless c.key?('days')
+            days = c['days']
+            logger.debug "days: #{days}"
+
+            date_range_budget_amount = budget_amount.to_f * days.to_i
+            logger.debug "budget_amount for #{days} days: #{date_range_budget_amount}"
 
             budget.details << BudgetDetail.new({:category_id => category_id,
                                                 :category_name => category_name,
-                                                :budget_amount => budget_amount,
+                                                :budget_amount => date_range_budget_amount,
                                                 :expense_amount => expense_amount(category_id, transactions)})
           end
         end
@@ -72,13 +85,11 @@ module FinApps
       end
 
       private
-      def expense_amount(category_id, transactions)
+      def expense_amount(category_id, transactions = [])
         amount = 0
         if category_id.present? && transactions.respond_to?(:find)
           transaction = transactions.find { |t| t['category_id'] == category_id }
-          if transaction.present? && transaction.key?['expense']
-            amount = transaction['expense'].to_f
-          end
+          amount = transaction['expense'].to_f if transaction.present? && transaction.key?('expense')
         end
         amount
       end
