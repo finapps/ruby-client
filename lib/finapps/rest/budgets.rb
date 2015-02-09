@@ -27,42 +27,14 @@ module FinApps
 
         result, error_messages = @client.send(path, :get)
         if result.present? && error_messages.blank?
-          transactions = result.find { |r| r.has_key?('trans') }
-          transactions = transactions['trans'] if transactions.present?
-          logger.debug transactions.pretty_inspect
+          categories = result_categories(result)
+          raise 'Category results-set for budget is not an array.' unless categories.respond_to?(:each)
 
-          categories = result.find { |r| r.has_key?('cats') }
-          logger.debug categories.pretty_inspect
+          transactions = result_transactions(result)
+          categories.each { |category| budget.details << result_category_to_budget_detail(category, transactions) }
 
-          raise 'Category results set for budget is not an array.' unless categories.respond_to?(:each)
-          categories['cats'].each do |c|
-            logger.debug "---------------------------------------------"
-            raise 'Unable to locate category id for current category record.' unless c.key?('cat_id')
-            category_id = c['cat_id']
-            logger.debug "category_id: #{category_id}"
-
-            raise 'Unable to locate category name for current category record.' unless c.key?('name')
-            category_name = c['name']
-            logger.debug "category_name: #{category_name}"
-
-            raise 'Unable to locate budget_amount for current category record.' unless c.key?('budget_amount')
-            budget_amount = c['budget_amount']
-            logger.debug "daily_budget_amount: #{budget_amount}"
-
-            raise 'Unable to locate number of days for current category record.' unless c.key?('days')
-            days = c['days']
-            logger.debug "days: #{days}"
-
-            date_range_budget_amount = budget_amount.to_f * days.to_i
-            logger.debug "budget_amount for #{days} days: #{date_range_budget_amount}"
-
-            budget.details << BudgetDetail.new({:category_id => category_id,
-                                                :category_name => category_name,
-                                                :budget_amount => date_range_budget_amount,
-                                                :expense_amount => expense_amount(category_id, transactions)})
-          end
+          logger.debug budget.pretty_inspect
         end
-
 
         logger.debug "##{__method__.to_s} => Completed"
         return budget, error_messages
@@ -85,6 +57,41 @@ module FinApps
       end
 
       private
+
+      def result_categories(result)
+        extract_array(result, 'cats')
+      end
+
+      def result_category_to_budget_detail(category, transactions)
+        raise 'Unable to locate category id for current category record.' unless category.key?('cat_id')
+        category_id = category['cat_id']
+
+        raise 'Unable to locate category name for current category record.' unless category.key?('name')
+        category_name = category['name']
+
+        raise 'Unable to locate budget_amount for current category record.' unless category.key?('budget_amount')
+        budget_amount = category['budget_amount']
+
+        raise 'Unable to locate number of days for current category record.' unless category.key?('days')
+        days = category['days']
+
+        date_range_budget_amount = budget_amount.to_f * days.to_i
+
+        BudgetDetail.new({:category_id => category_id,
+                          :category_name => category_name,
+                          :budget_amount => date_range_budget_amount,
+                          :expense_amount => expense_amount(category_id, transactions)})
+      end
+
+      def result_transactions(result)
+        extract_array(result, 'trans')
+      end
+
+      def extract_array(result, array_identifier)
+        array_container = result.find { |r| r.has_key?(array_identifier) }
+        array_container.present? ? array_container[array_identifier] : nil
+      end
+
       def expense_amount(category_id, transactions = [])
         amount = 0
         if category_id.present? && transactions.respond_to?(:find)
