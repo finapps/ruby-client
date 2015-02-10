@@ -19,8 +19,8 @@ module FinApps
 
         cashflow = Cashflow.new({:start_date => start_date,
                                  :end_date => end_date,
-                                 :total_inflow_amount => 0,
-                                 :total_outflow_amount => 0,
+                                 :total_income_amount => 0,
+                                 :total_expenses_amount => 0,
                                  :total_leftover_amount => 0,
                                  :details => []})
 
@@ -37,13 +37,13 @@ module FinApps
           raise 'Summary result-set for cashflow is not present.' if summary.nil?
           raise 'Summary result-set for cashflow is not a hash.' unless summary.respond_to?(:key?)
 
-          raise 'Total in-flow value for cashflow is not present.' unless summary.key?('inflow')
-          cashflow.total_inflow_amount = summary['inflow']
+          raise 'Total income (inflow) value for cashflow is not present.' unless summary.key?('inflow')
+          cashflow.total_income_amount = summary['inflow']
 
-          raise 'Total out-flow value for cashflow is not present.' unless summary.key?('outflow')
-          cashflow.total_outflow_amount = summary['outflow']
+          raise 'Total expenses (outflow) value for cashflow is not present.' unless summary.key?('outflow')
+          cashflow.total_expenses_amount = summary['outflow']
 
-          raise 'Total left-over value for cashflow is not present.' unless summary.key?('diff')
+          raise 'Total left-over (diff) value for cashflow is not present.' unless summary.key?('diff')
           cashflow.total_leftover_amount = summary['diff']
 
           categories = extract_value(result, 'details')
@@ -65,32 +65,25 @@ module FinApps
 
       def result_category_to_cashflow_detail(category)
         raise 'Unable to locate category id for current category record.' unless category.key?('cat')
-        category_id = category['cat']
-
         raise 'Unable to locate inflow amount for current category record.' unless category.key?('inflow')
-        inflow_amount = category['inflow']
-
         raise 'Unable to locate outflow amount for current category record.' unless category.key?('outflow')
-        outflow_amount = category['outflow']
-
         raise 'Unable to locate left over amount for current category record.' unless category.key?('diff')
-        leftover_amount = category['diff']
 
-        BudgetDetail.new({:category_id => category_id,
-                          :inflow_amount => inflow_amount,
-                          :outflow_amount => outflow_amount,
-                          :leftover_amount => leftover_amount})
+        CashflowDetail.new({:category_id => category['cat'],
+                            :income_amount => category['inflow'],
+                            :expenses_amount => category['outflow'],
+                            :leftover_amount => category['diff']})
       end
 
     end
 
     class Cashflow < FinApps::REST::Resource
       attr_accessor :start_date, :end_date,
-                    :total_inflow_amount, :total_outflow_amount, :total_leftover_amount, :details
+                    :total_income_amount, :total_expenses_amount, :total_leftover_amount, :details
     end
 
     class CashflowDetail < FinApps::REST::Resource
-      attr_accessor :category_id, :inflow_amount, :outflow_amount, :leftover_amount
+      attr_accessor :category_id, :income_amount, :expenses_amount, :leftover_amount
     end
 
   end
