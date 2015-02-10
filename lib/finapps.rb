@@ -30,7 +30,7 @@ require 'finapps/rest/budgets'
 require 'finapps/rest/cashflows'
 require 'finapps/rest/alert'
 require 'finapps/rest/alert_definition'
-require 'finapps/rest/alert_setting'
+require 'finapps/rest/alert_settings'
 
 require 'finapps/rest/relevance/rulesets'
 
