@@ -72,14 +72,9 @@ module FinApps
         raise 'Unable to locate budget_amount for current category record.' unless category.key?('budget_amount')
         budget_amount = category['budget_amount']
 
-        raise 'Unable to locate number of days for current category record.' unless category.key?('days')
-        days = category['days']
-
-        date_range_budget_amount = budget_amount.to_f * days.to_i
-
         BudgetDetail.new({:category_id => category_id,
                           :category_name => category_name,
-                          :budget_amount => date_range_budget_amount,
+                          :budget_amount => budget_amount,
                           :expense_amount => expense_amount(category_id, transactions)})
       end
 
@@ -96,7 +91,7 @@ module FinApps
         amount = 0
         if category_id.present? && transactions.respond_to?(:find)
           transaction = transactions.find { |t| t['category_id'] == category_id }
-          amount = transaction['expense'].to_f if transaction.present? && transaction.key?('expense')
+          amount = transaction['expense_amount'].to_f if transaction.present? && transaction.key?('expense_amount')
         end
         amount
       end
