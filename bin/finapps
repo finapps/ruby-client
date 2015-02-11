@@ -2,5 +2,7 @@
 require 'finapps/cli/common'
 require 'finapps/cli/users'
 require 'finapps/cli/institutions'
+require 'finapps/cli/budgets'
+require 'finapps/cli/cashflows'
 
 FinApps::CLI.start

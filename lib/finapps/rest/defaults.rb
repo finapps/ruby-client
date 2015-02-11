@@ -68,8 +68,8 @@ module FinApps
           :alert_definition_list => 'alerts/definitions',
           :alert_definition_show => 'alerts/definitions/:alert_name',
 
-          :alert_setting_list => 'alerts/settings',
-          :alert_setting_update => 'alerts/settings',
+          :alert_settings_show => 'alerts/settings',
+          :alert_settings_update => 'alerts/settings',
 
           :alert_preference_list => 'alerts/preferences',
           :alert_preference_update => 'alerts/preferences'

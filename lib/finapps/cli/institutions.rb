@@ -8,7 +8,7 @@ module FinApps
 
     desc 'institutions_search', 'search institutions'
 
-    def institutions_search(user_identifier, user_token, term=nil)
+    def institutions_search(user_identifier, user_token = '4JZmhcHVf3ODRJ9TMKF7N/1sHDY3M5Q49A9ToAy+TDE=', term=nil)
 
       begin
         client.user_credentials!(user_identifier, user_token)

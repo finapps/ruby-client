@@ -7,8 +7,8 @@ module FinApps
 
       attr_reader :connection, :users, :institutions, :user_institutions,
                   :transactions, :categories,
-                  :budget_models, :budget_calculation, :budget, :cashflow,
-                  :alert, :alert_definition, :alert_setting,
+                  :budget_models, :budget_calculation, :budgets, :cashflows,
+                  :alert, :alert_definition, :alert_settings,
                   :rule_sets
 
       # @param [String] company_identifier
@@ -201,11 +201,11 @@ module FinApps
         @categories ||= FinApps::REST::Categories.new self
         @budget_models ||= FinApps::REST::BudgetModels.new self
         @budget_calculation ||= FinApps::REST::BudgetCalculation.new self
-        @budget ||= FinApps::REST::Budget.new self
-        @cashflow ||= FinApps::REST::Cashflow.new self
+        @budgets ||= FinApps::REST::Budgets.new self
+        @cashflows ||= FinApps::REST::Cashflows.new self
         @alert ||= FinApps::REST::Alert.new self
         @alert_definition ||= FinApps::REST::AlertDefinition.new self
-        @alert_setting ||= FinApps::REST::AlertSetting.new self
+        @alert_settings ||= FinApps::REST::AlertSettings.new self
 
         @rule_sets ||= FinApps::REST::Relevance::Rulesets.new self
       end
