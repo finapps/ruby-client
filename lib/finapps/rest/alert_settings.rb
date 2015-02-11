@@ -10,7 +10,7 @@ module FinApps
       def show
         logger.debug "##{__method__.to_s} => Started"
 
-        end_point = Defaults::END_POINTS[:alert_settings_list]
+        end_point = Defaults::END_POINTS[:alert_settings_show]
         logger.debug "##{__method__.to_s} => end_point: #{end_point}"
 
         path = end_point
