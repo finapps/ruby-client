@@ -9,7 +9,6 @@ module FinApps
       # @return [FinApps::REST::Resources]
       def initialize(client)
         @client = client
-        logger.debug "##{__method__.to_s} => #{self.class.name} initialized."
       end
 
     end
