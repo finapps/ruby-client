@@ -31,6 +31,7 @@ require 'finapps/rest/cashflows'
 require 'finapps/rest/alert'
 require 'finapps/rest/alert_definition'
 require 'finapps/rest/alert_settings'
+require 'finapps/rest/alert_preferences'
 
 require 'finapps/rest/relevance/rulesets'
 

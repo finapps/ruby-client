@@ -71,8 +71,8 @@ module FinApps
           :alert_settings_show => 'alerts/settings',
           :alert_settings_update => 'alerts/settings',
 
-          :alert_preference_list => 'alerts/preferences',
-          :alert_preference_update => 'alerts/preferences'
+          :alert_preferences_show => 'alerts/preferences',
+          :alert_preferences_update => 'alerts/preferences'
 
 
       }.freeze
