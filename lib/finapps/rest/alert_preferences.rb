@@ -3,14 +3,14 @@ module FinApps
 
     require 'erb'
 
-    class AlertSettings < FinApps::REST::Resources
+    class AlertPreferences < FinApps::REST::Resources
       include FinApps::REST::Defaults
 
       # @return [Hash, Array<String>]
       def show
         logger.debug "##{__method__.to_s} => Started"
 
-        end_point = Defaults::END_POINTS[:alert_settings_show]
+        end_point = Defaults::END_POINTS[:alert_preferences_show]
         logger.debug "##{__method__.to_s} => end_point: #{end_point}"
 
         path = end_point
@@ -29,7 +29,7 @@ module FinApps
         raise MissingArgumentsError.new 'Missing argument: params.' if params.blank?
         logger.debug "##{__method__.to_s} => params: #{params.inspect}"
 
-        end_point = Defaults::END_POINTS[:alert_settings_update]
+        end_point = Defaults::END_POINTS[:alert_preferences_update]
         logger.debug "##{__method__.to_s} => end_point: #{end_point}"
 
         path = end_point
