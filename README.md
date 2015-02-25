@@ -70,7 +70,6 @@ Please check the [FinApps wiki][wiki] for extended documentation.
 [financialapps]: https://financialapps.com
 [wiki]: https://github.com/finapps/ruby-client/wiki
 [builder]: http://builder.rubyforge.org/
-[wiki]: https://github.com/twilio/twilio-ruby/wiki
 [bundler]: http://bundler.io
 [rubygems]: http://rubygems.org
 [gem]: https://rubygems.org/gems/finapps
