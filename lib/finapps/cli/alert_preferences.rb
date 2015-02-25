@@ -43,7 +43,7 @@ module FinApps
         user_token = '4JZmhcHVf3ODRJ9TMKF7N/1sHDY3M5Q49A9ToAy+TDE='
 
         client.user_credentials!(user_identifier, user_token)
-        alert_preferences, error_messages = client.alert_preferences.update({:emails => ['user@domain.com'], :phones => ['13055551213']})
+        alert_preferences, error_messages = client.alert_preferences.update({:emails => ['user@domain.com'], :phones => []})
         if alert_preferences.present?
           puts
           puts 'alert preferences results:'
