@@ -21,5 +21,6 @@ module FinApps
       end
 
     end
+
   end
 end
