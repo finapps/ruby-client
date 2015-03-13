@@ -65,14 +65,14 @@ module FinApps
 
       def result_category_to_cashflow_detail(category)
         raise 'Unable to locate category id for current category record.' unless category.key?('cat')
-        raise 'Unable to locate inflow amount for current category record.' unless category.key?('inflow')
-        raise 'Unable to locate outflow amount for current category record.' unless category.key?('outflow')
-        raise 'Unable to locate left over amount for current category record.' unless category.key?('diff')
+        raise 'Unable to locate credits amount for current category record.' unless category.key?('inflow')
+        raise 'Unable to locate debits amount for current category record.' unless category.key?('outflow')
+        raise 'Unable to locate balance amount for current category record.' unless category.key?('diff')
 
         CashflowDetail.new({:category_id => category['cat'],
-                            :income_amount => category['inflow'],
-                            :expenses_amount => category['outflow'],
-                            :leftover_amount => category['diff']})
+                            :credits => category['inflow'],
+                            :debits => category['outflow'],
+                            :balance => category['diff']})
       end
 
     end
@@ -83,7 +83,7 @@ module FinApps
     end
 
     class CashflowDetail < FinApps::REST::Resource
-      attr_accessor :category_id, :income_amount, :expenses_amount, :leftover_amount
+      attr_accessor :category_id, :credits, :debits, :balance
     end
 
   end
