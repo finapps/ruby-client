@@ -21,7 +21,6 @@ module FinApps
         return transaction, error_messages
       end
 
-
       # @param [Hash] params
       # @return [Array<Hash>, Array<String>]
       def search(params={})

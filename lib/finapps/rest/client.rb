@@ -68,11 +68,9 @@ module FinApps
 
           if response.present?
             result = block_given? ? proc.call(response) : response.body
-            logger.debug "##{__method__.to_s} => parsed result: #{result.pretty_inspect}"
           else
             logger.error "##{__method__.to_s} => Null response found. Unable to process it."
           end
-
 
         rescue FinApps::REST::Error => error
           error_messages = error.error_messages
