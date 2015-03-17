@@ -32,8 +32,6 @@ module FinApps
 
           transactions = result_transactions(result)
           categories.each { |category| budget.details << result_category_to_budget_detail(category, transactions) }
-
-          logger.debug budget.pretty_inspect
         end
 
         logger.debug "##{__method__.to_s} => Completed"
