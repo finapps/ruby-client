@@ -37,7 +37,9 @@ module FinApps
           :user_institutions_list => 'institutions/user',
           :user_institutions_add => 'institutions/:site_id/add',
           :user_institutions_show => 'institutions/user/:user_institution_id',
+          :user_institutions_update => 'institutions/user/:user_institution_id/credentials',
           :user_institutions_status => 'institutions/user/:user_institution_id/status',
+          :user_institutions_mfa => 'institutions/user/:user_institution_id/mfa',
           :user_institutions_refresh => 'institutions/user/refresh',
 
           :transactions_show => 'transaction/:transaction_id',
