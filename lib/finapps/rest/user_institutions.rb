@@ -57,6 +57,24 @@ module FinApps
         return user_institution, error_messages
       end
 
+      def form(user_institution_id)
+        logger.debug "##{__method__.to_s} => Started"
+
+        raise MissingArgumentsError.new 'Missing argument: user_institution_id.' if user_institution_id.blank?
+        logger.debug "##{__method__.to_s} => user_institution_id: #{user_institution_id}"
+
+        end_point = Defaults::END_POINTS[:user_institutions_form]
+        logger.debug "##{__method__.to_s} => end_point: #{end_point}"
+
+        path = end_point.sub ':user_institution_id', ERB::Util.url_encode(user_institution_id)
+        logger.debug "##{__method__.to_s} => path: #{path}"
+
+        user_institution, error_messages = @client.send(path, :get)
+
+        logger.debug "##{__method__.to_s} => Completed"
+        return user_institution, error_messages
+      end
+
       def status(user_institution_id)
         logger.debug "##{__method__.to_s} => Started"
 
