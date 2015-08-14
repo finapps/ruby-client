@@ -24,6 +24,7 @@ module FinApps
 
       END_POINTS = {
           :users_create => 'users/new',
+          :users_update => 'user',
           :users_delete => 'users/:public_id',
           :users_login => 'users/login',
 

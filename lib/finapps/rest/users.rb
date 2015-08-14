@@ -23,6 +23,18 @@ module FinApps
         return user, error_messages
       end
 
+      def update(params = {})
+        logger.debug "##{__method__.to_s} => Started"
+
+        path = Defaults::END_POINTS[:transactions_update]
+        logger.debug "##{__method__.to_s} => path: #{path}"
+
+        _, error_messages = @client.send(path, :put, params.compact)
+
+        logger.debug "##{__method__.to_s} => Completed"
+        error_messages
+      end
+
       # @param [Hash] params
       # @return [FinApps::REST::User, Array<String>]
       def login(params = {})
