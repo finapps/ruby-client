@@ -26,7 +26,7 @@ module FinApps
       def update(params = {})
         logger.debug "##{__method__.to_s} => Started"
 
-        path = Defaults::END_POINTS[:transactions_update]
+        path = Defaults::END_POINTS[:users_update]
         logger.debug "##{__method__.to_s} => path: #{path}"
 
         _, error_messages = @client.send(path, :put, params.compact)
