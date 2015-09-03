@@ -13,6 +13,7 @@ module FinApps
         logger.debug "##{__method__.to_s} => Started"
 
         raise MissingArgumentsError.new 'Missing argument: params.' if params.blank?
+        logger.debug "##{__method__.to_s} => params: #{skip_sensitive_data params}"
 
         end_point = Defaults::END_POINTS[:users_create]
         logger.debug "##{__method__.to_s} => end_point: #{end_point}"
@@ -26,7 +27,9 @@ module FinApps
       def update(params = {})
         logger.debug "##{__method__.to_s} => Started"
 
-        path = Defaults::END_POINTS[:transactions_update]
+        logger.debug "##{__method__.to_s} => params: #{skip_sensitive_data params}"
+
+        path = Defaults::END_POINTS[:users_update]
         logger.debug "##{__method__.to_s} => path: #{path}"
 
         _, error_messages = @client.send(path, :put, params.compact)
@@ -41,6 +44,7 @@ module FinApps
         logger.debug "##{__method__.to_s} => Started"
 
         raise MissingArgumentsError.new 'Missing argument: params.' if params.blank?
+        logger.debug "##{__method__.to_s} => params: #{skip_sensitive_data params}"
 
         end_point = Defaults::END_POINTS[:users_login]
         logger.debug "##{__method__.to_s} => end_point: #{end_point}"

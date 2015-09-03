@@ -139,7 +139,7 @@ module FinApps
         logger.debug "##{__method__.to_s} => Started"
         raise MissingArgumentsError.new 'Missing argument: path.' if path.blank?
 
-        logger.debug "##{__method__.to_s} => POST path:#{path} params:#{skip_sensitive_data(params)}"
+        logger.debug "##{__method__.to_s} => POST path:#{path} params:#{skip_sensitive_data params }"
         response = @connection.post do |req|
           req.url path
           req.body = params
