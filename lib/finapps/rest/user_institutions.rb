@@ -25,7 +25,7 @@ module FinApps
         logger.debug "##{__method__.to_s} => site_id: #{site_id}"
 
         raise MissingArgumentsError.new 'Missing argument: parameters.' if parameters.blank?
-        logger.debug "##{__method__.to_s} => parameters: #{parameters.inspect}"
+        logger.debug "##{__method__.to_s} => parameters: #{skip_sensitive_data parameters.inspect}"
 
         end_point = Defaults::END_POINTS[:user_institutions_add]
         logger.debug "##{__method__.to_s} => end_point: #{end_point}"
@@ -100,7 +100,7 @@ module FinApps
         logger.debug "##{__method__.to_s} => user_institution_id: #{user_institution_id}"
 
         raise MissingArgumentsError.new 'Missing argument: parameters.' if parameters.blank?
-        logger.debug "##{__method__.to_s} => parameters: #{parameters.inspect}"
+        logger.debug "##{__method__.to_s} => parameters: #{skip_sensitive_data parameters.inspect}"
 
         end_point = Defaults::END_POINTS[:user_institutions_mfa]
         logger.debug "##{__method__.to_s} => end_point: #{end_point}"
@@ -121,7 +121,7 @@ module FinApps
         logger.debug "##{__method__.to_s} => user_institution_id: #{user_institution_id}"
 
         raise MissingArgumentsError.new 'Missing argument: parameters.' if parameters.blank?
-        logger.debug "##{__method__.to_s} => parameters: #{parameters.inspect}"
+        logger.debug "##{__method__.to_s} => parameters: #{skip_sensitive_data parameters.inspect}"
 
         end_point = Defaults::END_POINTS[:user_institutions_update]
         logger.debug "##{__method__.to_s} => end_point: #{end_point}"

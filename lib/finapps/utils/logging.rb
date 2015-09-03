@@ -55,7 +55,17 @@ module FinApps
     def skip_sensitive_data(hash)
       if hash.is_a? Hash
         filtered_hash = hash.clone
-        filtered_hash.update(filtered_hash) { |key, v1| filter_sensitive_values(key, v1) }
+        filtered_hash.each do |key, value|
+          if PROTECTED_KEYS.include? key.to_s.downcase
+            filtered_hash[key] = '[REDACTED]'
+          elsif value.is_a?(Hash)
+            filtered_hash[key] = self.skip_sensitive_data(value)
+          elsif value.is_a?(Array)
+            filtered_hash[key] = value.map { |v| v.is_a?(Hash) ? self.skip_sensitive_data(v) : v }
+          end
+        end
+
+        filtered_hash
       else
         hash
       end
@@ -64,10 +74,6 @@ module FinApps
     private
     def format_datetime(time)
       time.strftime('%Y-%m-%dT%H:%M:%S.') << '%06d ' % time.usec
-    end
-
-    def filter_sensitive_values(key, v1)
-      (PROTECTED_KEYS.include? key.to_s.downcase) ? '[REDACTED]' : v1
     end
 
     def msg2str(msg)
