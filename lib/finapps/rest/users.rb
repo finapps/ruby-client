@@ -38,6 +38,20 @@ module FinApps
         error_messages
       end
 
+      def update_password(params = {})
+        logger.debug "##{__method__.to_s} => Started"
+
+        logger.debug "##{__method__.to_s} => params: #{skip_sensitive_data params}"
+
+        path = Defaults::END_POINTS[:users_update_password]
+        logger.debug "##{__method__.to_s} => path: #{path}"
+
+        user, error_messages = @client.send(path, :put, params.compact) { |r| User.new(r.body) }
+        logger.debug "##{__method__.to_s} => Completed"
+
+        return user, error_messages
+      end
+
       # @param [Hash] params
       # @return [FinApps::REST::User, Array<String>]
       def login(params = {})
