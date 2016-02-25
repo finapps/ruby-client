@@ -7,19 +7,15 @@ module FinApps
       include FinApps::REST::Defaults
 
       def list
-        logger.debug "##{__method__.to_s} => Started"
-
         path = Defaults::END_POINTS[:user_institutions_list]
         logger.debug "##{__method__.to_s} => path: #{path}"
 
         user_institutions, error_messages = @client.send(path, :get)
 
-        logger.debug "##{__method__.to_s} => Completed"
         return user_institutions, error_messages
       end
 
       def add(site_id, parameters)
-        logger.debug "##{__method__.to_s} => Started"
 
         raise MissingArgumentsError.new 'Missing argument: site_id.' if site_id.blank?
         logger.debug "##{__method__.to_s} => site_id: #{site_id}"
@@ -35,12 +31,10 @@ module FinApps
 
         user_institution, error_messages = @client.send(path, :post, :parameters => parameters)
 
-        logger.debug "##{__method__.to_s} => Completed"
         return user_institution, error_messages
       end
 
       def show(user_institution_id)
-        logger.debug "##{__method__.to_s} => Started"
 
         raise MissingArgumentsError.new 'Missing argument: user_institution_id.' if user_institution_id.blank?
         logger.debug "##{__method__.to_s} => user_institution_id: #{user_institution_id}"
@@ -53,13 +47,10 @@ module FinApps
 
         user_institution, error_messages = @client.send(path, :get)
 
-        logger.debug "##{__method__.to_s} => Completed"
         return user_institution, error_messages
       end
 
       def form(user_institution_id)
-        logger.debug "##{__method__.to_s} => Started"
-
         raise MissingArgumentsError.new 'Missing argument: user_institution_id.' if user_institution_id.blank?
         logger.debug "##{__method__.to_s} => user_institution_id: #{user_institution_id}"
 
@@ -71,13 +62,10 @@ module FinApps
 
         user_institution, error_messages = @client.send(path, :get)
 
-        logger.debug "##{__method__.to_s} => Completed"
         return user_institution, error_messages
       end
 
       def status(user_institution_id)
-        logger.debug "##{__method__.to_s} => Started"
-
         raise MissingArgumentsError.new 'Missing argument: user_institution_id.' if user_institution_id.blank?
         logger.debug "##{__method__.to_s} => user_institution_id: #{user_institution_id}"
 
@@ -89,13 +77,10 @@ module FinApps
 
         user_institution, error_messages = @client.send(path, :get)
 
-        logger.debug "##{__method__.to_s} => Completed"
         return user_institution, error_messages
       end
 
       def mfa(user_institution_id, parameters)
-        logger.debug "##{__method__.to_s} => Started"
-
         raise MissingArgumentsError.new 'Missing argument: user_institution_id.' if user_institution_id.blank?
         logger.debug "##{__method__.to_s} => user_institution_id: #{user_institution_id}"
 
@@ -110,13 +95,10 @@ module FinApps
 
         user_institution, error_messages = @client.send(path, :put, :parameters => parameters)
 
-        logger.debug "##{__method__.to_s} => Completed"
         return user_institution, error_messages
       end
 
       def update(user_institution_id, parameters)
-        logger.debug "##{__method__.to_s} => Started"
-
         raise MissingArgumentsError.new 'Missing argument: user_institution_id.' if user_institution_id.blank?
         logger.debug "##{__method__.to_s} => user_institution_id: #{user_institution_id}"
 
@@ -131,26 +113,20 @@ module FinApps
 
         user_institution, error_messages = @client.send(path, :put, :parameters => parameters)
 
-        logger.debug "##{__method__.to_s} => Completed"
         return user_institution, error_messages
       end
 
       def refresh
-        logger.debug "##{__method__.to_s} => Started"
-
         path = Defaults::END_POINTS[:user_institutions_refresh]
         logger.debug "##{__method__.to_s} => path: #{path}"
 
         user_institutions, error_messages = @client.send(path, :get)
 
-        logger.debug "##{__method__.to_s} => Completed"
         return user_institutions, error_messages
       end
 
       # @return [Hash, Array<String>]
       def delete(user_institution_id)
-        logger.debug "##{__method__.to_s} => Started"
-
         raise MissingArgumentsError.new 'Missing argument: user_institution_id.' if user_institution_id.blank?
         logger.debug "##{__method__.to_s} => user_institution_id: #{user_institution_id.inspect}"
 
@@ -162,7 +138,6 @@ module FinApps
 
         _, error_messages = @client.send(path, :delete)
 
-        logger.debug "##{__method__.to_s} => Completed"
         error_messages
       end
 
