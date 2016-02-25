@@ -17,8 +17,6 @@ module FinApps
       expect(@client).to respond_to(:user_credentials!)
     end
 
-
-
     it 'responds to public api methods' do
       [:alert, :alert_definition, :alert_settings, :alert_preferences,
        :budgets, :budget_calculation, :budget_models, :cashflows,

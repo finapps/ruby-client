@@ -10,10 +10,9 @@ module FinApps
       # @param [Date] end_date
       # @return [Hash, Array<String>]
       def show(start_date, end_date)
-        logger.debug "##{__method__.to_s} => Started"
-
         raise MissingArgumentsError.new 'Missing argument: start_date.' if start_date.blank?
         logger.debug "##{__method__.to_s} => start_date: #{start_date}"
+
         raise MissingArgumentsError.new 'Missing argument: end_date.' if end_date.blank?
         logger.debug "##{__method__.to_s} => end_date: #{end_date}"
 
@@ -52,7 +51,6 @@ module FinApps
           categories.each { |category| cashflow.details << result_category_to_cashflow_detail(category) }
         end
 
-        logger.debug "##{__method__.to_s} => Completed"
         return cashflow, error_messages
       end
 

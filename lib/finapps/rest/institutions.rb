@@ -9,8 +9,6 @@ module FinApps
       # @param [String] term
       # @return [Array<FinApps::REST::Institution>, Array<String>]
       def search(term)
-        logger.debug "##{__method__.to_s} => Started"
-
         raise MissingArgumentsError.new 'Missing argument: term.' if term.blank?
         logger.debug "##{__method__.to_s} => term: #{term}"
 
@@ -21,15 +19,11 @@ module FinApps
         logger.debug "##{__method__.to_s} => path: #{path}"
 
         institutions, error_messages = @client.send(path, :get)
-
-        logger.debug "##{__method__.to_s} => Completed"
         return institutions, error_messages
       end
 
       # @param [Integer] site_id
       def form(site_id)
-        logger.debug "##{__method__.to_s} => Started"
-
         raise MissingArgumentsError.new 'Missing argument: site_id.' if site_id.blank?
         logger.debug "##{__method__.to_s} => site_id: #{site_id}"
 
@@ -40,8 +34,6 @@ module FinApps
         logger.debug "##{__method__.to_s} => path: #{path}"
 
         institution, error_messages = @client.send(path, :get) { |r| Institution.new(r.body) }
-
-        logger.debug "##{__method__.to_s} => Completed"
         return institution, error_messages
       end
 

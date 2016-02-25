@@ -5,8 +5,6 @@ module FinApps
 
       # @return [Array<Hash>, Array<String>]
       def list
-        logger.debug "##{__method__.to_s} => Started"
-
         end_point = Defaults::END_POINTS[:categories_list]
         logger.debug "##{__method__.to_s} => end_point: #{end_point}"
 
@@ -14,8 +12,6 @@ module FinApps
         logger.debug "##{__method__.to_s} => path: #{path}"
 
         categories, error_messages = @client.send(path, :get)
-
-        logger.debug "##{__method__.to_s} => Completed"
         return categories, error_messages
       end
 

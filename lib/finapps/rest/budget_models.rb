@@ -8,21 +8,15 @@ module FinApps
 
       # @return [Array<Hash>, Array<String>]
       def list
-        logger.debug "##{__method__.to_s} => Started"
-
         path = Defaults::END_POINTS[:budget_models_list]
         logger.debug "##{__method__.to_s} => path: #{path}"
 
         budget_models, error_messages = @client.send(path, :get)
-
-        logger.debug "##{__method__.to_s} => Completed"
         return budget_models, error_messages
       end
 
       # @param [Integer] budget_model_id
       def show(budget_model_id)
-        logger.debug "##{__method__.to_s} => Started"
-
         raise MissingArgumentsError.new 'Missing argument: budget_model_id.' if budget_model_id.blank?
         logger.debug "##{__method__.to_s} => budget_model_id: #{budget_model_id}"
 
@@ -33,8 +27,6 @@ module FinApps
         logger.debug "##{__method__.to_s} => path: #{path}"
 
         budget_model, error_messages = @client.send(path, :get) { |r| BudgetModel.new(r.body) }
-
-        logger.debug "##{__method__.to_s} => Completed"
         return budget_model, error_messages
       end
 
