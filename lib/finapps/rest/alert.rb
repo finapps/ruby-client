@@ -8,7 +8,6 @@ module FinApps
 
       # @return [Hash, Array<String>]
       def list(page = 1, requested=100, sort='date', asc=false, read='all')
-        logger.debug "##{__method__.to_s} => Started"
 
         end_point = Defaults::END_POINTS[:alert_list]
         logger.debug "##{__method__.to_s} => end_point: #{end_point}"
@@ -22,16 +21,14 @@ module FinApps
 
         result, error_messages = @client.send(path, :get)
 
-        logger.debug "##{__method__.to_s} => Completed"
         return result, error_messages
       end
 
       # @return [Hash, Array<String>]
       def update(alert_id, read=true)
-        logger.debug "##{__method__.to_s} => Started"
-
         raise MissingArgumentsError.new 'Missing argument: alert_id.' if alert_id.blank?
         logger.debug "##{__method__.to_s} => alert_id: #{alert_id.inspect}"
+
         raise MissingArgumentsError.new 'Missing argument: read.' if read.blank?
         logger.debug "##{__method__.to_s} => read: #{read.inspect}"
 
@@ -44,14 +41,11 @@ module FinApps
 
         _, error_messages = @client.send(path, :put)
 
-        logger.debug "##{__method__.to_s} => Completed"
         error_messages
       end
 
       # @return [Hash, Array<String>]
       def delete(alert_id)
-        logger.debug "##{__method__.to_s} => Started"
-
         raise MissingArgumentsError.new 'Missing argument: alert_id.' if alert_id.blank?
         logger.debug "##{__method__.to_s} => alert_id: #{alert_id.inspect}"
 
@@ -63,7 +57,6 @@ module FinApps
 
         _, error_messages = @client.send(path, :delete)
 
-        logger.debug "##{__method__.to_s} => Completed"
         error_messages
       end
 
