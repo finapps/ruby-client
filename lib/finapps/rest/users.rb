@@ -10,8 +10,6 @@ module FinApps
       # @param [Hash] params
       # @return [FinApps::REST::User, Array<String>]
       def create(params = {})
-        logger.debug "##{__method__.to_s} => Started"
-
         raise MissingArgumentsError.new 'Missing argument: params.' if params.blank?
         logger.debug "##{__method__.to_s} => params: #{skip_sensitive_data params}"
 
@@ -19,14 +17,12 @@ module FinApps
         logger.debug "##{__method__.to_s} => end_point: #{end_point}"
 
         user, error_messages = @client.send(end_point, :post, params) { |r| User.new(r.body) }
-        logger.debug "##{__method__.to_s} => Completed"
 
         return user, error_messages
       end
 
       def update(params = {})
-        logger.debug "##{__method__.to_s} => Started"
-
+        raise MissingArgumentsError.new 'Missing argument: params.' if params.blank?
         logger.debug "##{__method__.to_s} => params: #{skip_sensitive_data params}"
 
         path = Defaults::END_POINTS[:users_update]
@@ -34,20 +30,17 @@ module FinApps
 
         _, error_messages = @client.send(path, :put, params.compact)
 
-        logger.debug "##{__method__.to_s} => Completed"
         error_messages
       end
 
       def update_password(params = {})
-        logger.debug "##{__method__.to_s} => Started"
-
+        raise MissingArgumentsError.new 'Missing argument: params.' if params.blank?
         logger.debug "##{__method__.to_s} => params: #{skip_sensitive_data params}"
 
         path = Defaults::END_POINTS[:users_update_password]
         logger.debug "##{__method__.to_s} => path: #{path}"
 
         user, error_messages = @client.send(path, :put, params.compact) { |r| User.new(r.body) }
-        logger.debug "##{__method__.to_s} => Completed"
 
         return user, error_messages
       end
@@ -55,8 +48,6 @@ module FinApps
       # @param [Hash] params
       # @return [FinApps::REST::User, Array<String>]
       def login(params = {})
-        logger.debug "##{__method__.to_s} => Started"
-
         raise MissingArgumentsError.new 'Missing argument: params.' if params.blank?
         logger.debug "##{__method__.to_s} => params: #{skip_sensitive_data params}"
 
@@ -64,7 +55,6 @@ module FinApps
         logger.debug "##{__method__.to_s} => end_point: #{end_point}"
 
         user, error_messages = @client.send(end_point, :post, params) { |r| User.new(r.body) }
-        logger.debug "##{__method__.to_s} => Completed"
 
         return user, error_messages
       end
@@ -72,8 +62,6 @@ module FinApps
       # @param [String] public_id
       # @return [Array<String>]
       def delete(public_id)
-        logger.debug "##{__method__.to_s} => Started"
-
         raise MissingArgumentsError.new 'Missing argument: public_id.' if public_id.blank?
         logger.debug "##{__method__.to_s} => public_id: #{public_id}"
 
@@ -84,7 +72,6 @@ module FinApps
         logger.debug "##{__method__.to_s} => path: #{path}"
 
         _, error_messages = @client.send(path, :delete)
-        logger.debug "##{__method__.to_s} => Completed"
 
         error_messages
       end
