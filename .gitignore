@@ -1,6 +1,4 @@
 *.gem
-*.rbc
-.bundle
 .config
 .yardoc
 Gemfile.lock
@@ -11,12 +9,34 @@ doc/
 lib/bundler/man
 pkg
 rdoc
-spec/reports
-test/tmp
-test/version_tmp
-tmp
 *.bundle
 *.so
 *.o
 *.a
 mkmf.log
+
+# Ignore bundler config.
+/.bundle
+/vendor/bundle/
+/vendor/ruby/
+
+# Ignore all log files and tempfiles.
+/log/*
+!/log/.keep
+/tmp
+
+# various artifacts
+**.war
+*.rbc
+*.sassc
+.project
+.secret
+.rspec
+.idea/
+/spec/tmp/*
+/cache
+
+*.BACKUP.*
+*.BASE.*
+*.LOCAL.*
+*.REMOTE.*
