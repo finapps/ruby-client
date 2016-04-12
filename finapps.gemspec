@@ -20,9 +20,9 @@ Gem::Specification.new do |spec|
   spec.test_files = Dir['spec/**/*.rb']
   spec.require_paths = ['lib']
 
-  spec.add_runtime_dependency 'faraday',  '~> 0.9', '>= 0.9.0'
-  spec.add_runtime_dependency 'faraday_middleware',  '~> 0.9', '>= 0.9.1'
-  spec.add_runtime_dependency 'typhoeus',  '~> 0.6', '>= 0.6.8'
+  spec.add_runtime_dependency 'faraday',  '~> 0.9', '>= 0.9.2'
+  spec.add_runtime_dependency 'faraday_middleware',  '~> 0.10', '>= 0.10.0'
+  spec.add_runtime_dependency 'typhoeus',  '~> 1.0', '>= 1.0.1'
   spec.add_runtime_dependency 'rash', '~> 0.4', '>= 0.4.0'
 
   spec.add_development_dependency 'bundler', '~> 1.11', '>= 1.11.2'
