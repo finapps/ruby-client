@@ -5,11 +5,7 @@ module FinApps
       include FinApps::Logging
       include FinApps::REST::Connection
 
-      attr_reader :connection, :users, :institutions, :user_institutions,
-                  :transactions, :categories,
-                  :budget_models, :budget_calculation, :budgets, :cashflows,
-                  :alert, :alert_definition, :alert_settings, :alert_preferences,
-                  :rule_sets
+      attr_reader :connection
 
       # @param [String] company_identifier
       # @param [String] company_token
@@ -21,21 +17,76 @@ module FinApps
         @config = DEFAULTS.merge! options
         if @config[:logger_tag].present?
           Logging.tag= @config[:logger_tag]
-          logger.info "##{__method__.to_s} => Custom tag for logs: #{@config[:logger_tag]}"
         end
 
         set_up_logger_level @config[:log_level]
-        logger.info "##{__method__.to_s} => Current logger level: #{SEVERITY_LABEL[logger.level]}"
 
         @company_credentials = {:company_identifier => company_identifier,
                                 :company_token => company_token}
-        @connection = set_up_connection(@company_credentials, @config)
-        logger.debug "##{__method__.to_s} => Connection initialized"
-
-        set_up_resources
-        logger.debug "##{__method__.to_s} => All resources initialized"
+        @company_credentials.validate_required_strings!
+        logger.debug "##{__method__.to_s} => company_credentials passed validation."
 
         logger.debug "##{__method__.to_s} => Completed"
+      end
+
+      def connection
+        @connection ||= set_up_connection(@company_credentials, @config)
+      end
+
+      def users
+        @users ||= FinApps::REST::Users.new self
+      end
+
+      def institutions
+        @institutions ||= FinApps::REST::Institutions.new self
+      end
+
+      def user_institutions
+        @user_institutions ||= FinApps::REST::UserInstitutions.new self
+      end
+
+      def transactions
+        @transactions ||= FinApps::REST::Transactions.new self
+      end
+
+      def categories
+        @categories ||= FinApps::REST::Categories.new self
+      end
+
+      def budget_models
+        @budget_models ||= FinApps::REST::BudgetModels.new self
+      end
+
+      def budget_calculation
+        @budget_calculation ||= FinApps::REST::BudgetCalculation.new self
+      end
+
+      def budgets
+        @budgets ||= FinApps::REST::Budgets.new self
+      end
+
+      def cashflows
+        @cashflows ||= FinApps::REST::Cashflows.new self
+      end
+
+      def alert
+        @alert ||= FinApps::REST::Alert.new self
+      end
+
+      def alert_definition
+        @alert_definition ||= FinApps::REST::AlertDefinition.new self
+      end
+
+      def alert_settings
+        @alert_settings ||= FinApps::REST::AlertSettings.new self
+      end
+
+      def alert_preferences
+        @alert_preferences ||= FinApps::REST::AlertPreferences.new self
+      end
+
+      def rule_sets
+        @rule_sets ||= FinApps::REST::Relevance::Rulesets.new self
       end
 
       # Performs HTTP GET, POST, UPDATE and DELETE requests.
@@ -189,23 +240,6 @@ module FinApps
 
         logger.debug "##{__method__.to_s} => Completed"
         response
-      end
-
-      def set_up_resources
-        @users ||= FinApps::REST::Users.new self
-        @institutions ||= FinApps::REST::Institutions.new self
-        @user_institutions ||= FinApps::REST::UserInstitutions.new self
-        @transactions ||= FinApps::REST::Transactions.new self
-        @categories ||= FinApps::REST::Categories.new self
-        @budget_models ||= FinApps::REST::BudgetModels.new self
-        @budget_calculation ||= FinApps::REST::BudgetCalculation.new self
-        @budgets ||= FinApps::REST::Budgets.new self
-        @cashflows ||= FinApps::REST::Cashflows.new self
-        @alert ||= FinApps::REST::Alert.new self
-        @alert_definition ||= FinApps::REST::AlertDefinition.new self
-        @alert_settings ||= FinApps::REST::AlertSettings.new self
-        @alert_preferences ||= FinApps::REST::AlertPreferences.new self
-        @rule_sets ||= FinApps::REST::Relevance::Rulesets.new self
       end
 
     end

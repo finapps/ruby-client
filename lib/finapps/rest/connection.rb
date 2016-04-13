@@ -11,9 +11,6 @@ module FinApps
       def set_up_connection(company_credentials, config)
         logger.debug "##{__method__.to_s} => Started"
 
-        company_credentials.validate_required_strings!
-        logger.debug "##{__method__.to_s} => company_credentials passed validation."
-
         host = config[:host]
         validate_host_url! host
 
