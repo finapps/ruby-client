@@ -5,8 +5,6 @@ module FinApps
       include FinApps::Logging
       include FinApps::REST::Connection
 
-      attr_reader :connection
-
       # @param [String] company_identifier
       # @param [String] company_token
       # @param [Hash] options
@@ -17,8 +15,7 @@ module FinApps
         @config = DEFAULTS.merge! options
         logger_config @config
 
-        @company_credentials = {:company_identifier => company_identifier,
-                                :company_token => company_token}
+        @company_credentials = {:company_identifier => company_identifier, :company_token => company_token}
         @company_credentials.validate_required_strings!
 
         logger.debug "##{__method__.to_s} => Completed"
@@ -144,7 +141,6 @@ module FinApps
 
         {:user_identifier => user_identifier, :user_token => user_token}.validate_required_strings!
         logger.debug "##{__method__.to_s} => Credentials passed validation. Attempting to set user credentials on current connection."
-
 
         @config[:user_identifier] = user_identifier
         @config[:user_token] = user_token
