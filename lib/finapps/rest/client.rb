@@ -15,16 +15,11 @@ module FinApps
         logger.debug "##{__method__.to_s} => Started"
 
         @config = DEFAULTS.merge! options
-        if @config[:logger_tag].present?
-          Logging.tag= @config[:logger_tag]
-        end
-
-        set_up_logger_level @config[:log_level]
+        logger_config @config
 
         @company_credentials = {:company_identifier => company_identifier,
                                 :company_token => company_token}
         @company_credentials.validate_required_strings!
-        logger.debug "##{__method__.to_s} => company_credentials passed validation."
 
         logger.debug "##{__method__.to_s} => Completed"
       end
