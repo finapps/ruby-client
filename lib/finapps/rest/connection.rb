@@ -9,22 +9,19 @@ module FinApps
       # @param [Hash] config
       # @return [Faraday::Connection]
       def set_up_connection(company_credentials, config)
-        logger.debug "##{__method__.to_s} => Started"
+        host_url = config[:host].blank? ? DEFAULTS[:host] : config[:host]
+        raise InvalidArgumentsError.new "Invalid argument: host_url: #{host_url}" unless host_url.start_with?('http://', 'https://')
 
-        host = config[:host]
-        validate_host_url! host
-
-        base_url = "#{host}/v#{API_VERSION}"
+        base_url = "#{host_url}/v#{API_VERSION}"
         timeout = config[:timeout].blank? ? DEFAULTS[:timeout] : config[:timeout]
 
-
-        connection = Faraday.new(:url => base_url,
-                                 :request => {
-                                     :open_timeout => timeout,
-                                     :timeout => timeout},
-                                 :headers => {
-                                     :accept => HEADERS[:accept],
-                                     :user_agent => HEADERS[:user_agent]}) do |conn|
+        Faraday.new(:url => base_url,
+                    :request => {
+                        :open_timeout => timeout,
+                        :timeout => timeout},
+                    :headers => {
+                        :accept => HEADERS[:accept],
+                        :user_agent => HEADERS[:user_agent]}) do |conn|
 
           # add basic authentication header if user credentials were provided
           user_identifier = config[:user_identifier]
@@ -46,17 +43,6 @@ module FinApps
           # Adapter (ensure that the adapter is always last.)
           conn.adapter :typhoeus
         end
-
-        logger.debug "##{__method__.to_s} => Completed"
-        connection
-      end
-
-      private
-      def validate_host_url!(host_url)
-        raise MissingArgumentsError.new 'Missing argument: host_url.' if host_url.blank?
-        raise InvalidArgumentsError.new 'Invalid argument: host_url does not specify a valid protocol (http/https).' unless host_url.start_with?('http://', 'https://')
-
-        logger.debug "##{__method__.to_s} => host [#{host_url}] passed validation."
       end
 
     end
