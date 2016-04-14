@@ -34,3 +34,5 @@ RSpec.configure do |config|
   config.profile_examples = 5
   Kernel.srand config.seed
 end
+
+require 'webmock/rspec'
