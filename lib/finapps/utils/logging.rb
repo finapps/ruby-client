@@ -2,7 +2,7 @@ module FinApps
   module Logging
 
     SEVERITY_LABEL = %w(DEBUG INFO WARN ERROR FATAL UNKNOWN)
-    PROTECTED_KEYS = %w(login password password_confirm password1 token)
+    PROTECTED_KEYS = %w(login login1 password password1 password_confirm token)
     FORMAT = "\033[%sm[%s#%d] %5s -- %s: %s\033[0m\n"
     FORMAT_TAG = "\033[%sm[%s#%d] %5s -- %s: %s %s\033[0m\n"
     SEVERITY_COLOR_MAP = {:debug => '0', :info => '32', :warn => '33', :error => '31', :fatal => '31', :unknown => '0;37'}
