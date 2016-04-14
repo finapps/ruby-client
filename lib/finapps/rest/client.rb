@@ -89,13 +89,15 @@ module FinApps
       # @param [String] method
       # @param [Proc] proc
       # @return [Hash,Array<String>]
-      def send(path, method, params = {}, &proc)
+      def send_request(path, method, params = {}, &proc)
         logger.debug "##{__method__.to_s} => Started"
-        raise MissingArgumentsError.new 'Missing argument: method.' if method.blank?
-        result, error_messages = nil, nil
+
+        raise FinApps::REST::MissingArgumentsError.new 'Missing argument: path.' if path.blank?
+        raise FinApps::REST::MissingArgumentsError.new 'Missing argument: method.' if method.blank?
+
+        result, error_messages = nil, []
 
         begin
-
           case method
             when :get
               response = get(path)
@@ -106,7 +108,7 @@ module FinApps
             when :delete
               response = delete(path, params)
             else
-              raise StandardError "Method not supported: #{method}."
+              raise FinApps::REST::InvalidArgumentsError.new "Method not supported: #{method}."
           end
 
           if response.present?
@@ -115,14 +117,14 @@ module FinApps
             logger.error "##{__method__.to_s} => Null response found. Unable to process it."
           end
 
+        rescue FinApps::REST::InvalidArgumentsError => error
+          raise error
         rescue FinApps::REST::Error => error
           error_messages = error.error_messages
         rescue Faraday::ParsingError => error
-          error_messages = []
           error_messages << 'Unable to parse the server response.'
           logger.error "##{__method__.to_s} => Faraday::ParsingError, #{error.to_s}"
         rescue Exception => error
-          error_messages = []
           error_messages << 'Unexpected error.'
           logger.fatal "##{__method__.to_s} => Exception, #{error.to_s}"
           logger.fatal error

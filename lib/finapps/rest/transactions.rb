@@ -15,7 +15,7 @@ module FinApps
         path = end_point.sub ':transaction_id', ERB::Util.url_encode(transaction_id)
         logger.debug "##{__method__.to_s} => path: #{path}"
 
-        transaction, error_messages =  @client.send(path, :get)
+        transaction, error_messages =  @client.send_request(path, :get)
 
         logger.debug "##{__method__.to_s} => Completed"
         return transaction, error_messages
@@ -29,7 +29,7 @@ module FinApps
         path = Defaults::END_POINTS[:transactions_list]
         logger.debug "##{__method__.to_s} => path: #{path}"
 
-        transactions, error_messages = @client.send(path, :post, params.compact)
+        transactions, error_messages = @client.send_request(path, :post, params.compact)
 
         logger.debug "##{__method__.to_s} => Completed"
         return transactions, error_messages
@@ -43,7 +43,7 @@ module FinApps
         path = Defaults::END_POINTS[:transactions_update]
         logger.debug "##{__method__.to_s} => path: #{path}"
 
-        _, error_messages = @client.send(path, :put, params.compact)
+        _, error_messages = @client.send_request(path, :put, params.compact)
 
         logger.debug "##{__method__.to_s} => Completed"
         error_messages

@@ -18,7 +18,7 @@ module FinApps
         end_point = Defaults::END_POINTS[:users_create]
         logger.debug "##{__method__.to_s} => end_point: #{end_point}"
 
-        user, error_messages = @client.send(end_point, :post, params) { |r| User.new(r.body) }
+        user, error_messages = @client.send_request(end_point, :post, params) { |r| User.new(r.body) }
         logger.debug "##{__method__.to_s} => Completed"
 
         return user, error_messages
@@ -32,7 +32,7 @@ module FinApps
         path = Defaults::END_POINTS[:users_update]
         logger.debug "##{__method__.to_s} => path: #{path}"
 
-        _, error_messages = @client.send(path, :put, params.compact)
+        _, error_messages = @client.send_request(path, :put, params.compact)
 
         logger.debug "##{__method__.to_s} => Completed"
         error_messages
@@ -46,7 +46,7 @@ module FinApps
         path = Defaults::END_POINTS[:users_update_password]
         logger.debug "##{__method__.to_s} => path: #{path}"
 
-        user, error_messages = @client.send(path, :put, params.compact) { |r| User.new(r.body) }
+        user, error_messages = @client.send_request(path, :put, params.compact) { |r| User.new(r.body) }
         logger.debug "##{__method__.to_s} => Completed"
 
         return user, error_messages
@@ -63,7 +63,7 @@ module FinApps
         end_point = Defaults::END_POINTS[:users_login]
         logger.debug "##{__method__.to_s} => end_point: #{end_point}"
 
-        user, error_messages = @client.send(end_point, :post, params) { |r| User.new(r.body) }
+        user, error_messages = @client.send_request(end_point, :post, params) { |r| User.new(r.body) }
         logger.debug "##{__method__.to_s} => Completed"
 
         return user, error_messages
@@ -83,7 +83,7 @@ module FinApps
         path = end_point.sub ':public_id', ERB::Util.url_encode(public_id)
         logger.debug "##{__method__.to_s} => path: #{path}"
 
-        _, error_messages = @client.send(path, :delete)
+        _, error_messages = @client.send_request(path, :delete)
         logger.debug "##{__method__.to_s} => Completed"
 
         error_messages

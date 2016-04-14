@@ -16,7 +16,7 @@ module FinApps
         path = end_point
         logger.debug "##{__method__.to_s} => path: #{path}"
 
-        result, error_messages = @client.send(path, :get)
+        result, error_messages = @client.send_request(path, :get)
 
         logger.debug "##{__method__.to_s} => Completed"
         return result, error_messages
@@ -35,7 +35,7 @@ module FinApps
         path = end_point.sub ':alert_name', ERB::Util.url_encode(alert_name)
         logger.debug "##{__method__.to_s} => path: #{path}"
 
-        result, error_messages = @client.send(path, :get)
+        result, error_messages = @client.send_request(path, :get)
 
         logger.debug "##{__method__.to_s} => Completed"
         return result, error_messages

@@ -25,7 +25,7 @@ module FinApps
         path = end_point.sub(':start_date', ERB::Util.url_encode(start_date)).sub(':end_date', ERB::Util.url_encode(end_date))
         logger.debug "##{__method__.to_s} => path: #{path}"
 
-        result, error_messages = @client.send(path, :get)
+        result, error_messages = @client.send_request(path, :get)
         if result.present? && error_messages.blank?
           categories = result_categories(result)
           raise 'Category results-set for budget is not an array.' unless categories.respond_to?(:each)
@@ -48,7 +48,7 @@ module FinApps
         end_point = Defaults::END_POINTS[:budget_update]
         logger.debug "##{__method__.to_s} => end_point: #{end_point}"
 
-        budget, error_messages = @client.send(end_point, :put, params)
+        budget, error_messages = @client.send_request(end_point, :put, params)
         logger.debug "##{__method__.to_s} => Completed"
 
         return budget, error_messages
