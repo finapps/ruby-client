@@ -1,7 +1,10 @@
+require 'base64'
+
 RSpec.describe FinApps::REST::Connection do
 
   let(:dummy_class) { Class.new { extend FinApps::REST::Connection } }
   let(:valid_credentials) { {:company_identifier => 'id', :company_token => 'token'} }
+  let(:user_credentials) { {:user_identifier => 'user_id', :user_token => 'user_token'} }
 
   it { expect(dummy_class).to respond_to(:set_up_connection) }
 
@@ -18,18 +21,13 @@ RSpec.describe FinApps::REST::Connection do
     end
 
     context 'when using valid user credentials' do
-      user_credentials = {:user_identifier => 'user_id', :user_token => 'user_token'}
       subject(:set_up_connection) { dummy_class.set_up_connection(valid_credentials, user_credentials) }
+      let(:header) { Faraday::Request::BasicAuthentication.header(user_credentials[:user_identifier], user_credentials[:user_token]) }
 
       it { expect(set_up_connection.builder.handlers).to include(Faraday::Request::BasicAuthentication) }
       it 'sets a proper authorization header' do
-        stub_request(:get, "#{FinApps::REST::Defaults::DEFAULTS[:host]}/auth-echo").
-            to_return(:status => 200,
-                      :body => '',
-                      :headers => {})
-
-        response = set_up_connection.get('/auth-echo')
-        expect(response.env.request_headers).to include({:Authorization => 'Basic dXNlcl9pZDp1c2VyX3Rva2Vu'})
+        stub_request(:get, "#{FinApps::REST::Defaults::DEFAULTS[:host]}/auth-echo").to_return(:status => 200)
+        expect(set_up_connection.get('/auth-echo').env.request_headers).to include({:authorization => header})
       end
     end
 
