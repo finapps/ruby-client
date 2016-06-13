@@ -10,13 +10,13 @@ module FinApps
       end
 
       def call(env)
-        raise MissingArgumentsError.new 'Missing argument: company_identifier.' if @options[:company_identifier].blank?
-        raise MissingArgumentsError.new 'Missing argument: company_token.' if @options[:company_token].blank?
+        company_identifier = @options[:company_identifier].trim
+        raise FinApps::REST::MissingArgumentsError.new 'Missing argument: company_identifier.' if company_identifier.blank?
 
-        header_value = "#{@options[:company_identifier].trim}=#{@options[:company_token].trim}"
-        logger.debug "##{__method__.to_s} => Request Header X-FinApps-Token: #{header_value}"
-        env[:request_headers]['X-FinApps-Token'] = header_value
+        company_token = @options[:company_token].trim
+        raise FinApps::REST::MissingArgumentsError.new 'Missing argument: company_token.' if company_token.blank?
 
+        env[:request_headers]['X-FinApps-Token'] = "#{company_identifier}=#{company_token}"
         @app.call(env)
       end
 

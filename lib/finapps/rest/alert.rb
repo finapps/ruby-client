@@ -19,7 +19,7 @@ module FinApps
         path = path.sub ':read', ERB::Util.url_encode(read)
         logger.debug "##{__method__.to_s} => path: #{path}"
 
-        result, error_messages = @client.send(path, :get)
+        result, error_messages = @client.send_request(path, :get)
 
         return result, error_messages
       end
@@ -39,7 +39,7 @@ module FinApps
         path = path.sub ':read', ERB::Util.url_encode(read)
         logger.debug "##{__method__.to_s} => path: #{path}"
 
-        _, error_messages = @client.send(path, :put)
+        _, error_messages = @client.send_request(path, :put)
 
         error_messages
       end
@@ -55,7 +55,7 @@ module FinApps
         path = end_point.sub ':alert_id', ERB::Util.url_encode(alert_id)
         logger.debug "##{__method__.to_s} => path: #{path}"
 
-        _, error_messages = @client.send(path, :delete)
+        _, error_messages = @client.send_request(path, :delete)
 
         error_messages
       end

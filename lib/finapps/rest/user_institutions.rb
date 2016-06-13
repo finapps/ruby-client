@@ -10,7 +10,7 @@ module FinApps
         path = Defaults::END_POINTS[:user_institutions_list]
         logger.debug "##{__method__.to_s} => path: #{path}"
 
-        user_institutions, error_messages = @client.send(path, :get)
+        user_institutions, error_messages = @client.send_request(path, :get)
 
         return user_institutions, error_messages
       end
@@ -29,7 +29,7 @@ module FinApps
         path = end_point.sub ':site_id', ERB::Util.url_encode(site_id)
         logger.debug "##{__method__.to_s} => path: #{path}"
 
-        user_institution, error_messages = @client.send(path, :post, :parameters => parameters)
+        user_institution, error_messages = @client.send_request(path, :post, :parameters => parameters)
 
         return user_institution, error_messages
       end
@@ -45,7 +45,7 @@ module FinApps
         path = end_point.sub ':user_institution_id', ERB::Util.url_encode(user_institution_id)
         logger.debug "##{__method__.to_s} => path: #{path}"
 
-        user_institution, error_messages = @client.send(path, :get)
+        user_institution, error_messages = @client.send_request(path, :get)
 
         return user_institution, error_messages
       end
@@ -60,7 +60,7 @@ module FinApps
         path = end_point.sub ':user_institution_id', ERB::Util.url_encode(user_institution_id)
         logger.debug "##{__method__.to_s} => path: #{path}"
 
-        user_institution, error_messages = @client.send(path, :get)
+        user_institution, error_messages = @client.send_request(path, :get)
 
         return user_institution, error_messages
       end
@@ -75,7 +75,7 @@ module FinApps
         path = end_point.sub ':user_institution_id', ERB::Util.url_encode(user_institution_id)
         logger.debug "##{__method__.to_s} => path: #{path}"
 
-        user_institution, error_messages = @client.send(path, :get)
+        user_institution, error_messages = @client.send_request(path, :get)
 
         return user_institution, error_messages
       end
@@ -93,7 +93,7 @@ module FinApps
         path = end_point.sub ':user_institution_id', ERB::Util.url_encode(user_institution_id)
         logger.debug "##{__method__.to_s} => path: #{path}"
 
-        user_institution, error_messages = @client.send(path, :put, :parameters => parameters)
+        user_institution, error_messages = @client.send_request(path, :put, :parameters => parameters)
 
         return user_institution, error_messages
       end
@@ -111,7 +111,7 @@ module FinApps
         path = end_point.sub ':user_institution_id', ERB::Util.url_encode(user_institution_id)
         logger.debug "##{__method__.to_s} => path: #{path}"
 
-        user_institution, error_messages = @client.send(path, :put, :parameters => parameters)
+        user_institution, error_messages = @client.send_request(path, :put, :parameters => parameters)
 
         return user_institution, error_messages
       end
@@ -120,7 +120,7 @@ module FinApps
         path = Defaults::END_POINTS[:user_institutions_refresh]
         logger.debug "##{__method__.to_s} => path: #{path}"
 
-        user_institutions, error_messages = @client.send(path, :get)
+        user_institutions, error_messages = @client.send_request(path, :get)
 
         return user_institutions, error_messages
       end
@@ -136,7 +136,7 @@ module FinApps
         path = end_point.sub ':user_institution_id', ERB::Util.url_encode(user_institution_id)
         logger.debug "##{__method__.to_s} => path: #{path}"
 
-        _, error_messages = @client.send(path, :delete)
+        _, error_messages = @client.send_request(path, :delete)
 
         error_messages
       end

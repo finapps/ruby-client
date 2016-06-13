@@ -1,4 +1,5 @@
+--drb
+--format Fuubar
 --color
---format documentation
 --warnings
 --require spec_helper

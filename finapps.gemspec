@@ -20,16 +20,17 @@ Gem::Specification.new do |spec|
   spec.test_files = Dir['spec/**/*.rb']
   spec.require_paths = ['lib']
 
-  spec.add_runtime_dependency 'thor',  '~> 0.19', '>= 0.19.1'
-  spec.add_runtime_dependency 'faraday',  '~> 0.9', '>= 0.9.0'
-  spec.add_runtime_dependency 'faraday_middleware',  '~> 0.9', '>= 0.9.1'
-  spec.add_runtime_dependency 'typhoeus',  '~> 0.6', '>= 0.6.8'
+  spec.add_runtime_dependency 'faraday',  '~> 0.9', '>= 0.9.2'
+  spec.add_runtime_dependency 'faraday_middleware',  '~> 0.10', '>= 0.10.0'
+  spec.add_runtime_dependency 'typhoeus',  '~> 1.0', '>= 1.0.1'
   spec.add_runtime_dependency 'rash', '~> 0.4', '>= 0.4.0'
 
-  spec.add_development_dependency 'bundler', '~> 1.6', '>= 1.6.2'
-  spec.add_development_dependency 'rake', '~> 0.9', '>= 0.9.6'
-  spec.add_development_dependency 'rspec', '~> 3.0', '>= 3.0.0'
-  # spec.add_development_dependency 'webmock', '~> 1.18', '>= 1.18.0'
+  spec.add_development_dependency 'bundler', '~> 1.11', '>= 1.11.2'
+  spec.add_development_dependency 'rake', '~> 11.1', '>= 11.1.2'
+  spec.add_development_dependency 'fuubar', '~> 2.0', '>= 2.0.0'
+  spec.add_development_dependency 'rspec', '~> 3.4', '>= 3.4.0'
+  spec.add_development_dependency 'webmock', '~> 1.24', '>= 1.24.2'
+  spec.add_development_dependency 'sinatra', '~> 1.4', '>= 1.4.7'
 
   spec.extra_rdoc_files = %w(README.md LICENSE.txt)
   spec.rdoc_options = %w(--line-numbers --inline-source --title finapps-ruby --main README.md)

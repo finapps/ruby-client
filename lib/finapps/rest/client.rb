@@ -5,33 +5,83 @@ module FinApps
       include FinApps::Logging
       include FinApps::REST::Connection
 
-      attr_reader :connection, :users, :institutions, :user_institutions,
-                  :transactions, :categories,
-                  :budget_models, :budget_calculation, :budgets, :cashflows,
-                  :alert, :alert_definition, :alert_settings, :alert_preferences,
-                  :rule_sets
-
       # @param [String] company_identifier
       # @param [String] company_token
       # @param [Hash] options
       # @return [FinApps::REST::Client]
       def initialize(company_identifier, company_token, options = {})
         @config = DEFAULTS.merge! options
-        if @config[:logger_tag].present?
-          Logging.tag= @config[:logger_tag]
-          logger.info "##{__method__.to_s} => Custom tag for logs: #{@config[:logger_tag]}"
-        end
+        logger_config @config
 
-        set_up_logger_level @config[:log_level]
-        logger.info "##{__method__.to_s} => Current logger level: #{SEVERITY_LABEL[logger.level]}"
+        @company_credentials = {:company_identifier => company_identifier, :company_token => company_token}
+        @company_credentials.validate_required_strings!
 
-        @company_credentials = {:company_identifier => company_identifier,
-                                :company_token => company_token}
-        @connection = set_up_connection(@company_credentials, @config)
-        logger.debug "##{__method__.to_s} => Connection initialized"
+        logger.debug "##{__method__.to_s} => Completed"
+      end
 
+<<<<<<< HEAD
         set_up_resources
         logger.debug "##{__method__.to_s} => All resources initialized"
+=======
+      def connection
+        @connection ||= set_up_connection(@company_credentials, @config)
+      end
+
+      def users
+        @users ||= FinApps::REST::Users.new self
+      end
+
+      def institutions
+        @institutions ||= FinApps::REST::Institutions.new self
+      end
+
+      def user_institutions
+        @user_institutions ||= FinApps::REST::UserInstitutions.new self
+      end
+
+      def transactions
+        @transactions ||= FinApps::REST::Transactions.new self
+      end
+
+      def categories
+        @categories ||= FinApps::REST::Categories.new self
+      end
+
+      def budget_models
+        @budget_models ||= FinApps::REST::BudgetModels.new self
+      end
+
+      def budget_calculation
+        @budget_calculation ||= FinApps::REST::BudgetCalculation.new self
+      end
+
+      def budgets
+        @budgets ||= FinApps::REST::Budgets.new self
+      end
+
+      def cashflows
+        @cashflows ||= FinApps::REST::Cashflows.new self
+      end
+
+      def alert
+        @alert ||= FinApps::REST::Alert.new self
+      end
+
+      def alert_definition
+        @alert_definition ||= FinApps::REST::AlertDefinition.new self
+      end
+
+      def alert_settings
+        @alert_settings ||= FinApps::REST::AlertSettings.new self
+      end
+
+      def alert_preferences
+        @alert_preferences ||= FinApps::REST::AlertPreferences.new self
+      end
+
+      def rule_sets
+        @rule_sets ||= FinApps::REST::Relevance::Rulesets.new self
+>>>>>>> develop
       end
 
       # Performs HTTP GET, POST, UPDATE and DELETE requests.
@@ -42,12 +92,21 @@ module FinApps
       # @param [String] method
       # @param [Proc] proc
       # @return [Hash,Array<String>]
+<<<<<<< HEAD
       def send(path, method, params = {}, &proc)
         raise MissingArgumentsError.new 'Missing argument: method.' if method.blank?
         result, error_messages = nil, nil
+=======
+      def send_request(path, method, params = {}, &proc)
+        logger.debug "##{__method__.to_s} => Started"
+>>>>>>> develop
+
+        raise FinApps::REST::MissingArgumentsError.new 'Missing argument: path.' if path.blank?
+        raise FinApps::REST::MissingArgumentsError.new 'Missing argument: method.' if method.blank?
+
+        result, error_messages = nil, []
 
         begin
-
           case method
             when :get
               response = get(path)
@@ -58,7 +117,7 @@ module FinApps
             when :delete
               response = delete(path, params)
             else
-              raise StandardError "Method not supported: #{method}."
+              raise FinApps::REST::InvalidArgumentsError.new "Method not supported: #{method}."
           end
 
           if response.present?
@@ -67,14 +126,14 @@ module FinApps
             logger.error "##{__method__.to_s} => Null response found. Unable to process it."
           end
 
+        rescue FinApps::REST::InvalidArgumentsError => error
+          raise error
         rescue FinApps::REST::Error => error
           error_messages = error.error_messages
         rescue Faraday::ParsingError => error
-          error_messages = []
           error_messages << 'Unable to parse the server response.'
           logger.error "##{__method__.to_s} => Faraday::ParsingError, #{error.to_s}"
         rescue Exception => error
-          error_messages = []
           error_messages << 'Unexpected error.'
           logger.fatal "##{__method__.to_s} => Exception, #{error.to_s}"
           logger.fatal error
@@ -89,7 +148,6 @@ module FinApps
       def user_credentials!(user_identifier, user_token)
         {:user_identifier => user_identifier, :user_token => user_token}.validate_required_strings!
         logger.debug "##{__method__.to_s} => Credentials passed validation. Attempting to set user credentials on current connection."
-
 
         @config[:user_identifier] = user_identifier
         @config[:user_token] = user_token
@@ -108,7 +166,16 @@ module FinApps
         raise MissingArgumentsError.new 'Missing argument: path.' if path.blank?
 
         logger.debug "##{__method__.to_s} => GET path:#{path}"
+<<<<<<< HEAD
         @connection.get { |req| req.url path }
+=======
+        response = connection.get do |req|
+          req.url path
+        end
+
+        logger.debug "##{__method__.to_s} => Completed"
+        response
+>>>>>>> develop
       end
 
       # Performs an HTTP POST request.
@@ -122,7 +189,11 @@ module FinApps
         raise MissingArgumentsError.new 'Missing argument: path.' if path.blank?
 
         logger.debug "##{__method__.to_s} => POST path:#{path} params:#{skip_sensitive_data params }"
+<<<<<<< HEAD
         @connection.post do |req|
+=======
+        response = connection.post do |req|
+>>>>>>> develop
           req.url path
           req.body = params
         end
@@ -139,7 +210,11 @@ module FinApps
         raise MissingArgumentsError.new 'Missing argument: path.' if path.blank?
 
         logger.debug "##{__method__.to_s} => PUT path:#{path} params:#{skip_sensitive_data(params)}"
+<<<<<<< HEAD
         @connection.put do |req|
+=======
+        response = connection.put do |req|
+>>>>>>> develop
           req.url path
           req.body = params
         end
@@ -156,12 +231,17 @@ module FinApps
         raise MissingArgumentsError.new 'Missing argument: path.' if path.blank?
 
         logger.debug "##{__method__.to_s} => DELETE path:#{path} params:#{skip_sensitive_data(params)}"
+<<<<<<< HEAD
         @connection.delete do |req|
+=======
+        response = connection.delete do |req|
+>>>>>>> develop
           req.url path
           req.body = params
         end
       end
 
+<<<<<<< HEAD
       # Initialize resources.
       #
       def set_up_resources
@@ -181,6 +261,8 @@ module FinApps
         @rule_sets ||= FinApps::REST::Relevance::Rulesets.new self
       end
 
+=======
+>>>>>>> develop
     end
   end
 end

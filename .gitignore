@@ -1,11 +1,7 @@
+/spec/examples.txt
 *.gem
 .config
-.yardoc
 Gemfile.lock
-InstalledFiles
-_yardoc
-coverage
-doc/
 lib/bundler/man
 pkg
 rdoc
@@ -14,6 +10,7 @@ rdoc
 *.o
 *.a
 mkmf.log
+
 
 # Ignore bundler config.
 /.bundle
@@ -26,17 +23,9 @@ mkmf.log
 /tmp
 
 # various artifacts
-**.war
-*.rbc
-*.sassc
 .project
 .secret
-.rspec
 .idea/
 /spec/tmp/*
-/cache
+/spec/examples.txt
 
-*.BACKUP.*
-*.BASE.*
-*.LOCAL.*
-*.REMOTE.*

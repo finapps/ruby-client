@@ -1,9 +1,0 @@
-#!/usr/bin/env ruby
-require 'finapps/cli/common'
-require 'finapps/cli/users'
-require 'finapps/cli/institutions'
-require 'finapps/cli/budgets'
-require 'finapps/cli/cashflows'
-require 'finapps/cli/alert_preferences'
-
-FinApps::CLI.start

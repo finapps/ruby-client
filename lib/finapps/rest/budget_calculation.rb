@@ -22,7 +22,13 @@ module FinApps
         path = end_point.sub(':budget_model_id', ERB::Util.url_encode(budget_model_id)).sub(':income', ERB::Util.url_encode(income))
         logger.debug "##{__method__.to_s} => path: #{path}"
 
+<<<<<<< HEAD
         budget_calculation, error_messages = @client.send(path, :get)
+=======
+        budget_calculation, error_messages = @client.send_request(path, :get)
+        logger.debug "##{__method__.to_s} => Completed"
+
+>>>>>>> develop
         return budget_calculation, error_messages
       end
 
@@ -34,7 +40,13 @@ module FinApps
         path = end_point
         logger.debug "##{__method__.to_s} => path: #{path}"
 
+<<<<<<< HEAD
         budget_calculation, error_messages = @client.send(path, :get)
+=======
+        budget_calculation, error_messages = @client.send_request(path, :get)
+        logger.debug "##{__method__.to_s} => Completed"
+
+>>>>>>> develop
         return budget_calculation, error_messages
       end
 
