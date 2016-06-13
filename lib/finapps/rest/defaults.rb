@@ -11,7 +11,7 @@ module FinApps
 
       # noinspection SpellCheckingInspection
       DEFAULTS = {
-          :host => 'https://www.financialapps.com',
+          :host => 'https://api.financialapps.com',
           :timeout => 30,
           :proxy_addr => nil,
           :proxy_port => nil,
@@ -27,6 +27,7 @@ module FinApps
           :users_update => 'user',
           :users_update_password => 'user/password',
           :users_delete => 'users/:public_id',
+          :users_show => 'users/:public_id',
           :users_login => 'users/login',
 
           :relevance_rulesets_list => 'relevance/ruleset/names',

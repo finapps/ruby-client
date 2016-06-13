@@ -164,7 +164,7 @@ module FinApps
         raise MissingArgumentsError.new 'Missing argument: path.' if path.blank?
 
         logger.debug "##{__method__.to_s} => GET path:#{path}"
-        response = @connection.get do |req|
+        response = connection.get do |req|
           req.url path
         end
 
@@ -184,7 +184,7 @@ module FinApps
         raise MissingArgumentsError.new 'Missing argument: path.' if path.blank?
 
         logger.debug "##{__method__.to_s} => POST path:#{path} params:#{skip_sensitive_data params }"
-        response = @connection.post do |req|
+        response = connection.post do |req|
           req.url path
           req.body = params
         end
@@ -205,7 +205,7 @@ module FinApps
         raise MissingArgumentsError.new 'Missing argument: path.' if path.blank?
 
         logger.debug "##{__method__.to_s} => PUT path:#{path} params:#{skip_sensitive_data(params)}"
-        response = @connection.put do |req|
+        response = connection.put do |req|
           req.url path
           req.body = params
         end
@@ -226,7 +226,7 @@ module FinApps
         raise MissingArgumentsError.new 'Missing argument: path.' if path.blank?
 
         logger.debug "##{__method__.to_s} => DELETE path:#{path} params:#{skip_sensitive_data(params)}"
-        response = @connection.delete do |req|
+        response = connection.delete do |req|
           req.url path
           req.body = params
         end
