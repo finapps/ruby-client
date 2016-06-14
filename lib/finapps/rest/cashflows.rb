@@ -12,7 +12,6 @@ module FinApps
       def show(start_date, end_date)
         raise MissingArgumentsError.new 'Missing argument: start_date.' if start_date.blank?
         logger.debug "##{__method__.to_s} => start_date: #{start_date}"
-
         raise MissingArgumentsError.new 'Missing argument: end_date.' if end_date.blank?
         logger.debug "##{__method__.to_s} => end_date: #{end_date}"
 
