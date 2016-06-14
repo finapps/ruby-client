@@ -5,26 +5,22 @@ module FinApps
       include FinApps::Logging
       include FinApps::REST::Connection
 
+      attr_reader :config, :company_credentials
+
       # @param [String] company_identifier
       # @param [String] company_token
       # @param [Hash] options
       # @return [FinApps::REST::Client]
       def initialize(company_identifier, company_token, options = {})
         @config = DEFAULTS.merge! options
-        logger_config @config
+        logger_config config
 
         @company_credentials = {:company_identifier => company_identifier, :company_token => company_token}
         @company_credentials.validate_required_strings!
-
-        logger.debug "##{__method__.to_s} => Completed"
       end
 
-<<<<<<< HEAD
-        set_up_resources
-        logger.debug "##{__method__.to_s} => All resources initialized"
-=======
       def connection
-        @connection ||= set_up_connection(@company_credentials, @config)
+        @connection ||= set_up_connection(self.company_credentials, @config)
       end
 
       def users
@@ -81,7 +77,6 @@ module FinApps
 
       def rule_sets
         @rule_sets ||= FinApps::REST::Relevance::Rulesets.new self
->>>>>>> develop
       end
 
       # Performs HTTP GET, POST, UPDATE and DELETE requests.
@@ -92,15 +87,7 @@ module FinApps
       # @param [String] method
       # @param [Proc] proc
       # @return [Hash,Array<String>]
-<<<<<<< HEAD
-      def send(path, method, params = {}, &proc)
-        raise MissingArgumentsError.new 'Missing argument: method.' if method.blank?
-        result, error_messages = nil, nil
-=======
       def send_request(path, method, params = {}, &proc)
-        logger.debug "##{__method__.to_s} => Started"
->>>>>>> develop
-
         raise FinApps::REST::MissingArgumentsError.new 'Missing argument: path.' if path.blank?
         raise FinApps::REST::MissingArgumentsError.new 'Missing argument: method.' if method.blank?
 
@@ -140,6 +127,7 @@ module FinApps
         ensure
           logger.debug "##{__method__.to_s} => Failed, error_messages: #{error_messages.pretty_inspect}" if error_messages.present?
         end
+
         return result, error_messages
       end
 
@@ -147,11 +135,12 @@ module FinApps
       # @param [String] user_token
       def user_credentials!(user_identifier, user_token)
         {:user_identifier => user_identifier, :user_token => user_token}.validate_required_strings!
-        logger.debug "##{__method__.to_s} => Credentials passed validation. Attempting to set user credentials on current connection."
 
         @config[:user_identifier] = user_identifier
         @config[:user_token] = user_token
-        @connection = set_up_connection(@company_credentials, @config)
+
+        logger.debug "##{__method__.to_s} => Attempting to set user credentials on current connection."
+        @connection = set_up_connection(company_credentials, config)
       end
 
       private
@@ -166,16 +155,7 @@ module FinApps
         raise MissingArgumentsError.new 'Missing argument: path.' if path.blank?
 
         logger.debug "##{__method__.to_s} => GET path:#{path}"
-<<<<<<< HEAD
-        @connection.get { |req| req.url path }
-=======
-        response = connection.get do |req|
-          req.url path
-        end
-
-        logger.debug "##{__method__.to_s} => Completed"
-        response
->>>>>>> develop
+        connection.get { |req| req.url path }
       end
 
       # Performs an HTTP POST request.
@@ -189,11 +169,7 @@ module FinApps
         raise MissingArgumentsError.new 'Missing argument: path.' if path.blank?
 
         logger.debug "##{__method__.to_s} => POST path:#{path} params:#{skip_sensitive_data params }"
-<<<<<<< HEAD
-        @connection.post do |req|
-=======
-        response = connection.post do |req|
->>>>>>> develop
+        connection.post do |req|
           req.url path
           req.body = params
         end
@@ -210,11 +186,7 @@ module FinApps
         raise MissingArgumentsError.new 'Missing argument: path.' if path.blank?
 
         logger.debug "##{__method__.to_s} => PUT path:#{path} params:#{skip_sensitive_data(params)}"
-<<<<<<< HEAD
-        @connection.put do |req|
-=======
-        response = connection.put do |req|
->>>>>>> develop
+        connection.put do |req|
           req.url path
           req.body = params
         end
@@ -231,38 +203,12 @@ module FinApps
         raise MissingArgumentsError.new 'Missing argument: path.' if path.blank?
 
         logger.debug "##{__method__.to_s} => DELETE path:#{path} params:#{skip_sensitive_data(params)}"
-<<<<<<< HEAD
-        @connection.delete do |req|
-=======
-        response = connection.delete do |req|
->>>>>>> develop
+        connection.delete do |req|
           req.url path
           req.body = params
         end
       end
 
-<<<<<<< HEAD
-      # Initialize resources.
-      #
-      def set_up_resources
-        @users ||= FinApps::REST::Users.new self
-        @institutions ||= FinApps::REST::Institutions.new self
-        @user_institutions ||= FinApps::REST::UserInstitutions.new self
-        @transactions ||= FinApps::REST::Transactions.new self
-        @categories ||= FinApps::REST::Categories.new self
-        @budget_models ||= FinApps::REST::BudgetModels.new self
-        @budget_calculation ||= FinApps::REST::BudgetCalculation.new self
-        @budgets ||= FinApps::REST::Budgets.new self
-        @cashflows ||= FinApps::REST::Cashflows.new self
-        @alert ||= FinApps::REST::Alert.new self
-        @alert_definition ||= FinApps::REST::AlertDefinition.new self
-        @alert_settings ||= FinApps::REST::AlertSettings.new self
-        @alert_preferences ||= FinApps::REST::AlertPreferences.new self
-        @rule_sets ||= FinApps::REST::Relevance::Rulesets.new self
-      end
-
-=======
->>>>>>> develop
     end
   end
 end

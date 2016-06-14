@@ -11,7 +11,6 @@ module FinApps
         logger.debug "##{__method__.to_s} => path: #{path}"
 
         user_institutions, error_messages = @client.send_request(path, :get)
-
         return user_institutions, error_messages
       end
 
@@ -30,7 +29,6 @@ module FinApps
         logger.debug "##{__method__.to_s} => path: #{path}"
 
         user_institution, error_messages = @client.send_request(path, :post, :parameters => parameters)
-
         return user_institution, error_messages
       end
 
@@ -46,7 +44,6 @@ module FinApps
         logger.debug "##{__method__.to_s} => path: #{path}"
 
         user_institution, error_messages = @client.send_request(path, :get)
-
         return user_institution, error_messages
       end
 
@@ -61,7 +58,6 @@ module FinApps
         logger.debug "##{__method__.to_s} => path: #{path}"
 
         user_institution, error_messages = @client.send_request(path, :get)
-
         return user_institution, error_messages
       end
 
@@ -76,7 +72,6 @@ module FinApps
         logger.debug "##{__method__.to_s} => path: #{path}"
 
         user_institution, error_messages = @client.send_request(path, :get)
-
         return user_institution, error_messages
       end
 
@@ -94,7 +89,6 @@ module FinApps
         logger.debug "##{__method__.to_s} => path: #{path}"
 
         user_institution, error_messages = @client.send_request(path, :put, :parameters => parameters)
-
         return user_institution, error_messages
       end
 
@@ -112,7 +106,6 @@ module FinApps
         logger.debug "##{__method__.to_s} => path: #{path}"
 
         user_institution, error_messages = @client.send_request(path, :put, :parameters => parameters)
-
         return user_institution, error_messages
       end
 
@@ -121,7 +114,6 @@ module FinApps
         logger.debug "##{__method__.to_s} => path: #{path}"
 
         user_institutions, error_messages = @client.send_request(path, :get)
-
         return user_institutions, error_messages
       end
 
@@ -137,7 +129,6 @@ module FinApps
         logger.debug "##{__method__.to_s} => path: #{path}"
 
         _, error_messages = @client.send_request(path, :delete)
-
         error_messages
       end
 
