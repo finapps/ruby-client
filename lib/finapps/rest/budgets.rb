@@ -6,13 +6,13 @@ module FinApps
     class Budgets < FinApps::REST::Resources
       include FinApps::REST::Defaults
 
+      # Shows budget results for a given date range.
       # @param [Date] start_date
       # @param [Date] end_date
       # @return [Hash, Array<String>]
       def show(start_date, end_date)
         raise MissingArgumentsError.new 'Missing argument: start_date.' if start_date.blank?
         logger.debug "##{__method__.to_s} => start_date: #{start_date}"
-
         raise MissingArgumentsError.new 'Missing argument: end_date.' if end_date.blank?
         logger.debug "##{__method__.to_s} => end_date: #{end_date}"
 
@@ -36,6 +36,7 @@ module FinApps
         return budget, error_messages
       end
 
+      # Updates the budget parameters.
       # @param [Hash] params
       # @return [Array<Hash>, Array<String>]
       def update(params={})
@@ -44,13 +45,7 @@ module FinApps
         end_point = Defaults::END_POINTS[:budget_update]
         logger.debug "##{__method__.to_s} => end_point: #{end_point}"
 
-<<<<<<< HEAD
-        budget, error_messages = @client.send(end_point, :put, params)
-=======
         budget, error_messages = @client.send_request(end_point, :put, params)
-        logger.debug "##{__method__.to_s} => Completed"
-
->>>>>>> develop
         return budget, error_messages
       end
 
