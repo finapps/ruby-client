@@ -18,7 +18,7 @@ module FinApps
         path = end_point.sub ':search_term', ERB::Util.url_encode(term)
         logger.debug "##{__method__.to_s} => path: #{path}"
 
-        institutions, error_messages = @client.send_request(path, :get)
+        institutions, error_messages = client.send_request(path, :get)
         return institutions, error_messages
       end
 
@@ -33,7 +33,7 @@ module FinApps
         path = end_point.sub ':site_id', ERB::Util.url_encode(site_id)
         logger.debug "##{__method__.to_s} => path: #{path}"
 
-        institution, error_messages = @client.send_request(path, :get) { |r| Institution.new(r.body) }
+        institution, error_messages = client.send_request(path, :get) { |r| Institution.new(r.body) }
         return institution, error_messages
       end
 

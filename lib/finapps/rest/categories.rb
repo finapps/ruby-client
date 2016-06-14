@@ -12,7 +12,7 @@ module FinApps
         path = end_point
         logger.debug "##{__method__.to_s} => path: #{path}"
 
-        categories, error_messages = @client.send_request(path, :get)
+        categories, error_messages = client.send_request(path, :get)
         return categories, error_messages
       end
 

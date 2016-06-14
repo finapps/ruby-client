@@ -28,7 +28,7 @@ module FinApps
         path = end_point.sub(':start_date', ERB::Util.url_encode(start_date)).sub(':end_date', ERB::Util.url_encode(end_date))
         logger.debug "##{__method__.to_s} => path: #{path}"
 
-        result, error_messages = @client.send_request(path, :get)
+        result, error_messages = client.send_request(path, :get)
         if result.present? && error_messages.blank?
 
           summary = extract_value(result, 'summary')
