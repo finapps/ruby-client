@@ -6,6 +6,7 @@ module FinApps
     class AlertPreferences < FinApps::REST::Resources
       include FinApps::REST::Defaults
 
+      # Shows alert preferences for a given user
       # @return [Hash, Array<String>]
       def show
         end_point = Defaults::END_POINTS[:alert_preferences_show]
@@ -14,16 +15,11 @@ module FinApps
         path = end_point
         logger.debug "##{__method__.to_s} => path: #{path}"
 
-<<<<<<< HEAD
-        result, error_messages = @client.send(path, :get)
-=======
         result, error_messages = @client.send_request(path, :get)
-
-        logger.debug "##{__method__.to_s} => Completed"
->>>>>>> develop
         return result, error_messages
       end
 
+      # Updates alert preferences for a given user
       # @return [Hash, Array<String>]
       def update(params)
         raise MissingArgumentsError.new 'Missing argument: params.' if params.blank?
@@ -35,13 +31,7 @@ module FinApps
         path = end_point
         logger.debug "##{__method__.to_s} => path: #{path}"
 
-<<<<<<< HEAD
-        _, error_messages = @client.send(path, :put, params.compact)
-=======
         _, error_messages = @client.send_request(path, :put, params.compact)
-
-        logger.debug "##{__method__.to_s} => Completed"
->>>>>>> develop
         error_messages
       end
 
