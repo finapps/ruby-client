@@ -35,17 +35,9 @@ module FinApps
 
     end
 
-<<<<<<< HEAD
-    def set_up_logger_level(logger_level)
-      unless logger_level.blank? || logger.level == logger_level
-        logger.info "##{__method__.to_s} => Setting logger level to #{SEVERITY_LABEL[logger_level]}"
-        logger.level = logger_level
-      end
-=======
     def logger_config(config)
       Logging.tag= config[:logger_tag] if config[:logger_tag].present?
       Logging.level = config[:log_level] if config[:log_level].present?
->>>>>>> develop
     end
 
     # noinspection SpellCheckingInspection
