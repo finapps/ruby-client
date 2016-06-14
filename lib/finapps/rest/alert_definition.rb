@@ -6,6 +6,7 @@ module FinApps
     class AlertDefinition < FinApps::REST::Resources
       include FinApps::REST::Defaults
 
+      # Returns a list of alert definitions for current tenant.
       # @return [Hash, Array<String>]
       def list
         end_point = Defaults::END_POINTS[:alert_definition_list]
@@ -14,16 +15,11 @@ module FinApps
         path = end_point
         logger.debug "##{__method__.to_s} => path: #{path}"
 
-<<<<<<< HEAD
-        result, error_messages = @client.send(path, :get)
-=======
         result, error_messages = @client.send_request(path, :get)
-
-        logger.debug "##{__method__.to_s} => Completed"
->>>>>>> develop
         return result, error_messages
       end
 
+      # Shows a single alert definition matching the given alert name.
       # @return [Hash, Array<String>]
       def show(alert_name)
         raise MissingArgumentsError.new 'Missing argument: alert_name.' if alert_name.blank?
@@ -35,13 +31,7 @@ module FinApps
         path = end_point.sub ':alert_name', ERB::Util.url_encode(alert_name)
         logger.debug "##{__method__.to_s} => path: #{path}"
 
-<<<<<<< HEAD
-        result, error_messages = @client.send(path, :get)
-=======
         result, error_messages = @client.send_request(path, :get)
-
-        logger.debug "##{__method__.to_s} => Completed"
->>>>>>> develop
         return result, error_messages
       end
 
