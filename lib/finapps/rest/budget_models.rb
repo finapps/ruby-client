@@ -6,21 +6,17 @@ module FinApps
     class BudgetModels < FinApps::REST::Resources
       include FinApps::REST::Defaults
 
+      # Lists all budget models.
       # @return [Array<Hash>, Array<String>]
       def list
         path = Defaults::END_POINTS[:budget_models_list]
         logger.debug "##{__method__.to_s} => path: #{path}"
 
-<<<<<<< HEAD
-        budget_models, error_messages = @client.send(path, :get)
-=======
         budget_models, error_messages = @client.send_request(path, :get)
-
-        logger.debug "##{__method__.to_s} => Completed"
->>>>>>> develop
         return budget_models, error_messages
       end
 
+      # Shows a budget model matching a given budget_model_id
       # @param [Integer] budget_model_id
       def show(budget_model_id)
         raise MissingArgumentsError.new 'Missing argument: budget_model_id.' if budget_model_id.blank?
@@ -32,13 +28,7 @@ module FinApps
         path = end_point.sub ':budget_model_id', ERB::Util.url_encode(budget_model_id)
         logger.debug "##{__method__.to_s} => path: #{path}"
 
-<<<<<<< HEAD
-        budget_model, error_messages = @client.send(path, :get) { |r| BudgetModel.new(r.body) }
-=======
         budget_model, error_messages = @client.send_request(path, :get) { |r| BudgetModel.new(r.body) }
-
-        logger.debug "##{__method__.to_s} => Completed"
->>>>>>> develop
         return budget_model, error_messages
       end
 
