@@ -22,15 +22,6 @@ RSpec.describe FinApps::REST::Client do
       it { expect { FinApps::REST::Client.new :company_identifier, :company_token }.not_to raise_error }
     end
 
-<<<<<<< HEAD
-    it 'responds to public api methods' do
-      [:alert, :alert_definition, :alert_settings, :alert_preferences,
-       :budgets, :budget_calculation, :budget_models, :cashflows,
-       :categories, :institutions, :transactions,
-       :user_institutions, :users,
-       :rule_sets].each do |method|
-        expect(@client).to respond_to(method)
-=======
   end
 
   context 'after initialized' do
@@ -42,7 +33,6 @@ RSpec.describe FinApps::REST::Client do
      :alert_definition, :alert_preferences, :alert_settings, :rule_sets, :user_credentials!].each do |method|
       it "responds to #{method}" do
         expect(client).to respond_to(method)
->>>>>>> develop
       end
     end
 
@@ -130,4 +120,3 @@ RSpec.describe FinApps::REST::Client do
   end
 
 end
-
