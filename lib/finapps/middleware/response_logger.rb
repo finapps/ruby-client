@@ -5,16 +5,16 @@ module FinApps
       include FinApps::Logging
 
       def call(env)
-        logger.info "##{__method__.to_s} => ##{env.method} #{env.url.to_s}"
-        logger.debug "##{__method__.to_s} => Request Headers: #{dump_headers env.request_headers}"
+        logger.info "##{__method__} => ##{env.method} #{env.url.to_s}"
+        logger.debug "##{__method__} => Request Headers: #{dump_headers env.request_headers}"
 
         super
       end
 
       def on_complete(env)
-        logger.info "##{__method__.to_s} => ##{env.method} #{env.url.to_s}"
-        logger.debug "##{__method__.to_s} => Response Headers: #{dump_headers env.response_headers}"
-        logger.info "##{__method__.to_s} => Response Body: #{env.body}" if env.body
+        logger.info "##{__method__} => ##{env.method} #{env.url.to_s}"
+        logger.debug "##{__method__} => Response Headers: #{dump_headers env.response_headers}"
+        logger.info "##{__method__} => Response Body: #{env.body}" if env.body
       end
 
       private
