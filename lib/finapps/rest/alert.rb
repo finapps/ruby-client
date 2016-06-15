@@ -10,14 +10,14 @@ module FinApps
       def list(page = 1, requested=100, sort='date', asc=false, read='all')
 
         end_point = Defaults::END_POINTS[:alert_list]
-        logger.debug "##{__method__.to_s} => end_point: #{end_point}"
+        logger.debug "##{__method__} => end_point: #{end_point}"
 
         path = end_point.sub ':page', ERB::Util.url_encode(page)
         path = path.sub ':requested', ERB::Util.url_encode(requested)
         path = path.sub ':sort', ERB::Util.url_encode(sort)
         path = path.sub ':asc', ERB::Util.url_encode(asc)
         path = path.sub ':read', ERB::Util.url_encode(read)
-        logger.debug "##{__method__.to_s} => path: #{path}"
+        logger.debug "##{__method__} => path: #{path}"
 
         result, error_messages = client.send_request(path, :get)
         return result, error_messages
@@ -26,17 +26,17 @@ module FinApps
       # @return [Hash, Array<String>]
       def update(alert_id, read=true)
         raise MissingArgumentsError.new 'Missing argument: alert_id.' if alert_id.blank?
-        logger.debug "##{__method__.to_s} => alert_id: #{alert_id.inspect}"
+        logger.debug "##{__method__} => alert_id: #{alert_id.inspect}"
 
         raise MissingArgumentsError.new 'Missing argument: read.' if read.blank?
-        logger.debug "##{__method__.to_s} => read: #{read.inspect}"
+        logger.debug "##{__method__} => read: #{read.inspect}"
 
         end_point = Defaults::END_POINTS[:alert_update]
-        logger.debug "##{__method__.to_s} => end_point: #{end_point}"
+        logger.debug "##{__method__} => end_point: #{end_point}"
 
         path = end_point.sub ':alert_id', ERB::Util.url_encode(alert_id)
         path = path.sub ':read', ERB::Util.url_encode(read)
-        logger.debug "##{__method__.to_s} => path: #{path}"
+        logger.debug "##{__method__} => path: #{path}"
 
         _, error_messages = client.send_request(path, :put)
         error_messages
@@ -45,13 +45,13 @@ module FinApps
       # @return [Hash, Array<String>]
       def delete(alert_id)
         raise MissingArgumentsError.new 'Missing argument: alert_id.' if alert_id.blank?
-        logger.debug "##{__method__.to_s} => alert_id: #{alert_id.inspect}"
+        logger.debug "##{__method__} => alert_id: #{alert_id.inspect}"
 
         end_point = Defaults::END_POINTS[:alert_delete]
-        logger.debug "##{__method__.to_s} => end_point: #{end_point}"
+        logger.debug "##{__method__} => end_point: #{end_point}"
 
         path = end_point.sub ':alert_id', ERB::Util.url_encode(alert_id)
-        logger.debug "##{__method__.to_s} => path: #{path}"
+        logger.debug "##{__method__} => path: #{path}"
 
         _, error_messages = client.send_request(path, :delete)
         error_messages

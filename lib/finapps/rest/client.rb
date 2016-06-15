@@ -110,7 +110,7 @@ module FinApps
           if response.present?
             result = block_given? ? proc.call(response) : response.body
           else
-            logger.error "##{__method__.to_s} => Null response found. Unable to process it."
+            logger.error "##{__method__} => Null response found. Unable to process it."
           end
 
         rescue FinApps::REST::InvalidArgumentsError => error
@@ -119,13 +119,13 @@ module FinApps
           error_messages = error.error_messages
         rescue Faraday::ParsingError => error
           error_messages << 'Unable to parse the server response.'
-          logger.error "##{__method__.to_s} => Faraday::ParsingError, #{error.to_s}"
+          logger.error "##{__method__} => Faraday::ParsingError, #{error.to_s}"
         rescue Exception => error
           error_messages << 'Unexpected error.'
-          logger.fatal "##{__method__.to_s} => Exception, #{error.to_s}"
+          logger.fatal "##{__method__} => Exception, #{error.to_s}"
           logger.fatal error
         ensure
-          logger.debug "##{__method__.to_s} => Failed, error_messages: #{error_messages.pretty_inspect}" if error_messages.present?
+          logger.debug "##{__method__} => Failed, error_messages: #{error_messages.pretty_inspect}" if error_messages.present?
         end
 
         return result, error_messages
@@ -139,7 +139,7 @@ module FinApps
         @config[:user_identifier] = user_identifier
         @config[:user_token] = user_token
 
-        logger.debug "##{__method__.to_s} => Attempting to set user credentials on current connection."
+        logger.debug "##{__method__} => Attempting to set user credentials on current connection."
         @connection = set_up_connection(company_credentials, config)
       end
 
@@ -154,7 +154,7 @@ module FinApps
       def get(path)
         raise MissingArgumentsError.new 'Missing argument: path.' if path.blank?
 
-        logger.debug "##{__method__.to_s} => GET path:#{path}"
+        logger.debug "##{__method__} => GET path:#{path}"
         connection.get { |req| req.url path }
       end
 
@@ -168,7 +168,7 @@ module FinApps
       def post(path, params = {})
         raise MissingArgumentsError.new 'Missing argument: path.' if path.blank?
 
-        logger.debug "##{__method__.to_s} => POST path:#{path} params:#{skip_sensitive_data params }"
+        logger.debug "##{__method__} => POST path:#{path} params:#{skip_sensitive_data params }"
         connection.post do |req|
           req.url path
           req.body = params
@@ -185,7 +185,7 @@ module FinApps
       def put(path, params = {})
         raise MissingArgumentsError.new 'Missing argument: path.' if path.blank?
 
-        logger.debug "##{__method__.to_s} => PUT path:#{path} params:#{skip_sensitive_data(params)}"
+        logger.debug "##{__method__} => PUT path:#{path} params:#{skip_sensitive_data(params)}"
         connection.put do |req|
           req.url path
           req.body = params
@@ -202,7 +202,7 @@ module FinApps
       def delete(path, params = {})
         raise MissingArgumentsError.new 'Missing argument: path.' if path.blank?
 
-        logger.debug "##{__method__.to_s} => DELETE path:#{path} params:#{skip_sensitive_data(params)}"
+        logger.debug "##{__method__} => DELETE path:#{path} params:#{skip_sensitive_data(params)}"
         connection.delete do |req|
           req.url path
           req.body = params

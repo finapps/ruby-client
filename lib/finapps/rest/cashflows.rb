@@ -11,9 +11,9 @@ module FinApps
       # @return [Hash, Array<String>]
       def show(start_date, end_date)
         raise MissingArgumentsError.new 'Missing argument: start_date.' if start_date.blank?
-        logger.debug "##{__method__.to_s} => start_date: #{start_date}"
+        logger.debug "##{__method__} => start_date: #{start_date}"
         raise MissingArgumentsError.new 'Missing argument: end_date.' if end_date.blank?
-        logger.debug "##{__method__.to_s} => end_date: #{end_date}"
+        logger.debug "##{__method__} => end_date: #{end_date}"
 
         cashflow = Cashflow.new({:start_date => start_date,
                                  :end_date => end_date,
@@ -23,10 +23,10 @@ module FinApps
                                  :details => []})
 
         end_point = Defaults::END_POINTS[:cashflow_show]
-        logger.debug "##{__method__.to_s} => end_point: #{end_point}"
+        logger.debug "##{__method__} => end_point: #{end_point}"
 
         path = end_point.sub(':start_date', ERB::Util.url_encode(start_date)).sub(':end_date', ERB::Util.url_encode(end_date))
-        logger.debug "##{__method__.to_s} => path: #{path}"
+        logger.debug "##{__method__} => path: #{path}"
 
         result, error_messages = client.send_request(path, :get)
         if result.present? && error_messages.blank?

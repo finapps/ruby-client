@@ -10,10 +10,10 @@ module FinApps
       # @return [Hash, Array<String>]
       def show
         end_point = Defaults::END_POINTS[:alert_settings_show]
-        logger.debug "##{__method__.to_s} => end_point: #{end_point}"
+        logger.debug "##{__method__} => end_point: #{end_point}"
 
         path = end_point
-        logger.debug "##{__method__.to_s} => path: #{path}"
+        logger.debug "##{__method__} => path: #{path}"
 
         result, error_messages = client.send_request(path, :get)
         return result, error_messages
@@ -23,13 +23,13 @@ module FinApps
       # @return [Hash, Array<String>]
       def update(params)
         raise MissingArgumentsError.new 'Missing argument: params.' if params.blank?
-        logger.debug "##{__method__.to_s} => params: #{params.inspect}"
+        logger.debug "##{__method__} => params: #{params.inspect}"
 
         end_point = Defaults::END_POINTS[:alert_settings_update]
-        logger.debug "##{__method__.to_s} => end_point: #{end_point}"
+        logger.debug "##{__method__} => end_point: #{end_point}"
 
         path = end_point
-        logger.debug "##{__method__.to_s} => path: #{path}"
+        logger.debug "##{__method__} => path: #{path}"
 
         _, error_messages = client.send_request(path, :put, params.compact)
         error_messages

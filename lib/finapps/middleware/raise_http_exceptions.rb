@@ -43,7 +43,7 @@ module FinApps
           else
               # 200..206 Success codes
               # all good!
-              logger.debug "##{__method__.to_s} => Status code: [#{env[:status]}]."
+              logger.debug "##{__method__} => Status code: [#{env[:status]}]."
         end
 
       end
@@ -63,12 +63,12 @@ module FinApps
                   error_array.push message.to_s
                 end
               end
-              logger.info "##{__method__.to_s} => Extracted errors: #{error_array.inspect}."
+              logger.info "##{__method__} => Extracted errors: #{error_array.inspect}."
             else
-              logger.info "##{__method__.to_s} => Cannot extract errors: unexpected error while parsing response."
+              logger.info "##{__method__} => Cannot extract errors: unexpected error while parsing response."
             end
           rescue ::JSON::ParserError => e
-            logger.error "##{__method__.to_s} => Unable to parse JSON response."
+            logger.error "##{__method__} => Unable to parse JSON response."
             logger.error e
           end
         end
