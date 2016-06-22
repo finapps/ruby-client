@@ -2,7 +2,7 @@ module FinApps
   module REST
     module Defaults
 
-      API_VERSION = '1'
+      API_VERSION = '2'
 
       HEADERS = {
           :accept => 'application/json',

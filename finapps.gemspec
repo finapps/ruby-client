@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
 
   spec.summary = %q{FinApps REST API ruby client.}
   spec.description = %q{A simple library for communicating with the FinApps REST API.}
-  spec.homepage = 'http://github.com/finapps/finapps-ruby'
+  spec.homepage = 'https://github.com/finapps/ruby-client'
   spec.license = 'MIT'
 
   spec.files = `git ls-files -z`.split("\x0")
