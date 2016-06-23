@@ -30,9 +30,9 @@ module FinApps
       end
 
       def faraday_options(config)
-        {versioned_url: config.versioned_url,
-         request:       {open_timeout: config.timeout, timeout: config.timeout},
-         headers:       {accept: HEADERS[:accept], user_agent: HEADERS[:user_agent]}}
+        {host:    config.versioned_url,
+         request: {open_timeout: config.timeout, timeout: config.timeout},
+         headers: {accept: HEADERS[:accept], user_agent: HEADERS[:user_agent]}}
       end
     end
   end
