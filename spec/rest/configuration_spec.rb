@@ -1,10 +1,5 @@
 RSpec.describe FinApps::REST::Configuration do
   describe '#new' do
-    it 'should have a default host' do
-      config = FinApps::REST::Configuration.new(host: nil)
-      expect(config.host).to eq(FinApps::REST::Defaults::DEFAULTS[:host])
-    end
-
     it 'raises for invalid host values' do
       expect { FinApps::REST::Configuration.new(host: 'whatever') }
         .to raise_error(FinApps::REST::InvalidArgumentsError)
@@ -35,10 +30,17 @@ RSpec.describe FinApps::REST::Configuration do
 
     context 'when valid user credentials were not provided' do
       let(:user_credentials) { {identifier: nil, token: nil} }
+      subject { FinApps::REST::Configuration.new(user_credentials: user_credentials) }
 
-      it 'user_credentials are not valid' do
-        config = FinApps::REST::Configuration.new(user_credentials: user_credentials)
-        expect(config.valid_user_credentials?).to eq false
+      it('user_credentials are not valid') { expect(subject.valid_user_credentials?).to eq false }
+    end
+
+    context 'when valid host is provided' do
+      subject { FinApps::REST::Configuration.new(host: nil) }
+
+      it('should have a default host') { expect(subject.host).to eq(FinApps::REST::Defaults::DEFAULTS[:host]) }
+      it('versioned_url should include version') do
+        expect(subject.versioned_url).to eq("#{subject.host}/v#{FinApps::REST::Defaults::API_VERSION}")
       end
     end
   end
