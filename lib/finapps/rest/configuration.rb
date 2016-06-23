@@ -14,7 +14,7 @@ module FinApps
       end
 
       def valid_user_credentials?
-        user_credentials[:identifier].present? && user_credentials[:token].present?
+        user_credentials.present? && user_credentials[:identifier].present? && user_credentials[:token].present?
       end
 
       private
