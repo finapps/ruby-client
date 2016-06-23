@@ -2,7 +2,6 @@ module FinApps
   module REST
     class Client
       include FinApps::REST::Defaults
-      include FinApps::REST::Connection
 
       attr_reader :config
 
@@ -24,7 +23,7 @@ module FinApps
       end
 
       def connection
-        @connection ||= set_up_connection(config)
+        @connection ||= FinApps::REST::Connection.new config
       end
 
       def users
@@ -90,7 +89,7 @@ module FinApps
         raise FinApps::REST::MissingArgumentsError.new 'Invalid user_token.' if user_token.blank?
 
         config[:user_credentials] = {:identifier => user_identifier, :token => user_token}
-        @connection = set_up_connection config
+        @connection = FinApps::REST::Connection.new config
       end
 
       private
@@ -105,7 +104,7 @@ module FinApps
         raise MissingArgumentsError.new 'Missing argument: path.' if path.blank?
 
         logger.debug "##{__method__} => GET path:#{path}"
-        connection.get { |req| req.url path }
+        connection.get { |req| req.versioned_url path }
       end
 
       # Performs an HTTP POST request.
@@ -120,7 +119,7 @@ module FinApps
 
         logger.debug "##{__method__} => POST path:#{path} params:#{skip_sensitive_data params }"
         connection.post do |req|
-          req.url path
+          req.versioned_url path
           req.body = params
         end
       end
@@ -137,7 +136,7 @@ module FinApps
 
         logger.debug "##{__method__} => PUT path:#{path} params:#{skip_sensitive_data(params)}"
         connection.put do |req|
-          req.url path
+          req.versioned_url path
           req.body = params
         end
       end
@@ -154,7 +153,7 @@ module FinApps
 
         logger.debug "##{__method__} => DELETE path:#{path} params:#{skip_sensitive_data(params)}"
         connection.delete do |req|
-          req.url path
+          req.versioned_url path
           req.body = params
         end
       end
