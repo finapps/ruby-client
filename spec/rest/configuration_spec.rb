@@ -17,15 +17,9 @@ RSpec.describe FinApps::REST::Configuration do
 
     context 'when valid user credentials were provided' do
       let(:user_credentials) { {identifier: 1, token: 2} }
-      it 'should have user_credentials' do
-        config = FinApps::REST::Configuration.new(user_credentials: user_credentials)
-        expect(config.user_credentials).to eq(user_credentials)
-      end
-
-      it 'user_credentials are valid' do
-        config = FinApps::REST::Configuration.new(user_credentials: user_credentials)
-        expect(config.valid_user_credentials?).to eq true
-      end
+      subject { FinApps::REST::Configuration.new(user_credentials: user_credentials) }
+      it('should have user_credentials') { expect(subject.user_credentials).to eq(user_credentials) }
+      it('user_credentials are valid') { expect(subject.valid_user_credentials?).to eq true }
     end
 
     context 'when valid user credentials were not provided' do
