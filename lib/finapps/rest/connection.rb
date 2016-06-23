@@ -2,25 +2,18 @@ module FinApps
   module REST
     class Connection # :nodoc:
       # @param [Hash] tenant_credentials
-      # @param [Hash] config
+      # @param [Hash] options
       # @return [Faraday::Connection]
-      def initialize(config, logger = nil)
+      def initialize(options, logger=nil)
+        config = FinApps::REST::Configuration.new options
 
-
-        Faraday.new(versioned_url: versioned_url(config),
-                    request: {
-                        open_timeout: config[:timeout],
-                        timeout: config[:timeout]
-                    },
-                    headers: {
-                        accept: HEADERS[:accept],
-                        user_agent: HEADERS[:user_agent]
-                    }) do |conn|
-          # user level authentication
-          conn.request :basic_auth, config[:user_identifier], config[:user_token] if authenticated?(config)
-
+        Faraday.new(faraday_options(config)) do |conn|
           # tenant level authentication
           conn.use FinApps::Middleware::TenantAuthentication, config[:tenant_credentials]
+
+          # user level authentication
+          conn.request :basic_auth, config.user_credentials[:identifier], config.user_credentials[:token] if
+              config.valid_user_credentials?
 
           conn.request :json
           conn.request :retry
@@ -36,10 +29,11 @@ module FinApps
         end
       end
 
-      private
-
-
+      def faraday_options(config)
+        {versioned_url: config.versioned_url,
+         request:       {open_timeout: config.timeout, timeout: config.timeout},
+         headers:       {accept: HEADERS[:accept], user_agent: HEADERS[:user_agent]}}
+      end
     end
-
   end
 end
