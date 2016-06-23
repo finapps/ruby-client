@@ -2,7 +2,6 @@ module FinApps
   module REST
     class Client
       include FinApps::REST::Defaults
-      include FinApps::Logging
       include FinApps::REST::Connection
 
       attr_reader :config, :company_credentials
@@ -13,70 +12,15 @@ module FinApps
       # @return [FinApps::REST::Client]
       def initialize(company_identifier, company_token, options = {})
         @config = DEFAULTS.merge! options
-        logger_config config
-
         @company_credentials = {:company_identifier => company_identifier, :company_token => company_token}
-        @company_credentials.validate_required_strings!
       end
 
       def connection
-        @connection ||= set_up_connection(self.company_credentials, @config)
+        @connection ||= set_up_connection(company_credentials, config)
       end
 
       def users
         @users ||= FinApps::REST::Users.new self
-      end
-
-      def institutions
-        @institutions ||= FinApps::REST::Institutions.new self
-      end
-
-      def user_institutions
-        @user_institutions ||= FinApps::REST::UserInstitutions.new self
-      end
-
-      def transactions
-        @transactions ||= FinApps::REST::Transactions.new self
-      end
-
-      def categories
-        @categories ||= FinApps::REST::Categories.new self
-      end
-
-      def budget_models
-        @budget_models ||= FinApps::REST::BudgetModels.new self
-      end
-
-      def budget_calculation
-        @budget_calculation ||= FinApps::REST::BudgetCalculation.new self
-      end
-
-      def budgets
-        @budgets ||= FinApps::REST::Budgets.new self
-      end
-
-      def cashflows
-        @cashflows ||= FinApps::REST::Cashflows.new self
-      end
-
-      def alert
-        @alert ||= FinApps::REST::Alert.new self
-      end
-
-      def alert_definition
-        @alert_definition ||= FinApps::REST::AlertDefinition.new self
-      end
-
-      def alert_settings
-        @alert_settings ||= FinApps::REST::AlertSettings.new self
-      end
-
-      def alert_preferences
-        @alert_preferences ||= FinApps::REST::AlertPreferences.new self
-      end
-
-      def rule_sets
-        @rule_sets ||= FinApps::REST::Relevance::Rulesets.new self
       end
 
       # Performs HTTP GET, POST, UPDATE and DELETE requests.

@@ -2,7 +2,6 @@ module FinApps
   module Middleware
 
     class ResponseLogger < Faraday::Response::Middleware
-      include FinApps::Logging
 
       def call(env)
         logger.info "##{__method__} => ##{env.method} #{env.url.to_s}"
@@ -19,7 +18,7 @@ module FinApps
 
       private
       def dump_headers(headers)
-        headers.map { |k, v| "  #{k}: #{filter_sensitive_header_values(k,v)}" }.to_s
+        headers.map { |k, v| "  #{k}: #{filter_sensitive_header_values(k, v)}" }.to_s
       end
 
       def filter_sensitive_header_values(key, value)

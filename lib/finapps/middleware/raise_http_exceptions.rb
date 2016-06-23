@@ -2,7 +2,6 @@ module FinApps
   module Middleware
 
     class RaiseHttpExceptions < Faraday::Response::Middleware
-      include FinApps::Logging
 
       CLIENT_ERROR_STATUSES = 400...600
 

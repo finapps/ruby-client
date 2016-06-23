@@ -3,33 +3,43 @@ require 'pp'
 module FinApps
   module REST
     module Connection
-      include FinApps::REST::Defaults
 
-      # @param [Hash] company_credentials
+      # @param [Hash] tenant_credentials
       # @param [Hash] config
       # @return [Faraday::Connection]
-      def set_up_connection(company_credentials, config)
-        host_url = config[:host].blank? ? DEFAULTS[:host] : config[:host]
-        raise InvalidArgumentsError.new "Invalid argument: host_url: #{host_url}" unless host_url.start_with?('http://', 'https://')
+      def set_up_connection(tenant_credentials, config)
 
-        base_url = "#{host_url}/v#{API_VERSION}"
-        timeout = config[:timeout].blank? ? DEFAULTS[:timeout] : config[:timeout]
+        unless valid_company_identifier?(tenant_credentials)
+          raise FinApps::REST::MissingArgumentsError.new 'Missing argument: company_identifier.'
+        end
 
-        Faraday.new(:url => base_url,
+        unless valid_token?(tenant_credentials)
+          raise FinApps::REST::MissingArgumentsError.new 'Missing argument: company_token.'
+        end
+
+        config[:host] = FinApps::REST::Defaults::DEFAULTS[:host] if config[:host].blank?
+        unless valid_host?(config)
+          raise InvalidArgumentsError.new "Invalid argument. {host: #{config[:host]}}"
+        end
+
+        config[:timeout] = FinApps::REST::Defaults::DEFAULTS[:timeout] if config[:timeout].blank?
+        unless valid_timeout?(config)
+          raise InvalidArgumentsError.new "Invalid argument. {timeout: #{config[:timeout]}}"
+        end
+
+        Faraday.new(:url => "#{config[:host]}/v#{FinApps::REST::Defaults::API_VERSION}",
                     :request => {
-                        :open_timeout => timeout,
-                        :timeout => timeout},
+                        :open_timeout => config[:timeout],
+                        :timeout => config[:timeout]},
                     :headers => {
                         :accept => HEADERS[:accept],
                         :user_agent => HEADERS[:user_agent]}) do |conn|
 
-          # add basic authentication header if user credentials were provided
-          user_identifier = config[:user_identifier]
-          user_token = config[:user_token]
-          conn.request :basic_auth, user_identifier, user_token unless user_identifier.blank? || user_token.blank?
+          # user level authentication
+          conn.request :basic_auth, config[:user_identifier], config[:user_token] if authenticated?(config)
 
-          # company level authentication
-          conn.use FinApps::Middleware::ApiToken, company_credentials
+          # tenant level authentication
+          conn.use FinApps::Middleware::TenantAuthentication, tenant_credentials
 
           conn.request :json
           conn.request :retry
@@ -43,6 +53,28 @@ module FinApps
           # Adapter (ensure that the adapter is always last.)
           conn.adapter :typhoeus
         end
+      end
+
+      private
+
+      def valid_token?(company_credentials)
+        company_credentials[:company_token].present?
+      end
+
+      def valid_company_identifier?(company_credentials)
+        company_credentials[:company_identifier].present?
+      end
+
+      def authenticated?(config)
+        config[:user_identifier].present? && config[:user_token].present?
+      end
+
+      def valid_host?(config)
+        config[:host].start_with?('http://', 'https://')
+      end
+
+      def valid_timeout?(config)
+        Integer(config[:timeout]) rescue false
       end
 
     end

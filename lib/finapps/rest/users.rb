@@ -4,7 +4,6 @@ module FinApps
     require 'erb'
 
     class Users < FinApps::REST::Resources
-      include FinApps::Logging
       include FinApps::REST::Defaults
 
       # @param [String] public_id

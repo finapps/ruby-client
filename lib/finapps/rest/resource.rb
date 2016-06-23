@@ -1,7 +1,6 @@
 module FinApps
   module REST
     class Resource
-      include FinApps::Logging
 
       # @param [Hash] hash
       def initialize(hash)

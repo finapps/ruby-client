@@ -22,14 +22,13 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency 'faraday',  '~> 0.9', '>= 0.9.2'
   spec.add_runtime_dependency 'faraday_middleware',  '~> 0.10', '>= 0.10.0'
-  spec.add_runtime_dependency 'typhoeus',  '~> 1.0', '>= 1.0.1'
+  spec.add_runtime_dependency 'typhoeus',  '~> 1.0', '>= 1.0.2'
   spec.add_runtime_dependency 'rash', '~> 0.4', '>= 0.4.0'
 
   spec.add_development_dependency 'bundler', '~> 1.11', '>= 1.11.2'
-  spec.add_development_dependency 'rake', '~> 11.1', '>= 11.1.2'
-  spec.add_development_dependency 'fuubar', '~> 2.0', '>= 2.0.0'
+  spec.add_development_dependency 'rake', '~> 11.2', '>= 11.2.2'
   spec.add_development_dependency 'rspec', '~> 3.4', '>= 3.4.0'
-  spec.add_development_dependency 'webmock', '~> 1.24', '>= 1.24.2'
+  spec.add_development_dependency 'webmock', '~> 2.1', '>= 2.1.0'
   spec.add_development_dependency 'sinatra', '~> 1.4', '>= 1.4.7'
 
   spec.extra_rdoc_files = %w(README.md LICENSE.txt)
