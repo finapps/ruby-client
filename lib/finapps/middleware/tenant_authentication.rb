@@ -1,9 +1,10 @@
 module FinApps
   module Middleware
-
+    # Adds a custom header for tenant level authorization.
+    # If the value for this header already exists, it is not overriden.
     class TenantAuthentication < Faraday::Middleware
 
-      TENANT_AUTHENTICATION_HEADER = 'X-FinApps-Token'.freeze
+      TENANT_AUTH_HEADER = 'X-FinApps-Token'.freeze
 
       def initialize(app, options={})
         super(app)
@@ -11,7 +12,7 @@ module FinApps
       end
 
       def call(env)
-        env[:request_headers][TENANT_AUTHENTICATION_HEADER] ||= header_value
+        env[:request_headers][TENANT_AUTH_HEADER] ||= header_value
         @app.call(env)
       end
 
@@ -22,6 +23,5 @@ module FinApps
       end
 
     end
-
   end
 end
