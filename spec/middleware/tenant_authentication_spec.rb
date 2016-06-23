@@ -11,7 +11,7 @@ RSpec.describe FinApps::Middleware::TenantAuthentication do
       subject(:result) { middleware.call(request_env) }
 
       it 'should generate the X-FinApps-Token header' do
-        header = result[:request_headers][FinApps::Middleware::TenantAuthentication::TENANT_AUTH_HEADER]
+        header = result[:request_headers][FinApps::Middleware::TenantAuthentication::KEY]
         expect(header).to eq(expected_header_value)
       end
     end
