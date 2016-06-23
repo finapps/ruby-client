@@ -1,5 +1,3 @@
-require 'pp'
-
 module FinApps
   module REST
     module Connection
@@ -7,15 +5,10 @@ module FinApps
       # @param [Hash] tenant_credentials
       # @param [Hash] config
       # @return [Faraday::Connection]
-      def set_up_connection(tenant_credentials, config)
+      def set_up_connection(config)
 
-        unless valid_company_identifier?(tenant_credentials)
-          raise FinApps::REST::MissingArgumentsError.new 'Missing argument: company_identifier.'
-        end
-
-        unless valid_token?(tenant_credentials)
-          raise FinApps::REST::MissingArgumentsError.new 'Missing argument: company_token.'
-        end
+        raise FinApps::REST::InvalidArgumentsError.new 'Invalid tenant credentials.' unless
+            valid_tenant_credentials?(config[:tenant_credentials])
 
         config[:host] = FinApps::REST::Defaults::DEFAULTS[:host] if config[:host].blank?
         unless valid_host?(config)
@@ -39,7 +32,7 @@ module FinApps
           conn.request :basic_auth, config[:user_identifier], config[:user_token] if authenticated?(config)
 
           # tenant level authentication
-          conn.use FinApps::Middleware::TenantAuthentication, tenant_credentials
+          conn.use FinApps::Middleware::TenantAuthentication, config[:tenant_credentials]
 
           conn.request :json
           conn.request :retry
@@ -48,7 +41,7 @@ module FinApps
           conn.use FinApps::Middleware::RaiseHttpExceptions
           conn.response :rashify
           conn.response :json, :content_type => /\bjson$/
-          conn.use FinApps::Middleware::ResponseLogger
+          conn.response :logger, Rails.logger||= ::Logger.new(STDOUT), bodies: true
 
           # Adapter (ensure that the adapter is always last.)
           conn.adapter :typhoeus
@@ -56,14 +49,6 @@ module FinApps
       end
 
       private
-
-      def valid_token?(company_credentials)
-        company_credentials[:company_token].present?
-      end
-
-      def valid_company_identifier?(company_credentials)
-        company_credentials[:company_identifier].present?
-      end
 
       def authenticated?(config)
         config[:user_identifier].present? && config[:user_token].present?

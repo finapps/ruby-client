@@ -10,7 +10,6 @@ require 'finapps/core_ext/hash/compact'
 
 require 'finapps/middleware/tenant_authentication'
 require 'finapps/middleware/raise_http_exceptions'
-require 'finapps/middleware/response_logger'
 
 require 'finapps/rest/defaults'
 require 'finapps/rest/errors'

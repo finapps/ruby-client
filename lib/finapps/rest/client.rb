@@ -4,19 +4,27 @@ module FinApps
       include FinApps::REST::Defaults
       include FinApps::REST::Connection
 
-      attr_reader :config, :company_credentials
+      attr_reader :config
 
       # @param [String] company_identifier
       # @param [String] company_token
       # @param [Hash] options
       # @return [FinApps::REST::Client]
-      def initialize(company_identifier, company_token, options = {})
+      def initialize(company_identifier, company_token, logger = nil, options = {})
+
+        raise FinApps::REST::MissingArgumentsError.new 'Invalid company_identifier.' if company_identifier.blank?
+        raise FinApps::REST::MissingArgumentsError.new 'Invalid company_token.' if company_token.blank?
+
+        @config[:tenant_credentials] = {:identifier => company_identifier, :token => company_token}
         @config = DEFAULTS.merge! options
-        @company_credentials = {:company_identifier => company_identifier, :company_token => company_token}
+        @logger = logger || begin
+          require 'logger'
+          ::Logger.new(STDOUT)
+        end
       end
 
       def connection
-        @connection ||= set_up_connection(company_credentials, config)
+        @connection ||= set_up_connection(config)
       end
 
       def users
@@ -78,13 +86,11 @@ module FinApps
       # @param [String] user_identifier
       # @param [String] user_token
       def user_credentials!(user_identifier, user_token)
-        {:user_identifier => user_identifier, :user_token => user_token}.validate_required_strings!
+        raise FinApps::REST::MissingArgumentsError.new 'Invalid user_identifier.' if user_identifier.blank?
+        raise FinApps::REST::MissingArgumentsError.new 'Invalid user_token.' if user_token.blank?
 
-        @config[:user_identifier] = user_identifier
-        @config[:user_token] = user_token
-
-        logger.debug "##{__method__} => Attempting to set user credentials on current connection."
-        @connection = set_up_connection(company_credentials, config)
+        config[:user_credentials] = {:identifier => user_identifier, :token => user_token}
+        @connection = set_up_connection config
       end
 
       private
