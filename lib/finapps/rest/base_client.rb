@@ -15,13 +15,40 @@ module FinApps
         @connection ||= FinApps::REST::Connection.faraday(config)
       end
 
+      # Performs HTTP GET, POST, UPDATE and DELETE requests.
+      # You shouldn't need to use this method directly, but it can be useful for debugging.
+      # Returns a hash obtained from parsing the JSON object in the response body.
+      #
+      # @param [String] path
+      # @param [String] method
+      # @param [Hash] params
+      # @return [Hash,Array<String>]
+      def send_request(path, method, params={})
+        raise FinApps::REST::MissingArgumentsError.new 'Missing argument: path.' if path.blank?
+        raise FinApps::REST::MissingArgumentsError.new 'Missing argument: method.' if method.blank?
+
+        response, error_messages = execute_request(method, params, path)
+        result = if response.present?
+                   block_given? ? yield(response) : response.body
+                 else
+                   logger.error "##{__method__} => Null response found. Unable to process it."
+                   nil
+                 end
+
+        [result, error_messages]
+      end
+
+      def respond_to?(method_id, include_private=false)
+        (%i(get post put delete).include? method_id) ? true : super
+      end
+
       private
 
       def execute_request(method, params, path)
         error_messages = []
 
         begin
-          response = execute_request_internal method, params, path
+          response = execute_method method, params, path
 
         rescue FinApps::REST::InvalidArgumentsError => error
           raise error
@@ -42,7 +69,7 @@ module FinApps
         [response, error_messages]
       end
 
-      def execute_request_internal(method, params, path)
+      def execute_method(method, params, path)
         case method
         when :get
           get(path)
@@ -57,67 +84,19 @@ module FinApps
         end
       end
 
-      # Performs an HTTP GET request.
-      # Returns a hash obtained from parsing
-      # the JSON object in the response body.
-      #
-      # @param [String] path
-      # @return [Hash,Array<String>]
-      def get(path)
-        raise MissingArgumentsError.new 'Missing argument: path.' if path.blank?
+      def method_missing(method_id, *arguments, &block)
+        if %i(get post put delete).include? method_id
+          raise MissingArgumentsError.new 'Missing argument: path.' if arguments.first.blank?
 
-        logger.debug "##{__method__} => GET path:#{path}"
-        connection.get {|req| req.url path }
-      end
+          log_params = method_id == :get ? nil : " params:#{arguments[1]}"
+          logger.debug "##{__method__} => #{method_id.to_s.upcase} path:#{arguments.first} #{log_params}"
+          connection.send(method_id) do |req|
+            req.url arguments.first
+            req.body = arguments[1] unless method_id == :get
+          end
 
-      # Performs an HTTP POST request.
-      # Returns a hash obtained from parsing
-      # the JSON object in the response body.
-      #
-      # @param [String] path
-      # @param [Hash] params
-      # @return [Hash,Array<String>]
-      def post(path, params={})
-        raise MissingArgumentsError.new 'Missing argument: path.' if path.blank?
-
-        logger.debug "##{__method__} => POST path:#{path} params:#{params}"
-        connection.post do |req|
-          req.url path
-          req.body = params
-        end
-      end
-
-      # Performs an HTTP PUT request.
-      # Returns a hash obtained from parsing
-      # the JSON object in the response body.
-      #
-      # @param [String] path
-      # @param [Hash] params
-      # @return [Hash,Array<String>]
-      def put(path, params={})
-        raise MissingArgumentsError.new 'Missing argument: path.' if path.blank?
-
-        logger.debug "##{__method__} => PUT path:#{path} params:#{params}"
-        connection.put do |req|
-          req.url path
-          req.body = params
-        end
-      end
-
-      # Performs an HTTP DELETE request.
-      # Returns a hash obtained from parsing
-      # the JSON object in the response body.
-      #
-      # @param [String] path
-      # @param [Hash] params
-      # @return [Hash,Array<String>]
-      def delete(path, params={})
-        raise MissingArgumentsError.new 'Missing argument: path.' if path.blank?
-
-        logger.debug "##{__method__} => DELETE path:#{path} params:#{params}"
-        connection.delete do |req|
-          req.url path
-          req.body = params
+        else
+          super
         end
       end
     end
