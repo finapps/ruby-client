@@ -38,8 +38,8 @@ module FinApps
         [result, error_messages]
       end
 
-      def respond_to?(method_id, include_private=false)
-        (%i(get post put delete).include? method_id) ? true : super
+      def respond_to_missing?(method_id, include_private=false)
+        (%i(get post put delete).include? method_id) || super
       end
 
       private
