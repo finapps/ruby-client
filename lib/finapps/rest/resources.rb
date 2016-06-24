@@ -8,7 +8,6 @@ module FinApps
       def initialize(client)
         @client = client
       end
-
     end
   end
 end

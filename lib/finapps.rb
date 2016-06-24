@@ -20,4 +20,5 @@ require 'finapps/rest/resources'
 require 'finapps/rest/users'
 
 require 'finapps/rest/configuration'
+require 'finapps/rest/base_client'
 require 'finapps/rest/client'

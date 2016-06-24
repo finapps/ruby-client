@@ -1,6 +1,12 @@
 module FinApps
   module REST
     class Configuration # :nodoc:
+      RUBY = "#{RUBY_ENGINE}/#{RUBY_PLATFORM} #{RUBY_VERSION}-p#{RUBY_PATCHLEVEL}".freeze
+      HEADERS = {
+        accept:     'application/json',
+        user_agent: "finapps-ruby/#{FinApps::VERSION} (#{RUBY})"
+      }.freeze
+
       attr_reader :host, :timeout, :tenant_credentials, :user_credentials, :versioned_url
 
       def initialize(config)
@@ -11,6 +17,12 @@ module FinApps
         raise InvalidArgumentsError.new "Invalid argument. {timeout: #{timeout}}" unless valid_timeout?
 
         @versioned_url = "#{host}/v#{FinApps::REST::Defaults::API_VERSION}"
+      end
+
+      def connection_options
+        {url:     versioned_url,
+         request: {open_timeout: timeout, timeout: timeout},
+         headers: {accept: HEADERS[:accept], user_agent: HEADERS[:user_agent]}}
       end
 
       def valid_user_credentials?

@@ -1,11 +1,10 @@
 module FinApps
   module REST
-
     # Custom error class for rescuing from all FinApps errors
-    class Error < StandardError;
+    class Error < StandardError
       attr_reader :response
 
-      def initialize(ex, response = nil)
+      def initialize(ex, response=nil)
         @wrapped_exception = nil
         @response = response
 
@@ -37,7 +36,7 @@ module FinApps
         message_array = []
         body = response_body
 
-        if body.present? && body.kind_of?(String)
+        if body.present? && body.is_a?(String)
           begin
             parsed = ::JSON.parse(body)
             if parsed
@@ -55,16 +54,12 @@ module FinApps
 
           if body.key?(:error_messages)
             message_array = body[:error_messages]
-          else
-            if body.key?('error_messages')
-              message_array = body['error_messages']
-            else
-              if body.key?(:messages)
-                message_array = body[:messages]
-              else
-                message_array = body['messages'] if body.key?('messages')
-              end
-            end
+          elsif body.key?('error_messages')
+            message_array = body['error_messages']
+          elsif body.key?(:messages)
+            message_array = body[:messages]
+          elsif body.key?('messages')
+            message_array = body['messages']
           end
 
         end
@@ -73,15 +68,15 @@ module FinApps
       end
 
       private
+
       def response_body
         body = nil
         if @response.present?
-          @response.key?(:body) ? body = @response[:body] : body = @response
+          body = @response.key?(:body) ? @response[:body] : @response
         end
 
         body
       end
-
     end
 
     # Raised when required arguments are missing
@@ -97,7 +92,6 @@ module FinApps
         super(message)
       end
     end
-
 
     # Client Error 4xx
     # The 4xx class of status code is intended for cases in which the client seems to have erred.
@@ -128,7 +122,6 @@ module FinApps
     class Conflict < ClientError
     end
 
-
     # Server Error 5xx
     #
     # Response status codes beginning with the digit "5" indicate cases in which the server is aware
@@ -150,6 +143,5 @@ module FinApps
 
     class VersionNotSupported < ServerError
     end
-
   end
 end
