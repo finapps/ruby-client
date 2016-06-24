@@ -1,4 +1,5 @@
 /spec/examples.txt
+coverage/
 *.gem
 .config
 Gemfile.lock
@@ -27,4 +28,3 @@ mkmf.log
 .secret
 .idea/
 /spec/tmp/*
-
