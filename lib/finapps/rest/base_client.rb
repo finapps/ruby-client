@@ -70,6 +70,9 @@ module FinApps
       end
 
       def execute_method(method, params, path)
+        raise MissingArgumentsError.new 'Missing argument: path.' if path.blank?
+        logger.debug "##{__method__} => #{method.to_s.upcase} path:#{path}  params:#{params}"
+
         case method
         when :get
           get(path)
@@ -86,15 +89,10 @@ module FinApps
 
       def method_missing(method_id, *arguments, &block)
         if %i(get post put delete).include? method_id
-          raise MissingArgumentsError.new 'Missing argument: path.' if arguments.first.blank?
-
-          log_params = method_id == :get ? nil : " params:#{arguments[1]}"
-          logger.debug "##{__method__} => #{method_id.to_s.upcase} path:#{arguments.first} #{log_params}"
           connection.send(method_id) do |req|
             req.url arguments.first
             req.body = arguments[1] unless method_id == :get
           end
-
         else
           super
         end
