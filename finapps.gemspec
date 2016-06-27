@@ -10,19 +10,19 @@ Gem::Specification.new do |spec|
   spec.authors = ['Erich Quintero']
   spec.email = ['erich@financialapps.com']
 
-  spec.summary = %q{FinApps REST API ruby client.}
-  spec.description = %q{A simple library for communicating with the FinApps REST API.}
+  spec.summary = 'FinApps REST API ruby client.'
+  spec.description = 'A simple library for communicating with the FinApps REST API.'
   spec.homepage = 'https://github.com/finapps/ruby-client'
   spec.license = 'MIT'
 
   spec.files = `git ls-files -z`.split("\x0")
-  spec.executables = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
+  spec.executables = spec.files.grep(%r{^bin/}) {|f| File.basename(f) }
   spec.test_files = Dir['spec/**/*.rb']
   spec.require_paths = ['lib']
 
-  spec.add_runtime_dependency 'faraday',  '~> 0.9', '>= 0.9.2'
-  spec.add_runtime_dependency 'faraday_middleware',  '~> 0.10', '>= 0.10.0'
-  spec.add_runtime_dependency 'typhoeus',  '~> 1.0', '>= 1.0.2'
+  spec.add_runtime_dependency 'faraday', '~> 0.9', '>= 0.9.2'
+  spec.add_runtime_dependency 'faraday_middleware', '~> 0.10', '>= 0.10.0'
+  spec.add_runtime_dependency 'typhoeus', '~> 1.0', '>= 1.0.2'
   spec.add_runtime_dependency 'rash', '~> 0.4', '>= 0.4.0'
 
   spec.add_development_dependency 'bundler', '~> 1.11', '>= 1.11.2'

@@ -85,7 +85,7 @@ class Array
   #   [1,2,3].blank? # => false
   #
   # @return [true, false]
-  alias_method :blank?, :empty?
+  alias blank? empty?
 end
 
 class Hash
@@ -95,7 +95,7 @@ class Hash
   #   { key: 'value' }.blank?  # => false
   #
   # @return [true, false]
-  alias_method :blank?, :empty?
+  alias blank? empty?
 end
 
 class String
