@@ -1,8 +1,6 @@
 module FinApps
   module REST
     class Configuration # :nodoc:
-      include ::FinApps::Utils::Loggeable
-
       RUBY = "#{RUBY_ENGINE}/#{RUBY_PLATFORM} #{RUBY_VERSION}-p#{RUBY_PATCHLEVEL}".freeze
       HEADERS = {
         accept:     'application/json',
