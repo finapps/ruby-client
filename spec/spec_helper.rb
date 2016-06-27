@@ -24,3 +24,6 @@ RSpec.configure do |config|
     stub_request(:any, ::FinApps::REST::Defaults::DEFAULTS[:host]).to_rack(::FakeApi)
   end
 end
+
+VALID_CREDENTIALS = {identifier: 'identifier',
+                     token:      'token'}.freeze
