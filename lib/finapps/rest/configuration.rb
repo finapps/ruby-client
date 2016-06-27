@@ -14,7 +14,6 @@ module FinApps
       def initialize(config)
         merged_config = FinApps::REST::Defaults::DEFAULTS.merge(config.compact)
         merged_config.each {|k, v| instance_variable_set("@#{k}", v) unless v.nil? }
-        logger.debug "##{__method__} => config: #{merged_config.inspect}"
 
         raise MissingArgumentsError.new 'Missing tenant_credentials.' if tenant_credentials.blank?
         raise InvalidArgumentsError.new 'Invalid company_identifier.' if tenant_credentials[:identifier].blank?
