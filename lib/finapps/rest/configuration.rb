@@ -1,6 +1,8 @@
 module FinApps
   module REST
     class Configuration # :nodoc:
+      include ::FinApps::Utils::Loggeable
+
       RUBY = "#{RUBY_ENGINE}/#{RUBY_PLATFORM} #{RUBY_VERSION}-p#{RUBY_PATCHLEVEL}".freeze
       HEADERS = {
         accept:     'application/json',
@@ -12,7 +14,11 @@ module FinApps
       def initialize(config)
         merged_config = FinApps::REST::Defaults::DEFAULTS.merge(config.compact)
         merged_config.each {|k, v| instance_variable_set("@#{k}", v) unless v.nil? }
+        logger.debug "##{__method__} => config: #{merged_config.inspect}"
 
+        raise MissingArgumentsError.new 'Missing tenant_credentials.' if tenant_credentials.blank?
+        raise InvalidArgumentsError.new 'Invalid company_identifier.' if tenant_credentials[:identifier].blank?
+        raise InvalidArgumentsError.new 'Invalid company_token.' if tenant_credentials[:token].blank?
         raise InvalidArgumentsError.new "Invalid argument. {host: #{host}}" unless valid_host?
         raise InvalidArgumentsError.new "Invalid argument. {timeout: #{timeout}}" unless valid_timeout?
 
