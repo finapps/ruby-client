@@ -1,18 +1,17 @@
 module FinApps
   module REST
     class BaseClient # :nodoc:
+      include ::FinApps::Utils::Loggeable
+
       attr_reader :config
 
-      def initialize(options, logger=nil)
+      def initialize(options={}, logger=nil)
         @config = FinApps::REST::Configuration.new options
-        @logger = logger || begin
-          require 'logger'
-          ::Logger.new(STDOUT)
-        end
+        @logger = logger
       end
 
       def connection
-        @connection ||= FinApps::REST::Connection.faraday(config)
+        @connection ||= FinApps::REST::Connection.faraday(config, logger)
       end
 
       # Performs HTTP GET, POST, UPDATE and DELETE requests.

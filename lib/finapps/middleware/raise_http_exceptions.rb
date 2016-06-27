@@ -34,7 +34,7 @@ module FinApps
           raise FinApps::REST::VersionNotSupported, response_values(env, 'The Web server does not support the specified HTTP protocol version.')
 
         when CLIENT_ERROR_STATUSES
-          raise FinApps::REST::Error, response_values(env, 'Unexpected error.')
+          raise FinApps::REST::Error, response_values(env, "Unexpected error. Status: #{env.status}")
 
         else
           # 200..206 Success codes
