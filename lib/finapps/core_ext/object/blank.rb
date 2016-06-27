@@ -1,6 +1,6 @@
 # from: rails/activesupport/lib/active_support/core_ext/object/blank.rb
 
-class Object
+class Object # :nodoc:
   # An object is blank if it's false, empty, or a whitespace string.
   # For example, +false+, '', '   ', +nil+, [], and {} are all blank.
   #
@@ -45,7 +45,7 @@ class Object
   end
 end
 
-class NilClass
+class NilClass # :nodoc:
   # +nil+ is blank:
   #
   #   nil.blank? # => true
@@ -56,7 +56,7 @@ class NilClass
   end
 end
 
-class FalseClass
+class FalseClass # :nodoc:
   # +false+ is blank:
   #
   #   false.blank? # => true
@@ -67,7 +67,7 @@ class FalseClass
   end
 end
 
-class TrueClass
+class TrueClass # :nodoc:
   # +true+ is not blank:
   #
   #   true.blank? # => false
@@ -78,7 +78,7 @@ class TrueClass
   end
 end
 
-class Array
+class Array # :nodoc:
   # An array is blank if it's empty:
   #
   #   [].blank?      # => true
@@ -88,7 +88,7 @@ class Array
   alias blank? empty?
 end
 
-class Hash
+class Hash # :nodoc:
   # A hash is blank if it's empty:
   #
   #   {}.blank?                # => true
@@ -98,7 +98,7 @@ class Hash
   alias blank? empty?
 end
 
-class String
+class String # :nodoc:
   BLANK_RE = /\A[[:space:]]*\z/
 
   # A string is blank if it's empty or contains whitespaces only:

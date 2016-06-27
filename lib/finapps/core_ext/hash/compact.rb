@@ -1,6 +1,6 @@
 # from rails/activesupport/lib/active_support/core_ext/hash/compact.rb
 
-class Hash
+class Hash # :nodoc:
   # Returns a hash with non +nil+ values.
   #
   #   hash = { a: true, b: false, c: nil}
