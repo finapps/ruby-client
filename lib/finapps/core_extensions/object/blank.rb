@@ -14,7 +14,7 @@ class Object # :nodoc:
   #
   # @return [true, false]
   def blank?
-    respond_to?(:empty?) ? !!empty? : !self
+    respond_to?(:empty?) ? empty? : !self
   end
 
   # An object is present if it's not blank.
@@ -117,7 +117,7 @@ class String # :nodoc:
     # The regexp that matches blank strings is expensive. For the case of empty
     # strings we can speed up this method (~3.5x) with an empty? call. The
     # penalty for the rest of strings is marginal.
-    empty? || BLANK_RE === self
+    empty? || self =~ BLANK_RE
   end
 end
 

@@ -1,6 +1,6 @@
 module FinApps
   module REST
-    class Resource
+    class Resource # :nodoc:
       # @param [Hash] hash
       def initialize(hash)
         hash.each {|k, v| instance_variable_set("@#{k}", v) unless v.nil? } if hash.present?

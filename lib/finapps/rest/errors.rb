@@ -2,6 +2,7 @@ module FinApps
   module REST
     # Custom error class for rescuing from all FinApps errors
     class Error < StandardError
+      include ::FinApps::Utils::Loggeable
       attr_reader :response
 
       def initialize(ex, response=nil)
@@ -33,49 +34,32 @@ module FinApps
 
       # @return [Array<String>]
       def error_messages
-        message_array = []
-        body = response_body
-
-        if body.present? && body.is_a?(String)
-          begin
-            parsed = ::JSON.parse(body)
-            if parsed
-              body = parsed
-            else
-              logger.info "##{__method__} => Cannot extract errors: unexpected error while parsing response."
-            end
-          rescue ::JSON::ParserError => e
-            logger.error "##{__method__} => Unable to parse JSON response."
-            logger.error e
-          end
-        end
-
-        if body.present? && body.is_a?(Hash)
-
-          if body.key?(:error_messages)
-            message_array = body[:error_messages]
-          elsif body.key?('error_messages')
-            message_array = body['error_messages']
-          elsif body.key?(:messages)
-            message_array = body[:messages]
-          elsif body.key?('messages')
-            message_array = body['messages']
-          end
-
-        end
-
-        message_array
+        parsed_body = parse_string_body(@response.key?(:body) ? @response[:body] : @response)
+        extract_messages(parsed_body)
       end
 
-      private
-
-      def response_body
-        body = nil
-        if @response.present?
-          body = @response.key?(:body) ? @response[:body] : @response
+      def extract_messages(body)
+        parsed = nil
+        if body.is_a?(Hash)
+          # http://stackoverflow.com/questions/10780817/hash-with-indifferent-access
+          body.default_proc = proc {|h, k| h.key?(k.to_s) ? h[k.to_s] : nil }
+          # TODO: remove => API should be consistent, either :message or :error_message key should be used, not both
+          body[:messages] = body.delete(:error_messages) if body.key?(:error_messages)
+          parsed = body[:messages] if body.key?(:messages)
         end
 
-        body
+        parsed.blank? ? [message] : parsed
+      end
+
+      def parse_string_body(body)
+        parsed = nil
+        begin
+          parsed = ::JSON.parse(body)
+          logger.info "##{__method__} => Cannot extract errors: unexpected error while parsing response." unless parsed
+        rescue ::JSON::ParserError
+          logger.error "##{__method__} => Unable to parse JSON response."
+        end
+        parsed
       end
     end
 

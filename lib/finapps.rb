@@ -5,8 +5,9 @@ require 'faraday_middleware'
 require 'typhoeus'
 require 'typhoeus/adapters/faraday'
 
-require 'finapps/core_ext/object/blank'
-require 'finapps/core_ext/hash/compact'
+require 'finapps/core_extensions/object/blank'
+require 'finapps/core_extensions/hash/compact'
+require 'finapps/core_extensions/integerable'
 require 'finapps/utils/loggeable'
 
 require 'finapps/middleware/tenant_authentication'

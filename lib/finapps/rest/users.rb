@@ -1,8 +1,7 @@
 module FinApps
   module REST
-    require 'erb'
-
-    class Users < FinApps::REST::Resources
+    class Users < FinApps::REST::Resources # :nodoc:
+      require 'erb'
       include FinApps::REST::Defaults
 
       # @param [String] public_id
@@ -88,7 +87,7 @@ module FinApps
       end
     end
 
-    class User < FinApps::REST::Resource
+    class User < FinApps::REST::Resource # :nodoc:
       attr_accessor :public_id, :token, :email, :first_name, :last_name, :postal_code
     end
   end

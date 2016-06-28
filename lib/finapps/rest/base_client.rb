@@ -44,21 +44,19 @@ module FinApps
 
         begin
           response = execute_method method, params, path
-
         rescue FinApps::REST::InvalidArgumentsError => error
           raise error
         rescue FinApps::REST::MissingArgumentsError => error
           raise error
         rescue FinApps::REST::Error => error
           error_messages = error.error_messages
+          logger.fatal "##{__method__} => FinApps::REST::Error, #{error}"
         rescue Faraday::ParsingError => error
           error_messages << 'Unable to parse the server response.'
           logger.fatal "##{__method__} => Faraday::ParsingError, #{error}"
         rescue StandardError => error
           error_messages << 'Unexpected error.'
-          logger.fatal "##{__method__} => Error, #{error}"
-        ensure
-          logger.debug "##{__method__} => Failed, error_messages: #{error_messages}" if error_messages.present?
+          logger.fatal "##{__method__} => StandardError, #{error}"
         end
 
         [response, error_messages]

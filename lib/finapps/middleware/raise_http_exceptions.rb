@@ -1,40 +1,48 @@
 module FinApps
   module Middleware
-    class RaiseHttpExceptions < Faraday::Response::Middleware
+    class RaiseHttpExceptions < Faraday::Response::Middleware # :nodoc:
+      include FinApps::Utils::Loggeable
+
       CLIENT_ERROR_STATUSES = 400...600
+
+      API_ERROR_STATUSES = {
+        400 => {error:   FinApps::REST::BadRequest,
+                message: 'The request could not be understood by the server due to malformed syntax.'},
+        401 => {error:   FinApps::REST::Unauthorized,
+                message: 'The request requires user authentication.'},
+        403 => {error:   FinApps::REST::Forbidden,
+                message: 'Forbidden.'},
+        404 => {error:   FinApps::REST::NotFound,
+                message: 'Page not found.'},
+        405 => {error:   FinApps::REST::MethodNotAllowed,
+                message: 'The method specified is not allowed for the resource.'},
+        406 => {error:   FinApps::REST::NotAcceptable,
+                message: 'Not acceptable according to the accept headers sent in the request.'},
+        407 => {error:   FinApps::REST::ConnectionFailed,
+                message: 'Proxy Authentication Required.'},
+        409 => {error:   FinApps::REST::Conflict,
+                message: 'The request could not be completed due to a conflict.'},
+
+        500 => {error:   FinApps::REST::InternalServerError,
+                message: 'Unexpected technical condition was encountered.'},
+        502 => {error:   FinApps::REST::BadGateway,
+                message: 'The server returned an invalid or incomplete response.'},
+        503 => {error:   FinApps::REST::ServiceUnavailable,
+                message: 'The server is currently unavailable.'},
+        504 => {error:   FinApps::REST::GatewayTimeout,
+                message: 'Gateway Time-out.'},
+        505 => {error:   FinApps::REST::VersionNotSupported,
+                message: 'The Web server does not support the specified HTTP protocol version.'}
+
+      }.freeze
 
       def on_complete(env)
         case env[:status]
-        when 400
-          raise FinApps::REST::BadRequest, response_values(env, 'The request could not be understood by the server due to malformed syntax.')
-        when 401
-          raise FinApps::REST::Unauthorized, response_values(env, 'The request requires user authentication.')
-        when 403
-          raise FinApps::REST::Forbidden, response_values(env, 'Forbidden.')
-        when 404
-          raise FinApps::REST::NotFound, response_values(env, 'Page not found.')
-        when 405
-          raise FinApps::REST::MethodNotAllowed, response_values(env, 'The method specified in the Request-Line is not allowed for the resource identified by the Request-URI.')
-        when 406
-          raise FinApps::REST::NotAcceptable, response_values(env, 'The resource identified by the request is only capable of generating response entities which have content characteristics not acceptable according to the accept headers sent in the request')
-        when 407
-          raise Faraday::Error::ConnectionFailed, response_values(env, 'Proxy Authentication Required.')
-        when 409
-          raise FinApps::REST::Conflict, response_values(env, 'The request could not be completed due to a conflict with the current state of the resource.')
-
-        when 500
-          raise FinApps::REST::InternalServerError, response_values(env, 'Unexpected technical condition was encountered.')
-        when 502
-          raise FinApps::REST::BadGateway, response_values(env, 'The server returned an invalid or incomplete response.')
-        when 503
-          raise FinApps::REST::ServiceUnavailable, response_values(env, 'The server is currently unavailable.')
-        when 504
-          raise FinApps::REST::GatewayTimeout, response_values(env, 'Gateway Time-out')
-        when 505
-          raise FinApps::REST::VersionNotSupported, response_values(env, 'The Web server does not support the specified HTTP protocol version.')
+        when API_ERROR_STATUSES.keys
+          raise API_ERROR_STATUSES[env[:status]][:error], messages(env, API_ERROR_STATUSES[env[:status]][:message])
 
         when CLIENT_ERROR_STATUSES
-          raise FinApps::REST::Error, response_values(env, "Unexpected error. Status: #{env.status}")
+          raise FinApps::REST::Error, messages(env, "Unexpected error. Status: #{env.status}")
 
         else
           # 200..206 Success codes
@@ -45,40 +53,20 @@ module FinApps
 
       private
 
-      def error_messages(body)
-        error_array = []
+      def messages(env, custom_message)
+        return {error_messages: []} unless env.body.present?
 
-        if body.present? && body.is_a?(String)
-          begin
-            parsed = ::JSON.parse(body)
-            if parsed
-              parsed.each do |key, value|
-                value.each do |message|
-                  logger.debug "#{key} => #{message}"
-                  error_array.push message.to_s
-                end
-              end
-              logger.info "##{__method__} => Extracted errors: #{error_array.inspect}."
-            else
-              logger.info "##{__method__} => Cannot extract errors: unexpected error while parsing response."
-            end
-          rescue ::JSON::ParserError => e
-            logger.error "##{__method__} => Unable to parse JSON response."
-            logger.error e
+        error_array = []
+        begin
+          parsed = ::JSON.parse(env.body)
+          if parsed && parsed.respond_to?(:each)
+            parsed.each {|_key, value| value.each {|message| error_array << (custom_message || message).to_s } }
           end
+        rescue ::JSON::ParserError
+          logger.error "##{__method__} => Unable to parse JSON response."
         end
 
-        error_array
-      end
-
-      def response_values(env, status_message=nil)
-        {
-          status:         env.status,
-          status_message: status_message,
-          headers:        env.response_headers,
-          body:           env.body,
-          error_messages: error_messages(env.body)
-        }
+        {error_messages: error_array}
       end
     end
   end

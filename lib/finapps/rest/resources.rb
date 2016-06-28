@@ -1,6 +1,6 @@
 module FinApps
   module REST
-    class Resources
+    class Resources # :nodoc:
       attr_reader :client
 
       # @param [FinApps::REST::Client] client

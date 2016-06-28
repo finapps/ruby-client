@@ -1,5 +1,6 @@
 module FinApps
   module Utils
+    # Adds logging capabilities when included into other classes
     module Loggeable
       def logger
         @logger ||= begin
