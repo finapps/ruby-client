@@ -81,59 +81,17 @@ module FinApps
         end
       end
 
-      # Performs an HTTP GET request.
-      # Returns a hash obtained from parsing
-      # the JSON object in the response body.
+      # Defines methods to perform HTTP GET, POST, PUT and DELETE requests.
+      # Returns a hash obtained from parsing the JSON object in the response body.
       #
-      # @param [String] path
-      # @return [Hash,Array<String>]
-      def get(path)
-        logger.debug "##{__method__} => GET path:#{path}"
-        connection.get {|req| req.url path }
-      end
-
-      # Performs an HTTP POST request.
-      # Returns a hash obtained from parsing
-      # the JSON object in the response body.
-      #
-      # @param [String] path
-      # @param [Hash] params
-      # @return [Hash,Array<String>]
-      def post(path, params={})
-        logger.debug "##{__method__} => POST path:#{path} params:#{skip_sensitive_data params}"
-        connection.post do |req|
-          req.url path
-          req.body = params
-        end
-      end
-
-      # Performs an HTTP PUT request.
-      # Returns a hash obtained from parsing
-      # the JSON object in the response body.
-      #
-      # @param [String] path
-      # @param [Hash] params
-      # @return [Hash,Array<String>]
-      def put(path, params={})
-        logger.debug "##{__method__} => PUT path:#{path} params:#{skip_sensitive_data(params)}"
-        connection.put do |req|
-          req.url path
-          req.body = params
-        end
-      end
-
-      # Performs an HTTP DELETE request.
-      # Returns a hash obtained from parsing
-      # the JSON object in the response body.
-      #
-      # @param [String] path
-      # @param [Hash] params
-      # @return [Hash,Array<String>]
-      def delete(path, params={})
-        logger.debug "##{__method__} => DELETE path:#{path} params:#{skip_sensitive_data(params)}"
-        connection.delete do |req|
-          req.url path
-          req.body = params
+      def method_missing(method_id, *arguments, &block)
+        if %i(get post put delete).include? method_id
+          connection.send(method_id) do |req|
+            req.url arguments.first
+            req.body = arguments[1] unless method_id == :get
+          end
+        else
+          super
         end
       end
     end
