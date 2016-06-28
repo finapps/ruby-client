@@ -67,7 +67,7 @@ RSpec.describe FinApps::REST::Configuration do
 
         it('should have a default host') { expect(subject.host).to eq(FinApps::REST::Defaults::DEFAULTS[:host]) }
         it('versioned_url should include version') do
-          expect(subject.versioned_url).to eq("#{subject.host}/v#{FinApps::REST::Defaults::API_VERSION}")
+          expect(subject.versioned_url).to eq("#{subject.host}/v#{FinApps::REST::Defaults::API_VERSION}/")
         end
       end
     end

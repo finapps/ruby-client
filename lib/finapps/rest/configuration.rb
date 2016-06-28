@@ -19,7 +19,7 @@ module FinApps
         raise InvalidArgumentsError.new "Invalid argument. {host: #{host}}" unless valid_host?
         raise InvalidArgumentsError.new "Invalid argument. {timeout: #{timeout}}" unless valid_timeout?
 
-        @versioned_url = "#{host}/v#{FinApps::REST::Defaults::API_VERSION}"
+        @versioned_url = "#{host}/v#{FinApps::REST::Defaults::API_VERSION}/"
       end
 
       def connection_options

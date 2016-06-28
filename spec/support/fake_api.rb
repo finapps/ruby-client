@@ -2,7 +2,10 @@ require 'sinatra/base'
 
 class FakeApi < Sinatra::Base
   # users
-  get('/v1/users/:id') { json_response 200, 'user.json' }
+  get('/users/:id') { json_response 200, 'user.json' }
+
+  # relevance
+  get('/v2/relevance/ruleset/names') { json_response 200, 'relevance_ruleset_names.json' }
 
   private
 

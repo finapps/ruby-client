@@ -1,5 +1,6 @@
 RSpec.describe FinApps::REST::Client do
-  subject { FinApps::REST::BaseClient.new }
+  let(:valid_tenant_options) { {tenant_credentials: VALID_CREDENTIALS} }
+  subject { FinApps::REST::BaseClient.new(valid_tenant_options) }
 
   describe '#new' do
     it 'assigns @config' do
@@ -24,11 +25,11 @@ RSpec.describe FinApps::REST::Client do
       it { expect { subject.send_request(nil, :get) }.to raise_error(FinApps::REST::MissingArgumentsError) }
     end
     context 'when method is NOT provided' do
-      it { expect { subject.send_request('/fake_path/', nil) }.to raise_error(FinApps::REST::MissingArgumentsError) }
+      it { expect { subject.send_request('fake_path', nil) }.to raise_error(FinApps::REST::MissingArgumentsError) }
     end
 
     context 'when a get request is provided' do
-      it { expect { subject.send_request('/', :get) }.to raise_error(FinApps::REST::MissingArgumentsError) }
+      it { expect { subject.send_request('relevance/ruleset/names', :get) }.to raise_error(FinApps::REST::MissingArgumentsError) }
     end
   end
 end

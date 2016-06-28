@@ -5,7 +5,7 @@ module FinApps
 
       # noinspection SpellCheckingInspection
       DEFAULTS = {
-        host:        'https://api.financialapps.com',
+        host:        'https://dev.financialapps.com',
         timeout:     30,
         proxy_addr:  nil,
         proxy_port:  nil,

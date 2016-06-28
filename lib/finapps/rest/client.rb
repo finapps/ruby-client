@@ -3,16 +3,17 @@ module FinApps
     class Client < BaseClient # :nodoc:
       include FinApps::REST::Defaults
 
-      # @param [String] company_identifier
-      # @param [String] company_token
+      # @param [String] tenant_identifier
+      # @param [String] tenant_token
       # @param [Hash] options
       # @return [FinApps::REST::Client]
-      def initialize(company_identifier, company_token, logger=nil, options={})
-        raise FinApps::REST::MissingArgumentsError.new 'Invalid company_identifier.' if company_identifier.blank?
-        raise FinApps::REST::MissingArgumentsError.new 'Invalid company_token.' if company_token.blank?
+      def initialize(tenant_identifier, tenant_token, logger=nil, options={})
+        raise FinApps::REST::MissingArgumentsError.new 'Invalid company_identifier.' if tenant_identifier.blank?
+        raise FinApps::REST::MissingArgumentsError.new 'Invalid company_token.' if tenant_token.blank?
 
         merged_options = FinApps::REST::Defaults::DEFAULTS.merge options
-        merged_options[:tenant_credentials] = {identifier: company_identifier, token: company_token}
+        merged_options[:tenant_credentials] = {identifier: tenant_identifier,
+                                               token:      tenant_token}
 
         super(merged_options, logger)
       end
