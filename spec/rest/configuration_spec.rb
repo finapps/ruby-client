@@ -7,12 +7,12 @@ RSpec.describe FinApps::REST::Configuration do
 
     it 'raises for invalid tenant credentials (identifier)' do
       expect { FinApps::REST::Configuration.new(tenant_credentials: {token: :token}) }
-        .to raise_error(FinApps::InvalidArgumentsError, 'Invalid company_identifier.')
+        .to raise_error(FinApps::MissingArgumentsError, 'Missing tenant_credentials.')
     end
 
     it 'raises for invalid tenant credentials (token)' do
       expect { FinApps::REST::Configuration.new(tenant_credentials: {identifier: :identifier}) }
-        .to raise_error(FinApps::InvalidArgumentsError, 'Invalid company_token.')
+        .to raise_error(FinApps::MissingArgumentsError, 'Missing tenant_credentials.')
     end
 
     context 'for valid tenant credentials' do
@@ -66,8 +66,8 @@ RSpec.describe FinApps::REST::Configuration do
         subject { FinApps::REST::Configuration.new(valid_tenant_options.merge(host: nil)) }
 
         it('should have a default host') { expect(subject.host).to eq(FinApps::REST::Defaults::DEFAULTS[:host]) }
-        it('versioned_url should include version') do
-          expect(subject.versioned_url).to eq("#{subject.host}/v#{FinApps::REST::Defaults::API_VERSION}/")
+        it('url should include version') do
+          expect(subject.url).to eq("#{subject.host}/v#{FinApps::REST::Defaults::API_VERSION}/")
         end
       end
     end

@@ -44,16 +44,14 @@ module FinApps
 
         begin
           response = execute_method method, params, path
-        rescue FinApps::InvalidArgumentsError => error
+        rescue FinApps::InvalidArgumentsError,
+               FinApps::MissingArgumentsError,
+               Faraday::Error::ConnectionFailed => error
+          logger.fatal "##{__method__} => #{error}"
           raise error
-        rescue FinApps::MissingArgumentsError => error
-          raise error
-        rescue FinApps::REST::Error => error
-          error_messages = error.error_messages
-          logger.fatal "##{__method__} => FinApps::REST::Error, #{error}"
-        rescue Faraday::ParsingError => error
-          error_messages << 'Unable to parse the server response.'
-          logger.fatal "##{__method__} => Faraday::ParsingError, #{error}"
+        rescue Faraday::Error::ClientError => error
+          error_messages = error.response[:error_messages]
+          logger.error "##{__method__} => Faraday::Error::ClientError, #{error}"
         rescue StandardError => error
           error_messages << 'Unexpected error.'
           logger.fatal "##{__method__} => StandardError, #{error}"
@@ -63,8 +61,6 @@ module FinApps
       end
 
       def execute_method(method, params, path)
-        logger.debug "##{__method__} => #{method.to_s.upcase} path:#{path}  params:#{params}"
-
         case method
         when :get
           get(path)

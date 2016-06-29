@@ -8,10 +8,12 @@ require 'typhoeus/adapters/faraday'
 require 'finapps/core_extensions/object/blank'
 require 'finapps/core_extensions/hash/compact'
 require 'finapps/core_extensions/integerable'
+require 'finapps/hash_constructable'
 require 'finapps/utils/loggeable'
 require 'finapps/error'
 
 require 'finapps/middleware/tenant_authentication'
+require 'finapps/middleware/raise_error'
 
 require 'finapps/rest/defaults'
 require 'finapps/rest/resource'

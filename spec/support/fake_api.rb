@@ -7,6 +7,8 @@ class FakeApi < Sinatra::Base
   # relevance
   get('/v2/relevance/ruleset/names') { json_response 200, 'relevance_ruleset_names.json' }
 
+  get('/v2/error') { json_response 400, 'error.json' }
+
   private
 
   def json_response(response_code, file_name)
