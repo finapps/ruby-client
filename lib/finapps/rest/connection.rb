@@ -20,7 +20,7 @@ module FinApps
           conn.use FinApps::Middleware::RaiseHttpExceptions
           conn.response :rashify
           conn.response :json, content_type: /\bjson$/
-          conn.response :logger, logger, bodies: true
+          conn.response :logger, logger # , bodies: true
 
           # Adapter (ensure that the adapter is always last.)
           conn.adapter :typhoeus

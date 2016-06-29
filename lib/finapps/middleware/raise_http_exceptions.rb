@@ -3,70 +3,58 @@ module FinApps
     class RaiseHttpExceptions < Faraday::Response::Middleware # :nodoc:
       include FinApps::Utils::Loggeable
 
-      CLIENT_ERROR_STATUSES = 400...600
+      def initialize(app)
+        super app
+        @parser = nil
+      end
 
-      API_ERROR_STATUSES = {
-        400 => {error:   FinApps::REST::BadRequest,
-                message: 'The request could not be understood by the server due to malformed syntax.'},
-        401 => {error:   FinApps::REST::Unauthorized,
-                message: 'The request requires user authentication.'},
-        403 => {error:   FinApps::REST::Forbidden,
-                message: 'Forbidden.'},
-        404 => {error:   FinApps::REST::NotFound,
-                message: 'Page not found.'},
-        405 => {error:   FinApps::REST::MethodNotAllowed,
-                message: 'The method specified is not allowed for the resource.'},
-        406 => {error:   FinApps::REST::NotAcceptable,
-                message: 'Not acceptable according to the accept headers sent in the request.'},
-        407 => {error:   FinApps::REST::ConnectionFailed,
-                message: 'Proxy Authentication Required.'},
-        409 => {error:   FinApps::REST::Conflict,
-                message: 'The request could not be completed due to a conflict.'},
+      def call(env)
+        @app.call(env).on_complete do |response|
+          case response[:status].to_i
+          when 400
+            raise FinApps::Errors::BadRequest, error_message_400(response)
+          when 404
+            raise FinApps::REST::NotFound, error_message_400(response)
+          when 409
+            raise FinApps::REST::Conflict, error_message_400(response)
 
-        500 => {error:   FinApps::REST::InternalServerError,
-                message: 'Unexpected technical condition was encountered.'},
-        502 => {error:   FinApps::REST::BadGateway,
-                message: 'The server returned an invalid or incomplete response.'},
-        503 => {error:   FinApps::REST::ServiceUnavailable,
-                message: 'The server is currently unavailable.'},
-        504 => {error:   FinApps::REST::GatewayTimeout,
-                message: 'Gateway Time-out.'},
-        505 => {error:   FinApps::REST::VersionNotSupported,
-                message: 'The Web server does not support the specified HTTP protocol version.'}
-
-      }.freeze
-
-      def on_complete(env)
-        case env[:status]
-        when API_ERROR_STATUSES.keys
-          raise API_ERROR_STATUSES[env[:status]][:error], messages(env, API_ERROR_STATUSES[env[:status]][:message])
-
-        when CLIENT_ERROR_STATUSES
-          raise FinApps::REST::Error, messages(env, "Unexpected error. Status: #{env.status}")
-
-        else
-          # 200..206 Success codes
-          # all good!
-          logger.debug "##{__method__} => Status code: [#{env[:status]}]."
+          when 500
+            raise FinApps::REST::InternalServerError,
+                  error_message_500(response, 'Unexpected technical condition was encountered.')
+          when 502
+            raise FinApps::REST::BadGateway,
+                  error_message_500(response, 'The server returned an invalid or incomplete response.')
+          when 504
+            raise FinApps::REST::GatewayTimeout,
+                  error_message_500(response, 'Gateway Time-out.')
+          end
         end
       end
 
       private
 
-      def messages(env, custom_message)
-        return {error_messages: []} unless env.body.present?
+      def error_message_400(response)
+        "#{response[:method].to_s.upcase} #{response[:url]}: #{response[:status]}#{error_body(response[:body])}"
+      end
 
-        error_array = []
-        begin
-          parsed = ::JSON.parse(env.body)
-          if parsed && parsed.respond_to?(:each)
-            parsed.each {|_key, value| value.each {|message| error_array << (custom_message || message).to_s } }
-          end
-        rescue ::JSON::ParserError
-          logger.error "##{__method__} => Unable to parse JSON response."
+      def error_body(body)
+        body = parse_json(body) if body.present? && body.is_a?(String)
+
+        if body.nil?
+          nil
+        elsif body['error_message'] && body['error_message'].present?
+          ": #{body['error_type']}: #{body['error_message']}"
         end
+      end
 
-        {error_messages: error_array}
+      def parse_json(body)
+        ::JSON.parse(body)
+      rescue ::JSON::ParserError
+        logger.error "##{__method__} => Unable to parse JSON response."
+      end
+
+      def error_message_500(response, body=nil)
+        "#{response[:method].to_s.upcase} #{response[:url]}: #{[response[:status].to_s + ':', body].compact.join(' ')}"
       end
     end
   end

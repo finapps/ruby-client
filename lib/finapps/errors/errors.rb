@@ -1,5 +1,5 @@
 module FinApps
-  module REST
+  module Errors
     # Custom error class for rescuing from all FinApps errors
     class Error < StandardError
       include ::FinApps::Utils::Loggeable
@@ -54,7 +54,7 @@ module FinApps
       def parse_string_body(body)
         parsed = nil
         begin
-          parsed = ::JSON.parse(body)
+          parsed = ::JSON.parse(body) if body.is_a?(String)
           logger.info "##{__method__} => Cannot extract errors: unexpected error while parsing response." unless parsed
         rescue ::JSON::ParserError
           logger.error "##{__method__} => Unable to parse JSON response."
