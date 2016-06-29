@@ -21,5 +21,16 @@ RSpec.describe FinApps::REST::Client do
     describe '#users' do
       it { expect(subject.users).to be_an_instance_of(FinApps::REST::Users) }
     end
+
+    # [:users, :institutions, :user_institutions, :transactions, :categories,
+    # :budget_models, :budget_calculation, :budgets, :cashflows,
+    # :alert, :alert_definition, :alert_preferences, :alert_settings, :rule_sets]
+    [:users].each do |method|
+      it "memoizes the result of #{method}" do
+        first = subject.send(method)
+        second = subject.send(method)
+        expect(first.object_id).to eq(second.object_id)
+      end
+    end
   end
 end
