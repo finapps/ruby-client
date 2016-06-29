@@ -10,6 +10,9 @@ module FinApps
         @logger = logger
       end
 
+      # Returns an initialized Faraday connection object.
+      #
+      # @return Faraday::Connection.
       def connection
         @connection ||= FinApps::REST::Connection.faraday(config, logger)
       end
@@ -50,7 +53,7 @@ module FinApps
           logger.fatal "##{__method__} => #{error}"
           raise error
         rescue Faraday::Error::ClientError => error
-          error_messages = error.response[:error_messages]
+          error_messages = error.response[:error_messages].blank? ? [error.message] : error.response[:error_messages]
           logger.error "##{__method__} => Faraday::Error::ClientError, #{error}"
         rescue StandardError => error
           error_messages << 'Unexpected error.'

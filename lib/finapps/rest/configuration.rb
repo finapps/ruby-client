@@ -28,7 +28,7 @@ module FinApps
       end
 
       def valid_user_credentials?
-        user_credentials.present? && user_credentials[:identifier].present? && user_credentials[:token].present?
+        valid_credentials? user_credentials
       end
 
       private
@@ -40,10 +40,11 @@ module FinApps
       end
 
       def valid_tenant_credentials?
-        tenant_credentials.present? &&
-          tenant_credentials.is_a?(Hash) &&
-          %i(identifier token).all? {|x| tenant_credentials.key? x } &&
-          tenant_credentials.values.all?(&:present?)
+        valid_credentials? tenant_credentials
+      end
+
+      def valid_credentials?(h)
+        h.is_a?(Hash) && %i(identifier token).all? {|x| h.key? x } && h.values.all?(&:present?)
       end
 
       def valid_host?

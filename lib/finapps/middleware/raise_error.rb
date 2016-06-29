@@ -9,9 +9,13 @@ module FinApps
         case env[:status]
         when 407
           # mimic the behavior that we get with proxy requests with HTTPS
-          raise Faraday::Error::ConnectionFailed, '407 "Proxy Authentication Required "'
+          raise Faraday::Error::ConnectionFailed, '407 "Proxy Authentication Required"'
         when CLIENT_ERROR_STATUSES
           raise Faraday::Error::ClientError, response_values(env)
+        else
+          # 200..206 Success codes
+          # all good!
+          logger.debug "##{__method__} => Status code: [#{env[:status]}]"
         end
       end
 
@@ -33,8 +37,7 @@ module FinApps
       end
 
       def parse_string(body)
-        body = ::JSON.parse(body)
-        logger.info "##{__method__} => parsed JSON: #{body.inspect}"
+        ::JSON.parse(body)
       rescue ::JSON::ParserError
         logger.error "##{__method__} => Unable to parse JSON response."
       end

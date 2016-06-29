@@ -7,7 +7,9 @@ class FakeApi < Sinatra::Base
   # relevance
   get('/v2/relevance/ruleset/names') { json_response 200, 'relevance_ruleset_names.json' }
 
-  get('/v2/error') { json_response 400, 'error.json' }
+  get('/v2/client_error') { json_response 400, 'error.json' }
+  get('/v2/server_error') { status 500 }
+  get('/v2/proxy_error') { status 407 }
 
   private
 
