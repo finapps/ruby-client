@@ -22,10 +22,10 @@ RSpec.describe FinApps::REST::BaseClient do
 
   describe '#send_request' do
     context 'when path is NOT provided' do
-      it { expect { subject.send_request(nil, :get) }.to raise_error(FinApps::REST::MissingArgumentsError) }
+      it { expect { subject.send_request(nil, :get) }.to raise_error(FinApps::MissingArgumentsError) }
     end
     context 'when method is NOT provided' do
-      it { expect { subject.send_request('fake_path', nil) }.to raise_error(FinApps::REST::MissingArgumentsError) }
+      it { expect { subject.send_request('fake_path', nil) }.to raise_error(FinApps::MissingArgumentsError) }
     end
 
     context 'for a valid get request' do

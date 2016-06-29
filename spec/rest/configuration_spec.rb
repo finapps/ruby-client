@@ -2,17 +2,17 @@ RSpec.describe FinApps::REST::Configuration do
   describe '#new' do
     it 'raises for missing tenant credentials' do
       expect { FinApps::REST::Configuration.new({}) }
-        .to raise_error(FinApps::REST::MissingArgumentsError, 'Missing tenant_credentials.')
+        .to raise_error(FinApps::MissingArgumentsError, 'Missing tenant_credentials.')
     end
 
     it 'raises for invalid tenant credentials (identifier)' do
       expect { FinApps::REST::Configuration.new(tenant_credentials: {token: :token}) }
-        .to raise_error(FinApps::REST::InvalidArgumentsError, 'Invalid company_identifier.')
+        .to raise_error(FinApps::InvalidArgumentsError, 'Invalid company_identifier.')
     end
 
     it 'raises for invalid tenant credentials (token)' do
       expect { FinApps::REST::Configuration.new(tenant_credentials: {identifier: :identifier}) }
-        .to raise_error(FinApps::REST::InvalidArgumentsError, 'Invalid company_token.')
+        .to raise_error(FinApps::InvalidArgumentsError, 'Invalid company_token.')
     end
 
     context 'for valid tenant credentials' do
@@ -46,7 +46,7 @@ RSpec.describe FinApps::REST::Configuration do
 
       it 'raises for invalid timeout values' do
         expect { FinApps::REST::Configuration.new(valid_tenant_options.merge(timeout: 'whatever')) }
-          .to raise_error(FinApps::REST::InvalidArgumentsError, 'Invalid argument. {timeout: whatever}')
+          .to raise_error(FinApps::InvalidArgumentsError, 'Invalid argument. {timeout: whatever}')
       end
 
       context 'for valid timeout' do
@@ -59,7 +59,7 @@ RSpec.describe FinApps::REST::Configuration do
 
       it 'raises for invalid host values' do
         expect { FinApps::REST::Configuration.new(valid_tenant_options.merge(host: 'whatever')) }
-          .to raise_error(FinApps::REST::InvalidArgumentsError, 'Invalid argument. {host: whatever}')
+          .to raise_error(FinApps::InvalidArgumentsError, 'Invalid argument. {host: whatever}')
       end
 
       context 'for valid host' do

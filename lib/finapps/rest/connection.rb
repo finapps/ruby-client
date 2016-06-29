@@ -17,7 +17,7 @@ module FinApps
           conn.request :retry
           conn.request :multipart
           conn.request :url_encoded
-          conn.use FinApps::Middleware::RaiseHttpExceptions
+          # conn.use FinApps::Middleware::RaiseHttpExceptions
           conn.response :rashify
           conn.response :json, content_type: /\bjson$/
           conn.response :logger, logger # , bodies: true

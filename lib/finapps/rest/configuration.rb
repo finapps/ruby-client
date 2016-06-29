@@ -30,11 +30,11 @@ module FinApps
       private
 
       def validate
-        raise MissingArgumentsError.new 'Missing tenant_credentials.' if tenant_credentials.blank?
-        raise InvalidArgumentsError.new 'Invalid company_identifier.' if tenant_credentials[:identifier].blank?
-        raise InvalidArgumentsError.new 'Invalid company_token.' if tenant_credentials[:token].blank?
-        raise InvalidArgumentsError.new "Invalid argument. {host: #{host}}" unless valid_host?
-        raise InvalidArgumentsError.new "Invalid argument. {timeout: #{timeout}}" unless timeout.integer?
+        raise FinApps::MissingArgumentsError.new 'Missing tenant_credentials.' if tenant_credentials.blank?
+        raise FinApps::InvalidArgumentsError.new 'Invalid company_identifier.' if tenant_credentials[:identifier].blank?
+        raise FinApps::InvalidArgumentsError.new 'Invalid company_token.' if tenant_credentials[:token].blank?
+        raise FinApps::InvalidArgumentsError.new "Invalid argument. {host: #{host}}" unless valid_host?
+        raise FinApps::InvalidArgumentsError.new "Invalid argument. {timeout: #{timeout}}" unless timeout.integer?
       end
 
       def load(options)

@@ -9,13 +9,11 @@ require 'finapps/core_extensions/object/blank'
 require 'finapps/core_extensions/hash/compact'
 require 'finapps/core_extensions/integerable'
 require 'finapps/utils/loggeable'
+require 'finapps/error'
 
 require 'finapps/middleware/tenant_authentication'
-require 'finapps/middleware/raise_http_exceptions'
 
 require 'finapps/rest/defaults'
-require 'finapps/rest/errors'
-
 require 'finapps/rest/resource'
 require 'finapps/rest/resources'
 

@@ -23,8 +23,8 @@ module FinApps
       # @param [Hash] params
       # @return [Hash,Array<String>]
       def send_request(path, method, params={})
-        raise FinApps::REST::MissingArgumentsError.new 'Missing argument: path.' if path.blank?
-        raise FinApps::REST::MissingArgumentsError.new 'Missing argument: method.' if method.blank?
+        raise FinApps::MissingArgumentsError.new 'Missing argument: path.' if path.blank?
+        raise FinApps::MissingArgumentsError.new 'Missing argument: method.' if method.blank?
 
         response, error_messages = execute_request(method, params, path)
         result = if response.present?
@@ -44,9 +44,9 @@ module FinApps
 
         begin
           response = execute_method method, params, path
-        rescue FinApps::REST::InvalidArgumentsError => error
+        rescue FinApps::InvalidArgumentsError => error
           raise error
-        rescue FinApps::REST::MissingArgumentsError => error
+        rescue FinApps::MissingArgumentsError => error
           raise error
         rescue FinApps::REST::Error => error
           error_messages = error.error_messages
@@ -75,7 +75,7 @@ module FinApps
         when :delete
           delete(path, params)
         else
-          raise FinApps::REST::InvalidArgumentsError.new "Method not supported: #{method}."
+          raise FinApps::InvalidArgumentsError.new "Method not supported: #{method}."
         end
       end
 
