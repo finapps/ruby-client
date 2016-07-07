@@ -72,10 +72,7 @@ RSpec.describe FinApps::REST::BaseClient do
       context 'for proxy errors' do
         subject { FinApps::REST::BaseClient.new(valid_tenant_options).send_request('proxy_error', :get) }
 
-        it do
-          expect { subject.send_request(nil, :get) }
-            .to raise_error(Faraday::ConnectionFailed, '407 "Proxy Authentication Required"')
-        end
+        it { expect { subject }.to raise_error(Faraday::ConnectionFailed, '407 "Proxy Authentication Required"') }
       end
     end
 
