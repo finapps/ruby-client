@@ -13,23 +13,10 @@ module FinApps
       end
 
       def create(params={}, path=nil)
-        path = end_points[:create] if path.nil?
-        logger.debug "#{name}##{__method__} => path: #{path} params: #{params}"
-
+        path = self.class.name.split('::').last.downcase if path.nil?
+        logger.debug "#{self.class.name}##{__method__} => path: #{path} params: #{params}"
         results, error_messages = client.send_request(path, :post, params)
         [results, error_messages]
-      end
-
-      protected
-
-      def end_points
-        {
-          list:    self.class.name.downcase,
-          create:  "#{self.class.name.downcase}/new",
-          show:    "#{self.class.name.downcase}/:id",
-          update:  "#{self.class.name.downcase}/:id",
-          destroy: "#{self.class.name.downcase}/:id"
-        }
       end
 
       private

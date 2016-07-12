@@ -7,7 +7,7 @@ module FinApps
 
       def initialize(app, options={})
         super(app)
-        @header_value = "#{options[:identifier].strip}=#{options[:token].strip}"
+        @header_value = "#{options[:identifier].to_s.strip}=#{options[:token].to_s.strip}"
       end
 
       def call(env)
