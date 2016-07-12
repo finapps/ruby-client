@@ -1,9 +1,9 @@
 module FinApps
   module REST
     class Orders < FinApps::REST::Resources # :nodoc:
-      def create(params)
-        raise MissingArgumentsError.new 'Missing argument: params.' if params.blank?
-        super params
+      def show(id)
+        raise MissingArgumentsError.new 'Missing argument: params.' if id.blank?
+        super
       end
     end
   end

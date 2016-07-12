@@ -19,6 +19,15 @@ module FinApps
         [results, error_messages]
       end
 
+      def show(id, path=nil)
+        if path.nil?
+          path = "#{self.class.name.split('::').last.downcase}/:id".sub ':id', ERB::Util.url_encode(id)
+        end
+        logger.debug "#{self.class.name}##{__method__} => path: #{path}"
+        results, error_messages = client.send_request(path, :get)
+        [results, error_messages]
+      end
+
       private
 
       def logger

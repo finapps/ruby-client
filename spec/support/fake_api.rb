@@ -3,6 +3,10 @@ require 'sinatra/base'
 class FakeApi < Sinatra::Base
   # resource
   post('/v2/resources') { json_response 201, 'resource.json' }
+  get('/v2/resources/:id') { json_response 200, 'resource.json' }
+
+  # orders
+  get('/v2/orders/:id') { json_response 200, 'resource.json' }
 
   # users
   get('/users/:id') { json_response 200, 'user.json' }
