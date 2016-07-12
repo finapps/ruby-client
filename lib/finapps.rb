@@ -20,6 +20,7 @@ require 'finapps/rest/resource'
 require 'finapps/rest/resources'
 
 require 'finapps/rest/users'
+require 'finapps/rest/orders'
 
 require 'finapps/rest/configuration'
 require 'finapps/rest/connection'

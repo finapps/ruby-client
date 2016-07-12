@@ -21,6 +21,10 @@ module FinApps
       def users
         @users ||= FinApps::REST::Users.new self
       end
+
+      def orders
+        @orders ||= FinApps::REST::Orders.new self
+      end
     end
   end
 end
