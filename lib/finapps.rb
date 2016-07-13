@@ -16,7 +16,6 @@ require 'finapps/middleware/tenant_authentication'
 require 'finapps/middleware/raise_error'
 
 require 'finapps/rest/defaults'
-require 'finapps/rest/resource'
 require 'finapps/rest/resources'
 
 require 'finapps/rest/users'
