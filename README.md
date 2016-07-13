@@ -72,5 +72,4 @@ Please check the [FinApps wiki][wiki] for extended documentation.
 [builder]: http://builder.rubyforge.org/
 [bundler]: http://bundler.io
 [rubygems]: http://rubygems.org
-[gem]: https://rubygems.org/gems/finapps
 [build_status]: http://teamciti.powerwallet.com/viewType.html?buildTypeId=FaRuby_BuildMaster&guest=1
