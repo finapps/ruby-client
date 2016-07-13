@@ -2,7 +2,7 @@
 FinApps Ruby-Client
 ===================
 
-[![Gem Version](http://img.shields.io/gem/v/finapps.svg)][gem]
+[![Gem Version](https://badge.fury.io/rb/finapps.svg)](https://badge.fury.io/rb/finapps)
 [![Build Status](http://teamciti.powerwallet.com/app/rest/builds/buildType:(id:FaRuby_BuildMaster)/statusIcon)][build_status]
 [![Code Climate](https://codeclimate.com/github/finapps/ruby-client/badges/gpa.svg)](https://codeclimate.com/github/finapps/ruby-client)
 
