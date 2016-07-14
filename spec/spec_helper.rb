@@ -29,5 +29,5 @@ end
 VALID_CREDENTIALS = {identifier: '49fb918d-7e71-44dd-7378-58f19606df2a',
                      token:      'hohoho='}.freeze
 
-require "codeclimate-test-reporter"
+require 'codeclimate-test-reporter'
 CodeClimate::TestReporter.start
