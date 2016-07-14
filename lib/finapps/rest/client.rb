@@ -1,6 +1,9 @@
 module FinApps
   module REST
     class Client < BaseClient # :nodoc:
+      using ObjectExtensions
+      using StringExtensions
+
       include FinApps::REST::Defaults
 
       # @param [String] tenant_identifier

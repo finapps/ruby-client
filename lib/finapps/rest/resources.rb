@@ -8,7 +8,7 @@ module FinApps
       # @param [FinApps::REST::Client] client
       # @return [FinApps::REST::Resources]
       def initialize(client)
-        raise MissingArgumentsError.new 'Missing argument: client.' if client.blank?
+        raise MissingArgumentsError.new 'Missing argument: client.' if client.nil?
         @client = client
       end
 
