@@ -5,10 +5,9 @@ require 'faraday_middleware'
 require 'typhoeus'
 require 'typhoeus/adapters/faraday'
 
-require 'active_support/core_ext/hash/compact'
-require 'active_support/core_ext/object/blank'
-require 'finapps/core_extensions/integerable'
-require 'finapps/hash_constructable'
+require 'core_extensions/hash/compact'
+require 'core_extensions/object/blank'
+require 'core_extensions/object/is_integer'
 require 'finapps/utils/loggeable'
 require 'finapps/error'
 

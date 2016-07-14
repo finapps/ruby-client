@@ -1,9 +1,9 @@
 module FinApps
   module REST
+    # Represents the client configuration options
     class Configuration # :nodoc:
-      include FinApps::HashConstructable
-
-      using CoreExtensions::Integerable
+      using ObjectExtensions
+      using HashExtensions
 
       RUBY = "#{RUBY_ENGINE}/#{RUBY_PLATFORM} #{RUBY_VERSION}-p#{RUBY_PATCHLEVEL}".freeze
       HEADERS = {
@@ -15,8 +15,9 @@ module FinApps
                     :proxy_addr, :proxy_port, :proxy_user, :proxy_pass,
                     :retry_limit, :log_level
 
-      def initialize(options)
-        super(options, FinApps::REST::Defaults::DEFAULTS)
+      def initialize(options={})
+        FinApps::REST::Defaults::DEFAULTS.merge(options.compact).each {|k, v| public_send("#{k}=", v) }
+
         validate
         @url = "#{host}/v#{FinApps::REST::Defaults::API_VERSION}/"
       end
@@ -44,7 +45,7 @@ module FinApps
       end
 
       def valid_credentials?(h)
-        h.is_a?(Hash) && %i(identifier token).all? {|x| h.key? x } && h.values.all?(&:present?)
+        h.is_a?(Hash) && %i(identifier token).all? {|x| h.key? x } && h.values.all? {|v| !v.nil? && v != '' }
       end
 
       def valid_host?

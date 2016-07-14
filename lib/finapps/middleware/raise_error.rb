@@ -1,6 +1,8 @@
 module FinApps
   module Middleware
     class RaiseError < Faraday::Response::Middleware # :nodoc:
+      using ObjectExtensions
+      using StringExtensions
       include FinApps::Utils::Loggeable
 
       CLIENT_ERROR_STATUSES = 400...600
@@ -31,9 +33,9 @@ module FinApps
       private
 
       def error_messages(body)
-        return nil unless body.present?
+        return nil if body.blank?
         body = parse_string(body) if body.is_a?(String)
-        body.is_a?(Hash) ? body['messages'].presence : nil
+        body.is_a?(Hash) && body.key?('messages') ? body['messages'] : nil
       end
 
       def parse_string(body)
