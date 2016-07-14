@@ -1,3 +1,8 @@
+if ENV['CODECLIMATE_REPO_TOKEN']
+  require 'codeclimate-test-reporter'
+  CodeClimate::TestReporter.start
+end
+
 require 'bundler/setup'
 Bundler.setup
 
@@ -24,10 +29,8 @@ RSpec.configure do |config|
     base_url = "#{FinApps::REST::Defaults::DEFAULTS[:host]}/v#{FinApps::REST::Defaults::API_VERSION}/"
     stub_request(:any, /#{base_url}/).to_rack(::FakeApi)
   end
+  WebMock.disable_net_connect!(:allow => 'codeclimate.com')
 end
 
 VALID_CREDENTIALS = {identifier: '49fb918d-7e71-44dd-7378-58f19606df2a',
                      token:      'hohoho='}.freeze
-
-require "codeclimate-test-reporter"
-CodeClimate::TestReporter.start
