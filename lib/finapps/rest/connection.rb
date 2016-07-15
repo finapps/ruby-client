@@ -1,31 +1,36 @@
 module FinApps
   module REST
     module Connection # :nodoc:
-      module_function
-
+      # @return [Faraday::Connection]
       def faraday(config, logger)
-        Faraday.new(config.connection_options) do |conn|
-          # tenant level authentication
-          conn.use FinApps::Middleware::TenantAuthentication, config.tenant_credentials
+        options = {
+          url: "#{config.host}/v#{Defaults::API_VERSION}/",
+          request: {open_timeout: config.timeout,
+                    timeout: config.timeout}
+        }
 
-          # user level authentication
-          if config.valid_user_credentials?
-            conn.request :basic_auth, config.user_credentials[:identifier], config.user_credentials[:token]
-          end
-
+        Faraday.new(options) do |conn|
+          conn.request :accept_json
+          conn.request :user_agent
+          conn.request :tenant_authentication, config.tenant_identifier, config.tenant_token
           conn.request :json
           conn.request :retry
           conn.request :multipart
           conn.request :url_encoded
+          if FinApps::REST::Credentials.new(config.user_identifier, config.user_token).valid?
+            conn.request :basic_auth, config.user_identifier, config.user_token
+          end
+
           conn.use FinApps::Middleware::RaiseError
           conn.response :rashify
           conn.response :json, content_type: /\bjson$/
-          conn.response :logger, logger # , bodies: true
+          conn.response :logger, logger, bodies: true
 
           # Adapter (ensure that the adapter is always last.)
           conn.adapter :typhoeus
         end
       end
+      module_function :faraday # becomes available as a *private instance method* to classes that mix in the module
     end
   end
 end
