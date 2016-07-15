@@ -1,15 +1,15 @@
 module FinApps
   module REST
     module Connection # :nodoc:
-      RUBY = "#{RUBY_ENGINE}/#{RUBY_PLATFORM} #{RUBY_VERSION}-p#{RUBY_PATCHLEVEL}".freeze
-
       # @return [Faraday::Connection]
       def faraday(config, logger)
-        Faraday.new(url:     "#{config.host}/v#{Defaults::API_VERSION}/",
-                    request: {open_timeout: config.timeout,
-                              timeout: config.timeout},
-                    headers: {accept: 'application/json',
-                              user_agent: "finapps-ruby/#{FinApps::VERSION} (#{RUBY})"}) do |conn|
+        options = {
+          url: "#{config.host}/v#{Defaults::API_VERSION}/",
+          request: {open_timeout: config.timeout,
+                    timeout: config.timeout}
+        }
+
+        Faraday.new(options) do |conn|
           # tenant level authentication
           conn.use FinApps::Middleware::TenantAuthentication, config.tenant_credentials
 
@@ -22,6 +22,8 @@ module FinApps
           conn.request :retry
           conn.request :multipart
           conn.request :url_encoded
+          conn.use FinApps::Middleware::AcceptJson
+          conn.use FinApps::Middleware::UserAgent
           conn.use FinApps::Middleware::RaiseError
           conn.response :rashify
           conn.response :json, content_type: /\bjson$/

@@ -12,6 +12,8 @@ require 'finapps/utils/loggeable'
 require 'finapps/error'
 
 require 'finapps/middleware/tenant_authentication'
+require 'finapps/middleware/accept_json'
+require 'finapps/middleware/user_agent'
 require 'finapps/middleware/raise_error'
 
 require 'finapps/rest/defaults'
