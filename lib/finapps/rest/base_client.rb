@@ -2,6 +2,7 @@ module FinApps
   module REST
     class BaseClient # :nodoc:
       include ::FinApps::Utils::Loggeable
+      include ::FinApps::REST::Connection
       using ObjectExtensions
       using StringExtensions
 
@@ -16,7 +17,7 @@ module FinApps
       #
       # @return Faraday::Connection.
       def connection
-        @connection ||= FinApps::REST::Connection.faraday(config, logger)
+        @connection ||= faraday(config, logger)
       end
 
       # Performs HTTP GET, POST, UPDATE and DELETE requests.
