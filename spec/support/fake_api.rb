@@ -1,5 +1,6 @@
 require 'sinatra/base'
 
+# the FakeApi class is used to mock API requests while testing.
 class FakeApi < Sinatra::Base
   # resource
   post('/v2/resources') { json_response 201, 'resource.json' }

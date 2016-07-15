@@ -2,6 +2,8 @@ module FinApps
   module REST
     class BaseClient # :nodoc:
       include ::FinApps::Utils::Loggeable
+      using ObjectExtensions
+      using StringExtensions
 
       attr_reader :config
 
@@ -27,14 +29,14 @@ module FinApps
       # @return [Hash,Array<String>]
       def send_request(path, method, params={})
         raise FinApps::MissingArgumentsError.new 'Missing argument: path.' if path.blank?
-        raise FinApps::MissingArgumentsError.new 'Missing argument: method.' if method.blank?
+        raise FinApps::MissingArgumentsError.new 'Missing argument: method.' if method.nil?
 
         response, error_messages = execute_request(method, params, path)
-        result = if response.present?
-                   block_given? ? yield(response) : response.body
-                 else
+        result = if response.blank?
                    logger.error "##{__method__} => Null response found. Unable to process it."
                    nil
+                 else
+                   block_given? ? yield(response) : response.body
                  end
 
         [result, error_messages]

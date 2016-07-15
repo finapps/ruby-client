@@ -1,6 +1,9 @@
 module FinApps
   module REST
     class Users < FinApps::REST::Resources # :nodoc:
+      using ObjectExtensions
+      using StringExtensions
+
       END_POINTS = {
         list:    nil,
         create:  'users/new',
