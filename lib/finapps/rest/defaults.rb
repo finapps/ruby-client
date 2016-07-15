@@ -5,14 +5,13 @@ module FinApps
 
       # noinspection SpellCheckingInspection
       DEFAULTS = {
-        host:        'https://dev.financialapps.com',
-        timeout:     30,
-        proxy_addr:  nil,
-        proxy_port:  nil,
-        proxy_user:  nil,
-        proxy_pass:  nil,
-        retry_limit: 1,
-        log_level:   Logger::INFO
+        host:             'https://api.financialapps.com',
+        user_identifier:  nil,
+        user_token:       nil,
+        timeout:          30,
+        proxy:            nil,
+        retry_limit:      1,
+        log_level:        Logger::INFO
       }.freeze
 
       END_POINTS = {

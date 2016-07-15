@@ -1,5 +1,8 @@
 RSpec.describe FinApps::REST::BaseClient do
-  let(:valid_tenant_options) { {tenant_credentials: VALID_CREDENTIALS} }
+  let(:valid_tenant_options) do
+    {tenant_identifier: VALID_CREDENTIALS[:identifier],
+     tenant_token: VALID_CREDENTIALS[:token]}
+  end
   subject { FinApps::REST::BaseClient.new(valid_tenant_options) }
 
   RESPONSE = 0
