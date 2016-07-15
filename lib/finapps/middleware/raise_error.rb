@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module FinApps
   module Middleware
     class RaiseError < Faraday::Response::Middleware # :nodoc:
