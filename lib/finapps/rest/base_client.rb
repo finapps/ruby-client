@@ -1,6 +1,7 @@
 module FinApps
   module REST
-    class BaseClient # :nodoc:
+    # base client functionality
+    class BaseClient
       include ::FinApps::Utils::Loggeable
       include ::FinApps::REST::Connection
       using ObjectExtensions
@@ -8,7 +9,7 @@ module FinApps
 
       attr_reader :config
 
-      def initialize(options={}, logger=nil)
+      def initialize(options, logger=nil)
         @config = FinApps::REST::Configuration.new options
         @logger = logger
       end
@@ -30,7 +31,7 @@ module FinApps
       # @return [Hash,Array<String>]
       def send_request(path, method, params={})
         raise FinApps::MissingArgumentsError.new 'Missing argument: path.' if path.blank?
-        raise FinApps::MissingArgumentsError.new 'Missing argument: method.' if method.nil?
+        raise FinApps::MissingArgumentsError.new 'Missing argument: method.' if method.blank?
 
         response, error_messages = execute_request(method, params, path)
         result = if response.blank?
@@ -47,23 +48,34 @@ module FinApps
 
       def execute_request(method, params, path)
         error_messages = []
-
         begin
           response = execute_method method, params, path
         rescue FinApps::InvalidArgumentsError,
                FinApps::MissingArgumentsError,
                Faraday::Error::ConnectionFailed => error
-          logger.fatal "##{__method__} => #{error}"
-          raise error
+          handle_error error
         rescue Faraday::Error::ClientError => error
-          error_messages = error.response[:error_messages].blank? ? [error.message] : error.response[:error_messages]
-          logger.error "##{__method__} => Faraday::Error::ClientError, #{error}"
+          error_messages = handle_client_error error
         rescue StandardError => error
-          error_messages << 'Unexpected error.'
-          logger.fatal "##{__method__} => StandardError, #{error}"
+          error_messages = handle_standard_error error
         end
 
         [response, error_messages]
+      end
+
+      def handle_error(error)
+        logger.fatal "#{self.class}##{__method__} => #{error}"
+        raise error
+      end
+
+      def handle_client_error(error)
+        logger.error "#{self.class}##{__method__} => Faraday::Error::ClientError, #{error}"
+        error.response[:error_messages] || [error.message]
+      end
+
+      def handle_standard_error(error)
+        logger.error "#{self.class}##{__method__} => StandardError, #{error}"
+        ['Unexpected error.']
       end
 
       def execute_method(method, params, path)
