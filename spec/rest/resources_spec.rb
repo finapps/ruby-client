@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 RSpec.describe FinApps::REST::Resources do
   let(:client) { FinApps::REST::Client.new :company_identifier, :company_token }
   describe '#new' do

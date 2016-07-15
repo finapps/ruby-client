@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module CoreExtensions
   # adds an integer? method to any object when used in a class
   module Integerable

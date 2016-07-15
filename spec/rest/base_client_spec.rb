@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 RSpec.describe FinApps::REST::BaseClient do
   let(:valid_tenant_options) do
     {tenant_identifier: VALID_CREDENTIALS[:identifier],
