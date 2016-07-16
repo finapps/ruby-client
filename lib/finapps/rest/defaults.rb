@@ -1,7 +1,8 @@
+# frozen_string_literal: true
 module FinApps
   module REST
     module Defaults
-      API_VERSION = '2'.freeze
+      API_VERSION = '2'
 
       # noinspection SpellCheckingInspection
       DEFAULTS = {

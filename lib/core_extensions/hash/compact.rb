@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module HashExtensions
   refine Hash do
     # Returns a hash with non +nil+ values.

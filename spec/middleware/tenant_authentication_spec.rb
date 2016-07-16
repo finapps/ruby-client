@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 RSpec.describe FinApps::Middleware::TenantAuthentication do
   let(:valid_tenant_options) { VALID_CREDENTIALS }
   let(:key) { FinApps::Middleware::TenantAuthentication::KEY }

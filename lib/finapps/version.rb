@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module FinApps
-  VERSION = '2.0.6'.freeze
+  VERSION = '2.0.6'
 end
