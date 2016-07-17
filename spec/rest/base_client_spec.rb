@@ -58,10 +58,10 @@ RSpec.describe FinApps::REST::BaseClient do
       context 'for client errors' do
         subject { FinApps::REST::BaseClient.new(valid_tenant_options).send_request('client_error', :get) }
 
-        it('the result should be nil') { expect(subject[RESPONSE]).to be_nil }
-        it { expect(subject[ERROR_MESSAGES]).not_to be_nil }
-        it { expect(subject[ERROR_MESSAGES]).to be_a(Array) }
-        it { expect(subject[ERROR_MESSAGES].length).to be > 0 }
+        it('result is null') { expect(subject[RESPONSE]).to be_nil }
+        it('error_messages is not null') { expect(subject[ERROR_MESSAGES]).not_to be_nil }
+        it('error_messages is an array') { expect(subject[ERROR_MESSAGES]).to be_a(Array) }
+        it('error messages array contains elements') { expect(subject[ERROR_MESSAGES].length).to be > 0 }
       end
 
       context 'for server errors' do
