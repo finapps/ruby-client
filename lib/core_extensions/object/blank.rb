@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module ObjectExtensions
   refine Object do
     # An object is blank if it's false, empty, or a whitespace string.

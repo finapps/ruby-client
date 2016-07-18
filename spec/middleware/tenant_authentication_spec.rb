@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 RSpec.describe FinApps::Middleware::TenantAuthentication do
   let(:valid_tenant_options) { VALID_CREDENTIALS }
   let(:key) { FinApps::Middleware::TenantAuthentication::KEY }
@@ -6,7 +7,11 @@ RSpec.describe FinApps::Middleware::TenantAuthentication do
     fake_app = proc {|env| env }
 
     context 'when company credentials were provided' do
-      let(:middleware) { FinApps::Middleware::TenantAuthentication.new fake_app, valid_tenant_options }
+      let(:middleware) do
+        FinApps::Middleware::TenantAuthentication.new(fake_app,
+                                                      VALID_CREDENTIALS[:identifier],
+                                                      VALID_CREDENTIALS[:token])
+      end
       let(:expected_header) { "#{valid_tenant_options[:identifier]}=#{valid_tenant_options[:token]}" }
 
       context 'when header was not previously set' do
