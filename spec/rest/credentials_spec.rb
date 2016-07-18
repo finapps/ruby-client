@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 RSpec.describe FinApps::REST::Credentials do
   describe '#valid?' do
     context 'when missing identifier' do

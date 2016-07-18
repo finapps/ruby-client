@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module FinApps
   module REST
     # represents both tenant and user credentials

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 RSpec.describe FinApps::REST::Configuration do
   describe '#new' do
     context 'for invalid timeout configuration' do
