@@ -17,6 +17,10 @@ module FinApps
         raise FinApps::InvalidArgumentsError.new "Invalid argument. {timeout: #{timeout}}" unless timeout.integer?
       end
 
+      def valid_user_credentials?
+        FinApps::REST::Credentials.new(user_identifier, user_token).valid?
+      end
+
       private
 
       def valid_host?
