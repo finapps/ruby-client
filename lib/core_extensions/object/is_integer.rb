@@ -5,8 +5,6 @@ module ObjectExtensions
       Integer(self)
     rescue
       false
-    else
-      true
     end
   end
 end
