@@ -2,7 +2,7 @@ module FinApps
   module REST
     module Connection # :nodoc:
       # @return [Faraday::Connection]
-      def faraday(config, has_user_credentials, logger)
+      def faraday(config, logger)
         options = {
           url: "#{config.host}/v#{Defaults::API_VERSION}/",
           request: {open_timeout: config.timeout,
@@ -17,7 +17,7 @@ module FinApps
           conn.request :retry
           conn.request :multipart
           conn.request :url_encoded
-          conn.request :basic_auth, config.user_identifier, config.user_token if has_user_credentials
+          conn.request :basic_auth, config.user_identifier, config.user_token if config.valid_user_credentials?
 
           conn.use FinApps::Middleware::RaiseError
           conn.response :rashify

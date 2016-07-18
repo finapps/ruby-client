@@ -24,4 +24,15 @@ RSpec.describe FinApps::REST::Configuration do
       end
     end
   end
+
+  describe '#valid_user_credentials??' do
+    context 'when user credentials were not set' do
+      subject { FinApps::REST::Configuration.new(host: nil) }
+      it { expect(subject.valid_user_credentials?).to eq(false) }
+    end
+    context 'when user credentials were set' do
+      subject { FinApps::REST::Configuration.new(user_identifier: 1, user_token: 2) }
+      it { expect(subject.valid_user_credentials?).to eq(true) }
+    end
+  end
 end
