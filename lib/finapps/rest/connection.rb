@@ -18,9 +18,7 @@ module FinApps
           conn.request :retry
           conn.request :multipart
           conn.request :url_encoded
-          if FinApps::REST::Credentials.new(config.user_identifier, config.user_token).valid?
-            conn.request :basic_auth, config.user_identifier, config.user_token
-          end
+          conn.request :basic_auth, config.user_identifier, config.user_token if config.valid_user_credentials?
 
           conn.use FinApps::Middleware::RaiseError
           conn.response :rashify
