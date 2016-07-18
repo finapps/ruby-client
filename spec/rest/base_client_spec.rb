@@ -15,6 +15,16 @@ RSpec.describe FinApps::REST::BaseClient do
     end
   end
 
+  describe '#user_credentials?' do
+    context 'when user credentials were not set' do
+      it { expect(subject.user_credentials?).to eq(false) }
+    end
+    context 'when user credentials were set' do
+      subject { FinApps::REST::BaseClient.new(valid_tenant_options.merge(user_identifier: 1, user_token: 2)) }
+      it { expect(subject.user_credentials?).to eq(true) }
+    end
+  end
+
   describe '#connection' do
     it 'created a Faraday connection object' do
       expect(subject.connection).to be_a(Faraday::Connection)

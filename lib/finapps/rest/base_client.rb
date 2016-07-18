@@ -14,11 +14,15 @@ module FinApps
         @logger = logger
       end
 
+      def user_credentials?
+        FinApps::REST::Credentials.new(config.user_identifier, config.user_token).valid?
+      end
+
       # Returns an initialized Faraday connection object.
       #
       # @return Faraday::Connection.
       def connection
-        @connection ||= faraday(config, logger)
+        @connection ||= faraday(config, user_credentials?, logger)
       end
 
       # Performs HTTP GET, POST, UPDATE and DELETE requests.
