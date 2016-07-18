@@ -15,6 +15,10 @@ module FinApps
         @logger = logger
       end
 
+      def user_credentials?
+        config.valid_user_credentials?
+      end
+
       # Returns an initialized Faraday connection object.
       #
       # @return Faraday::Connection.
