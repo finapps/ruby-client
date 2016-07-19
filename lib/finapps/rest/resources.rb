@@ -14,16 +14,14 @@ module FinApps
       end
 
       def create(params={}, path=nil)
-        path = self.class.name.split('::').last.downcase if path.nil?
+        path = end_point if path.nil?
         logger.debug "#{self.class.name}##{__method__} => path: #{path} params: #{params}"
         results, error_messages = client.send_request(path, :post, params)
         [results, error_messages]
       end
 
       def show(id, path=nil)
-        if path.nil?
-          path = "#{self.class.name.split('::').last.downcase}/:id".sub ':id', ERB::Util.url_encode(id)
-        end
+        path = "#{end_point}/:id".sub ':id', ERB::Util.url_encode(id) if path.nil?
         logger.debug "#{self.class.name}##{__method__} => path: #{path}"
         results, error_messages = client.send_request(path, :get)
         [results, error_messages]
@@ -33,6 +31,10 @@ module FinApps
 
       def logger
         client.logger
+      end
+
+      def end_point
+        self.class.name.split('::').last.downcase
       end
     end
   end
