@@ -7,6 +7,11 @@ RSpec.describe FinApps::REST::Resources do
       it { expect { subject }.to raise_error(FinApps::MissingArgumentsError, 'Missing argument: client.') }
     end
 
+    context 'when client is not a FinApps::REST::Client object' do
+      subject { FinApps::REST::Resources.new(1) }
+      it { expect { subject }.to raise_error(FinApps::InvalidArgumentsError, 'Invalid argument: client.') }
+    end
+
     context 'when client param is set' do
       subject { FinApps::REST::Resources.new(client) }
       it { expect { subject }.not_to raise_error }
