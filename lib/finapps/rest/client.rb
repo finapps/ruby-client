@@ -11,7 +11,7 @@ module FinApps
       # @param [String] tenant_token
       # @param [Hash] options
       # @return [FinApps::REST::Client]
-      def initialize(tenant_identifier, tenant_token, logger=nil, options={})
+      def initialize(tenant_identifier, tenant_token, options={}, logger=nil)
         raise FinApps::MissingArgumentsError.new 'Invalid company_identifier.' if tenant_identifier.blank?
         raise FinApps::MissingArgumentsError.new 'Invalid company_token.' if tenant_token.blank?
 
