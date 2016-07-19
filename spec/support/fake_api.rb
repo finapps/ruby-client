@@ -8,6 +8,8 @@ class FakeApi < Sinatra::Base
   get('/v2/resources/:id') { json_response 200, 'resource.json' }
 
   # orders
+  post('/v2/orders/invalid_token') { json_response 404, 'order_token_invalid.json' }
+  post('/v2/orders/valid_token') { json_response 200, 'order_token.json' }
   get('/v2/orders/:id') { json_response 200, 'resource.json' }
 
   # users
@@ -16,6 +18,7 @@ class FakeApi < Sinatra::Base
   # relevance
   get('/v2/relevance/ruleset/names') { json_response 200, 'relevance_ruleset_names.json' }
 
+  # errors
   get('/v2/client_error') { json_response 400, 'error.json' }
   get('/v2/server_error') { status 500 }
   get('/v2/proxy_error') { status 407 }
