@@ -24,6 +24,10 @@ module FinApps
         @users ||= FinApps::REST::Users.new self
       end
 
+      def order_tokens
+        @order_tokens ||= FinApps::REST::OrderTokens.new self
+      end
+
       def orders
         @orders ||= FinApps::REST::Orders.new self
       end
