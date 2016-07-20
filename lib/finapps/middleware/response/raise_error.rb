@@ -4,21 +4,17 @@ module FinApps
     class RaiseError < Faraday::Response::Middleware # :nodoc:
       using ObjectExtensions
       using StringExtensions
-      include FinApps::Utils::Loggeable
 
-      CLIENT_ERROR_STATUSES = 400...600
+      SUCCESS_STATUSES = 200..299
+      CONNECTION_FAILED_STATUS = 407
 
       def on_complete(env)
-        case env[:status]
-        when 407
-          # mimic the behavior that we get with proxy requests with HTTPS
-          raise Faraday::Error::ConnectionFailed, '407 "Proxy Authentication Required"'
-        when CLIENT_ERROR_STATUSES
-          raise Faraday::Error::ClientError, response_values(env)
+        if SUCCESS_STATUSES.include? env[:status]
+          # do nothing
+        elsif env[:status] == CONNECTION_FAILED_STATUS
+          raise(Faraday::Error::ConnectionFailed, '407 "Proxy Authentication Required"')
         else
-          # 200..206 Success codes
-          # all good!
-          logger.debug "##{__method__} => Status code: [#{env[:status]}]"
+          raise(Faraday::Error::ClientError, response_values(env))
         end
       end
 
@@ -36,13 +32,17 @@ module FinApps
       def error_messages(body)
         return nil if body.blank?
         body = parse_string(body) if body.is_a?(String)
-        body.is_a?(Hash) && body.key?('messages') ? body['messages'] : nil
+        has_message_key?(body) ? body['messages'] : nil
+      end
+
+      def has_message_key?(body)
+        body.respond_to?(:key?) && body.key?('messages')
       end
 
       def parse_string(body)
         ::JSON.parse(body)
       rescue ::JSON::ParserError
-        logger.error "##{__method__} => Unable to parse JSON response."
+        # logger.error "##{__method__} => Unable to parse JSON response."
       end
     end
   end
