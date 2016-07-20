@@ -4,8 +4,6 @@ if ENV['CODECLIMATE_REPO_TOKEN']
   CodeClimate::TestReporter.start
 end
 
-ENV['RSPEC'] = 'true'
-
 require 'bundler/setup'
 Bundler.setup
 
