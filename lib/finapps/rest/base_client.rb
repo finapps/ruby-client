@@ -40,7 +40,6 @@ module FinApps
 
         response, error_messages = execute_request(method, params, path)
         result = if response.blank?
-                   logger.error "##{__method__} => Null response found. Unable to process it."
                    nil
                  else
                    block_given? ? yield(response) : response.body
@@ -74,7 +73,7 @@ module FinApps
       end
 
       def handle_client_error(error)
-        logger.error "#{self.class}##{__method__} => Faraday::Error::ClientError, #{error}"
+        logger.warn "#{self.class}##{__method__} => Faraday::Error::ClientError, #{error}"
         error.response[:error_messages] || [error.message]
       end
 
