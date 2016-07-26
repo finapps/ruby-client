@@ -21,11 +21,21 @@ RSpec.describe FinApps::REST::Resources do
 
   describe '#create' do
     context 'when valid params are provided' do
-      subject { FinApps::REST::Resources.new(client) }
-      it { expect { subject.create }.not_to raise_error }
-      it('returns an array') { expect(subject.create).to be_a(Array) }
-      it('performs a post and returns the response') { expect(subject.create[0]).to respond_to(:public_id) }
-      it('returns no error messages') { expect(subject.create[1]).to be_empty }
+      subject { FinApps::REST::Resources.new(client).create }
+      it { expect { subject }.not_to raise_error }
+      it('returns an array') { expect(subject).to be_a(Array) }
+      it('performs a post and returns the response') { expect(subject[0]).to respond_to(:public_id) }
+      it('returns no error messages') { expect(subject[1]).to be_empty }
+    end
+  end
+
+  describe '#update' do
+    context 'when valid params are provided' do
+      subject { FinApps::REST::Resources.new(client).update }
+      it { expect { subject }.not_to raise_error }
+      it('returns an array') { expect(subject).to be_a(Array) }
+      it('performs a put and returns the response') { expect(subject[0]).to respond_to(:public_id) }
+      it('returns no error messages') { expect(subject[1]).to be_empty }
     end
   end
 
@@ -34,7 +44,17 @@ RSpec.describe FinApps::REST::Resources do
       subject { FinApps::REST::Resources.new(client).show(:id) }
       it { expect { subject }.not_to raise_error }
       it('returns an array') { expect(subject).to be_a(Array) }
-      it('performs a post and returns the response') { expect(subject[0]).to respond_to(:public_id) }
+      it('performs a get and returns the response') { expect(subject[0]).to respond_to(:public_id) }
+      it('returns no error messages') { expect(subject[1]).to be_empty }
+    end
+  end
+
+  describe '#destroy' do
+    context 'when valid params are provided' do
+      subject { FinApps::REST::Resources.new(client).destroy(:id) }
+      it { expect { subject }.not_to raise_error }
+      it('returns an array') { expect(subject).to be_a(Array) }
+      it('performs a delete and returns an empty response') { expect(subject[0]).to be_nil }
       it('returns no error messages') { expect(subject[1]).to be_empty }
     end
   end
