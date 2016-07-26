@@ -25,7 +25,7 @@ RSpec.describe FinApps::REST::OrderTokens, 'initialized with valid FinApps::Clie
 
       it { expect { show }.not_to raise_error }
       it('results is nil') { expect(results).to be_nil }
-      it('error messages array is populated') { expect(error_messages.first).to eq('resource not found') }
+      it('error messages array is populated') { expect(error_messages.first.downcase).to eq('resource not found') }
     end
   end
 end

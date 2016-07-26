@@ -39,7 +39,7 @@ module FinApps
         raise FinApps::MissingArgumentsError.new 'Missing argument: method.' if method.blank?
 
         response, error_messages = execute_request(method, params, path)
-        result = if response.blank?
+        result = if empty?(response)
                    nil
                  else
                    block_given? ? yield(response) : response.body
@@ -49,6 +49,10 @@ module FinApps
       end
 
       private
+
+      def empty?(response)
+        response.blank? || (response.respond_to?(:body) && response.body.blank?)
+      end
 
       def execute_request(method, params, path)
         error_messages = []
