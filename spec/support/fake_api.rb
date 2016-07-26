@@ -6,6 +6,10 @@ class FakeApi < Sinatra::Base
   # resource
   post('/v2/resources') { json_response 201, 'resource.json' }
   get('/v2/resources/:id') { json_response 200, 'resource.json' }
+  put('/v2/resources') { json_response 201, 'resource.json'}
+  delete('/v2/resources/:id') { status 202 }
+
+
 
   # orders
   post('/v2/orders/invalid_token') { json_response 404, 'order_token_invalid.json' }
