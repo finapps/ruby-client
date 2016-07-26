@@ -38,7 +38,7 @@ module FinApps
         raise FinApps::MissingArgumentsError.new 'Missing argument: path.' if path.blank?
         raise FinApps::MissingArgumentsError.new 'Missing argument: method.' if method.blank?
 
-        response, error_messages = execute_request(method, params, path)
+        response, error_messages = execute_request(path, method, params)
         result = if empty?(response)
                    nil
                  else
@@ -54,10 +54,10 @@ module FinApps
         response.blank? || (response.respond_to?(:body) && response.body.blank?)
       end
 
-      def execute_request(method, params, path)
+      def execute_request(path, method, params)
         error_messages = []
         begin
-          response = execute_method method, params, path
+          response = execute_method path, method, params
         rescue FinApps::InvalidArgumentsError,
                FinApps::MissingArgumentsError,
                Faraday::Error::ConnectionFailed => error
@@ -86,7 +86,7 @@ module FinApps
         ['Unexpected error.']
       end
 
-      def execute_method(method, params, path)
+      def execute_method(path, method, params)
         case method
         when :get
           get(path)
