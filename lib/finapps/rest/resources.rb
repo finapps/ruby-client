@@ -11,39 +11,37 @@ module FinApps
       def initialize(client)
         raise MissingArgumentsError.new 'Missing argument: client.' if client.nil?
         raise InvalidArgumentsError.new 'Invalid argument: client.' unless client.is_a?(FinApps::REST::Client)
+
         @client = client
       end
 
       def create(params={}, path=nil)
-        path = end_point if path.nil?
-        logger.debug "#{self.class.name}##{__method__} => path: #{path} params: #{params}"
-        results, error_messages = client.send_request(path, :post, params)
-        [results, error_messages]
+        request_with_body(path, :post, params)
       end
 
       def update(params={}, path=nil)
-        path = end_point if path.nil?
-        logger.debug "#{self.class.name}##{__method__} => path: #{path} params: #{params}"
-        results, error_messages = client.send_request(path, :put, params)
-        [results, error_messages]
+        request_with_body(path, :put, params)
       end
 
       def show(id=nil, path=nil)
-        raise MissingArgumentsError.new 'Missing argument: id.' if id.nil? && path.nil?
-
-        path = "#{end_point}/:id".sub ':id', ERB::Util.url_encode(id) if path.nil?
-        logger.debug "#{self.class.name}##{__method__} => path: #{path}"
-        results, error_messages = client.send_request(path, :get)
-        [results, error_messages]
+        request_without_body(path, :get, id)
       end
 
       def destroy(id=nil, path=nil)
-        raise MissingArgumentsError.new 'Missing argument: id.' if id.nil? && path.nil?
+        request_without_body(path, :delete, id)
+      end
 
+      def request_without_body(path, method, id)
+        raise MissingArgumentsError.new 'Missing argument: id.' if id.nil? && path.nil?
         path = "#{end_point}/:id".sub ':id', ERB::Util.url_encode(id) if path.nil?
-        logger.debug "#{self.class.name}##{__method__} => path: #{path}"
-        results, error_messages = client.send_request(path, :delete)
-        [results, error_messages]
+        request_with_body path, method, {}
+      end
+
+      def request_with_body(path, method, params)
+        path = end_point if path.nil?
+        logger.debug "#{self.class.name}##{__method__} => path: #{path} params: #{params}"
+
+        client.send_request path, method, params
       end
 
       protected
@@ -55,6 +53,7 @@ module FinApps
       def end_point
         self.class.name.split('::').last.downcase
       end
+
     end
   end
 end
