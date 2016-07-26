@@ -6,18 +6,20 @@ class FakeApi < Sinatra::Base
   # resource
   post('/v2/resources') { json_response 201, 'resource.json' }
   get('/v2/resources/:id') { json_response 200, 'resource.json' }
-  put('/v2/resources') { json_response 201, 'resource.json'}
+  put('/v2/resources') { json_response 201, 'resource.json' }
   delete('/v2/resources/:id') { status 202 }
 
-
-
   # orders
-  post('/v2/orders/invalid_token') { json_response 404, 'order_token_invalid.json' }
   post('/v2/orders/valid_token') { json_response 200, 'order_token.json' }
+  post('/v2/orders/invalid_token') { json_response 404, 'resource_not_found.json' }
   get('/v2/orders/:id') { json_response 200, 'resource.json' }
 
   # users
-  get('/users/:id') { json_response 200, 'user.json' }
+  get('/v2/users/valid_public_id') { json_response 200, 'user.json' }
+  get('/v2/users/invalid_public_id') { json_response 404, 'resource_not_found.json' }
+  put('/v2/users/valid_public_id') { status 204 }
+  put('/v2/users/valid_public_id/password'){ json_response 200, 'user.json'}
+  put('/v2/users/invalid_public_id/password'){ json_response 404, 'resource_not_found.json' }
 
   # relevance
   get('/v2/relevance/ruleset/names') { json_response 200, 'relevance_ruleset_names.json' }

@@ -54,7 +54,7 @@ RSpec.describe FinApps::REST::Resources do
       subject { FinApps::REST::Resources.new(client).destroy(:id) }
       it { expect { subject }.not_to raise_error }
       it('returns an array') { expect(subject).to be_a(Array) }
-      it('performs a delete and returns an empty response') { expect(subject[0]).to be_empty }
+      it('performs a delete and returns an empty response') { expect(subject[0]).to be_nil }
       it('returns no error messages') { expect(subject[1]).to be_empty }
     end
   end

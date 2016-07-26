@@ -28,21 +28,25 @@ module FinApps
         [results, error_messages]
       end
 
-      def show(id, path=nil)
+      def show(id=nil, path=nil)
+        raise MissingArgumentsError.new 'Missing argument: id.' if id.nil? && path.nil?
+
         path = "#{end_point}/:id".sub ':id', ERB::Util.url_encode(id) if path.nil?
         logger.debug "#{self.class.name}##{__method__} => path: #{path}"
         results, error_messages = client.send_request(path, :get)
         [results, error_messages]
       end
 
-      def destroy(id, path=nil)
+      def destroy(id=nil, path=nil)
+        raise MissingArgumentsError.new 'Missing argument: id.' if id.nil? && path.nil?
+
         path = "#{end_point}/:id".sub ':id', ERB::Util.url_encode(id) if path.nil?
         logger.debug "#{self.class.name}##{__method__} => path: #{path}"
         results, error_messages = client.send_request(path, :delete)
         [results, error_messages]
       end
 
-      private
+      protected
 
       def logger
         client.logger
