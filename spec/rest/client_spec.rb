@@ -13,7 +13,7 @@ RSpec.describe FinApps::REST::Client do
   context 'an instance of Client' do
     subject { FinApps::REST::Client.new(:company_identifier, :company_token) }
 
-    %i(users orders order_tokens).each do |method|
+    %i(users sessions orders order_tokens).each do |method|
       it "responds to #{method}" do
         expect(subject).to respond_to(method)
       end
@@ -21,6 +21,10 @@ RSpec.describe FinApps::REST::Client do
 
     describe '#users' do
       it { expect(subject.users).to be_an_instance_of(FinApps::REST::Users) }
+    end
+
+    describe '#sessions' do
+      it { expect(subject.sessions).to be_an_instance_of(FinApps::REST::Sessions) }
     end
 
     describe '#order_tokens' do
@@ -34,7 +38,7 @@ RSpec.describe FinApps::REST::Client do
     # [:users, :institutions, :user_institutions, :transactions, :categories,
     # :budget_models, :budget_calculation, :budgets, :cashflows,
     # :alert, :alert_definition, :alert_preferences, :alert_settings, :rule_sets]
-    %i(users orders order_tokens).each do |method|
+    %i(users sessions orders order_tokens).each do |method|
       it "memoizes the result of #{method}" do
         first = subject.send(method)
         second = subject.send(method)
