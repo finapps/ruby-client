@@ -18,8 +18,19 @@ class FakeApi < Sinatra::Base
   get('/v2/users/valid_public_id') { json_response 200, 'user.json' }
   get('/v2/users/invalid_public_id') { json_response 404, 'resource_not_found.json' }
   put('/v2/users/valid_public_id') { status 204 }
-  put('/v2/users/valid_public_id/password'){ json_response 200, 'user.json'}
-  put('/v2/users/invalid_public_id/password'){ json_response 404, 'resource_not_found.json' }
+  put('/v2/users/valid_public_id/password') { json_response 200, 'user.json' }
+  put('/v2/users/invalid_public_id/password') { json_response 404, 'resource_not_found.json' }
+
+  # session
+  post('/v2/login') do
+    request.body.rewind
+    request_payload = JSON.parse request.body.read
+    if request_payload['password'] == 'valid_password'
+      json_response(200, 'user.json')
+    else
+      json_response(401, 'unauthorized.json')
+    end
+  end
 
   # relevance
   get('/v2/relevance/ruleset/names') { json_response 200, 'relevance_ruleset_names.json' }

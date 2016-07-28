@@ -69,9 +69,8 @@ RSpec.describe FinApps::REST::BaseClient do
         subject { FinApps::REST::BaseClient.new(valid_tenant_options).send_request('client_error', :get) }
 
         it('result is null') { expect(subject[RESPONSE]).to be_nil }
-        it('error_messages is not null') { expect(subject[ERROR_MESSAGES]).not_to be_nil }
         it('error_messages is an array') { expect(subject[ERROR_MESSAGES]).to be_a(Array) }
-        it('error messages array contains elements') { expect(subject[ERROR_MESSAGES].length).to be > 0 }
+        it('error_messages gets populated'){expect(subject[ERROR_MESSAGES].first).to eq 'Password Minimum size is 8'}
       end
 
       context 'for server errors' do
@@ -95,6 +94,12 @@ RSpec.describe FinApps::REST::BaseClient do
         expect(subject.send_request('relevance/ruleset/names', :get, &:status)[RESPONSE]).to eq(200)
         expect(subject.send_request('relevance/ruleset/names', :get) {|r| r.body.length }[RESPONSE]).to eq(45)
       end
+    end
+  end
+
+  describe '#method_missing' do
+    context 'for unsupported methods' do
+      it { expect { subject.unsupported }.to raise_error(NoMethodError) }
     end
   end
 end
