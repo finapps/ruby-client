@@ -53,7 +53,6 @@ module FinApps
       def end_point
         self.class.name.split('::').last.downcase
       end
-
     end
   end
 end
