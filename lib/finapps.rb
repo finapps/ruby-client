@@ -22,6 +22,7 @@ require 'finapps/rest/defaults'
 require 'finapps/rest/resources'
 
 require 'finapps/rest/users'
+require 'finapps/rest/sessions'
 require 'finapps/rest/order_tokens'
 require 'finapps/rest/orders'
 
