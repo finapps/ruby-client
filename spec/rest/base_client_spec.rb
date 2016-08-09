@@ -70,7 +70,7 @@ RSpec.describe FinApps::REST::BaseClient do
 
         it('result is null') { expect(subject[RESPONSE]).to be_nil }
         it('error_messages is an array') { expect(subject[ERROR_MESSAGES]).to be_a(Array) }
-        it('error_messages gets populated'){expect(subject[ERROR_MESSAGES].first).to eq 'Password Minimum size is 8'}
+        it('error_messages gets populated') { expect(subject[ERROR_MESSAGES].first).to eq 'Password Minimum size is 8' }
       end
 
       context 'for server errors' do

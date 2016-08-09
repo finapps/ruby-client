@@ -17,4 +17,13 @@ RSpec.describe FinApps::REST::Orders do
       it('returns no error messages') { expect(subject[1]).to be_empty }
     end
   end
+
+  describe '#list' do
+    context 'when missing params' do
+      # use defaults
+
+      subject { FinApps::REST::Orders.new(client).show(nil) }
+      it { expect { subject }.to raise_error(FinApps::MissingArgumentsError) }
+    end
+  end
 end
