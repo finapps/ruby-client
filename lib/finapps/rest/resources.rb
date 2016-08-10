@@ -15,6 +15,11 @@ module FinApps
         @client = client
       end
 
+      def list(path=nil)
+        path = end_point.to_s if path.nil?
+        request_with_body(path, :get, {})
+      end
+
       def create(params={}, path=nil)
         request_with_body(path, :post, params)
       end
