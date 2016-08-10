@@ -4,7 +4,6 @@ RSpec.describe FinApps::REST::Resources do
   let(:results) { subject[0] }
   let(:error_messages) { subject[1] }
 
-
   describe '#new' do
     context 'when client is nil' do
       subject { FinApps::REST::Resources.new(nil) }
