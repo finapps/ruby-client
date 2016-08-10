@@ -6,6 +6,7 @@ class FakeApi < Sinatra::Base
   # resource
   post('/v2/resources') { json_response 201, 'resource.json' }
   get('/v2/resources/:id') { json_response 200, 'resource.json' }
+  get('/v2/resources') { json_response 200, 'resources.json' }
   put('/v2/resources') { json_response 201, 'resource.json' }
   delete('/v2/resources/:id') { status 202 }
 
@@ -13,6 +14,7 @@ class FakeApi < Sinatra::Base
   post('/v2/orders/valid_token') { json_response 200, 'order_token.json' }
   post('/v2/orders/invalid_token') { json_response 404, 'resource_not_found.json' }
   get('/v2/orders/:id') { json_response 200, 'resource.json' }
+  get('/v2/list/orders/:page/:requested/:sort/:asc') { json_response 200, 'orders.json' }
 
   # users
   get('/v2/users/valid_public_id') { json_response 200, 'user.json' }

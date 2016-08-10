@@ -6,12 +6,12 @@ module FinApps
       using StringExtensions
 
       def show(id)
-        raise MissingArgumentsError.new 'Missing argument: params.' if id.blank?
+        raise MissingArgumentsError.new 'Missing argument: id.' if id.blank?
         super
       end
 
-      def list(params=nil)
-        # Params:
+      def list(_params=nil)
+        # TODO: get the paramaters for the pagination
         # GET /v2/list/orders/:page/:requested/:sort/:asc
         # :page - page number requested
         # :requested - number of results per page requested
@@ -21,8 +21,7 @@ module FinApps
         #     status - the status of the order
         # :asc - sort order true for asc false for desc
 
-        path = 'list/orders/1/10000/date/false' if params.ni?
-        super path
+        super 'list/orders/1/10000/date/false'
       end
     end
   end
