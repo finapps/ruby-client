@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 RSpec.describe FinApps::REST::Resources do
   let(:client) { FinApps::REST::Client.new :company_identifier, :company_token }
+  let(:results) { subject[0] }
+  let(:error_messages) { subject[1] }
+
+
   describe '#new' do
     context 'when client is nil' do
       subject { FinApps::REST::Resources.new(nil) }
@@ -24,8 +28,8 @@ RSpec.describe FinApps::REST::Resources do
       subject { FinApps::REST::Resources.new(client).create }
       it { expect { subject }.not_to raise_error }
       it('returns an array') { expect(subject).to be_a(Array) }
-      it('performs a post and returns the response') { expect(subject[0]).to respond_to(:public_id) }
-      it('returns no error messages') { expect(subject[1]).to be_empty }
+      it('performs a post and returns the response') { expect(results).to respond_to(:public_id) }
+      it('returns no error messages') { expect(error_messages).to be_empty }
     end
   end
 
@@ -34,18 +38,30 @@ RSpec.describe FinApps::REST::Resources do
       subject { FinApps::REST::Resources.new(client).update }
       it { expect { subject }.not_to raise_error }
       it('returns an array') { expect(subject).to be_a(Array) }
-      it('performs a put and returns the response') { expect(subject[0]).to respond_to(:public_id) }
-      it('returns no error messages') { expect(subject[1]).to be_empty }
+      it('performs a put and returns the response') { expect(results).to respond_to(:public_id) }
+      it('returns no error messages') { expect(error_messages).to be_empty }
+    end
+  end
+
+  describe '#list' do
+    context 'when valid params are provided' do
+      subject { FinApps::REST::Resources.new(client).list(nil) }
+
+      it { expect { subject }.not_to raise_error }
+      it('returns an array') { expect(subject).to be_a(Array) }
+      it('performs a get and returns the response') { expect(results).to respond_to(:resources) }
+      it('returns no error messages') { expect(error_messages).to be_empty }
     end
   end
 
   describe '#show' do
     context 'when valid params are provided' do
       subject { FinApps::REST::Resources.new(client).show(:id) }
+
       it { expect { subject }.not_to raise_error }
       it('returns an array') { expect(subject).to be_a(Array) }
-      it('performs a get and returns the response') { expect(subject[0]).to respond_to(:public_id) }
-      it('returns no error messages') { expect(subject[1]).to be_empty }
+      it('performs a get and returns the response') { expect(results).to respond_to(:public_id) }
+      it('returns no error messages') { expect(error_messages).to be_empty }
     end
   end
 
@@ -54,8 +70,8 @@ RSpec.describe FinApps::REST::Resources do
       subject { FinApps::REST::Resources.new(client).destroy(:id) }
       it { expect { subject }.not_to raise_error }
       it('returns an array') { expect(subject).to be_a(Array) }
-      it('performs a delete and returns an empty response') { expect(subject[0]).to be_nil }
-      it('returns no error messages') { expect(subject[1]).to be_empty }
+      it('performs a delete and returns an empty response') { expect(results).to be_nil }
+      it('returns no error messages') { expect(error_messages).to be_empty }
     end
   end
 end
