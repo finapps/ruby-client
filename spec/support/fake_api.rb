@@ -16,6 +16,9 @@ class FakeApi < Sinatra::Base
   get('/v2/orders/:id') { json_response 200, 'resource.json' }
   get('/v2/list/orders/:page/:requested/:sort/:asc') { json_response 200, 'orders.json' }
 
+  # institutions
+  get('/v2/institutions/site/:site_id/form') { json_response 200, 'institution_login_form.json' }
+
   # users
   get('/v2/users/valid_public_id') { json_response 200, 'user.json' }
   get('/v2/users/invalid_public_id') { json_response 404, 'resource_not_found.json' }

@@ -35,6 +35,14 @@ module FinApps
       def orders
         @orders ||= FinApps::REST::Orders.new self
       end
+
+      def institutions
+        @institutions ||= FinApps::REST::Institutions.new self
+      end
+
+      def institutions_forms
+        @institutions_forms ||= FinApps::REST::InstitutionForms.new self
+      end
     end
   end
 end
