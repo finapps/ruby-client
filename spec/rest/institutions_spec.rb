@@ -15,7 +15,7 @@ RSpec.describe FinApps::REST::Institutions do
     end
 
     context 'when valid site_id and params are provided' do
-      let(:create) { subject.create("valid_site_id", :params) }
+      let(:create) { subject.create('valid_site_id', :params) }
 
       it { expect { create }.not_to raise_error }
       it('performs a post and returns the response') { expect(create[0]).to respond_to(:user_institution) }
@@ -23,5 +23,23 @@ RSpec.describe FinApps::REST::Institutions do
     end
 
     # No tests for invalid site_id/params because of API/Yodele flow
+  end
+
+  describe '#list' do
+    subject(:institutions) { FinApps::REST::Institutions.new(client) }
+
+    context 'when search_term is missing' do
+      let(:list) { subject.list(nil) }
+      it { expect { list }.to raise_error(FinApps::MissingArgumentsError) }
+    end
+
+    context 'when proper search_term is provided' do
+      let(:list) { subject.list(:search_term) }
+
+      it { expect { list }.not_to raise_error }
+      it('returns an array') { expect(list).to be_a(Array) }
+      it('performs a get and returns institution array') { expect(list[0]).to be_a(Array) }
+      it('returns no error messages') { expect(list[1]).to be_empty }
+    end
   end
 end

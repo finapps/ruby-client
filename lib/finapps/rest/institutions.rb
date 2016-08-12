@@ -14,6 +14,14 @@ module FinApps
 
         super params, path
       end
+
+      def list(search_term)
+        raise MissingArgumentsError.new 'Missing argument: search_term' if search_term.blank?
+        # API errors when search_term is blank, maybe it shouldn't
+
+        path = "#{end_point}/search/#{ERB::Util.url_encode(search_term)}"
+        super path
+      end
     end
   end
 end

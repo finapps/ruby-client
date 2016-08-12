@@ -8,7 +8,7 @@ RSpec.describe FinApps::REST::InstitutionsForms do
     end
 
     context 'when valid site id provided' do
-      subject { FinApps::REST::InstitutionsForms.new(client).show("valid_site_id") }
+      subject { FinApps::REST::InstitutionsForms.new(client).show('valid_site_id') }
 
       it { expect { subject }.not_to raise_error }
       it('performs a get and returns the login html') { expect(subject[0]).to respond_to(:login_form_html) }
@@ -16,7 +16,7 @@ RSpec.describe FinApps::REST::InstitutionsForms do
     end
 
     context 'when invalid site id provided' do
-      subject { FinApps::REST::InstitutionsForms.new(client).show("invalid_site_id") }
+      subject { FinApps::REST::InstitutionsForms.new(client).show('invalid_site_id') }
 
       it { expect { subject }.not_to raise_error }
       it('results is nil') { expect(subject[0]).to be_nil }
