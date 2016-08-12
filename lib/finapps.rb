@@ -25,7 +25,7 @@ require 'finapps/rest/users'
 require 'finapps/rest/sessions'
 require 'finapps/rest/order_tokens'
 require 'finapps/rest/orders'
-require 'finapps/rest/institutions_form'
+require 'finapps/rest/institutions_forms'
 require 'finapps/rest/institutions'
 
 require 'finapps/rest/configuration'

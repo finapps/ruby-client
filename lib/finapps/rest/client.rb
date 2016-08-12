@@ -41,7 +41,7 @@ module FinApps
       end
 
       def institutions_forms
-        @institutions_forms ||= FinApps::REST::InstitutionForms.new self
+        @institutions_forms ||= FinApps::REST::InstitutionsForms.new self
       end
     end
   end

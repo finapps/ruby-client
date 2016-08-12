@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module FinApps
   module REST
-    class InstitutionForms < FinApps::REST::Resources
+    class InstitutionsForms < FinApps::REST::Resources
       require 'erb'
       using ObjectExtensions
       using StringExtensions
