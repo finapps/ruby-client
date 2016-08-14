@@ -22,7 +22,7 @@ RSpec.describe FinApps::REST::Institutions do
       it('returns no error messages') { expect(create[1]).to be_empty }
     end
 
-    # No tests for invalid site_id/params because of API/Yodele flow
+    # No tests for invalid site_id/params because of API/Yodlee flow
   end
 
   describe '#list' do
