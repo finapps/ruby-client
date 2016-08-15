@@ -14,9 +14,10 @@ module FinApps
         super id, path
       end
 
-      # def update
-      #   #User Institution Refresh All
-      # end
+      def update
+        path = "institutions/user/refresh"
+        super nil, path
+      end
     end
   end
 end

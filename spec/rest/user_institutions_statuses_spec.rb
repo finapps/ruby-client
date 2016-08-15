@@ -24,4 +24,14 @@ RSpec.describe FinApps::REST::UserInstitutionsStatuses do
       it('error messages array is populated') { expect(subject[1].first.downcase).to eq('invalid user institution id') }
     end
   end
+
+  describe '#update' do
+    context 'when successful' do
+      subject { FinApps::REST::UserInstitutions.new(client).list }
+
+      it('returns an array') { expect(subject).to be_a(Array) }
+      it('performs a get and returns array of user institutions statuses') { expect(subject[0]).to be_a(Array) }
+      it('returns no error messages') { expect(subject[1]).to be_empty }
+    end
+  end
 end
