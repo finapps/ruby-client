@@ -1,0 +1,162 @@
+[
+    {
+        "_id": "57ade50924fb4800013042de",
+        "account_id": 16412510,
+        "institution_name": "Dag Site (US)",
+        "status": 5,
+        "status_message": "processing",
+        "last_refreshed": "2016-08-12T15:02:33.416Z",
+        "accounts": [
+            {
+                "_id": "57ade52c6e3b09000af9d91b",
+                "user_institution_id": "57ade50924fb4800013042de",
+                "user_institution_name": "Dag Site (US)",
+                "account_type": "bank",
+                "account_name": "Wells Fargo Checking",
+                "account_holder": "FinancialApps",
+                "account_display_name": "Dag Site - Bank - Wells Fargo Checking",
+                "details": {
+                    "available_balance": 11673.83,
+                    "current_balance": 11673.83,
+                    "routing_number": ""
+                }
+            }
+        ]
+    },
+    {
+        "_id": "57ae12f1b0ac9800012b2a00",
+        "account_id": 16414778,
+        "institution_name": "Dag Site (US)",
+        "status": 1,
+        "status_message": "ok",
+        "last_refreshed": "2016-08-12T18:18:34.518Z"
+    },
+    {
+        "_id": "57ae12f9b0ac9800012b2a04",
+        "account_id": 16412510,
+        "institution_name": "Dag Site (US)",
+        "status": 5,
+        "status_message": "processing",
+        "last_refreshed": "2016-08-12T18:18:33.952Z",
+        "accounts": [
+            {
+                "_id": "57ae13086e3b09000a115643",
+                "user_institution_id": "57ae12f9b0ac9800012b2a04",
+                "user_institution_name": "Dag Site (US)",
+                "account_type": "bank",
+                "account_name": "Wells Fargo Checking",
+                "account_holder": "FinancialApps",
+                "account_display_name": "Dag Site - Bank - Wells Fargo Checking",
+                "details": {
+                    "available_balance": 11673.83,
+                    "current_balance": 11673.83,
+                    "routing_number": ""
+                }
+            }
+        ]
+    },
+    {
+        "_id": "57ae1304b0ac9800012b2a08",
+        "account_id": 16414779,
+        "institution_name": "Dag Site (US)",
+        "status": 6,
+        "status_message": "login failure",
+        "last_refreshed": "2016-08-12T18:18:48.043Z"
+    },
+    {
+        "_id": "57ae13a7b0ac9800012b2a0d",
+        "account_id": 16414781,
+        "institution_name": "Dag Site (US)",
+        "status": 6,
+        "status_message": "login failure",
+        "last_refreshed": "2016-08-12T18:21:35.988Z"
+    },
+    {
+        "_id": "57b1c04624fb48000130432f",
+        "account_id": 16412510,
+        "institution_name": "Dag Site (US)",
+        "status": 5,
+        "status_message": "processing",
+        "last_refreshed": "2016-08-15T13:14:46.019Z",
+        "accounts": [
+            {
+                "_id": "57b1c05512958000094763bb",
+                "user_institution_id": "57b1c04624fb48000130432f",
+                "user_institution_name": "Dag Site (US)",
+                "account_type": "bank",
+                "account_name": "Wells Fargo Checking",
+                "account_holder": "FinancialApps",
+                "account_display_name": "Dag Site - Bank - Wells Fargo Checking",
+                "details": {
+                    "available_balance": 11673.83,
+                    "current_balance": 11673.83,
+                    "routing_number": ""
+                }
+            }
+        ]
+    },
+    {
+        "_id": "57b1c06524fb480001304333",
+        "account_id": 16443655,
+        "institution_name": "Dag Site (US)",
+        "status": 6,
+        "status_message": "login failure",
+        "last_refreshed": "2016-08-15T13:15:21.701Z"
+    },
+    {
+        "_id": "57b1d13324fb48000130437c",
+        "account_id": 16412510,
+        "institution_name": "Dag Site (US)",
+        "status": 5,
+        "status_message": "processing",
+        "last_refreshed": "2016-08-15T14:26:59.886Z",
+        "accounts": [
+            {
+                "_id": "57b1d1476e3b09000a73d715",
+                "user_institution_id": "57b1d13324fb48000130437c",
+                "user_institution_name": "Dag Site (US)",
+                "account_type": "bank",
+                "account_name": "Wells Fargo Checking",
+                "account_holder": "FinancialApps",
+                "account_display_name": "Dag Site - Bank - Wells Fargo Checking",
+                "details": {
+                    "available_balance": 11673.83,
+                    "current_balance": 11673.83,
+                    "routing_number": ""
+                }
+            }
+        ]
+    },
+    {
+        "_id": "57ae161924fb480001304327",
+        "account_id": 16415373,
+        "institution_name": "Genesis Credit (US)",
+        "status": 11,
+        "status_message": "institution site error",
+        "last_refreshed": "2016-08-12T18:32:58.586Z"
+    },
+    {
+        "_id": "57b1c0c6b0ac9800012b2a22",
+        "account_id": 16415373,
+        "institution_name": "Genesis Credit (US)",
+        "status": 4,
+        "status_message": "refreshing",
+        "last_refreshed": "2016-08-15T13:16:54.964Z"
+    },
+    {
+        "_id": "57ae154224fb48000130431e",
+        "account_id": 16414784,
+        "institution_name": "Pincher Creek CU Limited (Canada)",
+        "status": 11,
+        "status_message": "institution site error",
+        "last_refreshed": "2016-08-12T18:28:43.752Z"
+    },
+    {
+        "_id": "57ae15b824fb480001304322",
+        "account_id": 16415370,
+        "institution_name": "United Auto Credit (US)",
+        "status": 11,
+        "status_message": "institution site error",
+        "last_refreshed": "2016-08-12T18:30:26.659Z"
+    }
+]

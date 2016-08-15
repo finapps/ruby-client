@@ -7,11 +7,11 @@ module FinApps
       using ObjectExtensions
       using StringExtensions
 
-      def show(ui_id)
-        raise MissingArgumentsError.new 'Missing argument: ui_id' if ui_id.blank?
+      def show(id)
+        raise MissingArgumentsError.new 'Missing argument: ui_id' if id.blank?
 
-        path = "institutions/user/#{ERB::Util.url_encode(ui_id)}/status"
-        super ui_id, path
+        path = "institutions/user/#{ERB::Util.url_encode(id)}/status"
+        super id, path
       end
 
       # def update
@@ -20,4 +20,3 @@ module FinApps
     end
   end
 end
-
