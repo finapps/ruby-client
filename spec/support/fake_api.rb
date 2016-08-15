@@ -23,6 +23,10 @@ class FakeApi < Sinatra::Base
   post('/v2/institutions/site/invalid_site_id/add') { json_response 400, 'invalid_institution_id.json' }
   get('/v2/institutions/search/:search_term') { json_response 200, 'institutions_search_list.json' }
 
+  # user institutions
+  get('/v2/institutions/user/valid_ui_id/status') { json_response 200, 'user_institution_status.json' }
+  get('/v2/institutions/user/invalid_ui_id/status') { json_response 400, 'invalid_user_institution_id.json' }
+
 
   # users
   get('/v2/users/valid_public_id') { json_response 200, 'user.json' }
