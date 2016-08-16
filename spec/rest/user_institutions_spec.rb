@@ -34,4 +34,60 @@ RSpec.describe FinApps::REST::UserInstitutions do
       it('error messages array is populated') { expect(subject[1].first.downcase).to eq('invalid user institution id') }
     end
   end
+
+  describe '#mfa_update' do
+    context 'when missing id' do
+      subject { FinApps::REST::UserInstitutions.new(client).mfa_update(nil, :params) }
+      it { expect { subject }.to raise_error(FinApps::MissingArgumentsError) }
+    end
+
+    context 'when missing params' do
+      subject { FinApps::REST::UserInstitutions.new(client).mfa_update(:id, nil) }
+      it { expect { subject }.to raise_error(FinApps::MissingArgumentsError) }
+    end
+
+    context 'when valid id and params are provided' do
+      subject { FinApps::REST::UserInstitutions.new(client).mfa_update('valid_id', :params) }
+
+      it { expect { subject }.not_to raise_error }
+      it('performs a post and returns the response') { expect(subject[0]).to respond_to(:user_institution) }
+      it('returns no error messages') { expect(subject[1]).to be_empty }
+    end
+
+    context 'when invalid id is provided w/ params' do
+      subject { FinApps::REST::UserInstitutions.new(client).mfa_update('invalid_id', :params) }
+
+      it { expect { subject }.not_to raise_error }
+      it('results is nil') { expect(subject[0]).to be_nil }
+      it('error messages array is populated') { expect(subject[1].first.downcase).to eq('invalid user institution id') }
+    end
+  end
+
+  describe '#credentials_update' do
+    context 'when missing id' do
+      subject { FinApps::REST::UserInstitutions.new(client).credentials_update(nil, :params) }
+      it { expect { subject }.to raise_error(FinApps::MissingArgumentsError) }
+    end
+
+    context 'when missing params' do
+      subject { FinApps::REST::UserInstitutions.new(client).credentials_update(:id, nil) }
+      it { expect { subject }.to raise_error(FinApps::MissingArgumentsError) }
+    end
+
+    context 'when valid id and params are provided' do
+      subject { FinApps::REST::UserInstitutions.new(client).credentials_update('valid_id', :params) }
+
+      it { expect { subject }.not_to raise_error }
+      it('performs a post and returns the response') { expect(subject[0]).to respond_to(:user_institution) }
+      it('returns no error messages') { expect(subject[1]).to be_empty }
+    end
+
+    context 'when invalid id is provided w/ params' do
+      subject { FinApps::REST::UserInstitutions.new(client).credentials_update('invalid_id', :params) }
+
+      it { expect { subject }.not_to raise_error }
+      it('results is nil') { expect(subject[0]).to be_nil }
+      it('error messages array is populated') { expect(subject[1].first.downcase).to eq('invalid user institution id') }
+    end
+  end
 end

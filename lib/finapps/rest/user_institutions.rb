@@ -4,6 +4,8 @@ module FinApps
     class UserInstitutions < FinApps::REST::Resources # :nodoc:
       require 'erb'
 
+      END_POINT = 'institutions/user'
+
       using ObjectExtensions
       using StringExtensions
 
@@ -15,8 +17,30 @@ module FinApps
       def show(id)
         raise MissingArgumentsError.new 'Missing Argument: id.' if id.blank?
 
-        path = "institutions/user/#{ERB::Util.url_encode(id)}"
+        path = "#{END_POINT}/#{ERB::Util.url_encode(id)}"
         super id, path
+      end
+
+      def credentials_update(id, params)
+        raise MissingArgumentsError.new 'Missing Argument: id.' if id.blank?
+        raise MissingArgumentsError.new 'Missing argument: params.' if params.blank?
+
+        path = "#{END_POINT}/#{ERB::Util.url_encode(id)}/credentials"
+        update params, path
+      end
+
+      def mfa_update(id, params)
+        raise MissingArgumentsError.new 'Missing Argument: id.' if id.blank?
+        raise MissingArgumentsError.new 'Missing argument: params.' if params.blank?
+
+        path = "#{END_POINT}/#{ERB::Util.url_encode(id)}/mfa"
+        update params, path
+      end
+
+      private
+
+      def update(params, path)
+        super params, path
       end
     end
   end
