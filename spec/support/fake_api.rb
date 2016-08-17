@@ -17,6 +17,29 @@ class FakeApi < Sinatra::Base
   get('/v2/list/orders/:page/:requested/:sort/:asc') { json_response 200, 'orders.json' }
   put('/v2/orders/:id')
 
+  # institutions
+  get('/v2/institutions/site/valid_site_id/form') { json_response 200, 'institution_login_form.json' }
+  get('/v2/institutions/site/invalid_site_id/form') { json_response 400, 'invalid_institution_id.json' }
+  post('/v2/institutions/site/valid_site_id/add') { json_response 200, 'institution_add.json' }
+  post('/v2/institutions/site/invalid_site_id/add') { json_response 400, 'invalid_institution_id.json' }
+  get('/v2/institutions/search/:search_term') { json_response 200, 'institutions_search_list.json' }
+
+  # user institutions
+  get('/v2/institutions/user/valid_id/status') { json_response 200, 'user_institution_status.json' }
+  get('/v2/institutions/user/invalid_id/status') { json_response 400, 'invalid_user_institution_id.json' }
+  get('/v2/institutions/user') { json_response 200, 'user_institutions_list.json' }
+  get('/v2/institutions/user/valid_id') { json_response 200, 'user_institutions_show.json' }
+  get('/v2/institutions/user/invalid_id') { json_response 400, 'invalid_user_institution_id.json' }
+  put('/v2/institutions/user/refresh') { json_response 200, 'user_institutions_refresh_all.json' }
+  put('/v2/institutions/user/valid_id/credentials') { json_response 200, 'institution_add.json' }
+  put('/v2/institutions/user/invalid_id/credentials') { json_response 400, 'invalid_user_institution_id.json' }
+  put('/v2/institutions/user/valid_id/mfa') { json_response 200, 'institution_add.json' }
+  put('/v2/institutions/user/invalid_id/mfa') { json_response 400, 'invalid_user_institution_id.json' }
+  delete('/v2/institutions/user/valid_id') { json_response 204, 'user_institution_delete.json' }
+  delete('/v2/institutions/user/invalid_id') { json_response 400, 'invalid_user_institution_id.json' }
+  get('/v2/institutions/user/valid_id/form') { json_response 200, 'institution_login_form.json' }
+  get('/v2/institutions/user/invalid_id/form') { json_response 400, 'invalid_institution_id.json' }
+
   # users
   get('/v2/users/valid_public_id') { json_response 200, 'user.json' }
   get('/v2/users/invalid_public_id') { json_response 404, 'resource_not_found.json' }
