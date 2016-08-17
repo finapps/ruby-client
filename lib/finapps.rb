@@ -29,6 +29,7 @@ require 'finapps/rest/institutions_forms'
 require 'finapps/rest/institutions'
 require 'finapps/rest/user_institutions_statuses'
 require 'finapps/rest/user_institutions'
+require 'finapps/rest/user_institutions_forms'
 
 require 'finapps/rest/configuration'
 require 'finapps/rest/credentials'

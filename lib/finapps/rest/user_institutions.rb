@@ -37,6 +37,13 @@ module FinApps
         update params, path
       end
 
+      def destroy(id)
+        raise MissingArgumentsError.new 'Missing Argument: id.' if id.blank?
+
+        path = "#{END_POINT}/#{ERB::Util.url_encode(id)}"
+        super id, path
+      end
+
       private
 
       def update(params, path)

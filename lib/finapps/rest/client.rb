@@ -51,6 +51,10 @@ module FinApps
       def user_institutions
         @user_institutions ||= FinApps::REST::UserInstitutions.new self
       end
+
+      def user_institutions_forms
+        @user_institutions_forms ||= FinApps::REST::UserInstitutionsForms.new self
+      end
     end
   end
 end
