@@ -15,16 +15,16 @@ class FakeApi < Sinatra::Base
   post('/v2/orders/invalid_token') { json_response 404, 'resource_not_found.json' }
   get('/v2/orders/:id') { json_response 200, 'resource.json' }
   get('/v2/list/orders/:page/:requested/:sort/:asc') { json_response 200, 'orders.json' }
+  put('/v2/orders/invalid_id') { json_response 404, 'resource_not_found.json' }
   put('/v2/orders/valid_id') do
     request.body.rewind
     request_payload = JSON.parse request.body.read
     if request_payload['accounts'] == 'valid_account'
-      json_ response 204, 'order_submit.json'
+      status 204
     else
-      json_response 400, ''
+      json_response 400, 'invalid_request_body.json'
     end
   end
-  #put('/v2/orders/invalid_id') { json_ response 404, '' }
 
 
   # institutions
