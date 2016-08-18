@@ -2,7 +2,6 @@
 module FinApps
   module REST
     class UserInstitutionsStatuses < FinApps::REST::Resources # :nodoc:
-
       using ObjectExtensions
       using StringExtensions
 
