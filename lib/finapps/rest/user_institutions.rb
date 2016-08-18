@@ -2,7 +2,6 @@
 module FinApps
   module REST
     class UserInstitutions < FinApps::REST::Resources # :nodoc:
-      require 'erb'
 
       END_POINT = 'institutions/user'
 

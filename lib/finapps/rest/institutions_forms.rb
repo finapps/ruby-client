@@ -2,7 +2,6 @@
 module FinApps
   module REST
     class InstitutionsForms < FinApps::REST::Resources
-      require 'erb'
       using ObjectExtensions
       using StringExtensions
 

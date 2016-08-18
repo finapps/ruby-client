@@ -2,7 +2,6 @@
 module FinApps
   module REST
     class Sessions < FinApps::REST::Resources # :nodoc:
-      require 'erb'
 
       using ObjectExtensions
       using StringExtensions
