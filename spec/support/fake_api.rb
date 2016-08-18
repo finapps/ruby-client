@@ -45,7 +45,7 @@ class FakeApi < Sinatra::Base
   put('/v2/institutions/user/invalid_id/credentials') { json_response 400, 'invalid_user_institution_id.json' }
   put('/v2/institutions/user/valid_id/mfa') { json_response 200, 'institution_add.json' }
   put('/v2/institutions/user/invalid_id/mfa') { json_response 400, 'invalid_user_institution_id.json' }
-  delete('/v2/institutions/user/valid_id') { json_response 204, 'user_institution_delete.json' }
+  delete('/v2/institutions/user/valid_id') { status 204 }
   delete('/v2/institutions/user/invalid_id') { json_response 400, 'invalid_user_institution_id.json' }
   get('/v2/institutions/user/valid_id/form') { json_response 200, 'institution_login_form.json' }
   get('/v2/institutions/user/invalid_id/form') { json_response 400, 'invalid_institution_id.json' }
