@@ -23,6 +23,18 @@ module FinApps
 
         super 'list/orders/1/10000/date/false'
       end
+
+      def update(id, params)
+        raise MissingArgumentsError.new 'Missing argument: id.' if id.blank?
+        raise MissingArgumentsError.new 'Missing argument: params' if params.blank?
+        # Params array need matching Institution ids & Account ids
+        # Validations to check each Institution id has at least one account id
+        # Validations to check at least 1 Institution id or 1 account "params.length >= 1"
+
+        path = "#{end_point}/#{ERB::Util.url_encode(id)}"
+
+        super params, path
+      end
     end
   end
 end

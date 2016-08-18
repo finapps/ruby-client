@@ -43,6 +43,18 @@ module FinApps
       def institutions_forms
         @institutions_forms ||= FinApps::REST::InstitutionsForms.new self
       end
+
+      def user_institutions_statuses
+        @user_institutions_statuses ||= FinApps::REST::UserInstitutionsStatuses.new self
+      end
+
+      def user_institutions
+        @user_institutions ||= FinApps::REST::UserInstitutions.new self
+      end
+
+      def user_institutions_forms
+        @user_institutions_forms ||= FinApps::REST::UserInstitutionsForms.new self
+      end
     end
   end
 end
