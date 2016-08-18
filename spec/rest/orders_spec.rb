@@ -35,12 +35,12 @@ RSpec.describe FinApps::REST::Orders do
 
     context 'when missing id' do
       let(:update) { subject.update(nil, :params) }
-      it ('returns missing argument error') { expect { update }.to raise_error(FinApps::MissingArgumentsError) }
+      it('returns missing argument error') { expect { update }.to raise_error(FinApps::MissingArgumentsError) }
     end
 
     context 'when missing params' do
       let(:update) { subject.update(:id, nil) }
-      it ('returns missing argument error') { expect { update }.to raise_error(FinApps::MissingArgumentsError) }
+      it('returns missing argument error') { expect { update }.to raise_error(FinApps::MissingArgumentsError) }
     end
 
     context 'when valid id and params are provided' do

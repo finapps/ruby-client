@@ -58,9 +58,11 @@ module FinApps
         error_messages = []
         begin
           response = execute_method path, method, params
-        rescue FinApps::InvalidArgumentsError,
-               FinApps::MissingArgumentsError,
-               Faraday::Error::ConnectionFailed => error
+        rescue FinApps::InvalidArgumentsError => error
+          handle_error error
+        rescue FinApps::MissingArgumentsError => error
+          handle_error error
+        rescue Faraday::Error::ConnectionFailed => error
           handle_error error
         rescue Faraday::Error::ClientError => error
           error_messages = handle_client_error error
@@ -106,6 +108,10 @@ module FinApps
         else
           super
         end
+      end
+
+      def respond_to_missing?(method_name, include_private=false)
+        %i(get post put delete).include? method_name ? true : super
       end
     end
   end
