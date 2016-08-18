@@ -27,7 +27,7 @@ RSpec.describe FinApps::REST::UserInstitutionsStatuses do
 
   describe '#update' do
     context 'when successful' do
-      subject { FinApps::REST::UserInstitutions.new(client).list }
+      subject { FinApps::REST::UserInstitutionsStatuses.new(client).update }
 
       it('returns an array') { expect(subject).to be_a(Array) }
       it('performs a get and returns array of user institutions statuses') { expect(subject[0]).to be_a(Array) }

@@ -26,7 +26,6 @@ class FakeApi < Sinatra::Base
     end
   end
 
-
   # institutions
   get('/v2/institutions/site/valid_site_id/form') { json_response 200, 'institution_login_form.json' }
   get('/v2/institutions/site/invalid_site_id/form') { json_response 400, 'invalid_institution_id.json' }
@@ -49,6 +48,7 @@ class FakeApi < Sinatra::Base
   delete('/v2/institutions/user/invalid_id') { json_response 400, 'invalid_user_institution_id.json' }
   get('/v2/institutions/user/valid_id/form') { json_response 200, 'institution_login_form.json' }
   get('/v2/institutions/user/invalid_id/form') { json_response 400, 'invalid_institution_id.json' }
+  put('/v2/institutions/refresh') { json_response 200, 'user_institution_refresh.json' }
 
   # users
   get('/v2/users/valid_public_id') { json_response 200, 'user.json' }
