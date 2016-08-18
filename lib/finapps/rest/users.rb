@@ -2,8 +2,6 @@
 module FinApps
   module REST
     class Users < FinApps::REST::Resources # :nodoc:
-      require 'erb'
-
       using ObjectExtensions
       using StringExtensions
 

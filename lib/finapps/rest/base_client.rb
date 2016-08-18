@@ -64,8 +64,6 @@ module FinApps
           handle_error error
         rescue Faraday::Error::ClientError => error
           error_messages = handle_client_error error
-        rescue StandardError => error
-          error_messages = handle_standard_error error
         end
 
         [response, error_messages]
@@ -79,11 +77,6 @@ module FinApps
       def handle_client_error(error)
         logger.warn "#{self.class}##{__method__} => Faraday::Error::ClientError, #{error}"
         error.response[:error_messages] || [error.message]
-      end
-
-      def handle_standard_error(error)
-        logger.error "#{self.class}##{__method__} => StandardError, #{error}"
-        ['Unexpected error.']
       end
 
       def execute_method(path, method, params)

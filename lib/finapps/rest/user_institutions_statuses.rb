@@ -2,8 +2,6 @@
 module FinApps
   module REST
     class UserInstitutionsStatuses < FinApps::REST::Resources # :nodoc:
-      require 'erb'
-
       using ObjectExtensions
       using StringExtensions
 
@@ -15,7 +13,7 @@ module FinApps
       end
 
       def update
-        path = 'institutions/user/refresh'
+        path = 'institutions/refresh'
         super nil, path
       end
     end

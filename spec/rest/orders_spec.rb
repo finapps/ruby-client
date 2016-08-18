@@ -44,7 +44,7 @@ RSpec.describe FinApps::REST::Orders do
     end
 
     context 'when valid id and params are provided' do
-      let(:update) { subject.update('valid_id', {accounts: 'valid_account'}) } #how to stub params
+      let(:update) { subject.update('valid_id', accounts: 'valid_account') } # how to stub params
       let(:results) { update[0] }
       let(:error_messages) { update[1] }
 
@@ -64,14 +64,13 @@ RSpec.describe FinApps::REST::Orders do
     end
 
     context 'when invalid params are provided' do
-      let(:update) { subject.update('valid_id', {accounts: 'invalid_account'}) }
+      let(:update) { subject.update('valid_id', accounts: 'invalid_account') }
       let(:results) { update[0] }
       let(:error_messages) { update[1] }
 
       it { expect { update }.not_to raise_error }
       it('results is nil') { expect(results).to be_nil }
       it('error messages array is populated') { expect(error_messages.first.downcase).to eq('invalid request body') }
-
     end
   end
 end
