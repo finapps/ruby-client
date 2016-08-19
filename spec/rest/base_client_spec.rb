@@ -39,12 +39,19 @@ RSpec.describe FinApps::REST::BaseClient do
   end
 
   describe '#send_request' do
+    it 'should raise FinApps::InvalidArgumentsError if method is NOT supported' do
+      expect { subject.send_request('fake_path', :option) }.to raise_error(FinApps::InvalidArgumentsError,
+                                                                           'Method not supported: option.')
+    end
+
     it 'should raise FinApps::MissingArgumentsError if method is NOT provided' do
-      expect { subject.send_request(nil, :get) }.to raise_error(FinApps::MissingArgumentsError)
+      expect { subject.send_request(nil, :get) }.to raise_error(FinApps::MissingArgumentsError,
+                                                                'Missing argument: path.')
     end
 
     it 'should raise FinApps::MissingArgumentsError if path is NOT provided' do
-      expect { subject.send_request('fake_path', nil) }.to raise_error(FinApps::MissingArgumentsError)
+      expect { subject.send_request('fake_path', nil) }.to raise_error(FinApps::MissingArgumentsError,
+                                                                       'Missing argument: method.')
     end
 
     context 'when method and path are provided' do
@@ -100,6 +107,14 @@ RSpec.describe FinApps::REST::BaseClient do
   describe '#method_missing' do
     context 'for unsupported methods' do
       it { expect { subject.unsupported }.to raise_error(NoMethodError) }
+    end
+  end
+
+  describe '#respond_to_missing?' do
+    context 'for supported methods' do
+      [:get, :post, :put, :delete].each do |method|
+        it("responds to #{method}") { expect(subject).to respond_to(method) }
+      end
     end
   end
 end
