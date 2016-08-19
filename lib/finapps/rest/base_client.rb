@@ -48,6 +48,24 @@ module FinApps
         [result, error_messages]
       end
 
+      # Defines methods to perform HTTP GET, POST, PUT and DELETE requests.
+      # Returns a hash obtained from parsing the JSON object in the response body.
+      #
+      def method_missing(method_id, *arguments, &block)
+        if %i(get post put delete).include? method_id
+          connection.send(method_id) do |req|
+            req.url arguments.first
+            req.body = arguments[1] unless method_id == :get
+          end
+        else
+          super
+        end
+      end
+
+      def respond_to_missing?(method_sym, include_private=false)
+        [:get, :post, :put, :delete].include?(method_sym) ? true : super
+      end
+
       private
 
       def empty?(response)
@@ -94,24 +112,6 @@ module FinApps
         else
           raise FinApps::InvalidArgumentsError.new "Method not supported: #{method}."
         end
-      end
-
-      # Defines methods to perform HTTP GET, POST, PUT and DELETE requests.
-      # Returns a hash obtained from parsing the JSON object in the response body.
-      #
-      def method_missing(method_id, *arguments, &block)
-        if %i(get post put delete).include? method_id
-          connection.send(method_id) do |req|
-            req.url arguments.first
-            req.body = arguments[1] unless method_id == :get
-          end
-        else
-          super
-        end
-      end
-
-      def respond_to_missing?(method_name, include_private=false)
-        %i(get post put delete).include? method_name ? true : super
       end
     end
   end
