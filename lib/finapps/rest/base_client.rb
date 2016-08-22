@@ -96,7 +96,7 @@ module FinApps
 
       def handle_client_error(error)
         logger.warn "#{self.class}##{__method__} => Faraday::Error::ClientError, #{error}"
-        error.response[:error_messages] || [error.message]
+        error.response.present? && error.response[:error_messages] ? error.response[:error_messages] : [error.message]
       end
 
       def execute_method(path, method, params)
