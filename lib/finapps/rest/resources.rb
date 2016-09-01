@@ -2,6 +2,7 @@
 module FinApps
   module REST
     class Resources # :nodoc:
+      include FinApps::Utils::ParameterFilter
       require 'erb'
 
       attr_reader :client
@@ -53,10 +54,6 @@ module FinApps
 
       def logger
         client.logger
-      end
-
-      def skip_sensitive_data(hash)
-        client.skip_sensitive_data(hash)
       end
 
       def end_point
