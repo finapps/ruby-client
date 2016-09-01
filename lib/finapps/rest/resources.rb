@@ -44,7 +44,7 @@ module FinApps
 
       def request_with_body(path, method, params)
         path = end_point if path.nil?
-        logger.debug "#{self.class.name}##{__method__} => path: #{path} params: #{params}"
+        logger.debug "#{self.class.name}##{__method__} => path: #{path} params: #{skip_sensitive_data(params)}"
 
         client.send_request path, method, params
       end
@@ -53,6 +53,10 @@ module FinApps
 
       def logger
         client.logger
+      end
+
+      def skip_sensitive_data(hash)
+        client.skip_sensitive_data(hash)
       end
 
       def end_point
