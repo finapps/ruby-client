@@ -12,7 +12,8 @@ module FinApps
       Faraday::Request.register_middleware \
         accept_json: -> { AcceptJson },
         user_agent: -> { UserAgent },
-        tenant_authentication: -> { TenantAuthentication },
+        tenant_authentication: -> { TenantAuthentication }
+      Faraday::Response.register_middleware \
         custom_logger: -> { CustomLogger }
     end
   end

@@ -9,7 +9,10 @@ require 'typhoeus/adapters/faraday'
 require 'core_extensions/hash/compact'
 require 'core_extensions/object/blank'
 require 'core_extensions/object/is_integer'
+require 'core_extensions/string/json_to_hash'
+
 require 'finapps/utils/loggeable'
+require 'finapps/utils/parameter_filter'
 require 'finapps/error'
 
 require 'finapps/middleware/request/tenant_authentication'

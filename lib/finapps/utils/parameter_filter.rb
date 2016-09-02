@@ -1,9 +1,14 @@
+# frozen_string_literal: true
 module FinApps
   module Utils
     module ParameterFilter
+      using StringExtensions
       PROTECTED_KEYS = %w(login login1 username password password1 password_confirm token).freeze
 
       def skip_sensitive_data(hash)
+        if hash.is_a? String
+          hash = hash.json_to_hash
+        end
         if hash.is_a? Hash
           filtered_hash = hash.clone
           filtered_hash.each do |key, value|

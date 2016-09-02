@@ -31,18 +31,12 @@ module FinApps
 
       def error_messages(body)
         return nil if body.blank?
-        body = parse_string(body) if body.is_a?(String)
+        body = body.json_to_hash if body.is_a?(String)
         has_message_key?(body) ? body['messages'] : nil
       end
 
       def has_message_key?(body)
         body.respond_to?(:key?) && body.key?('messages')
-      end
-
-      def parse_string(body)
-        ::JSON.parse(body)
-      rescue ::JSON::ParserError
-        # logger.error "##{__method__} => Unable to parse JSON response."
       end
     end
   end

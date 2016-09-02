@@ -23,7 +23,7 @@ module FinApps
           conn.use FinApps::Middleware::RaiseError
           conn.response :rashify
           conn.response :json, content_type: /\bjson$/
-          conn.response :logger, logger, bodies: (ENV['SILENT_LOG_BODIES'] != 'true')
+          conn.response :custom_logger, logger, bodies: (ENV['SILENT_LOG_BODIES'] != 'true')
 
           # Adapter (ensure that the adapter is always last.)
           conn.adapter :typhoeus
