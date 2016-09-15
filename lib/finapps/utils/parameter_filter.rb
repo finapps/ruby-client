@@ -3,7 +3,8 @@ module FinApps
   module Utils
     module ParameterFilter
       using StringExtensions
-      PROTECTED_KEYS = %w(login login1 username password password1 password_confirm token).freeze
+      PROTECTED_KEYS = %w(login login1 username password password1 password_confirm token
+                          X-FinApps-Token Authorization).freeze
 
       def skip_sensitive_data(hash)
         if hash.is_a? String

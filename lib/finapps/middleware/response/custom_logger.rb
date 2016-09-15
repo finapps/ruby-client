@@ -20,34 +20,21 @@ module FinApps
 
       def call(env)
         info "##{__method__} => ##{env.method} #{env.url}"
-        debug "##{__method__} => Request Headers: #{dump_headers env.request_headers}"
+        debug "##{__method__} => Request Headers: #{dump env.request_headers}"
 
         super
       end
 
       def on_complete(env)
         info "##{__method__} => ##{env.method} #{env.url}"
-        debug "##{__method__} => Response Headers: #{dump_headers env.response_headers}"
-        info "##{__method__} => Response Body: #{dump_body env.body}" if env.body
+        debug "##{__method__} => Response Headers: #{dump env.response_headers}"
+        info "##{__method__} => Response Body: #{dump env.body}" if env.body
       end
 
       private
 
-      def dump_headers(headers)
-        headers.map {|k, v| "  #{k}: #{filter_sensitive_header_values(k, v)}" }.to_s
-      end
-
-      def filter_sensitive_header_values(key, value)
-        case key
-        when 'X-FinApps-Token', 'Authorization'
-          '[REDACTED]'
-        else
-          value.inspect
-        end
-      end
-
-      def dump_body(body)
-        skip_sensitive_data(body)
+      def dump(value)
+        skip_sensitive_data(value.is_a?(Array) ? value.to_h : value).to_json
       end
     end
   end
