@@ -15,12 +15,23 @@ class FakeApi < Sinatra::Base
   post('/v2/orders/invalid_token') { json_response 404, 'resource_not_found.json' }
   get('/v2/orders/:id') { json_response 200, 'resource.json' }
   get('/v2/list/orders/:page/:requested/:sort/:asc') { json_response 200, 'orders.json' }
+  get('/v2/orders/valid_id/report.:format') { json_response 200, 'order_report.json' }
+  get('/v2/orders/invalid_id/report.:format') { json_response 404, 'resource_not_found.json' }
   put('/v2/orders/invalid_id') { json_response 404, 'resource_not_found.json' }
   put('/v2/orders/valid_id') do
     request.body.rewind
     request_payload = JSON.parse request.body.read
     if request_payload['accounts'] == 'valid_account'
       status 204
+    else
+      json_response 400, 'invalid_request_body.json'
+    end
+  end
+  post('/v2/orders') do
+    request.body.rewind
+    request_payload = JSON.parse request.body.read
+    if %w(applicant institutions product).all? {|s| request_payload.key? s }
+      json_response 200, 'order_token.json'
     else
       json_response 400, 'invalid_request_body.json'
     end
@@ -53,8 +64,11 @@ class FakeApi < Sinatra::Base
   get('/v2/users/valid_public_id') { json_response 200, 'user.json' }
   get('/v2/users/invalid_public_id') { json_response 404, 'resource_not_found.json' }
   put('/v2/users/valid_public_id') { status 204 }
+  put('/v2/users/invalid_public_id') { json_response 400, 'invalid_user_id.json' }
   put('/v2/users/valid_public_id/password') { json_response 200, 'user.json' }
   put('/v2/users/invalid_public_id/password') { json_response 404, 'resource_not_found.json' }
+  delete('/v2/users/valid_public_id') { status 204 }
+  delete('/v2/users/invalid_public_id') { json_response 404, 'resource_not_found.json' }
 
   # session
   post('/v2/login') do
