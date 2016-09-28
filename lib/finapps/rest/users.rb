@@ -22,6 +22,11 @@ module FinApps
         super params, path
       end
 
+      def destroy(public_id)
+        raise MissingArgumentsError.new 'Missing argument: public_id.' if public_id.blank?
+        super public_id
+      end
+
       private
 
       def password_update?(params)

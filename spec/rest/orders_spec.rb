@@ -12,8 +12,34 @@ RSpec.describe FinApps::REST::Orders do
 
       it { expect { subject }.not_to raise_error }
       it('returns an array') { expect(subject).to be_a(Array) }
+      it('performs a get and returns the response') { expect(subject[0]).to respond_to(:public_id) }
+      it('returns no error messages') { expect(subject[1]).to be_empty }
+    end
+  end
+
+  describe '#create' do
+    context 'when missing params' do
+      subject { FinApps::REST::Orders.new(client).create(nil) }
+      it { expect { subject }.to raise_error(FinApps::MissingArgumentsError) }
+    end
+
+    context 'when valid params are provided' do
+      subject { FinApps::REST::Orders.new(client).create(valid_params) }
+      let(:valid_params) { {applicant: 'valid', institutions: 'valid', product: 'valid'} }
+
+      it { expect { subject }.not_to raise_error }
+      it('returns an array') { expect(subject).to be_a(Array) }
       it('performs a post and returns the response') { expect(subject[0]).to respond_to(:public_id) }
       it('returns no error messages') { expect(subject[1]).to be_empty }
+    end
+
+    context 'when invalid params are provided' do
+      subject { FinApps::REST::Orders.new(client).create(invalid_params) }
+      let(:invalid_params) { {applicant: 'valid'} }
+
+      it { expect { subject }.not_to raise_error }
+      it('results is nil') { expect(subject[0]).to be_nil }
+      it('error messages array is populated') { expect(subject[1].first.downcase).to eq('invalid request body') }
     end
   end
 
@@ -24,6 +50,16 @@ RSpec.describe FinApps::REST::Orders do
       subject { FinApps::REST::Orders.new(client).list(nil) }
       it { expect { subject }.not_to raise_error }
 
+      it('returns an array') { expect(subject).to be_a(Array) }
+      it('performs a get and returns the response') { expect(subject[0]).to respond_to(:orders) }
+      it('returns no error messages') { expect(subject[1]).to be_empty }
+    end
+
+    context 'when including partial params' do
+      subject { FinApps::REST::Orders.new(client).list(params) }
+      let(:params) { {page: 2, sort: 'status'} }
+
+      it { expect { subject }.not_to raise_error }
       it('returns an array') { expect(subject).to be_a(Array) }
       it('performs a get and returns the response') { expect(subject[0]).to respond_to(:orders) }
       it('returns no error messages') { expect(subject[1]).to be_empty }
