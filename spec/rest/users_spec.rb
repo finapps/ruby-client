@@ -3,12 +3,10 @@ require 'spec_helpers/client'
 
 RSpec.describe FinApps::REST::Users, 'initialized with valid FinApps::Client object' do
   include SpecHelpers::Client
-
+  subject(:users) { FinApps::REST::Users.new(client) }
   missing_public_id = 'Missing argument: public_id.'
 
   describe '#show' do
-    subject(:users) { FinApps::REST::Users.new(client) }
-
     context 'when missing public_id' do
       it { expect { subject.show(nil) }.to raise_error(FinApps::MissingArgumentsError, missing_public_id) }
     end
@@ -36,8 +34,6 @@ RSpec.describe FinApps::REST::Users, 'initialized with valid FinApps::Client obj
   end
 
   describe '#update' do
-    subject(:users) { FinApps::REST::Users.new(client) }
-
     context 'when missing public_id' do
       it { expect { subject.update(nil, {}) }.to raise_error(FinApps::MissingArgumentsError, missing_public_id) }
     end
@@ -54,7 +50,15 @@ RSpec.describe FinApps::REST::Users, 'initialized with valid FinApps::Client obj
       end
 
       context 'for invalid public_id' do
-        # no point testing this context unless this api bug is solved: https://github.com/finapps/api/issues/209
+        let(:update) { subject.update(:invalid_public_id, postal_code: '33021') }
+        let(:results) { update[0] }
+        let(:error_messages) { update[1] }
+
+        it { expect { update }.not_to raise_error }
+        it('results is nil') { expect(results).to be_nil }
+        it('error messages array is populated') do
+          expect(error_messages.first.downcase).to eq('invalid user id specified.')
+        end
       end
     end
 
@@ -77,6 +81,32 @@ RSpec.describe FinApps::REST::Users, 'initialized with valid FinApps::Client obj
         let(:error_messages) { update[1] }
 
         it { expect { update }.not_to raise_error }
+        it('results is nil') { expect(results).to be_nil }
+        it('error messages array is populated') { expect(error_messages.first.downcase).to eq('resource not found') }
+      end
+    end
+
+    describe '#destroy' do
+      context 'when missing public_id' do
+        it { expect { subject.destroy(nil) }.to raise_error(FinApps::MissingArgumentsError, missing_public_id) }
+      end
+
+      context 'for valid public_id' do
+        let(:destroy) { subject.destroy(:valid_public_id) }
+        let(:results) { destroy[0] }
+        let(:error_messages) { destroy[1] }
+
+        it { expect { destroy }.not_to raise_error }
+        it('results is nil') { expect(results).to be_nil }
+        it('error_messages array is empty') { expect(error_messages).to eq([]) }
+      end
+
+      context 'for invalid token' do
+        let(:destroy) { subject.destroy(:invalid_public_id) }
+        let(:results) { destroy[0] }
+        let(:error_messages) { destroy[1] }
+
+        it { expect { destroy }.not_to raise_error }
         it('results is nil') { expect(results).to be_nil }
         it('error messages array is populated') { expect(error_messages.first.downcase).to eq('resource not found') }
       end

@@ -10,18 +10,24 @@ module FinApps
         super
       end
 
-      def list(_params=nil)
-        # TODO: get the paramaters for the pagination
-        # GET /v2/list/orders/:page/:requested/:sort/:asc
-        # :page - page number requested
-        # :requested - number of results per page requested
-        # :sort - sort order
-        # options:
-        #     date - the date of the order
-        #     status - the status of the order
-        # :asc - sort order true for asc false for desc
+      def create(params)
+        raise MissingArgumentsError.new 'Missing argument: params.' if params.blank?
+        super params
+      end
 
-        super 'list/orders/1/10000/date/false'
+      # GET /v2/list/orders/:page/:requested/:sort/:asc
+      # :page - page number requested
+      # :requested - number of results per page requested
+      # :sort - sort order
+      #   options:
+      #     date - the date of the order
+      #     status - the status of the order
+      # :asc - sort order true for asc false for desc
+      def list(params=nil) # params hash with optional keys [:page, :requested, :sort, :asc]
+        return super 'list/orders/1/10000/date/false' if params.nil?
+        raise InvalidArgumentsError.new 'Invalid argument: params' unless params.is_a? Hash
+
+        super build_path(params)
       end
 
       def update(id, params)
@@ -34,6 +40,19 @@ module FinApps
         path = "#{end_point}/#{ERB::Util.url_encode(id)}"
 
         super params, path
+      end
+
+      private
+
+      def build_path(p)
+        page = p[:page] || 1
+        requested = p[:requested] || 100
+        sort = p[:sort] || 'date'
+        asc = p[:asc] || false
+        end_point = 'list/orders'
+        path = end_point.dup
+        [page, requested, sort, asc].each_with_index {|a| path << "/#{ERB::Util.url_encode(a)}" }
+        path
       end
     end
   end
