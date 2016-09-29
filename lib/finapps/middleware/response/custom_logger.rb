@@ -19,16 +19,16 @@ module FinApps
       def_delegators :@logger, :debug, :info, :warn, :error, :fatal
 
       def call(env)
-        info "##{__method__} => ##{env.method} #{env.url}"
-        debug "##{__method__} => Request Headers: #{dump env.request_headers}"
+        debug "#{self.class.name}##{__method__} => URL: #{env.method.upcase} #{env.url}"
+        debug "#{self.class.name}##{__method__} => Request Headers: #{dump env.request_headers}"
 
         super
       end
 
       def on_complete(env)
-        info "##{__method__} => ##{env.method} #{env.url}"
-        debug "##{__method__} => Response Headers: #{dump env.response_headers}"
-        info "##{__method__} => Response Body: #{dump env.body}" if env.body
+        debug "#{self.class.name}##{__method__} => URL: #{env.method.upcase} #{env.url}"
+        debug "#{self.class.name}##{__method__} => Response Headers: #{dump env.response_headers}"
+        debug "#{self.class.name}##{__method__} => Response Body: #{dump env.body}" if env.body
       end
 
       private
