@@ -74,7 +74,7 @@ module FinApps
 
       def execute_request(path, method, params)
         
-        error_messages = {
+        errors = {
           api_session_timeout: false,
           messages: []
           }
@@ -83,7 +83,7 @@ module FinApps
           response = execute_method path, method, params
 
         rescue FinApps::ApiSessionTimeoutError => error
-          error_messages = {
+          errors = {
             api_session_timeout: true,
             messages: handle_client_error error   
             }
@@ -94,13 +94,13 @@ module FinApps
         rescue Faraday::Error::ConnectionFailed => error
           handle_error error
         rescue Faraday::Error::ClientError => error
-          error_messages = {
+          errors = {
             api_session_timeout: false,
             messages: handle_client_error error   
             }
         end
 
-        [response, error_messages]
+        [response, errors]
       end
 
       def handle_error(error)
