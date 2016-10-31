@@ -10,9 +10,9 @@ module FinApps
       API_SESSION_TIMEOUT = 419
 
       def on_complete(env)
-        if SUCCESS_STATUSES.include? env[:status]
-          # do nothing
-        elsif env[:status] == API_SESSION_TIMEOUT
+        return if SUCCESS_STATUSES.include?(env[:status])
+
+        if env[:status] == API_SESSION_TIMEOUT
           raise(FinApps::Error::ApiSessionTimeoutError, 'Api Session Timed out')
         elsif env[:status] == CONNECTION_FAILED_STATUS
           raise(Faraday::Error::ConnectionFailed, '407 "Proxy Authentication Required"')
