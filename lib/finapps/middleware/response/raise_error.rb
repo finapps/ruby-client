@@ -9,9 +9,9 @@ module FinApps
       CONNECTION_FAILED_STATUS = 407
 
       def on_complete(env)
-        if SUCCESS_STATUSES.include? env[:status]
-          # do nothing
-        elsif env[:status] == CONNECTION_FAILED_STATUS
+        return if SUCCESS_STATUSES.include? env[:status]
+
+        if env[:status] == CONNECTION_FAILED_STATUS
           raise(Faraday::Error::ConnectionFailed, '407 "Proxy Authentication Required"')
         else
           raise(Faraday::Error::ClientError, response_values(env))
