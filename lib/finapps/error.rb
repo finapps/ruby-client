@@ -7,7 +7,7 @@ module FinApps # :nodoc:
   class InvalidArgumentsError < Error; end
   # Raised whenever a required argument is missing.
   class MissingArgumentsError < Error; end
-  
+
   # Raised whenever there is a session timeout at the API.
   class ApiSessionTimeoutError < Error; end
 

@@ -5,6 +5,7 @@ module FinApps
   module Middleware
     autoload :AcceptJson, 'finapps/middleware/request/accept_json'
     autoload :UserAgent, 'finapps/middleware/request/user_agent'
+    autoload :NoEncodingBasicAuthentication, 'finapps/middleware/request/no_encoding_basic_authentication'
     autoload :TenantAuthentication, 'finapps/middleware/request/tenant_authentication'
     autoload :CustomLogger, 'finapps/middleware/response/custom_logger'
 
@@ -12,6 +13,7 @@ module FinApps
       Faraday::Request.register_middleware \
         accept_json: -> { AcceptJson },
         user_agent: -> { UserAgent },
+        no_encoding_basic_authentication: -> { NoEncodingBasicAuthentication },
         tenant_authentication: -> { TenantAuthentication }
       Faraday::Response.register_middleware \
         custom_logger: -> { CustomLogger }
