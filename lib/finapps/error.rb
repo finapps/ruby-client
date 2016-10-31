@@ -11,7 +11,5 @@ module FinApps # :nodoc:
   # Raised whenever there is a session timeout at the API.
   class ApiSessionTimeoutError < Error; end
 
-  %i(InvalidArgumentsError MissingArgumentsError ApiSessionTimeoutError).each do |const|
-    Error.const_set(const, FinApps.const_get(const))
-  end
+  %i(InvalidArgumentsError MissingArgumentsError ApiSessionTimeoutError).each {|const| Error.const_set(const, FinApps.const_get(const)) }
 end

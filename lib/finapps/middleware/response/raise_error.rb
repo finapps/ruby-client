@@ -10,7 +10,7 @@ module FinApps
       API_SESSION_TIMEOUT = 419
 
       def on_complete(env)
-        return if SUCCESS_STATUSES.include? env[:status]
+        return if SUCCESS_STATUSES.include?(env[:status])
 
         if env[:status] == API_SESSION_TIMEOUT
           raise(FinApps::Error::ApiSessionTimeoutError, 'Api Session Timed out')
