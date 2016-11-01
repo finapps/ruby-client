@@ -94,7 +94,6 @@ class FakeApi < Sinatra::Base
   # timeout
   get('/v2/orders/timeout') { status 419 }
 
-
   private
 
   def json_response(response_code, file_name)
