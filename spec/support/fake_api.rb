@@ -13,7 +13,7 @@ class FakeApi < Sinatra::Base
   # orders
   post('/v2/orders/valid_token') { json_response 200, 'order_token.json' }
   post('/v2/orders/invalid_token') { json_response 404, 'resource_not_found.json' }
-  get('/v2/orders/:id') { json_response 200, 'resource.json' }
+  get('/v2/orders/valid_id') { json_response 200, 'resource.json' }
   get('/v2/list/orders/:page/:requested/:sort/:asc') { json_response 200, 'orders.json' }
   get('/v2/orders/valid_id/report.:format') { json_response 200, 'order_report.json' }
   get('/v2/orders/invalid_id/report.:format') { json_response 404, 'resource_not_found.json' }
@@ -90,6 +90,9 @@ class FakeApi < Sinatra::Base
   get('/v2/client_error') { json_response 400, 'error.json' }
   get('/v2/server_error') { status 500 }
   get('/v2/proxy_error') { status 407 }
+
+  # timeout
+  get('/v2/orders/timeout') { status 419 }
 
   private
 
