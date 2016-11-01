@@ -73,9 +73,13 @@ module FinApps
       end
 
       def execute_request(path, method, params)
-        error_messages = []
+        errors = []
+
         begin
           response = execute_method path, method, params
+
+        rescue FinApps::ApiSessionTimeoutError => error
+          handle_error(error)
         rescue FinApps::InvalidArgumentsError => error
           handle_error error
         rescue FinApps::MissingArgumentsError => error
@@ -83,10 +87,10 @@ module FinApps
         rescue Faraday::Error::ConnectionFailed => error
           handle_error error
         rescue Faraday::Error::ClientError => error
-          error_messages = handle_client_error error
+          errors = handle_client_error(error)
         end
 
-        [response, error_messages]
+        [response, errors]
       end
 
       def handle_error(error)
@@ -95,7 +99,7 @@ module FinApps
       end
 
       def handle_client_error(error)
-        logger.warn "#{self.class}##{__method__} => Faraday::Error::ClientError, #{error}"
+        logger.warn "#{self.class}##{__method__} => #{error.class.name}, #{error}"
         error.response.present? && error.response[:error_messages] ? error.response[:error_messages] : [error.message]
       end
 
