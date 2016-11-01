@@ -8,7 +8,7 @@ RSpec.describe FinApps::REST::Orders do
     end
 
     context 'when valid params are provided' do
-      subject { FinApps::REST::Orders.new(client).show(:id) }
+      subject { FinApps::REST::Orders.new(client).show(:valid_id) }
 
       it { expect { subject }.not_to raise_error }
       it('returns an array') { expect(subject).to be_a(Array) }
