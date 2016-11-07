@@ -68,7 +68,6 @@ RSpec.describe FinApps::REST::Client do
       it { expect(subject.password_resets).to be_an_instance_of(FinApps::REST::PasswordResets) }
     end
 
-
     # [:users, :institutions, :user_institutions, :transactions, :categories,
     # :budget_models, :budget_calculation, :budgets, :cashflows,
     # :alert, :alert_definition, :alert_preferences, :alert_settings, :rule_sets]
