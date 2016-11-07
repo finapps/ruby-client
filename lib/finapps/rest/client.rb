@@ -63,6 +63,10 @@ module FinApps
       def user_institutions_forms
         @user_institutions_forms ||= FinApps::REST::UserInstitutionsForms.new self
       end
+
+      def password_resets
+        @password_resets ||= FinApps::REST::PasswordResets.new self
+      end
     end
   end
 end

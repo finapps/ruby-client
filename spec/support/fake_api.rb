@@ -83,6 +83,20 @@ class FakeApi < Sinatra::Base
     end
   end
 
+  # password resets
+  post('/v2/tenant/valid_user_id/password') { json_response 200, 'password_reset_token.json' }
+  post('/v2/tenant/invalid_user_id/password') { json_response 404, 'resource_not_found.json' }
+  put('/v2/tenant/valid_user_id/password') do
+    request.body.rewind
+    request_payload = JSON.parse request.body.read
+    if request_payload['token'] == 'valid_token'
+      json_response(200, 'user.json')
+    else
+      json_response(400, 'invalid_request_body.json')
+    end
+  end
+  put('/v2/tenant/invalid_user_id/password') { json_response 404, 'resource_not_found.json' }
+
   # relevance
   get('/v2/relevance/ruleset/names') { json_response 200, 'relevance_ruleset_names.json' }
 
