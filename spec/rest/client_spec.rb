@@ -14,7 +14,7 @@ RSpec.describe FinApps::REST::Client do
     subject { FinApps::REST::Client.new(:company_identifier, :company_token) }
 
     %i(users sessions orders order_tokens order_reports order_statuses institutions institutions_forms
-       user_institutions_statuses user_institutions user_institutions_forms).each do |method|
+       user_institutions_statuses user_institutions user_institutions_forms password_resets).each do |method|
       it "responds to #{method}" do
         expect(subject).to respond_to(method)
       end
@@ -64,11 +64,15 @@ RSpec.describe FinApps::REST::Client do
       it { expect(subject.user_institutions_forms).to be_an_instance_of(FinApps::REST::UserInstitutionsForms) }
     end
 
+    describe '#password_resets' do
+      it { expect(subject.password_resets).to be_an_instance_of(FinApps::REST::PasswordResets) }
+    end
+
     # [:users, :institutions, :user_institutions, :transactions, :categories,
     # :budget_models, :budget_calculation, :budgets, :cashflows,
     # :alert, :alert_definition, :alert_preferences, :alert_settings, :rule_sets]
     %i(users sessions orders order_tokens order_reports order_statuses institutions institutions_forms
-       user_institutions_statuses user_institutions user_institutions_forms).each do |method|
+       user_institutions_statuses user_institutions user_institutions_forms password_resets).each do |method|
       it "memoizes the result of #{method}" do
         first = subject.send(method)
         second = subject.send(method)

@@ -35,6 +35,7 @@ require 'finapps/rest/user_institutions'
 require 'finapps/rest/user_institutions_forms'
 require 'finapps/rest/order_reports'
 require 'finapps/rest/order_statuses'
+require 'finapps/rest/password_resets'
 
 require 'finapps/rest/configuration'
 require 'finapps/rest/credentials'
