@@ -3,7 +3,7 @@ module FinApps
   module REST
     class Version < FinApps::REST::Resources # :nodoc:
       def show
-        super nil, '/version'
+        super nil, end_point
       end
     end
   end
