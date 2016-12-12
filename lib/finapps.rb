@@ -24,6 +24,7 @@ require 'finapps/middleware/middleware'
 require 'finapps/rest/defaults'
 require 'finapps/rest/resources'
 
+require 'finapps/rest/version'
 require 'finapps/rest/users'
 require 'finapps/rest/sessions'
 require 'finapps/rest/order_tokens'

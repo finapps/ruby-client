@@ -32,6 +32,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'sinatra', '~> 1.4', '>= 1.4.7'
   spec.add_development_dependency 'simplecov', '~> 0.11', '>= 0.11.2'
   spec.add_development_dependency 'codeclimate-test-reporter', '~> 0.6.0'
+  spec.add_development_dependency 'rubocop', '0.45.0'
 
   spec.extra_rdoc_files = %w(README.md LICENSE.txt)
   spec.rdoc_options = %w(--line-numbers --inline-source --title finapps-ruby --main README.md)
