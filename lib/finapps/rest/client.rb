@@ -20,6 +20,10 @@ module FinApps
         super(merged_options, logger)
       end
 
+      def version
+        @version ||= FinApps::REST::Version.new self
+      end
+
       def users
         @users ||= FinApps::REST::Users.new self
       end
