@@ -22,14 +22,14 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency 'finapps_core', '~> 2.0', '>= 2.0.3'
 
-  spec.add_development_dependency 'bundler', '~> 1.11', '>= 1.11.2'
-  spec.add_development_dependency 'rake', '~> 11.2', '>= 11.2.2'
-  spec.add_development_dependency 'rspec', '~> 3.4', '>= 3.4.0'
-  spec.add_development_dependency 'webmock', '~> 2.1', '>= 2.1.0'
+  spec.add_development_dependency 'bundler', '~> 1.14', '>= 1.14.3'
+  spec.add_development_dependency 'rake', '~> 12.0.0', '>= 12.0.0'
+  spec.add_development_dependency 'rspec', '~> 3.5', '>= 3.5.0'
+  spec.add_development_dependency 'webmock', '~> 2.3', '>= 2.3.2'
   spec.add_development_dependency 'sinatra', '~> 1.4', '>= 1.4.7'
   spec.add_development_dependency 'simplecov', '~> 0.11', '>= 0.11.2'
-  spec.add_development_dependency 'codeclimate-test-reporter', '~> 0.6.0'
-  spec.add_development_dependency 'rubocop', '0.45.0'
+  spec.add_development_dependency 'codeclimate-test-reporter', '~> 1.0.5'
+  spec.add_development_dependency 'rubocop', '0.47.1'
 
   spec.extra_rdoc_files = %w(README.md LICENSE.txt)
   spec.rdoc_options = %w(--line-numbers --inline-source --title finapps-ruby --main README.md)
