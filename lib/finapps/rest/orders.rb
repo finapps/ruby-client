@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module FinApps
   module REST
-    class Orders < FinApps::REST::Resources # :nodoc:
+    class Orders < FinAppsCore::REST::Resources # :nodoc:
       using ObjectExtensions
       using StringExtensions
 

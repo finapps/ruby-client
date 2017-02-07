@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module FinApps
   module REST
-    class PasswordResets < FinApps::REST::Resources # :nodoc:
+    class PasswordResets < FinAppsCore::REST::Resources # :nodoc:
       using ObjectExtensions
       using StringExtensions
 

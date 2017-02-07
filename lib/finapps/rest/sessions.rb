@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module FinApps
   module REST
-    class Sessions < FinApps::REST::Resources # :nodoc:
+    class Sessions < FinAppsCore::REST::Resources # :nodoc:
       using ObjectExtensions
       using StringExtensions
 

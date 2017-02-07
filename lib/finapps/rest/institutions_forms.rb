@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module FinApps
   module REST
-    class InstitutionsForms < FinApps::REST::Resources
+    class InstitutionsForms < FinAppsCore::REST::Resources
       using ObjectExtensions
       using StringExtensions
 

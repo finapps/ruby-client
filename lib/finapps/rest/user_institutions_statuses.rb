@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module FinApps
   module REST
-    class UserInstitutionsStatuses < FinApps::REST::Resources # :nodoc:
+    class UserInstitutionsStatuses < FinAppsCore::REST::Resources # :nodoc:
       using ObjectExtensions
       using StringExtensions
 

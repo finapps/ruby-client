@@ -1,21 +1,21 @@
 # frozen_string_literal: true
+require 'finapps_core'
+
 module FinApps
   module REST
-    class Client < BaseClient # :nodoc:
+    class Client < FinAppsCore::REST::BaseClient # :nodoc:
       using ObjectExtensions
       using StringExtensions
-
-      include FinApps::REST::Defaults
 
       # @param [String] tenant_identifier
       # @param [String] tenant_token
       # @param [Hash] options
       # @return [FinApps::REST::Client]
       def initialize(tenant_identifier, tenant_token, options={}, logger=nil)
-        raise FinApps::MissingArgumentsError.new 'Invalid company_identifier.' if tenant_identifier.blank?
-        raise FinApps::MissingArgumentsError.new 'Invalid company_token.' if tenant_token.blank?
+        raise FinAppsCore::MissingArgumentsError.new 'Invalid company_identifier.' if tenant_identifier.blank?
+        raise FinAppsCore::MissingArgumentsError.new 'Invalid company_token.' if tenant_token.blank?
 
-        merged_options = FinApps::REST::Defaults::DEFAULTS.merge(options.merge(tenant_identifier: tenant_identifier,
+        merged_options = FinAppsCore::REST::Defaults::DEFAULTS.merge(options.merge(tenant_identifier: tenant_identifier,
                                                                                tenant_token: tenant_token))
         super(merged_options, logger)
       end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module FinApps
   module REST
-    class UserInstitutions < FinApps::REST::Resources # :nodoc:
+    class UserInstitutions < FinAppsCore::REST::Resources # :nodoc:
       END_POINT = 'institutions/user'
 
       using ObjectExtensions
