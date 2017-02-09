@@ -3,7 +3,8 @@ cache: bundler
 rvm:
   - 2.3.1
 before_install:
-- "echo 'gem: --no-ri --no-rdoc' > ~/.gemrc"
+  - "echo 'gem: --no-ri --no-rdoc' > ~/.gemrc"
+  - gem install bundler
 script:
   - bundle exec rspec
 notifications:
