@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 if ENV['CODECLIMATE_REPO_TOKEN']
-  require 'codeclimate-test-reporter'
-  CodeClimate::TestReporter.start
+  # require 'codeclimate-test-reporter'
+  # CodeClimate::TestReporter.start
+  require 'simplecov'
+  SimpleCov.start
 end
 
 require 'bundler/setup'
@@ -27,7 +29,7 @@ RSpec.configure do |config|
   Kernel.srand config.seed
 
   config.before(:each) do
-    base_url = "#{FinApps::REST::Defaults::DEFAULTS[:host]}/v#{FinApps::REST::Defaults::API_VERSION}/"
+    base_url = "#{FinAppsCore::REST::Defaults::DEFAULTS[:host]}/v#{FinAppsCore::REST::Defaults::API_VERSION}/"
     stub_request(:any, /#{base_url}/).to_rack(::FakeApi)
   end
   WebMock.disable_net_connect!(allow: 'codeclimate.com')

@@ -1,75 +1,51 @@
 # frozen_string_literal: true
+require 'finapps_core'
+require_relative './version'
+
 module FinApps
   module REST
-    class Client < BaseClient # :nodoc:
+    class Client < FinAppsCore::REST::BaseClient # :nodoc:
       using ObjectExtensions
       using StringExtensions
 
-      include FinApps::REST::Defaults
+      RESOURCES = %i(version users sessions orders order_tokens order_reports order_statuses institutions
+                     institutions_forms user_institutions_statuses user_institutions user_institutions_forms
+                     password_resets).freeze
 
-      # @param [String] tenant_identifier
       # @param [String] tenant_token
       # @param [Hash] options
       # @return [FinApps::REST::Client]
-      def initialize(tenant_identifier, tenant_token, options={}, logger=nil)
-        raise FinApps::MissingArgumentsError.new 'Invalid company_identifier.' if tenant_identifier.blank?
-        raise FinApps::MissingArgumentsError.new 'Invalid company_token.' if tenant_token.blank?
-
-        merged_options = FinApps::REST::Defaults::DEFAULTS.merge(options.merge(tenant_identifier: tenant_identifier,
-                                                                               tenant_token: tenant_token))
+      def initialize(tenant_token, options={}, logger=nil)
+        raise FinAppsCore::MissingArgumentsError.new 'Invalid tenant_token.' if tenant_token.blank?
+        merged_options = options.merge(tenant_token: tenant_token)
         super(merged_options, logger)
       end
 
-      def version
-        @version ||= FinApps::REST::Version.new self
+      def method_missing(symbol, *arguments, &block)
+        if RESOURCES.include? symbol
+          class_name = camelize(symbol.to_s)
+          variable = "@#{class_name.downcase}"
+          unless instance_variable_defined? variable
+            klass = Object.const_get('FinApps').const_get('REST').const_get class_name
+            instance_variable_set(variable, klass.new(self))
+          end
+          instance_variable_get(variable)
+        else
+          super
+        end
       end
 
-      def users
-        @users ||= FinApps::REST::Users.new self
+      def respond_to_missing?(method_sym, include_private=false)
+        RESOURCES.include?(method_sym) ? true : super
       end
 
-      def sessions
-        @sessions ||= FinApps::REST::Sessions.new self
-      end
+      private
 
-      def order_tokens
-        @order_tokens ||= FinApps::REST::OrderTokens.new self
-      end
-
-      def orders
-        @orders ||= FinApps::REST::Orders.new self
-      end
-
-      def order_reports
-        @order_reports ||= FinApps::REST::OrderReports.new self
-      end
-
-      def order_statuses
-        @order_statuses ||= FinApps::REST::OrderStatuses.new self
-      end
-
-      def institutions
-        @institutions ||= FinApps::REST::Institutions.new self
-      end
-
-      def institutions_forms
-        @institutions_forms ||= FinApps::REST::InstitutionsForms.new self
-      end
-
-      def user_institutions_statuses
-        @user_institutions_statuses ||= FinApps::REST::UserInstitutionsStatuses.new self
-      end
-
-      def user_institutions
-        @user_institutions ||= FinApps::REST::UserInstitutions.new self
-      end
-
-      def user_institutions_forms
-        @user_institutions_forms ||= FinApps::REST::UserInstitutionsForms.new self
-      end
-
-      def password_resets
-        @password_resets ||= FinApps::REST::PasswordResets.new self
+      def camelize(term)
+        string = term.to_s
+        string = string.sub(/^[a-z\d]*/) { $&.capitalize }
+        string.gsub!(%r{(?:_|(/))([a-z\d]*)}) { $2.capitalize.to_s }
+        string
       end
     end
   end

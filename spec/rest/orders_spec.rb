@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 RSpec.describe FinApps::REST::Orders do
-  let(:client) { FinApps::REST::Client.new(:company_identifier, :company_token) }
+  include SpecHelpers::Client
+
   describe '#show' do
     context 'when missing params' do
       subject { FinApps::REST::Orders.new(client).show(nil) }
-      it { expect { subject }.to raise_error(FinApps::MissingArgumentsError) }
+      it { expect { subject }.to raise_error(FinAppsCore::MissingArgumentsError) }
     end
 
     context 'when valid params are provided' do
@@ -20,7 +21,7 @@ RSpec.describe FinApps::REST::Orders do
   describe '#create' do
     context 'when missing params' do
       subject { FinApps::REST::Orders.new(client).create(nil) }
-      it { expect { subject }.to raise_error(FinApps::MissingArgumentsError) }
+      it { expect { subject }.to raise_error(FinAppsCore::MissingArgumentsError) }
     end
 
     context 'when valid params are provided' do
@@ -71,12 +72,12 @@ RSpec.describe FinApps::REST::Orders do
 
     context 'when missing id' do
       let(:update) { subject.update(nil, :params) }
-      it('returns missing argument error') { expect { update }.to raise_error(FinApps::MissingArgumentsError) }
+      it('returns missing argument error') { expect { update }.to raise_error(FinAppsCore::MissingArgumentsError) }
     end
 
     context 'when missing params' do
       let(:update) { subject.update(:id, nil) }
-      it('returns missing argument error') { expect { update }.to raise_error(FinApps::MissingArgumentsError) }
+      it('returns missing argument error') { expect { update }.to raise_error(FinAppsCore::MissingArgumentsError) }
     end
 
     context 'when valid id and params are provided' do

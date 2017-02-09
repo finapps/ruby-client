@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 module FinApps
   module REST
-    class UserInstitutionsStatuses < FinApps::REST::Resources # :nodoc:
+    class UserInstitutionsStatuses < FinAppsCore::REST::Resources # :nodoc:
       using ObjectExtensions
       using StringExtensions
 
       def show(id)
-        raise MissingArgumentsError.new 'Missing argument: ui_id' if id.blank?
+        raise FinAppsCore::MissingArgumentsError.new 'Missing argument: ui_id' if id.blank?
 
         path = "institutions/user/#{ERB::Util.url_encode(id)}/status"
         super id, path
