@@ -6,7 +6,7 @@ module FinApps
       using StringExtensions
 
       def show(id)
-        raise MissingArgumentsError.new 'Missing argument: ui_id' if id.blank?
+        raise FinAppsCore::MissingArgumentsError.new 'Missing argument: ui_id' if id.blank?
 
         path = "institutions/user/#{ERB::Util.url_encode(id)}/status"
         super id, path

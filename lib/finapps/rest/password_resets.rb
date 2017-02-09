@@ -6,15 +6,15 @@ module FinApps
       using StringExtensions
 
       def create(id)
-        raise MissingArgumentsError.new 'Missing argument: id.' if id.blank?
+        raise FinAppsCore::MissingArgumentsError.new 'Missing argument: id.' if id.blank?
 
         path = "tenant/#{ERB::Util.url_encode(id)}/password"
         super nil, path
       end
 
       def update(id, params)
-        raise MissingArgumentsError.new 'Missing argument: id.' if id.blank?
-        raise MissingArgumentsError.new 'Missing argument: params.' if params.blank?
+        raise FinAppsCore::MissingArgumentsError.new 'Missing argument: id.' if id.blank?
+        raise FinAppsCore::MissingArgumentsError.new 'Missing argument: params.' if params.blank?
 
         path = "tenant/#{ERB::Util.url_encode(id)}/password"
         super params, path

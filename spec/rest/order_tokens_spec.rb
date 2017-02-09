@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 RSpec.describe FinApps::REST::OrderTokens, 'initialized with valid FinApps::Client object' do
   describe '#show' do
-    client = FinApps::REST::Client.new :company_identifier, :company_token
+    include SpecHelpers::Client
+
     subject(:order_tokens) { FinApps::REST::OrderTokens.new(client) }
 
     context 'when missing token' do

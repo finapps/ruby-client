@@ -1,6 +1,9 @@
 # frozen_string_literal: true
+require 'spec_helpers/client'
+
 RSpec.describe FinApps::REST::InstitutionsForms do
-  let(:client) { FinApps::REST::Client.new(:company_identifier, :company_token) }
+  include SpecHelpers::Client
+
   describe '#show' do
     context 'when missing site id' do
       subject { FinApps::REST::InstitutionsForms.new(client).show(nil) }

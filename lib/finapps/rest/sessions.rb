@@ -8,7 +8,7 @@ module FinApps
       # @param [Hash] params
       # @return [Array<String>]
       def create(params)
-        raise InvalidArgumentsError.new 'Invalid argument: params.' unless validates params
+        raise FinAppsCore::InvalidArgumentsError.new 'Invalid argument: params.' unless validates params
 
         super params, 'login'
       end

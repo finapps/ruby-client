@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 RSpec.describe FinApps::REST::Orders do
-  let(:client) { FinApps::REST::Client.new(:company_identifier, :company_token) }
+  include SpecHelpers::Client
+
   describe '#show' do
     context 'when missing params' do
       subject { FinApps::REST::Orders.new(client).show(nil) }

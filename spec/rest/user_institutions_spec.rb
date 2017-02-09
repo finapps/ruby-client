@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 RSpec.describe FinApps::REST::UserInstitutions do
-  let(:client) { FinApps::REST::Client.new(:company_identifier, :company_token) }
+  include SpecHelpers::Client
+
   describe '#list' do
     context 'when successful' do
       subject { FinApps::REST::UserInstitutions.new(client).list }

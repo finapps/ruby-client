@@ -6,7 +6,7 @@ module FinApps
       using StringExtensions
 
       def show(token)
-        raise MissingArgumentsError.new 'Missing argument: token.' if token.blank?
+        raise FinAppsCore::MissingArgumentsError.new 'Missing argument: token.' if token.blank?
 
         create nil, "orders/#{ERB::Util.url_encode(token)}"
       end

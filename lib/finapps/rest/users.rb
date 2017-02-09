@@ -8,22 +8,22 @@ module FinApps
       # @param [String] public_id
       # @return [FinApps::REST::User, Array<String>]
       def show(public_id)
-        raise MissingArgumentsError.new 'Missing argument: public_id.' if public_id.blank?
+        raise FinAppsCore::Error::MissingArgumentsError.new 'Missing argument: public_id.' if public_id.blank?
         super public_id
       end
 
       # @param [Hash] params
       # @return [Array<String>]
       def update(public_id, params)
-        raise MissingArgumentsError.new 'Missing argument: public_id.' if public_id.blank?
-        raise MissingArgumentsError.new 'Missing argument: params.' if params.blank?
+        raise FinAppsCore::Error::MissingArgumentsError.new 'Missing argument: public_id.' if public_id.blank?
+        raise FinAppsCore::Error::MissingArgumentsError.new 'Missing argument: params.' if params.blank?
 
         path = "#{end_point}/#{ERB::Util.url_encode(public_id)}#{'/password' if password_update?(params)}"
         super params, path
       end
 
       def destroy(public_id)
-        raise MissingArgumentsError.new 'Missing argument: public_id.' if public_id.blank?
+        raise FinAppsCore::Error::MissingArgumentsError.new 'Missing argument: public_id.' if public_id.blank?
         super public_id
       end
 

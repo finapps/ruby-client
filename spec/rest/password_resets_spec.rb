@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 RSpec.describe FinApps::REST::PasswordResets do
-  let(:client) { FinApps::REST::Client.new(:company_identifier, :company_token) }
+  include SpecHelpers::Client
 
   describe '#create' do
     context 'when missing id' do
