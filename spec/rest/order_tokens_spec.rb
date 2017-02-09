@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 RSpec.describe FinApps::REST::OrderTokens, 'initialized with valid FinApps::Client object' do
   describe '#show' do
-    client = FinApps::REST::Client.new :company_identifier, :company_token
+    include SpecHelpers::Client
+
     subject(:order_tokens) { FinApps::REST::OrderTokens.new(client) }
 
     context 'when missing token' do
-      it { expect { subject.show(nil) }.to raise_error(FinApps::MissingArgumentsError, 'Missing argument: token.') }
+      it { expect { subject.show(nil) }.to raise_error(FinAppsCore::MissingArgumentsError, 'Missing argument: token.') }
     end
 
     context 'for valid token' do

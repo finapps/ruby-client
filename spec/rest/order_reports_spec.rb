@@ -1,20 +1,20 @@
 # frozen_string_literal: true
 RSpec.describe FinApps::REST::OrderReports do
-  let(:client) { FinApps::REST::Client.new(:company_identifier, :company_token) }
+  let(:client) { FinApps::REST::Client.new(:company_token) }
   describe '#show' do
     context 'when missing id' do
       subject { FinApps::REST::OrderReports.new(client).show(nil, :pdf) }
-      it { expect { subject }.to raise_error(FinApps::MissingArgumentsError) }
+      it { expect { subject }.to raise_error(FinAppsCore::MissingArgumentsError) }
     end
 
     context 'when missing format' do
       subject { FinApps::REST::OrderReports.new(client).show(:valid_id, nil) }
-      it { expect { subject }.to raise_error(FinApps::MissingArgumentsError) }
+      it { expect { subject }.to raise_error(FinAppsCore::MissingArgumentsError) }
     end
 
     context 'when invalid format is provided' do
       subject { FinApps::REST::OrderReports.new(client).show(:valid_id, :xml) }
-      it { expect { subject }.to raise_error(FinApps::InvalidArgumentsError) }
+      it { expect { subject }.to raise_error(FinAppsCore::InvalidArgumentsError) }
     end
 
     context 'when valid params are provided' do

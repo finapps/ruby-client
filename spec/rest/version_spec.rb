@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 RSpec.describe FinApps::REST::Version do
-  let(:client) { FinApps::REST::Client.new(:company_identifier, :company_token) }
+  include SpecHelpers::Client
 
   subject { FinApps::REST::Version.new(client) }
   describe '#show' do

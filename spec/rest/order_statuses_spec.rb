@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 RSpec.describe FinApps::REST::OrderStatuses do
-  let(:client) { FinApps::REST::Client.new(:company_identifier, :company_token) }
+  include SpecHelpers::Client
+
   describe '#show' do
     context 'when missing id' do
       subject { FinApps::REST::OrderStatuses.new(client).show(nil) }
-      it { expect { subject }.to raise_error(FinApps::MissingArgumentsError) }
+      it { expect { subject }.to raise_error(FinAppsCore::MissingArgumentsError) }
     end
 
     context 'when valid id is provided' do
