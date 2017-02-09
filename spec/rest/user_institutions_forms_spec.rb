@@ -4,7 +4,7 @@ RSpec.describe FinApps::REST::UserInstitutionsForms do
   describe '#show' do
     context 'when missing site id' do
       subject { FinApps::REST::UserInstitutionsForms.new(client).show(nil) }
-      it('raises missing argument error') { expect { subject }.to raise_error(FinApps::MissingArgumentsError) }
+      it('raises missing argument error') { expect { subject }.to raise_error(FinAppsCore::MissingArgumentsError) }
     end
 
     context 'when valid site id provided' do

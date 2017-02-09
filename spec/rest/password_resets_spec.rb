@@ -5,7 +5,7 @@ RSpec.describe FinApps::REST::PasswordResets do
   describe '#create' do
     context 'when missing id' do
       subject { FinApps::REST::PasswordResets.new(client).create(nil) }
-      it { expect { subject }.to raise_error(FinApps::MissingArgumentsError) }
+      it { expect { subject }.to raise_error(FinAppsCore::MissingArgumentsError) }
     end
 
     context 'when invalid id is provided' do
@@ -32,12 +32,12 @@ RSpec.describe FinApps::REST::PasswordResets do
 
     context 'when missing id' do
       subject { FinApps::REST::PasswordResets.new(client).update(nil, :params) }
-      it { expect { subject }.to raise_error(FinApps::MissingArgumentsError) }
+      it { expect { subject }.to raise_error(FinAppsCore::MissingArgumentsError) }
     end
 
     context 'when missing params' do
       subject { FinApps::REST::PasswordResets.new(client).update(:valid_user_id, nil) }
-      it { expect { subject }.to raise_error(FinApps::MissingArgumentsError) }
+      it { expect { subject }.to raise_error(FinAppsCore::MissingArgumentsError) }
     end
 
     context 'when invalid id is provided' do

@@ -16,7 +16,7 @@ module FinApps
         raise FinAppsCore::MissingArgumentsError.new 'Invalid company_token.' if tenant_token.blank?
 
         merged_options = FinAppsCore::REST::Defaults::DEFAULTS.merge(options.merge(tenant_identifier: tenant_identifier,
-                                                                               tenant_token: tenant_token))
+                                                                                   tenant_token: tenant_token))
         super(merged_options, logger)
       end
 

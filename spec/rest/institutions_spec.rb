@@ -7,7 +7,7 @@ RSpec.describe FinApps::REST::Institutions do
 
     context 'when search_term is missing' do
       let(:list) { subject.list(nil) }
-      it { expect { list }.to raise_error(FinApps::MissingArgumentsError) }
+      it { expect { list }.to raise_error(FinAppsCore::MissingArgumentsError) }
     end
 
     context 'when proper search_term is provided' do

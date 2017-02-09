@@ -165,6 +165,8 @@ Metrics/AbcSize:
     conditions.
   Enabled: false
   Max: 15
+Metrics/BlockLength:
+  ExcludedMethods: ['describe', 'context']
 Metrics/ClassLength:
   Description: Avoid classes longer than 100 lines of code.
   Enabled: false

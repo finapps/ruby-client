@@ -16,12 +16,12 @@ RSpec.describe FinApps::REST::UserInstitutions do
 
     context 'when missing site_id' do
       let(:create) { subject.create(nil, :params) }
-      it { expect { create }.to raise_error(FinApps::MissingArgumentsError) }
+      it { expect { create }.to raise_error(FinAppsCore::MissingArgumentsError) }
     end
 
     context 'when missing params' do
       let(:create) { subject.create(:site_id, nil) }
-      it { expect { create }.to raise_error(FinApps::MissingArgumentsError) }
+      it { expect { create }.to raise_error(FinAppsCore::MissingArgumentsError) }
     end
 
     context 'when valid site_id and params are provided' do
@@ -38,7 +38,7 @@ RSpec.describe FinApps::REST::UserInstitutions do
   describe '#show' do
     context 'when missing id' do
       subject { FinApps::REST::UserInstitutions.new(client).show(nil) }
-      it { expect { subject }.to raise_error(FinApps::MissingArgumentsError) }
+      it { expect { subject }.to raise_error(FinAppsCore::MissingArgumentsError) }
     end
 
     context 'when valid id is provided' do
@@ -62,12 +62,12 @@ RSpec.describe FinApps::REST::UserInstitutions do
   describe '#mfa_update' do
     context 'when missing id' do
       subject { FinApps::REST::UserInstitutions.new(client).mfa_update(nil, :params) }
-      it { expect { subject }.to raise_error(FinApps::MissingArgumentsError) }
+      it { expect { subject }.to raise_error(FinAppsCore::MissingArgumentsError) }
     end
 
     context 'when missing params' do
       subject { FinApps::REST::UserInstitutions.new(client).mfa_update(:id, nil) }
-      it { expect { subject }.to raise_error(FinApps::MissingArgumentsError) }
+      it { expect { subject }.to raise_error(FinAppsCore::MissingArgumentsError) }
     end
 
     context 'when valid id and params are provided' do
@@ -90,12 +90,12 @@ RSpec.describe FinApps::REST::UserInstitutions do
   describe '#credentials_update' do
     context 'when missing id' do
       subject { FinApps::REST::UserInstitutions.new(client).credentials_update(nil, :params) }
-      it { expect { subject }.to raise_error(FinApps::MissingArgumentsError) }
+      it { expect { subject }.to raise_error(FinAppsCore::MissingArgumentsError) }
     end
 
     context 'when missing params' do
       subject { FinApps::REST::UserInstitutions.new(client).credentials_update(:id, nil) }
-      it { expect { subject }.to raise_error(FinApps::MissingArgumentsError) }
+      it { expect { subject }.to raise_error(FinAppsCore::MissingArgumentsError) }
     end
 
     context 'when valid id and params are provided' do
@@ -118,7 +118,7 @@ RSpec.describe FinApps::REST::UserInstitutions do
   describe '#destroy' do
     context 'when missing id' do
       subject { FinApps::REST::UserInstitutions.new(client).destroy(nil) }
-      it { expect { subject }.to raise_error(FinApps::MissingArgumentsError) }
+      it { expect { subject }.to raise_error(FinAppsCore::MissingArgumentsError) }
     end
 
     context 'when valid id is provided' do

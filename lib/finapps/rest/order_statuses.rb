@@ -6,7 +6,7 @@ module FinApps
       using StringExtensions
 
       def show(id)
-        raise MissingArgumentsError.new 'Missing argument: id.' if id.blank?
+        raise FinAppsCore::MissingArgumentsError.new 'Missing argument: id.' if id.blank?
 
         path = "orders/#{ERB::Util.url_encode(id)}/status"
         super nil, path

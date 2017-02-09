@@ -4,7 +4,7 @@ RSpec.describe FinApps::REST::OrderStatuses do
   describe '#show' do
     context 'when missing id' do
       subject { FinApps::REST::OrderStatuses.new(client).show(nil) }
-      it { expect { subject }.to raise_error(FinApps::MissingArgumentsError) }
+      it { expect { subject }.to raise_error(FinAppsCore::MissingArgumentsError) }
     end
 
     context 'when valid id is provided' do

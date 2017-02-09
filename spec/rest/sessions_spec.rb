@@ -14,11 +14,11 @@ RSpec.describe FinApps::REST::Sessions, 'initialized with valid FinApps::Client 
       message = 'Invalid argument: params.'
       it do
         expect { subject.create(email: nil, password: 'password') }
-          .to raise_error(FinApps::InvalidArgumentsError, message)
+          .to raise_error(FinAppsCore::InvalidArgumentsError, message)
       end
       it do
         expect { subject.create(email: 'email', password: nil) }
-          .to raise_error(FinApps::InvalidArgumentsError, message)
+          .to raise_error(FinAppsCore::InvalidArgumentsError, message)
       end
     end
 

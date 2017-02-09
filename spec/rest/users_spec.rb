@@ -8,7 +8,7 @@ RSpec.describe FinApps::REST::Users, 'initialized with valid FinApps::Client obj
 
   describe '#show' do
     context 'when missing public_id' do
-      it { expect { subject.show(nil) }.to raise_error(FinApps::MissingArgumentsError, missing_public_id) }
+      it { expect { subject.show(nil) }.to raise_error(FinAppsCore::MissingArgumentsError, missing_public_id) }
     end
 
     context 'for valid public_id' do
@@ -35,7 +35,7 @@ RSpec.describe FinApps::REST::Users, 'initialized with valid FinApps::Client obj
 
   describe '#update' do
     context 'when missing public_id' do
-      it { expect { subject.update(nil, {}) }.to raise_error(FinApps::MissingArgumentsError, missing_public_id) }
+      it { expect { subject.update(nil, {}) }.to raise_error(FinAppsCore::MissingArgumentsError, missing_public_id) }
     end
 
     context 'when updating user details' do
@@ -88,7 +88,7 @@ RSpec.describe FinApps::REST::Users, 'initialized with valid FinApps::Client obj
 
     describe '#destroy' do
       context 'when missing public_id' do
-        it { expect { subject.destroy(nil) }.to raise_error(FinApps::MissingArgumentsError, missing_public_id) }
+        it { expect { subject.destroy(nil) }.to raise_error(FinAppsCore::MissingArgumentsError, missing_public_id) }
       end
 
       context 'for valid public_id' do
