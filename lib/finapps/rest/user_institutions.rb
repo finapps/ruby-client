@@ -2,14 +2,11 @@
 module FinApps
   module REST
     class UserInstitutions < FinAppsCore::REST::Resources # :nodoc:
-      END_POINT = 'institutions/user'
-
       using ObjectExtensions
       using StringExtensions
 
       def list
-        path = 'institutions/user'
-        super path
+        super END_POINT
       end
 
       def create(site_id, params)
@@ -23,38 +20,36 @@ module FinApps
 
       def show(id)
         not_blank(id, :id)
-
-        path = "#{END_POINT}/#{ERB::Util.url_encode(id)}"
-        super id, path
+        super(id, user_institutions_path(id))
       end
 
       def credentials_update(id, params)
-        not_blank(id, :id)
-        not_blank(params, :params)
-
-        path = "#{END_POINT}/#{ERB::Util.url_encode(id)}/credentials"
-        update params, path
+        update id, params, 'credentials'
       end
 
       def mfa_update(id, params)
-        not_blank(id, :id)
-        not_blank(params, :params)
-
-        path = "#{END_POINT}/#{ERB::Util.url_encode(id)}/mfa"
-        update params, path
+        update id, params, 'mfa'
       end
 
       def destroy(id)
         not_blank(id, :id)
-
-        path = "#{END_POINT}/#{ERB::Util.url_encode(id)}"
-        super id, path
+        super(id, user_institutions_path(id))
       end
 
       private
 
-      def update(params, path)
+      END_POINT = 'institutions/user'
+
+      def update(id, params, method)
+        not_blank(id, :id)
+        not_blank(params, :params)
+
+        path = "#{user_institutions_path(id)}/#{method}"
         super params, path
+      end
+
+      def user_institutions_path(id)
+        "#{END_POINT}/#{ERB::Util.url_encode(id)}"
       end
     end
   end
