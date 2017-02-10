@@ -2,7 +2,6 @@
 module FinApps
   module REST
     class UserInstitutionsForms < FinAppsCore::REST::Resources
-      include ::FinAppsCore::Utils::Validatable
       using ObjectExtensions
       using StringExtensions
 

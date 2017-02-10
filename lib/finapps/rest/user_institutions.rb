@@ -2,8 +2,6 @@
 module FinApps
   module REST
     class UserInstitutions < FinAppsCore::REST::Resources # :nodoc:
-      include ::FinAppsCore::Utils::Validatable
-
       END_POINT = 'institutions/user'
 
       using ObjectExtensions

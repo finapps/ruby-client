@@ -2,7 +2,6 @@
 module FinApps
   module REST
     class OrderStatuses < FinAppsCore::REST::Resources # :nodoc:
-      include ::FinAppsCore::Utils::Validatable
       using ObjectExtensions
       using StringExtensions
 
