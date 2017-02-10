@@ -2,11 +2,12 @@
 module FinApps
   module REST
     class UserInstitutionsStatuses < FinAppsCore::REST::Resources # :nodoc:
+      include ::FinAppsCore::Utils::Validatable
       using ObjectExtensions
       using StringExtensions
 
       def show(id)
-        raise FinAppsCore::MissingArgumentsError.new 'Missing argument: ui_id' if id.blank?
+        not_blank(id, :id)
 
         path = "institutions/user/#{ERB::Util.url_encode(id)}/status"
         super id, path

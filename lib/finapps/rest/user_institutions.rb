@@ -2,6 +2,8 @@
 module FinApps
   module REST
     class UserInstitutions < FinAppsCore::REST::Resources # :nodoc:
+      include ::FinAppsCore::Utils::Validatable
+
       END_POINT = 'institutions/user'
 
       using ObjectExtensions
@@ -13,8 +15,8 @@ module FinApps
       end
 
       def create(site_id, params)
-        raise FinAppsCore::MissingArgumentsError.new 'Missing argument: site_id.' if site_id.blank?
-        raise FinAppsCore::MissingArgumentsError.new 'Missing argument: params.' if params.blank?
+        not_blank(site_id, :site_id)
+        not_blank(params, :params)
 
         path = "institutions/site/#{ERB::Util.url_encode(site_id)}/add"
 
@@ -22,30 +24,30 @@ module FinApps
       end
 
       def show(id)
-        raise FinAppsCore::MissingArgumentsError.new 'Missing Argument: id.' if id.blank?
+        not_blank(id, :id)
 
         path = "#{END_POINT}/#{ERB::Util.url_encode(id)}"
         super id, path
       end
 
       def credentials_update(id, params)
-        raise FinAppsCore::MissingArgumentsError.new 'Missing Argument: id.' if id.blank?
-        raise FinAppsCore::MissingArgumentsError.new 'Missing argument: params.' if params.blank?
+        not_blank(id, :id)
+        not_blank(params, :params)
 
         path = "#{END_POINT}/#{ERB::Util.url_encode(id)}/credentials"
         update params, path
       end
 
       def mfa_update(id, params)
-        raise FinAppsCore::MissingArgumentsError.new 'Missing Argument: id.' if id.blank?
-        raise FinAppsCore::MissingArgumentsError.new 'Missing argument: params.' if params.blank?
+        not_blank(id, :id)
+        not_blank(params, :params)
 
         path = "#{END_POINT}/#{ERB::Util.url_encode(id)}/mfa"
         update params, path
       end
 
       def destroy(id)
-        raise FinAppsCore::MissingArgumentsError.new 'Missing Argument: id.' if id.blank?
+        not_blank(id, :id)
 
         path = "#{END_POINT}/#{ERB::Util.url_encode(id)}"
         super id, path

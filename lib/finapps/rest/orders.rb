@@ -2,16 +2,17 @@
 module FinApps
   module REST
     class Orders < FinAppsCore::REST::Resources # :nodoc:
+      include ::FinAppsCore::Utils::Validatable
       using ObjectExtensions
       using StringExtensions
 
       def show(id)
-        raise FinAppsCore::MissingArgumentsError.new 'Missing argument: id.' if id.blank?
+        not_blank(id, :id)
         super
       end
 
       def create(params)
-        raise FinAppsCore::MissingArgumentsError.new 'Missing argument: params.' if params.blank?
+        not_blank(params, :params)
         super params
       end
 
@@ -31,8 +32,8 @@ module FinApps
       end
 
       def update(id, params)
-        raise FinAppsCore::MissingArgumentsError.new 'Missing argument: id.' if id.blank?
-        raise FinAppsCore::MissingArgumentsError.new 'Missing argument: params' if params.blank?
+        not_blank(id, :id)
+        not_blank(params, :params)
         # Params array need matching Institution ids & Account ids
         # Validations to check each Institution id has at least one account id
         # Validations to check at least 1 Institution id or 1 account "params.length >= 1"

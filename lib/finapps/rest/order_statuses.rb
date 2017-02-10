@@ -2,11 +2,12 @@
 module FinApps
   module REST
     class OrderStatuses < FinAppsCore::REST::Resources # :nodoc:
+      include ::FinAppsCore::Utils::Validatable
       using ObjectExtensions
       using StringExtensions
 
       def show(id)
-        raise FinAppsCore::MissingArgumentsError.new 'Missing argument: id.' if id.blank?
+        not_blank(id, :id)
 
         path = "orders/#{ERB::Util.url_encode(id)}/status"
         super nil, path

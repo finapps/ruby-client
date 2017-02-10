@@ -4,7 +4,7 @@ require 'spec_helpers/client'
 RSpec.describe FinApps::REST::Users, 'initialized with valid FinApps::Client object' do
   include SpecHelpers::Client
   subject(:users) { FinApps::REST::Users.new(client) }
-  missing_public_id = 'Missing argument: public_id.'
+  missing_public_id = 'Missing argument: public_id'
 
   describe '#show' do
     context 'when missing public_id' do

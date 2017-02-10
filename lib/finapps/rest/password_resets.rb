@@ -2,11 +2,12 @@
 module FinApps
   module REST
     class PasswordResets < FinAppsCore::REST::Resources # :nodoc:
+      include ::FinAppsCore::Utils::Validatable
       using ObjectExtensions
       using StringExtensions
 
       def create(id)
-        raise FinAppsCore::MissingArgumentsError.new 'Missing argument: id.' if id.blank?
+        not_blank(id, :id)
 
         path = "tenant/#{ERB::Util.url_encode(id)}/password"
         super nil, path

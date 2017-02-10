@@ -2,28 +2,29 @@
 module FinApps
   module REST
     class Users < FinAppsCore::REST::Resources # :nodoc:
+      include ::FinAppsCore::Utils::Validatable
       using ObjectExtensions
       using StringExtensions
 
       # @param [String] public_id
       # @return [FinApps::REST::User, Array<String>]
       def show(public_id)
-        raise FinAppsCore::Error::MissingArgumentsError.new 'Missing argument: public_id.' if public_id.blank?
+        not_blank(public_id, :public_id)
         super public_id
       end
 
       # @param [Hash] params
       # @return [Array<String>]
       def update(public_id, params)
-        raise FinAppsCore::Error::MissingArgumentsError.new 'Missing argument: public_id.' if public_id.blank?
-        raise FinAppsCore::Error::MissingArgumentsError.new 'Missing argument: params.' if params.blank?
+        not_blank(public_id, :public_id)
+        not_blank(params, :params)
 
         path = "#{end_point}/#{ERB::Util.url_encode(public_id)}#{'/password' if password_update?(params)}"
         super params, path
       end
 
       def destroy(public_id)
-        raise FinAppsCore::Error::MissingArgumentsError.new 'Missing argument: public_id.' if public_id.blank?
+        not_blank(public_id, :public_id)
         super public_id
       end
 

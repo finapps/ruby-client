@@ -16,7 +16,8 @@ module FinApps
       # @param [Hash] options
       # @return [FinApps::REST::Client]
       def initialize(tenant_token, options={}, logger=nil)
-        raise FinAppsCore::MissingArgumentsError.new 'Invalid tenant_token.' if tenant_token.blank?
+        not_blank(tenant_token, :tenant_token)
+
         merged_options = options.merge(tenant_token: tenant_token)
         super(merged_options, logger)
       end
