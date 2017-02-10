@@ -8,9 +8,21 @@ module FinApps
       using ObjectExtensions
       using StringExtensions
 
-      RESOURCES = %i(version users sessions orders order_tokens order_reports order_statuses institutions
-                     institutions_forms user_institutions_statuses user_institutions user_institutions_forms
-                     password_resets).freeze
+      RESOURCES = %i(
+        institutions
+        institutions_forms
+        orders
+        order_reports
+        order_statuses
+        order_tokens
+        password_resets
+        sessions
+        users
+        user_institutions
+        user_institutions_forms
+        user_institutions_statuses
+        version
+      ).freeze
 
       # @param [String] tenant_token
       # @param [Hash] options
