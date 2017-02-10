@@ -6,8 +6,8 @@ module FinApps
       using StringExtensions
 
       def show(id, format)
-        raise FinAppsCore::MissingArgumentsError.new 'Missing argument: id.' if id.blank?
-        raise FinAppsCore::MissingArgumentsError.new 'Missing argument: format' if format.blank?
+        not_blank(id, :id)
+        not_blank(format, :format)
         raise FinAppsCore::InvalidArgumentsError.new 'Invalid argument: format' unless accepted_format?(format)
 
         path = "orders/#{ERB::Util.url_encode(id)}/report.#{ERB::Util.url_encode(format)}"

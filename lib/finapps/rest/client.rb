@@ -8,15 +8,28 @@ module FinApps
       using ObjectExtensions
       using StringExtensions
 
-      RESOURCES = %i(version users sessions orders order_tokens order_reports order_statuses institutions
-                     institutions_forms user_institutions_statuses user_institutions user_institutions_forms
-                     password_resets).freeze
+      RESOURCES = %i(
+        institutions
+        institutions_forms
+        orders
+        order_reports
+        order_statuses
+        order_tokens
+        password_resets
+        sessions
+        users
+        user_institutions
+        user_institutions_forms
+        user_institutions_statuses
+        version
+      ).freeze
 
       # @param [String] tenant_token
       # @param [Hash] options
       # @return [FinApps::REST::Client]
       def initialize(tenant_token, options={}, logger=nil)
-        raise FinAppsCore::MissingArgumentsError.new 'Invalid tenant_token.' if tenant_token.blank?
+        not_blank(tenant_token, :tenant_token)
+
         merged_options = options.merge(tenant_token: tenant_token)
         super(merged_options, logger)
       end

@@ -6,7 +6,7 @@ RSpec.describe FinApps::REST::OrderTokens, 'initialized with valid FinApps::Clie
     subject(:order_tokens) { FinApps::REST::OrderTokens.new(client) }
 
     context 'when missing token' do
-      it { expect { subject.show(nil) }.to raise_error(FinAppsCore::MissingArgumentsError, 'Missing argument: token.') }
+      it { expect { subject.show(nil) }.to raise_error(FinAppsCore::MissingArgumentsError, 'Missing argument: token') }
     end
 
     context 'for valid token' do

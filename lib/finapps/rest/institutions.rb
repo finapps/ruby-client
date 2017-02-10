@@ -6,7 +6,7 @@ module FinApps
       using StringExtensions
 
       def list(search_term)
-        raise FinAppsCore::MissingArgumentsError.new 'Missing argument: search_term' if search_term.blank?
+        not_blank(search_term, :search_term)
         # API errors when search_term is blank, maybe it shouldn't
 
         path = "#{end_point}/search/#{ERB::Util.url_encode(search_term)}"
