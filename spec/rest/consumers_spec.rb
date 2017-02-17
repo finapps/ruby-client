@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 require 'spec_helpers/client'
 
-RSpec.describe FinApps::REST::Users, 'initialized with valid FinApps::Client object' do
+RSpec.describe FinApps::REST::Consumers, 'initialized with valid FinApps::Client object' do
   include SpecHelpers::Client
-  subject(:users) { FinApps::REST::Users.new(client) }
+  subject(:users) { FinApps::REST::Consumers.new(client) }
   missing_public_id = 'Missing argument: public_id'
 
   describe '#show' do

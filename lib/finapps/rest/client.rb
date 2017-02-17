@@ -17,7 +17,7 @@ module FinApps
         order_tokens
         password_resets
         sessions
-        users
+        consumers
         user_institutions
         user_institutions_forms
         user_institutions_statuses

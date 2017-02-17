@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module FinApps
   module REST
-    class Users < FinAppsCore::REST::Resources # :nodoc:
+    class Consumers < FinAppsCore::REST::Resources # :nodoc:
       using ObjectExtensions
       using StringExtensions
 

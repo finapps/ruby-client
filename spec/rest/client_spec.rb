@@ -19,8 +19,8 @@ RSpec.describe FinApps::REST::Client do
       it { expect(subject.version).to be_an_instance_of(FinApps::REST::Version) }
     end
 
-    describe '#users' do
-      it { expect(subject.users).to be_an_instance_of(FinApps::REST::Users) }
+    describe '#consumers' do
+      it { expect(subject.consumers).to be_an_instance_of(FinApps::REST::Consumers) }
     end
 
     describe '#sessions' do
