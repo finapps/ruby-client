@@ -9,7 +9,7 @@ require 'typhoeus/adapters/faraday'
 require 'finapps_core'
 
 require 'finapps/rest/version'
-require 'finapps/rest/users'
+require 'finapps/rest/consumers'
 require 'finapps/rest/sessions'
 require 'finapps/rest/order_tokens'
 require 'finapps/rest/orders'

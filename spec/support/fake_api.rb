@@ -65,15 +65,15 @@ class FakeApi < Sinatra::Base
   get('/v2/institutions/user/invalid_id/form') { json_response 400, 'invalid_institution_id.json' }
   put('/v2/institutions/refresh') { json_response 200, 'user_institution_refresh.json' }
 
-  # users
-  get('/v2/users/valid_public_id') { json_response 200, 'user.json' }
-  get('/v2/users/invalid_public_id') { json_response 404, 'resource_not_found.json' }
-  put('/v2/users/valid_public_id') { status 204 }
-  put('/v2/users/invalid_public_id') { json_response 400, 'invalid_user_id.json' }
-  put('/v2/users/valid_public_id/password') { json_response 200, 'user.json' }
-  put('/v2/users/invalid_public_id/password') { json_response 404, 'resource_not_found.json' }
-  delete('/v2/users/valid_public_id') { status 204 }
-  delete('/v2/users/invalid_public_id') { json_response 404, 'resource_not_found.json' }
+  # consumers
+  get('/v2/consumers/valid_public_id') { json_response 200, 'user.json' }
+  get('/v2/consumers/invalid_public_id') { json_response 404, 'resource_not_found.json' }
+  put('/v2/consumers/valid_public_id') { status 204 }
+  put('/v2/consumers/invalid_public_id') { json_response 400, 'invalid_user_id.json' }
+  put('/v2/consumers/valid_public_id/password') { json_response 200, 'user.json' }
+  put('/v2/consumers/invalid_public_id/password') { json_response 404, 'resource_not_found.json' }
+  delete('/v2/consumers/valid_public_id') { status 204 }
+  delete('/v2/consumers/invalid_public_id') { json_response 404, 'resource_not_found.json' }
 
   # session
   post('/v2/login') do
