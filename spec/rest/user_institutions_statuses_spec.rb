@@ -1,6 +1,11 @@
 # frozen_string_literal: true
+require 'spec_helpers/client'
+
 RSpec.describe FinApps::REST::UserInstitutionsStatuses do
   include SpecHelpers::Client
+
+  RESULT = 0
+  ERROR_MESSAGES = 1
 
   describe '#show' do
     context 'when missing id' do
@@ -13,16 +18,16 @@ RSpec.describe FinApps::REST::UserInstitutionsStatuses do
 
       it { expect { subject }.not_to raise_error }
       it('returns an array') { expect(subject).to be_a(Array) }
-      it('performs a get and returns the response') { expect(subject[0]).to respond_to(:_id) }
-      it('returns no error messages') { expect(subject[1]).to be_empty }
+      it('performs a get and returns the response') { expect(subject[RESULT]).to respond_to(:_id) }
+      it('returns no error messages') { expect(subject[ERROR_MESSAGES]).to be_empty }
     end
 
     context 'when invalid id is provided' do
       subject { FinApps::REST::UserInstitutionsStatuses.new(client).show('invalid_id') }
 
       it { expect { subject }.not_to raise_error }
-      it('results is nil') { expect(subject[0]).to be_nil }
-      it('error messages array is populated') { expect(subject[1].first.downcase).to eq('invalid user institution id') }
+      it('results is nil') { expect(subject[RESULT]).to be_nil }
+      it('error messages array is populated') { expect(subject[ERROR_MESSAGES].first.downcase).to eq('invalid user institution id') }
     end
   end
 
@@ -31,8 +36,8 @@ RSpec.describe FinApps::REST::UserInstitutionsStatuses do
       subject { FinApps::REST::UserInstitutionsStatuses.new(client).update }
 
       it('returns an array') { expect(subject).to be_a(Array) }
-      it('performs a get and returns array of user institutions statuses') { expect(subject[0]).to be_a(Array) }
-      it('returns no error messages') { expect(subject[1]).to be_empty }
+      it('performs a get and returns array of user institutions statuses') { expect(subject[RESULT]).to be_a(Array) }
+      it('returns no error messages') { expect(subject[ERROR_MESSAGES]).to be_empty }
     end
   end
 end

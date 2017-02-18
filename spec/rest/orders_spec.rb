@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 RSpec.describe FinApps::REST::Orders do
   include SpecHelpers::Client
+  
+  RESULTS = 0
+  ERROR_MESSAGES = 1
 
   describe '#show' do
     context 'when missing params' do
@@ -13,8 +16,11 @@ RSpec.describe FinApps::REST::Orders do
 
       it { expect { subject }.not_to raise_error }
       it('returns an array') { expect(subject).to be_a(Array) }
-      it('performs a get and returns the response') { expect(subject[0]).to respond_to(:public_id) }
-      it('returns no error messages') { expect(subject[1]).to be_empty }
+      it('performs a get and returns the response') do
+        expect(subject[RESULTS]).to respond_to(:public_id)
+        expect(subject[RESULTS]).to respond_to(:consumer_id)
+      end
+      it('returns no error messages') { expect(subject[ERROR_MESSAGES]).to be_empty }
     end
   end
 
@@ -30,8 +36,8 @@ RSpec.describe FinApps::REST::Orders do
 
       it { expect { subject }.not_to raise_error }
       it('returns an array') { expect(subject).to be_a(Array) }
-      it('performs a post and returns the response') { expect(subject[0]).to respond_to(:public_id) }
-      it('returns no error messages') { expect(subject[1]).to be_empty }
+      it('performs a post and returns the response') { expect(subject[RESULTS]).to respond_to(:public_id) }
+      it('returns no error messages') { expect(subject[ERROR_MESSAGES]).to be_empty }
     end
 
     context 'when invalid params are provided' do
@@ -39,8 +45,8 @@ RSpec.describe FinApps::REST::Orders do
       let(:invalid_params) { {applicant: 'valid'} }
 
       it { expect { subject }.not_to raise_error }
-      it('results is nil') { expect(subject[0]).to be_nil }
-      it('error messages array is populated') { expect(subject[1].first.downcase).to eq('invalid request body') }
+      it('results is nil') { expect(subject[RESULTS]).to be_nil }
+      it('error messages array is populated') { expect(subject[ERROR_MESSAGES].first.downcase).to eq('invalid request body') }
     end
   end
 
@@ -52,8 +58,8 @@ RSpec.describe FinApps::REST::Orders do
       it { expect { subject }.not_to raise_error }
 
       it('returns an array') { expect(subject).to be_a(Array) }
-      it('performs a get and returns the response') { expect(subject[0]).to respond_to(:orders) }
-      it('returns no error messages') { expect(subject[1]).to be_empty }
+      it('performs a get and returns the response') { expect(subject[RESULTS]).to respond_to(:orders) }
+      it('returns no error messages') { expect(subject[ERROR_MESSAGES]).to be_empty }
     end
 
     context 'when including partial params' do
@@ -62,8 +68,8 @@ RSpec.describe FinApps::REST::Orders do
 
       it { expect { subject }.not_to raise_error }
       it('returns an array') { expect(subject).to be_a(Array) }
-      it('performs a get and returns the response') { expect(subject[0]).to respond_to(:orders) }
-      it('returns no error messages') { expect(subject[1]).to be_empty }
+      it('performs a get and returns the response') { expect(subject[RESULTS]).to respond_to(:orders) }
+      it('returns no error messages') { expect(subject[ERROR_MESSAGES]).to be_empty }
     end
   end
 
@@ -82,8 +88,8 @@ RSpec.describe FinApps::REST::Orders do
 
     context 'when valid id and params are provided' do
       let(:update) { subject.update('valid_id', accounts: 'valid_account') } # how to stub params
-      let(:results) { update[0] }
-      let(:error_messages) { update[1] }
+      let(:results) { update[RESULTS] }
+      let(:error_messages) { update[ERROR_MESSAGES] }
 
       it { expect { update }.not_to raise_error }
       it('results is nil') { expect(results).to be_nil }
@@ -92,8 +98,8 @@ RSpec.describe FinApps::REST::Orders do
 
     context 'when invalid id is provided' do
       let(:update) { subject.update('invalid_id', :params) }
-      let(:results) { update[0] }
-      let(:error_messages) { update[1] }
+      let(:results) { update[RESULTS] }
+      let(:error_messages) { update[ERROR_MESSAGES] }
 
       it { expect { update }.not_to raise_error }
       it('results is nil') { expect(results).to be_nil }
@@ -102,8 +108,8 @@ RSpec.describe FinApps::REST::Orders do
 
     context 'when invalid params are provided' do
       let(:update) { subject.update('valid_id', accounts: 'invalid_account') }
-      let(:results) { update[0] }
-      let(:error_messages) { update[1] }
+      let(:results) { update[RESULTS] }
+      let(:error_messages) { update[ERROR_MESSAGES] }
 
       it { expect { update }.not_to raise_error }
       it('results is nil') { expect(results).to be_nil }

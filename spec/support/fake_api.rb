@@ -16,7 +16,7 @@ class FakeApi < Sinatra::Base
   # orders
   post('/v2/orders/valid_token') { json_response 200, 'order_token.json' }
   post('/v2/orders/invalid_token') { json_response 404, 'resource_not_found.json' }
-  get('/v2/orders/valid_id') { json_response 200, 'resource.json' }
+  get('/v2/orders/valid_id') { json_response 200, 'order.json' }
   get('/v2/list/orders/:page/:requested/:sort/:asc') { json_response 200, 'orders.json' }
   get('/v2/orders/valid_id/report.:format') { json_response 200, 'order_report.json' }
   get('/v2/orders/invalid_id/report.:format') { json_response 404, 'resource_not_found.json' }
@@ -49,20 +49,20 @@ class FakeApi < Sinatra::Base
   get('/v2/institutions/search/:search_term') { json_response 200, 'institutions_search_list.json' }
 
   # user institutions
-  get('/v2/institutions/user/valid_id/status') { json_response 200, 'user_institution_status.json' }
-  get('/v2/institutions/user/invalid_id/status') { json_response 400, 'invalid_user_institution_id.json' }
-  get('/v2/institutions/user') { json_response 200, 'user_institutions_list.json' }
-  get('/v2/institutions/user/valid_id') { json_response 200, 'user_institutions_show.json' }
-  get('/v2/institutions/user/invalid_id') { json_response 400, 'invalid_user_institution_id.json' }
-  put('/v2/institutions/user/refresh') { json_response 200, 'user_institutions_refresh_all.json' }
-  put('/v2/institutions/user/valid_id/credentials') { json_response 200, 'institution_add.json' }
-  put('/v2/institutions/user/invalid_id/credentials') { json_response 400, 'invalid_user_institution_id.json' }
-  put('/v2/institutions/user/valid_id/mfa') { json_response 200, 'institution_add.json' }
-  put('/v2/institutions/user/invalid_id/mfa') { json_response 400, 'invalid_user_institution_id.json' }
-  delete('/v2/institutions/user/valid_id') { status 204 }
-  delete('/v2/institutions/user/invalid_id') { json_response 400, 'invalid_user_institution_id.json' }
-  get('/v2/institutions/user/valid_id/form') { json_response 200, 'institution_login_form.json' }
-  get('/v2/institutions/user/invalid_id/form') { json_response 400, 'invalid_institution_id.json' }
+  get('/v2/institutions/consumer/valid_id/status') { json_response 200, 'user_institution_status.json' }
+  get('/v2/institutions/consumer/invalid_id/status') { json_response 400, 'invalid_user_institution_id.json' }
+  get('/v2/institutions/consumer') { json_response 200, 'user_institutions_list.json' }
+  get('/v2/institutions/consumer/valid_id') { json_response 200, 'user_institutions_show.json' }
+  get('/v2/institutions/consumer/invalid_id') { json_response 400, 'invalid_user_institution_id.json' }
+  put('/v2/institutions/consumer/refresh') { json_response 200, 'user_institutions_refresh_all.json' }
+  put('/v2/institutions/consumer/valid_id/credentials') { json_response 200, 'institution_add.json' }
+  put('/v2/institutions/consumer/invalid_id/credentials') { json_response 400, 'invalid_user_institution_id.json' }
+  put('/v2/institutions/consumer/valid_id/mfa') { json_response 200, 'institution_add.json' }
+  put('/v2/institutions/consumer/invalid_id/mfa') { json_response 400, 'invalid_user_institution_id.json' }
+  delete('/v2/institutions/consumer/valid_id') { status 204 }
+  delete('/v2/institutions/consumer/invalid_id') { json_response 400, 'invalid_user_institution_id.json' }
+  get('/v2/institutions/consumer/valid_id/form') { json_response 200, 'institution_login_form.json' }
+  get('/v2/institutions/consumer/invalid_id/form') { json_response 400, 'invalid_institution_id.json' }
   put('/v2/institutions/refresh') { json_response 200, 'user_institution_refresh.json' }
 
   # consumers
