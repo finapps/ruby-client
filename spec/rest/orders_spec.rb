@@ -36,7 +36,10 @@ RSpec.describe FinApps::REST::Orders do
 
       it { expect { subject }.not_to raise_error }
       it('returns an array') { expect(subject).to be_a(Array) }
-      it('performs a post and returns the response') { expect(subject[RESULTS]).to respond_to(:public_id) }
+      it('performs a post and returns the response') do
+        expect(subject[RESULTS]).to respond_to(:public_id)
+        expect(subject[RESULTS]).to respond_to(:consumer_id)
+      end
       it('returns no error messages') { expect(subject[ERROR_MESSAGES]).to be_empty }
     end
 
@@ -69,6 +72,7 @@ RSpec.describe FinApps::REST::Orders do
       it { expect { subject }.not_to raise_error }
       it('returns an array') { expect(subject).to be_a(Array) }
       it('performs a get and returns the response') { expect(subject[RESULTS]).to respond_to(:orders) }
+      it('each order contains a consumer_id') { expect(subject[RESULTS].orders).to all(respond_to(:consumer_id)) }
       it('returns no error messages') { expect(subject[ERROR_MESSAGES]).to be_empty }
     end
   end
