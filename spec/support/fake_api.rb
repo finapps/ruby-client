@@ -17,7 +17,7 @@ class FakeApi < Sinatra::Base
   post('/v2/orders/valid_token') { json_response 200, 'order_token.json' }
   post('/v2/orders/invalid_token') { json_response 404, 'resource_not_found.json' }
   get('/v2/orders/valid_id') { json_response 200, 'order.json' }
-  get('/v2/list/orders/:page/:requested/:sort/:asc') { json_response 200, 'orders.json' }
+  get('/v2/orders') { json_response 200, 'orders.json' }
   get('/v2/orders/valid_id/report.:format') { json_response 200, 'order_report.json' }
   get('/v2/orders/invalid_id/report.:format') { json_response 404, 'resource_not_found.json' }
   get('/v2/orders/valid_id/status') { json_response 200, 'order_status.json' }

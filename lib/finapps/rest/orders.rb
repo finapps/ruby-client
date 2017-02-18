@@ -23,11 +23,12 @@ module FinApps
       #     date - the date of the order
       #     status - the status of the order
       # :asc - sort order true for asc false for desc
-      def list(params=nil) # params hash with optional keys [:page, :requested, :sort, :asc]
-        return super 'list/orders/1/10000/date/false' if params.nil?
-        raise FinAppsCore::InvalidArgumentsError.new 'Invalid argument: params' unless params.is_a? Hash
-
-        super build_path(params)
+      def list # (params=nil) # params hash with optional keys [:page, :requested, :sort, :asc]
+        super 'orders?page=1&requested=500&sort=-date'
+        # TODO: change to support https://github.com/finapps/api/blob/develop/misc/docs/iav.md#get-list-of-orders
+        # return super 'orders?page=1&requested=500&sort=-date' # if params.nil?
+        # raise FinAppsCore::InvalidArgumentsError.new 'Invalid argument: params' unless params.is_a? Hash
+        # super build_path(params)
       end
 
       def update(id, params)
@@ -42,18 +43,20 @@ module FinApps
         super params, path
       end
 
-      private
-
-      def build_path(p)
-        page = p[:page] || 1
-        requested = p[:requested] || 100
-        sort = p[:sort] || 'date'
-        asc = p[:asc] || false
-        end_point = 'list/orders'
-        path = end_point.dup
-        [page, requested, sort, asc].each_with_index {|a| path << "/#{ERB::Util.url_encode(a)}" }
-        path
-      end
+      # private
+      #
+      # def build_path(p)
+      #   # TODO: change to support https://github.com/finapps/api/blob/develop/misc/docs/iav.md#get-list-of-orders
+      #
+      #   page = p[:page] || 1
+      #   requested = p[:requested] || 100
+      #   sort = p[:sort] || 'date'
+      #   asc = p[:asc]
+      #   end_point = 'orders'
+      #   path = end_point.dup
+      #   [page, requested, sort, asc].each_with_index {|a| path << "/#{ERB::Util.url_encode(a)}" }
+      #   path
+      # end
     end
   end
 end
