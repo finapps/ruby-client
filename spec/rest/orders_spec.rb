@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 RSpec.describe FinApps::REST::Orders do
   include SpecHelpers::Client
-  
+
   RESULTS = 0
   ERROR_MESSAGES = 1
 
@@ -49,7 +49,9 @@ RSpec.describe FinApps::REST::Orders do
 
       it { expect { subject }.not_to raise_error }
       it('results is nil') { expect(subject[RESULTS]).to be_nil }
-      it('error messages array is populated') { expect(subject[ERROR_MESSAGES].first.downcase).to eq('invalid request body') }
+      it('error messages array is populated') do
+        expect(subject[ERROR_MESSAGES].first.downcase).to eq('invalid request body')
+      end
     end
   end
 

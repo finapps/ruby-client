@@ -4,7 +4,7 @@ RSpec.describe FinApps::REST::OrderStatuses do
 
   RESULTS = 0
   ERROR_MESSAGES = 1
-  
+
   describe '#show' do
     context 'when missing id' do
       subject { FinApps::REST::OrderStatuses.new(client).show(nil) }
@@ -24,7 +24,9 @@ RSpec.describe FinApps::REST::OrderStatuses do
 
       it { expect { subject }.not_to raise_error }
       it('results is nil') { expect(subject[RESULTS]).to be_nil }
-      it('error messages array is populated') { expect(subject[ERROR_MESSAGES].first.downcase).to eq('resource not found') }
+      it('error messages array is populated') do
+        expect(subject[ERROR_MESSAGES].first.downcase).to eq('resource not found')
+      end
     end
   end
 end

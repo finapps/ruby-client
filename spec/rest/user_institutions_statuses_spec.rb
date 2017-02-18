@@ -27,7 +27,9 @@ RSpec.describe FinApps::REST::UserInstitutionsStatuses do
 
       it { expect { subject }.not_to raise_error }
       it('results is nil') { expect(subject[RESULT]).to be_nil }
-      it('error messages array is populated') { expect(subject[ERROR_MESSAGES].first.downcase).to eq('invalid user institution id') }
+      it('error messages array is populated') do
+        expect(subject[ERROR_MESSAGES].first.downcase).to eq('invalid user institution id')
+      end
     end
   end
 
