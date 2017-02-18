@@ -23,11 +23,11 @@ module FinApps
       #     date - the date of the order
       #     status - the status of the order
       # :asc - sort order true for asc false for desc
-      def list# (params=nil) # params hash with optional keys [:page, :requested, :sort, :asc]
+      def list # (params=nil) # params hash with optional keys [:page, :requested, :sort, :asc]
         super 'orders?page=1&requested=500&sort=-date'
         # TODO: change to support https://github.com/finapps/api/blob/develop/misc/docs/iav.md#get-list-of-orders
-        #return super 'orders?page=1&requested=500&sort=-date' # if params.nil?
-        #raise FinAppsCore::InvalidArgumentsError.new 'Invalid argument: params' unless params.is_a? Hash
+        # return super 'orders?page=1&requested=500&sort=-date' # if params.nil?
+        # raise FinAppsCore::InvalidArgumentsError.new 'Invalid argument: params' unless params.is_a? Hash
         # super build_path(params)
       end
 
