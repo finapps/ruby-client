@@ -38,7 +38,7 @@ module FinApps
 
       private
 
-      END_POINT = 'institutions/user'
+      END_POINT = 'institutions/consumer'
 
       def update(id, params, method)
         not_blank(id, :id)

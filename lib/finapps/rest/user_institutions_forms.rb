@@ -8,7 +8,7 @@ module FinApps
       def show(id)
         not_blank(id, :id)
 
-        path = "institutions/user/#{ERB::Util.url_encode(id)}/form"
+        path = "institutions/consumer/#{ERB::Util.url_encode(id)}/form"
         super id, path
       end
     end
