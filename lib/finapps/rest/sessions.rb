@@ -1,7 +1,4 @@
 # frozen_string_literal: true
-using ObjectExtensions
-using StringExtensions
-
 module FinApps
   module REST
     class Sessions < FinAppsCore::REST::Resources # :nodoc:
@@ -16,7 +13,7 @@ module FinApps
       private
 
       def validates(params)
-        params.key?(:email) && params[:email].present? && params.key?(:password) && params[:password].present?
+        params.key?(:email) && params[:email] && params.key?(:password) && params[:password]
       end
     end
   end
