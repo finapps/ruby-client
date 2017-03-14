@@ -5,9 +5,6 @@ require_relative './version'
 module FinApps
   module REST
     class Client < FinAppsCore::REST::BaseClient # :nodoc:
-      using ObjectExtensions
-      using StringExtensions
-
       RESOURCES = %i(
         institutions
         institutions_forms

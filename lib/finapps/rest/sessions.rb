@@ -2,9 +2,6 @@
 module FinApps
   module REST
     class Sessions < FinAppsCore::REST::Resources # :nodoc:
-      using ObjectExtensions
-      using StringExtensions
-
       # @param [Hash] params
       # @return [Array<String>]
       def create(params)
@@ -16,7 +13,7 @@ module FinApps
       private
 
       def validates(params)
-        params.key?(:email) && params[:email].present? && params.key?(:password) && params[:password].present?
+        params.key?(:email) && params[:email] && params.key?(:password) && params[:password]
       end
     end
   end

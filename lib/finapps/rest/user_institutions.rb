@@ -2,9 +2,6 @@
 module FinApps
   module REST
     class UserInstitutions < FinAppsCore::REST::Resources # :nodoc:
-      using ObjectExtensions
-      using StringExtensions
-
       def list
         super END_POINT
       end

@@ -2,9 +2,6 @@
 module FinApps
   module REST
     class OrderStatuses < FinAppsCore::REST::Resources # :nodoc:
-      using ObjectExtensions
-      using StringExtensions
-
       def show(id)
         not_blank(id, :id)
 
