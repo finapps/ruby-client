@@ -2,9 +2,6 @@
 module FinApps
   module REST
     class Consumers < FinAppsCore::REST::Resources # :nodoc:
-      using ObjectExtensions
-      using StringExtensions
-
       # @param [String] public_id
       # @return [FinApps::REST::User, Array<String>]
       def show(public_id)

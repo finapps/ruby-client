@@ -1,10 +1,10 @@
 # frozen_string_literal: true
+using ObjectExtensions
+using StringExtensions
+
 module FinApps
   module REST
     class Sessions < FinAppsCore::REST::Resources # :nodoc:
-      using ObjectExtensions
-      using StringExtensions
-
       # @param [Hash] params
       # @return [Array<String>]
       def create(params)

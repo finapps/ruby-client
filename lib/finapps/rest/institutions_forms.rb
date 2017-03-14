@@ -2,9 +2,6 @@
 module FinApps
   module REST
     class InstitutionsForms < FinAppsCore::REST::Resources
-      using ObjectExtensions
-      using StringExtensions
-
       def show(site_id)
         not_blank(site_id, :site_id)
 
