@@ -85,6 +85,7 @@ class FakeApi < Sinatra::Base
       json_response(401, 'unauthorized.json')
     end
   end
+  post('/v2/operators/login') { json_response 200, 'operator.json' }
 
   # password resets
   post('/v2/tenant/valid_user_id/password') { json_response 200, 'password_reset_token.json' }

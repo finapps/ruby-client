@@ -38,5 +38,15 @@ RSpec.describe FinApps::REST::Sessions, 'initialized with valid FinApps::Client 
       it('token value is in the result') { expect(results).to respond_to(:token) }
       it('error_messages is empty') { expect(error_messages).to be_empty }
     end
+
+    context 'for valid credentials & path argument' do
+      let(:create) { subject.create(credentials, 'operators/login') }
+      let(:credentials) { {email: 'email@domain.com', password: 'valid_password'} }
+
+      it('results is a Hashie::Rash') { expect(results).to be_a(Hashie::Rash) }
+      it('token value is in the result') { expect(results).to respond_to(:token) }
+      it('returns operator for operator path') { expect(results).to respond_to(:role) }
+      it('error_messages is empty') { expect(error_messages).to be_empty }
+    end
   end
 end

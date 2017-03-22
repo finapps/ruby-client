@@ -4,10 +4,11 @@ module FinApps
     class Sessions < FinAppsCore::REST::Resources # :nodoc:
       # @param [Hash] params
       # @return [Array<String>]
-      def create(params)
+      def create(params, path=nil)
         raise FinAppsCore::InvalidArgumentsError.new 'Invalid argument: params.' unless validates params
+        path ||= 'login'
 
-        super params, 'login'
+        super params, path
       end
 
       private
