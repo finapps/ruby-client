@@ -1,0 +1,10 @@
+{
+  "public_id": "9cc36daa-a63a-48c9-b465-1ddd2c527128",
+  "email": "operator@finapps.com",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwdWJsaWNfaWQiOiI5Y2MzNmRhYS1hNjNhLTQ4YzktYjQ2NS0xZGRkMmM1MjcxMjgiLCJzZXNzaW9uX2lkIjoiZmQyNWQ3MmEtNDkxZS00MTY3LTUyZmMtODdiNGEyY2YxMjM0IiwidGVuYW50X2lkIjoiNDlmYjkxOGQtN2U3MS00NGRkLTczNzgtNThmMTk2MDZkZjJhIiwiZXhwIjoxNDg5NzI1Mjk4LCJpYXQiOjE0ODk2Mzg4OTgsImlzcyI6IkZpbmFuY2lhbEFwcHMiLCJuYmYiOjE0ODk2Mzg4OTh9.nZIyIE11G98Yw0yQ-KO-lNVa76i9Z_2wdmK_OVHQCXY",
+  "role": 1,
+  "first_name": "test",
+  "last_name": "operator",
+  "memo": "",
+  "phone_number": "555.555.1234"
+}
