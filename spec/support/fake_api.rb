@@ -84,6 +84,16 @@ class FakeApi < Sinatra::Base
   post('/v2/operators/password/change') { json_response 200, 'operator.json' }
   put('/v2/operators/invalid_id') { json_response 404, 'resource_not_found.json' }
   put('/v2/operators/valid_id') { json_response 200, 'operator.json' }
+  post('/v2/operators/password/forgot') { json_response 200, 'operator_forgot_password.json' }
+  post('/v2/operators/password/reset')  do
+    request.body.rewind
+    request_payload = JSON.parse request.body.read
+    if request_payload['params'] == 'valid'
+      json_response 200, 'operator.json'
+    else
+      json_response 400, 'invalid_request_body.json'
+    end
+  end
   post('/v2/operators') do
     request.body.rewind
     request_payload = JSON.parse request.body.read
