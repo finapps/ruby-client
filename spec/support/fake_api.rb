@@ -75,6 +75,25 @@ class FakeApi < Sinatra::Base
   delete('/v2/consumers/valid_public_id') { status 204 }
   delete('/v2/consumers/invalid_public_id') { json_response 404, 'resource_not_found.json' }
 
+  # operators
+  get('/v2/operators') { json_response 200, 'operator_list.json' }
+  get('/v2/operators/invalid_id') { json_response 404, 'resource_not_found.json' }
+  get('/v2/operators/valid_id') { json_response 200, 'operator.json' }
+  delete('/v2/operators/invalid_id') { json_response 404, 'resource_not_found.json' }
+  delete('/v2/operators/valid_id') { status 204 }
+  post('/v2/operators/password/change') { json_response 200, 'operator.json' }
+  put('/v2/operators/invalid_id') { json_response 404, 'resource_not_found.json' }
+  put('/v2/operators/valid_id') { json_response 200, 'operator.json' }
+  post('/v2/operators') do
+    request.body.rewind
+    request_payload = JSON.parse request.body.read
+    if request_payload['params'] == 'valid'
+      json_response 201, 'operator.json'
+    else
+      json_response 400, 'invalid_request_body.json'
+    end
+  end
+
   # session
   post('/v2/login') do
     request.body.rewind

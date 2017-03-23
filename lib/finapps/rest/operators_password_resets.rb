@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module FinApps
   module REST
     class OperatorsPasswordResets < FinAppsCore::REST::Resources
@@ -5,7 +6,7 @@ module FinApps
         not_blank(params, :params)
         validates_email(params) if path.nil?
 
-        path ||= "operators/password/forgot"
+        path ||= 'operators/password/forgot'
 
         super params, path
       end
@@ -13,7 +14,7 @@ module FinApps
       def update(params)
         not_blank(params, :params)
 
-        path = "operators/password/reset"
+        path = 'operators/password/reset'
         create params, path
       end
 

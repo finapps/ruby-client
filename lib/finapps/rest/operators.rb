@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module FinApps
   module REST
     class Operators < FinAppsCore::REST::Resources
@@ -28,7 +29,7 @@ module FinApps
       end
 
       def update_password(params)
-        #update password for current operator, need authorization session in header
+        # update password for current operator, need authorization session in header
         not_blank(params, :params)
         raise FinAppsCore::InvalidArgumentsError.new 'Invalid argument: params.' unless validates params
         path = "#{end_point}/password/change"
