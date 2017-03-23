@@ -16,13 +16,13 @@ RSpec.describe FinApps::REST::OperatorsPasswordResets, 'initialized with valid F
     end
 
     context 'for invalid params' do
-      let(:create) { subject.create({params: 'invalid params'}) }
+      let(:create) { subject.create(params: 'invalid params') }
 
       it { expect { create }.to raise_error(FinAppsCore::InvalidArgumentsError) }
     end
 
     context 'for valid params' do
-      let(:create) { subject.create({email: 'valid email'}) }
+      let(:create) { subject.create(email: 'valid email') }
 
       it { expect { create }.not_to raise_error }
       it('returns an array') { expect(create).to be_a(Array) }
@@ -56,7 +56,7 @@ RSpec.describe FinApps::REST::OperatorsPasswordResets, 'initialized with valid F
     end
 
     context 'for valid params' do
-      let(:update) { subject.update(params: 'valid')}
+      let(:update) { subject.update(params: 'valid') }
 
       it { expect { update }.not_to raise_error }
       it('returns an array') { expect(update).to be_a(Array) }
@@ -67,7 +67,4 @@ RSpec.describe FinApps::REST::OperatorsPasswordResets, 'initialized with valid F
       it('returns no error messages') { expect(error_messages).to be_empty }
     end
   end
-
-
-
 end
