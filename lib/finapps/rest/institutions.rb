@@ -9,6 +9,19 @@ module FinApps
         path = "#{end_point}/search/#{ERB::Util.url_encode(search_term)}"
         super path
       end
+
+      def show(routing_number)
+        not_blank(routing_number, :routing_number)
+
+        path = "#{end_point}/routing/#{remove_non_digits routing_number}"
+        super routing_number, path
+      end
+
+      private
+
+      def remove_non_digits(value)
+        value.to_s.gsub(/\D/, '')
+      end
     end
   end
 end
