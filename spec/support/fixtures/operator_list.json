@@ -1,0 +1,36 @@
+{
+  "page": 1,
+  "total_records": 4,
+  "records": [
+    {
+      "public_id": "66f99fec-21e1-46d6-5bdd-b5b11c3cfe5f",
+      "company_id": "49fb918d-7e71-44dd-7378-58f19606df2a",
+      "role": 3,
+      "status": 1,
+      "language": 1,
+      "currency": 1,
+      "first_name": "Jacob",
+      "last_name": "operator",
+      "email": "operator2@example.com",
+      "memo": "",
+      "phone_number": "316.555.1234",
+      "date_modified": "2017-03-01T13:11:22.996-06:00",
+      "date_created": "2017-03-01T13:11:22.996-06:00"
+    },
+    {
+      "public_id": "03050af5-e755-4eef-4cf5-3da3ecdd1269",
+      "company_id": "49fb918d-7e71-44dd-7378-58f19606df2a",
+      "role": 3,
+      "status": 1,
+      "language": 1,
+      "currency": 1,
+      "first_name": "Jacob",
+      "last_name": "operator",
+      "email": "operator@example.com",
+      "memo": "",
+      "phone_number": "316.555.1234",
+      "date_modified": "2017-03-01T12:58:26.772-06:00",
+      "date_created": "2017-03-01T12:58:26.772-06:00"
+    }
+  ]
+}

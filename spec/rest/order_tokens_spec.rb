@@ -2,9 +2,6 @@
 RSpec.describe FinApps::REST::OrderTokens, 'initialized with valid FinApps::Client object' do
   include SpecHelpers::Client
 
-  RESULTS = 0
-  ERROR_MESSAGES = 1
-
   describe '#show' do
     subject(:order_tokens) { FinApps::REST::OrderTokens.new(client) }
     let(:results) { show[RESULTS] }

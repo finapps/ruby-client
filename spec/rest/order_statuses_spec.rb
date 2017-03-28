@@ -2,9 +2,6 @@
 RSpec.describe FinApps::REST::OrderStatuses do
   include SpecHelpers::Client
 
-  RESULTS = 0
-  ERROR_MESSAGES = 1
-
   describe '#show' do
     context 'when missing id' do
       subject { FinApps::REST::OrderStatuses.new(client).show(nil) }
