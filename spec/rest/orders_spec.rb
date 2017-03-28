@@ -2,9 +2,6 @@
 RSpec.describe FinApps::REST::Orders do
   include SpecHelpers::Client
 
-  RESULTS = 0
-  ERROR_MESSAGES = 1
-
   describe '#show' do
     context 'when missing params' do
       subject { FinApps::REST::Orders.new(client).show(nil) }

@@ -1,11 +1,6 @@
 # frozen_string_literal: true
-require 'spec_helpers/client'
-
 RSpec.describe FinApps::REST::UserInstitutions do
   include SpecHelpers::Client
-
-  RESULT = 0
-  ERROR_MESSAGES = 1
 
   describe '#list' do
     context 'when successful' do
@@ -34,7 +29,7 @@ RSpec.describe FinApps::REST::UserInstitutions do
       let(:create) { subject.create('valid_site_id', :params) }
 
       it { expect { create }.not_to raise_error }
-      it('performs a post and returns the response') { expect(create[RESULT]).to respond_to(:consumer_institution) }
+      it('performs a post and returns the response') { expect(create[RESULTS]).to respond_to(:consumer_institution) }
       it('returns no error messages') { expect(create[ERROR_MESSAGES]).to be_empty }
     end
 
@@ -80,7 +75,7 @@ RSpec.describe FinApps::REST::UserInstitutions do
       subject { FinApps::REST::UserInstitutions.new(client).mfa_update('valid_id', :params) }
 
       it { expect { subject }.not_to raise_error }
-      it('performs a post and returns the response') { expect(subject[RESULT]).to respond_to(:consumer_institution) }
+      it('performs a post and returns the response') { expect(subject[RESULTS]).to respond_to(:consumer_institution) }
       it('returns no error messages') { expect(subject[ERROR_MESSAGES]).to be_empty }
     end
 
@@ -108,7 +103,7 @@ RSpec.describe FinApps::REST::UserInstitutions do
       subject { FinApps::REST::UserInstitutions.new(client).credentials_update('valid_id', :params) }
 
       it { expect { subject }.not_to raise_error }
-      it('performs a post and returns the response') { expect(subject[RESULT]).to respond_to(:consumer_institution) }
+      it('performs a post and returns the response') { expect(subject[RESULTS]).to respond_to(:consumer_institution) }
       it('returns no error messages') { expect(subject[ERROR_MESSAGES]).to be_empty }
     end
 
