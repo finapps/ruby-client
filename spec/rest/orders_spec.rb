@@ -68,7 +68,7 @@ RSpec.describe FinApps::REST::Orders do
 
     context 'when invalid params are provided' do
       subject { FinApps::REST::Orders.new(client).list(invalid_params) }
-      let(:invalid_params) { ['this', 'is', 'an', 'array'] }
+      let(:invalid_params) { %w(this is an array) }
 
       it { expect { subject }.to raise_error(FinAppsCore::InvalidArgumentsError) }
     end
