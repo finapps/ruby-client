@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+require 'spec_helpers/client'
+
 RSpec.describe FinApps::REST::Orders do
   include SpecHelpers::Client
 
@@ -64,16 +66,28 @@ RSpec.describe FinApps::REST::Orders do
       it('returns no error messages') { expect(subject[ERROR_MESSAGES]).to be_empty }
     end
 
-    # context 'when including partial params' do
-    #   subject { FinApps::REST::Orders.new(client).list(params) }
-    #   let(:params) { {page: 2, sort: 'status'} }
-    #
-    #   it { expect { subject }.not_to raise_error }
-    #   it('returns an array') { expect(subject).to be_a(Array) }
-    #   it('performs a get and returns the response') { expect(subject[RESULTS]).to respond_to(:orders) }
-    #   it('each order contains a consumer_id') { expect(subject[RESULTS].orders).to all(respond_to(:consumer_id)) }
-    #   it('returns no error messages') { expect(subject[ERROR_MESSAGES]).to be_empty }
-    # end
+    context 'when invalid params are provided' do
+      subject { FinApps::REST::Orders.new(client).list(invalid_params) }
+      let(:invalid_params) { ['this', 'is', 'an', 'array'] }
+
+      it { expect { subject }.to raise_error(FinAppsCore::InvalidArgumentsError) }
+    end
+
+    context 'when including valid params' do
+      subject { FinApps::REST::Orders.new(client).list(params) }
+      let(:params) { {page: 2, sort: 'status'} }
+
+      it { expect { subject }.not_to raise_error }
+      it('returns an array') { expect(subject).to be_a(Array) }
+      it('performs a get and returns the response') { expect(subject[RESULTS]).to respond_to(:orders) }
+      it('each order contains a consumer_id') { expect(subject[RESULTS].orders).to all(respond_to(:consumer_id)) }
+      it('returns no error messages') { expect(subject[ERROR_MESSAGES]).to be_empty }
+      it 'sends proper request' do
+        subject
+        url = "#{FinAppsCore::REST::Defaults::DEFAULTS[:host]}/v2/orders?page=2&sort=status"
+        expect(WebMock).to have_requested(:get, url)
+      end
+    end
   end
 
   describe '#update' do
