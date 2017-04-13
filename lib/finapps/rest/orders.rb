@@ -12,20 +12,18 @@ module FinApps
         super params
       end
 
-      # GET /v2/list/orders/:page/:requested/:sort/:asc
+      # GET /v2/list/orders?page=1&requested=25&sort=-date
       # :page - page number requested
       # :requested - number of results per page requested
       # :sort - sort order
       #   options:
       #     date - the date of the order
       #     status - the status of the order
-      # :asc - sort order true for asc false for desc
-      def list # (params=nil) # params hash with optional keys [:page, :requested, :sort, :asc]
-        super 'orders?page=1&requested=500&sort=-date'
-        # TODO: change to support https://github.com/finapps/api/blob/develop/misc/docs/iav.md#get-list-of-orders
-        # return super 'orders?page=1&requested=500&sort=-date' # if params.nil?
-        # raise FinAppsCore::InvalidArgumentsError.new 'Invalid argument: params' unless params.is_a? Hash
-        # super build_path(params)
+      #     descending - append "-" before option for descending sort
+      def list(params=nil) # params hash with optional keys [:page, :sort, :requested]
+        return super if params.nil?
+        raise FinAppsCore::InvalidArgumentsError.new 'Invalid argument: params' unless params.is_a? Hash
+        super build_path(params)
       end
 
       def update(id, params)
@@ -40,20 +38,14 @@ module FinApps
         super params, path
       end
 
-      # private
-      #
-      # def build_path(p)
-      #   # TODO: change to support https://github.com/finapps/api/blob/develop/misc/docs/iav.md#get-list-of-orders
-      #
-      #   page = p[:page] || 1
-      #   requested = p[:requested] || 100
-      #   sort = p[:sort] || 'date'
-      #   asc = p[:asc]
-      #   end_point = 'orders'
-      #   path = end_point.dup
-      #   [page, requested, sort, asc].each_with_index {|a| path << "/#{ERB::Util.url_encode(a)}" }
-      #   path
-      # end
+      private
+
+      def build_path(p)
+        page = p[:page] ? "page=#{ERB::Util.url_encode(p[:page])}" : ''
+        requested = p[:requested] ? "&requested=#{ERB::Util.url_encode(p[:requested])}" : ''
+        sort = p[:sort] ? "&sort=#{ERB::Util.url_encode(p[:sort])}" : ''
+        "#{end_point}?#{page}#{requested}#{sort}"
+      end
     end
   end
 end
