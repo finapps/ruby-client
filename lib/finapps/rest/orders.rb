@@ -1,7 +1,11 @@
 # frozen_string_literal: true
+require_relative '../utils/query_builder'
+
 module FinApps
   module REST
     class Orders < FinAppsCore::REST::Resources # :nodoc:
+      include FinApps::Utils::QueryBuilder
+
       def show(id)
         not_blank(id, :id)
         super
@@ -16,14 +20,12 @@ module FinApps
       # :page - page number requested
       # :requested - number of results per page requested
       # :sort - sort order
-      #   options:
-      #     date - the date of the order
-      #     status - the status of the order
+      # :filter - mongo object to filter
       #     descending - append "-" before option for descending sort
       def list(params=nil) # params hash with optional keys [:page, :sort, :requested]
         return super if params.nil?
         raise FinAppsCore::InvalidArgumentsError.new 'Invalid argument: params' unless params.is_a? Hash
-        super build_path(params)
+        super build_query_path(end_point, params)
       end
 
       def update(id, params)
@@ -36,15 +38,6 @@ module FinApps
         path = "#{end_point}/#{ERB::Util.url_encode(id)}"
 
         super params, path
-      end
-
-      private
-
-      def build_path(p)
-        page = p[:page] ? "page=#{ERB::Util.url_encode(p[:page])}" : ''
-        requested = p[:requested] ? "&requested=#{ERB::Util.url_encode(p[:requested])}" : ''
-        sort = p[:sort] ? "&sort=#{ERB::Util.url_encode(p[:sort])}" : ''
-        "#{end_point}?#{page}#{requested}#{sort}"
       end
     end
   end
