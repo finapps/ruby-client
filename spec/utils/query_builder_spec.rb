@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class FakeClass
   include FinApps::Utils::QueryBuilder
 end
@@ -5,7 +6,7 @@ end
 RSpec.describe FinApps::Utils::QueryBuilder do
   describe '#build_query_path' do
     subject { FakeClass.new }
-    let(:end_point) { 'orders'}
+    let(:end_point) { 'orders' }
 
     context 'with full params' do
       let(:params) { {page: '1', requested: '20', sort: '-date', filter: '{"role": "1"}'} }
