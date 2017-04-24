@@ -67,6 +67,10 @@ RSpec.describe FinApps::REST::Client do
       it { expect(subject.password_resets).to be_an_instance_of(FinApps::REST::PasswordResets) }
     end
 
+    describe '#password_resets' do
+      it { expect(subject.operators).to be_an_instance_of(FinApps::REST::Operators) }
+    end
+
     FinApps::REST::Client::RESOURCES.each do |method|
       it "memoizes the result of #{method}" do
         first = subject.send(method)

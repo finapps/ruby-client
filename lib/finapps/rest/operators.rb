@@ -1,12 +1,15 @@
 # frozen_string_literal: true
+require_relative '../utils/query_builder'
+
 module FinApps
   module REST
     class Operators < FinAppsCore::REST::Resources
+      include FinApps::Utils::QueryBuilder
+
       def list(params=nil)
         return super if params.nil?
-
-        path = "#{endpoint}/#{ERB::Util.url_encode(params)}"
-        super path
+        raise FinAppsCore::InvalidArgumentsError.new 'Invalid argument: params' unless params.is_a? Hash
+        super build_query_path(end_point, params)
       end
 
       def show(id)
