@@ -12,6 +12,7 @@ module FinApps
         order_reports
         order_statuses
         order_tokens
+        operators
         password_resets
         sessions
         consumers
