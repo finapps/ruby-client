@@ -14,6 +14,7 @@ module FinApps
         order_tokens
         operators
         password_resets
+        products
         sessions
         consumers
         user_institutions
