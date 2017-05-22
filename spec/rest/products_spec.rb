@@ -2,7 +2,7 @@ require 'spec_helpers/client'
 
 RSpec.describe FinApps::REST::Products, 'initialized with valid FinApps::Client object' do
   include SpecHelpers::Client
-  subject(:products) { FinApps::REST::Operators.new(client) }
+  subject(:products) { FinApps::REST::Products.new(client) }
 
   describe '#list' do
     context 'when called' do
