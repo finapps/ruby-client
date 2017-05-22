@@ -132,7 +132,7 @@ class FakeApi < Sinatra::Base
   put('/v2/tenant/invalid_user_id/password') { json_response 404, 'resource_not_found.json' }
 
   # products
-  get('/v2/products') { json_response 200, 'products.json'}
+  get('/v2/products') { json_response 200, 'products.json' }
 
   # relevance
   get('/v2/relevance/ruleset/names') { json_response 200, 'relevance_ruleset_names.json' }

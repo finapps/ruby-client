@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'spec_helpers/client'
 
 RSpec.describe FinApps::REST::Products, 'initialized with valid FinApps::Client object' do
@@ -17,4 +18,3 @@ RSpec.describe FinApps::REST::Products, 'initialized with valid FinApps::Client 
     end
   end
 end
-
