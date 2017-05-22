@@ -71,6 +71,11 @@ RSpec.describe FinApps::REST::Client do
       it { expect(subject.operators).to be_an_instance_of(FinApps::REST::Operators) }
     end
 
+    describe '#products' do
+      it { expect(subject.products).to be_an_instance_of(FinApps::REST::Products) }
+    end
+
+
     FinApps::REST::Client::RESOURCES.each do |method|
       it "memoizes the result of #{method}" do
         first = subject.send(method)
