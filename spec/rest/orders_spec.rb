@@ -135,10 +135,10 @@ RSpec.describe FinApps::REST::Orders do
   end
 
   describe '#destroy' do
-    subject(:orders) { FinApps::REST::Orders.new(client)}
+    subject(:orders) { FinApps::REST::Orders.new(client) }
 
     context 'when missing id' do
-      let(:destroy) {subject.destroy(nil)}
+      let(:destroy) { subject.destroy(nil) }
       it('returns missing argument error') { expect { destroy }.to raise_error(FinAppsCore::MissingArgumentsError) }
     end
 

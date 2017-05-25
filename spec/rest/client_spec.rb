@@ -31,7 +31,6 @@ RSpec.describe FinApps::REST::Client do
       it { expect(subject.order_notifications).to be_an_instance_of(FinApps::REST::OrderNotifications) }
     end
 
-
     describe '#order_statuses' do
       it { expect(subject.order_statuses).to be_an_instance_of(FinApps::REST::OrderStatuses) }
     end
