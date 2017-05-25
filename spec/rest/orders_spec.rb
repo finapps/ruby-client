@@ -148,7 +148,7 @@ RSpec.describe FinApps::REST::Orders do
       let(:error_messages) { destroy[ERROR_MESSAGES] }
 
       it { expect { destroy }.not_to raise_error }
-      it('results is nil') { expect(destroy[0]).to be_nil }
+      it('results is nil') { expect(results).to be_nil }
       it('error messages array is populated') { expect(error_messages.first.downcase).to eq('resource not found') }
     end
 
