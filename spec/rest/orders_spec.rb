@@ -133,4 +133,24 @@ RSpec.describe FinApps::REST::Orders do
       it('error messages array is populated') { expect(error_messages.first.downcase).to eq('invalid request body') }
     end
   end
+
+  describe '#destroy' do
+    subject(:orders) { FinApps::REST::Orders.new(client)}
+
+    context 'when missing id' do
+      let(:destroy) {subject.destroy(nil)}
+      it('returns missing argument error') { expect { destroy }.to raise_error(FinAppsCore::MissingArgumentsError) }
+    end
+
+    context 'when invalid id is provided' do
+      let(:destroy) { subject.destroy(:invalid_id) }
+      let(:results) { destroy[RESULTS] }
+      let(:error_messages) { destroy[ERROR_MESSAGES] }
+
+
+      it { expect { destroy }.not_to raise_error }
+      it('results is nil') { expect(destroy[0]).to be_nil }
+      it('error messages array is populated') { expect(error_messages.first.downcase).to eq('resource not found') }
+    end
+  end
 end

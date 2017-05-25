@@ -28,7 +28,8 @@ module FinApps
         super build_query_path(end_point, params)
       end
 
-      def update(id, params)
+      def update(id, params, path=nil)
+        return super nil, path if path
         not_blank(id, :id)
         not_blank(params, :params)
         # Params array need matching Institution ids & Account ids
@@ -44,7 +45,7 @@ module FinApps
         not_blank(id, :id)
 
         path = "#{end_point}/#{ERB::Util.url_encode(id)}/cancel"
-        update nil, path
+        update nil, nil, path
       end
     end
   end
