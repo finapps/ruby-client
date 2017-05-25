@@ -39,6 +39,13 @@ module FinApps
 
         super params, path
       end
+
+      def destroy(id)
+        not_blank(id, :id)
+
+        path = "#{end_point}/#{ERB::Util.url_encode(id)}/cancel"
+        update nil, path
+      end
     end
   end
 end
