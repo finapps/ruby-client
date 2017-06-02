@@ -38,7 +38,6 @@ RSpec.describe FinApps::REST::Institutions do
       it('includes a org_display_name on the results') { expect(show[RESULTS]).to respond_to(:org_display_name) }
     end
 
-
     context 'when proper site_id is provided' do
       # A site_id has less than 9 digits
       let(:show) { subject.show('5') }

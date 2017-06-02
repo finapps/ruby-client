@@ -54,7 +54,6 @@ class FakeApi < Sinatra::Base
   get('/v2/institutions/routing/:routing_number') { json_response 200, 'institutions_routing_number.json' }
   get('/v2/institutions/site/:site_id') { json_response 200, 'institutions_routing_number.json' }
 
-
   # user institutions
   get('/v2/institutions/consumer/valid_id/status') { json_response 200, 'user_institution_status.json' }
   get('/v2/institutions/consumer/invalid_id/status') { json_response 400, 'invalid_user_institution_id.json' }
