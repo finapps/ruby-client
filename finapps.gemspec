@@ -20,7 +20,7 @@ Gem::Specification.new do |spec|
   spec.test_files = Dir['spec/**/*.rb']
   spec.require_paths = ['lib']
 
-  spec.add_runtime_dependency     'finapps_core',               '~> 2.0',   '>= 2.0.17'
+  spec.add_runtime_dependency     'finapps_core',               '~> 2.0',   '>= 2.0.19'
 
   spec.add_development_dependency 'bundler',                    '~> 1.14',  '>= 1.14.3'
   spec.add_development_dependency 'gem-release',                '~> 0.7',   '>= 0.7.4'
