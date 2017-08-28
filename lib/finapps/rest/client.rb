@@ -9,6 +9,7 @@ module FinApps
         institutions
         institutions_forms
         orders
+        order_assignments
         order_notifications
         order_reports
         order_statuses
