@@ -2,7 +2,6 @@
 coverage/
 *.gem
 .config
-Gemfile.lock
 lib/bundler/man
 pkg
 rdoc
