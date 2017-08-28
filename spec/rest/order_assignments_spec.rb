@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'spec_helpers/client'
 
 RSpec.describe FinApps::REST::OrderAssignments do
@@ -7,7 +8,6 @@ RSpec.describe FinApps::REST::OrderAssignments do
     subject(:order_assignments) { FinApps::REST::OrderAssignments.new(client) }
     let(:results) { update[RESULTS] }
     let(:error_messages) { update[ERROR_MESSAGES] }
-
 
     context 'when missing id' do
       let(:update) { subject.update(nil, []) }
