@@ -90,6 +90,8 @@ class FakeApi < Sinatra::Base
   post('/v2/operators/password/change') { json_response 200, 'operator.json' }
   put('/v2/operators/invalid_id') { json_response 404, 'resource_not_found.json' }
   put('/v2/operators/valid_id') { json_response 200, 'operator.json' }
+  put('/v2/operators/valid_id/assign') { status 204 }
+  put('/v2/operators/invalid_id/assign') { json_response 404, 'resource_not_found.json' }
   post('/v2/operators/password/forgot') { json_response 200, 'operator_forgot_password.json' }
   post('/v2/operators/password/reset')  do
     request.body.rewind

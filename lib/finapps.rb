@@ -25,6 +25,7 @@ require 'finapps/rest/password_resets'
 require 'finapps/rest/operators'
 require 'finapps/rest/operators_password_resets'
 require 'finapps/rest/products'
+require 'finapps/rest/order_assignments'
 require 'finapps/utils/query_builder'
 
 require 'finapps/rest/client'
