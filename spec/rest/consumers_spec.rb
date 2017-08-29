@@ -16,7 +16,7 @@ RSpec.describe FinApps::REST::Consumers, 'initialized with valid FinApps::Client
       let(:error_messages) { show[1] }
 
       it { expect { show }.not_to raise_error }
-      it('results is a Hashie::Rash') { expect(results).to be_a(Hashie::Rash) }
+      it('results is a Hashie::Rash') { expect(results).to be_a(Hashie::Mash::Rash) }
       it('performs a get and returns the response') { expect(results).to respond_to(:public_id) }
       it('error_messages array is empty') { expect(error_messages).to eq([]) }
     end
@@ -68,7 +68,7 @@ RSpec.describe FinApps::REST::Consumers, 'initialized with valid FinApps::Client
         let(:error_messages) { update[1] }
 
         it { expect { update }.not_to raise_error }
-        it('results is a Hashie::Rash') { expect(results).to be_a(Hashie::Rash) }
+        it('results is a Hashie::Rash') { expect(results).to be_a(Hashie::Mash::Rash) }
         it('the public_id is on the results') { expect(results).to respond_to(:public_id) }
         it('the new token is on the results') { expect(results).to respond_to(:token) }
         it('error_messages array is empty') { expect(error_messages).to eq([]) }
