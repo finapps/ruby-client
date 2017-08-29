@@ -27,3 +27,4 @@ mkmf.log
 .secret
 .idea/
 /spec/tmp/*
+/Gemfile.lock
