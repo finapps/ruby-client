@@ -80,7 +80,7 @@ RSpec.describe FinApps::REST::Orders do
       it { expect { subject }.not_to raise_error }
       it('returns an array') { expect(subject).to be_a(Array) }
       it('performs a get and returns the response') { expect(subject[RESULTS]).to respond_to(:orders) }
-      it('each order contains a consumer_id') { expect(subject[RESULTS].orders).to all(respond_to(:consumer_id)) }
+      it('each order contains a consumer_id') { expect(subject[RESULTS].orders).to all(have_key('consumer_id')) }
       it('returns no error messages') { expect(subject[ERROR_MESSAGES]).to be_empty }
       it 'sends proper request' do
         subject
