@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module FinApps
   module REST
     class OrderReports < FinAppsCore::REST::Resources # :nodoc:
@@ -14,7 +15,7 @@ module FinApps
       private
 
       def accepted_format?(format)
-        [:json, :html, :pdf].include? format.to_sym
+        %i(json html pdf).include? format.to_sym
       end
     end
   end

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module FinApps
   module REST
     class UserInstitutions < FinAppsCore::REST::Resources # :nodoc:

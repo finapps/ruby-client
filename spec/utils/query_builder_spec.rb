@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class FakeClass
   include FinApps::Utils::QueryBuilder
 end

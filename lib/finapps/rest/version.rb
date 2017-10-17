@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module FinApps
   module REST
     class Version < FinAppsCore::REST::Resources # :nodoc:

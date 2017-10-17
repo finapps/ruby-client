@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 RSpec.describe FinApps::REST::UserInstitutions do
   include SpecHelpers::Client
 

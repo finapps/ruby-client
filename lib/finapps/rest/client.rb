@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'finapps_core'
 require_relative './version'
 
