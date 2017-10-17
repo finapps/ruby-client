@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module FinApps
   module REST
     class OrderTokens < FinAppsCore::REST::Resources # :nodoc:

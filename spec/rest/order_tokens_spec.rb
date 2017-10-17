@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 RSpec.describe FinApps::REST::OrderTokens, 'initialized with valid FinApps::Client object' do
   include SpecHelpers::Client
 

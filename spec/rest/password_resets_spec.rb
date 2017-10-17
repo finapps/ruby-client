@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 RSpec.describe FinApps::REST::PasswordResets do
   include SpecHelpers::Client
 

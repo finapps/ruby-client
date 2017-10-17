@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 RSpec.describe FinApps::REST::Client do
   describe '#new' do
     it 'raises for missing company_token' do
