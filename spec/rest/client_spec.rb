@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 RSpec.describe FinApps::REST::Client do
   describe '#new' do
     it 'raises for missing company_token' do
@@ -21,6 +22,12 @@ RSpec.describe FinApps::REST::Client do
 
     describe '#consumers' do
       it { expect(subject.consumers).to be_an_instance_of(FinApps::REST::Consumers) }
+    end
+
+    describe '#consumer_institution_refreshes' do
+      it do
+        expect(subject.consumer_institution_refreshes).to be_an_instance_of FinApps::REST::ConsumerInstitutionRefreshes
+      end
     end
 
     describe '#sessions' do

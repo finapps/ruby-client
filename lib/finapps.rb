@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-require 'finapps/version' unless defined?(FinApps::VERSION)
 
 require 'faraday'
 require 'faraday_middleware'
@@ -10,6 +9,7 @@ require 'finapps_core'
 
 require 'finapps/rest/version'
 require 'finapps/rest/consumers'
+require 'finapps/rest/consumer_institution_refreshes'
 require 'finapps/rest/sessions'
 require 'finapps/rest/order_tokens'
 require 'finapps/rest/orders'
@@ -26,6 +26,7 @@ require 'finapps/rest/operators'
 require 'finapps/rest/operators_password_resets'
 require 'finapps/rest/products'
 require 'finapps/rest/order_assignments'
-require 'finapps/utils/query_builder'
-
 require 'finapps/rest/client'
+
+require 'finapps/utils/query_builder'
+require 'finapps/version' unless defined?(FinApps::VERSION)

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require_relative '../utils/query_builder'
 
 module FinApps

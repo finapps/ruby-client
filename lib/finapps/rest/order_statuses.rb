@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module FinApps
   module REST
     class OrderStatuses < FinAppsCore::REST::Resources # :nodoc:

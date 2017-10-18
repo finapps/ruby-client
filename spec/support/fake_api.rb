@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'sinatra/base'
 
 # the FakeApi class is used to mock API requests while testing.
