@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'finapps/version' unless defined?(FinApps::VERSION)
-
 require 'faraday'
 require 'faraday_middleware'
 require 'typhoeus'
@@ -28,6 +26,7 @@ require 'finapps/rest/operators'
 require 'finapps/rest/operators_password_resets'
 require 'finapps/rest/products'
 require 'finapps/rest/order_assignments'
-require 'finapps/utils/query_builder'
-
 require 'finapps/rest/client'
+
+require 'finapps/utils/query_builder'
+require 'finapps/version' unless defined?(FinApps::VERSION)
