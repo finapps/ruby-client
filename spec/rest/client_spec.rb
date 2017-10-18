@@ -24,6 +24,12 @@ RSpec.describe FinApps::REST::Client do
       it { expect(subject.consumers).to be_an_instance_of(FinApps::REST::Consumers) }
     end
 
+    describe '#consumer_institution_refreshes' do
+      it do
+        expect(subject.consumer_institution_refreshes).to be_an_instance_of FinApps::REST::ConsumerInstitutionRefreshes
+      end
+    end
+
     describe '#sessions' do
       it { expect(subject.sessions).to be_an_instance_of(FinApps::REST::Sessions) }
     end
