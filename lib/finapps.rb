@@ -11,6 +11,7 @@ require 'finapps_core'
 
 require 'finapps/rest/version'
 require 'finapps/rest/consumers'
+require 'finapps/rest/consumer_institution_refreshes'
 require 'finapps/rest/sessions'
 require 'finapps/rest/order_tokens'
 require 'finapps/rest/orders'

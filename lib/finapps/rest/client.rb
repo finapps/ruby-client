@@ -21,6 +21,7 @@ module FinApps
         products
         sessions
         consumers
+        consumer_institution_refreshes
         user_institutions
         user_institutions_forms
         user_institutions_statuses
