@@ -20,5 +20,15 @@ RSpec.describe FinApps::REST::OrderRefreshes do
       end
       it('returns no error messages') { expect(create[ERROR_MESSAGES]).to be_empty }
     end
+
+    context 'when invalid id is provided' do
+      let(:create) { subject.create(:invalid_id) }
+      it { expect { create }.not_to raise_error }
+      it('returns an array') { expect(create).to be_a(Array) }
+      it('results is nil') { expect(create[RESULTS]).to be_nil }
+      it('error messages array is populated') do
+        expect(create[ERROR_MESSAGES].first.downcase).to eq('resource not found')
+      end
+    end
   end
 end
