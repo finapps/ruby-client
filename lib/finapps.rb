@@ -27,6 +27,7 @@ require 'finapps/rest/operators_password_resets'
 require 'finapps/rest/products'
 require 'finapps/rest/order_assignments'
 require 'finapps/rest/client'
+require 'finapps/rest/order_refreshes'
 
 require 'finapps/utils/query_builder'
 require 'finapps/version' unless defined?(FinApps::VERSION)
