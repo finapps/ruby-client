@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helpers/client'
 
 RSpec.describe FinApps::REST::OrderRefreshes do
@@ -7,7 +9,7 @@ RSpec.describe FinApps::REST::OrderRefreshes do
   describe '#create' do
     context 'when missing id' do
       let(:create) { subject.create(nil) }
-      it { expect { create }.to raise_error(FinAppsCore::MissingArgumentsError)}
+      it { expect { create }.to raise_error(FinAppsCore::MissingArgumentsError) }
     end
 
     context 'when valid id is provided' do
