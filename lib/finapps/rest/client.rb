@@ -21,6 +21,7 @@ module FinApps
         password_resets
         products
         sessions
+        statements
         consumers
         consumer_institution_refreshes
         user_institutions
