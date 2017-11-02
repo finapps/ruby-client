@@ -98,7 +98,7 @@ RSpec.describe FinApps::REST::Client do
       it { expect(subject.products).to be_an_instance_of(FinApps::REST::Products) }
     end
 
-    describe '#password_resets' do
+    describe '#statements' do
       it { expect(subject.statements).to be_an_instance_of(FinApps::REST::Statements) }
     end
 
