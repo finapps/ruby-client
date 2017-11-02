@@ -12,6 +12,7 @@ module FinApps
         orders
         order_assignments
         order_notifications
+        order_refreshes
         order_reports
         order_statuses
         order_tokens

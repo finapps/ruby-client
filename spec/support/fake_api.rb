@@ -27,6 +27,8 @@ class FakeApi < Sinatra::Base
   put('/v2/orders/invalid_id/cancel') { json_response 404, 'resource_not_found.json' }
   put('/v2/orders/valid_id/notify') { status 204 }
   put('/v2/orders/invalid_id/notify') { json_response 404, 'resource_not_found.json' }
+  put('/v2/orders/valid_id/refresh') { json_response 200, 'order_refresh.json' }
+  put('/v2/orders/invalid_id/refresh') { json_response 404, 'resource_not_found.json' }
   put('/v2/orders/invalid_id') { json_response 404, 'resource_not_found.json' }
   put('/v2/orders/valid_id') do
     request.body.rewind
