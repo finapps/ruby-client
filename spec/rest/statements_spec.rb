@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helpers/client'
 
 RSpec.describe FinApps::REST::Statements do

@@ -85,7 +85,7 @@ class FakeApi < Sinatra::Base
   delete('/v2/consumers/invalid_public_id') { json_response 404, 'resource_not_found.json' }
 
   # accounts
-  get('/v2/accounts/valid_id/statement/valid_id') { json_response 200, 'fake_pdf_statement.json'}
+  get('/v2/accounts/valid_id/statement/valid_id') { json_response 200, 'fake_pdf_statement.json' }
   get('/v2/accounts/invalid_id/statement/valid_id') { json_response 404, 'resource_not_found.json' }
 
   # operators
