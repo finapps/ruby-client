@@ -5,6 +5,8 @@ require_relative '../utils/query_builder'
 module FinApps
   module REST
     class Orders < FinAppsCore::REST::Resources # :nodoc:
+      include FinApps::Utils::QueryBuilder
+
       def show(id)
         not_blank(id, :id)
         super
@@ -50,16 +52,16 @@ module FinApps
       private
 
       def build_query_path(params)
-        page = params[:page] ? "page=#{params[:page]}" : ''
-        requested = params[:requested] ? "&requested=#{params[:requested]}" : ''
-        sort = params[:sort] ? "&sort=#{ERB::Util.url_encode(params[:sort])}" : ''
+        page = "page=#{params[:page]}" if params[:page]
+        requested = "requested=#{params[:requested]}" if params[:requested]
+        sort = "sort=#{ERB::Util.url_encode(params[:sort])}" if params[:sort]
         filter = set_filter(params)
-        "#{end_point}?#{page}#{requested}#{sort}#{filter}"
+        query_join(end_point, [page, requested, sort, filter])
       end
 
       def set_filter(params)
         filter = build_filter(params)
-        !filter.empty ? "&filter=#{ERB::Util.url_encode(filter.to_json)}" : ''
+        !filter.empty ? "&filter=#{ERB::Util.url_encode(filter.to_json)}" : nil
       end
 
       def build_filter(params)

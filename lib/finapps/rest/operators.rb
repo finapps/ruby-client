@@ -5,6 +5,8 @@ require_relative '../utils/query_builder'
 module FinApps
   module REST
     class Operators < FinAppsCore::REST::Resources
+      include FinApps::Utils::QueryBuilder
+
       def list(params=nil)
         return super if params.nil?
         raise FinAppsCore::InvalidArgumentsError.new 'Invalid argument: params' unless params.is_a? Hash
@@ -51,11 +53,11 @@ module FinApps
       end
 
       def build_query_path(params)
-        page = params[:page] ? "page=#{params[:page]}" : ''
-        requested = params[:requested] ? "&requested=#{params[:requested]}" : ''
-        sort = params[:sort] ? "&sort=#{ERB::Util.url_encode(params[:sort])}" : ''
+        page = "page=#{params[:page]}" if params[:page]
+        requested = "requested=#{params[:requested]}" if params[:requested]
+        sort = "sort=#{ERB::Util.url_encode(params[:sort])}" if params[:sort]
         filter = set_filter(params)
-        "#{end_point}?#{page}#{requested}#{sort}#{filter}"
+        query_join(end_point, [page, requested, sort, filter])
       end
 
       def set_filter(params)
