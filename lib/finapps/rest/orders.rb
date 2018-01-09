@@ -1,12 +1,10 @@
 # frozen_string_literal: true
-
+require 'json'
 require_relative '../utils/query_builder'
 
 module FinApps
   module REST
     class Orders < FinAppsCore::REST::Resources # :nodoc:
-      include FinApps::Utils::QueryBuilder
-
       def show(id)
         not_blank(id, :id)
         super
@@ -26,7 +24,7 @@ module FinApps
       def list(params=nil) # params hash with optional keys [:page, :sort, :requested]
         return super if params.nil?
         raise FinAppsCore::InvalidArgumentsError.new 'Invalid argument: params' unless params.is_a? Hash
-        super build_query_path(end_point, params)
+        super build_query_path(params)
       end
 
       def update(id, params, path=nil)
@@ -47,6 +45,62 @@ module FinApps
 
         path = "#{end_point}/#{ERB::Util.url_encode(id)}/cancel"
         update nil, nil, path
+      end
+
+      private
+
+      def build_query_path(params)
+        page = params[:page] ? "page=#{params[:page]}" : ''
+        requested = params[:requested] ? "&requested=#{params[:requested]}" : ''
+        sort = params[:sort] ? "&sort=#{ERB::Util.url_encode(params[:sort])}" : ''
+        filter = set_filter(params)
+        "#{end_point}?#{page}#{requested}#{sort}#{filter}"
+      end
+
+      def set_filter(params)
+        filter = build_filter(params)
+        !filter.empty ? "&filter=#{ERB::Util.url_encode(filter.to_json)}" : ''
+      end
+
+      def build_filter(params)
+        filter = {}
+        filter.merge!(search_query(params[:searchTerm])) if params[:searchTerm]
+        filter.merge!(status_query(params[:status])) if params[:status]
+        filter.merge!(assignment_query(params[:assignment])) if params.key?(:assignment) # assignment can be nil
+      end
+
+      def search_query(term)
+        {
+            "$or": [{
+                        "public_id": {
+                            "$regex": "^#{term}",
+                            "$options": "i"
+                        }
+                    }, {
+                        "applicant.last_name": {
+                            "$regex": term,
+                            "$options": "i"
+                        }
+                    }, {
+                        "assignment.last_name": {
+                            "$regex": term,
+                            "$options": "i"
+                        }
+                    }, {
+                        "requestor.reference_no": {
+                            "$regex": "^#{term}",
+                            "$options": "i"
+                        }
+                    }]
+        }
+      end
+
+      def status_query(status)
+        status.is_a?(Array) ? {"status": {"$in": status}} : {"status": status}
+      end
+
+      def assignment_query(assignment)
+        {"assignment.operator_id": assignment}
       end
     end
   end
