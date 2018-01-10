@@ -26,7 +26,7 @@ module FinApps
       def list(params=nil) # params hash with optional keys [:page, :sort, :requested]
         return super if params.nil?
         raise FinAppsCore::InvalidArgumentsError.new 'Invalid argument: params' unless params.is_a? Hash
-        super build_query_path(params)
+        super build_query_path(end_point, set_filter(params))
       end
 
       def update(id, params, path=nil)
@@ -51,17 +51,9 @@ module FinApps
 
       private
 
-      def build_query_path(params)
-        page = "page=#{params[:page]}" if params[:page]
-        requested = "requested=#{params[:requested]}" if params[:requested]
-        sort = "sort=#{ERB::Util.url_encode(params[:sort])}" if params[:sort]
-        filter = set_filter(params)
-        query_join(end_point, [page, requested, sort, filter])
-      end
-
       def set_filter(params)
-        filter = build_filter(params)
-        !filter.empty ? "&filter=#{ERB::Util.url_encode(filter.to_json)}" : nil
+        params[:filter] = build_filter(params)
+        params
       end
 
       def build_filter(params)
