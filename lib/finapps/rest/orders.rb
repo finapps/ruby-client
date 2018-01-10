@@ -56,7 +56,7 @@ module FinApps
         filter.merge!(search_query(params[:searchTerm])) if params[:searchTerm]
         filter.merge!(status_query(params[:status])) if params[:status]
         filter.merge!(assignment_query(params[:assignment])) if params.key?(:assignment) # assignment can be nil
-        filter.merge!(relation_query(params[:relation])) if params[:relation] && params[:relation].is_a?(Array)
+        filter.merge!(relation_query(params[:relation])) if !params[:searchTerm] && !nil_or_empty?(params[:relation])
         filter
       end
 
