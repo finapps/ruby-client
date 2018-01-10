@@ -105,6 +105,12 @@ RSpec.describe FinApps::REST::Orders do
               '%5D%7D%7D%5D%7D&page=2&requested=25&sort=status'
         expect(WebMock).to have_requested(:get, url)
       end
+      it 'builds null assignment query properly when supplied w/ empty string' do
+        FinApps::REST::Orders.new(client).list({assignment: ""})
+
+        url = "#{FinAppsCore::REST::Defaults::DEFAULTS[:host]}/v2/orders?filter=%7B%22assignment.operator_id%22:null%7D"
+        expect(WebMock).to have_requested(:get, url)
+      end
     end
   end
 

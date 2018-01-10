@@ -91,7 +91,7 @@ module FinApps
       end
 
       def assignment_query(assignment)
-        {"assignment.operator_id": assignment.empty? ? nil : assignment} # assignment can be ""
+        {"assignment.operator_id": assignment.empty? ? nil : assignment} # translate "" to null assignment
       end
 
       def relation_query(relation)
