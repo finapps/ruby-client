@@ -26,7 +26,7 @@ module FinApps
       def list(params=nil) # params hash with optional keys [:page, :sort, :requested]
         return super if params.nil?
         raise FinAppsCore::InvalidArgumentsError.new 'Invalid argument: params' unless params.is_a? Hash
-        super build_query_path(end_point, set_filter(params))
+        super build_query_path(end_point, params)
       end
 
       def update(id, params, path=nil)
