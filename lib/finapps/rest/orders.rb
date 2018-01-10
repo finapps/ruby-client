@@ -56,6 +56,7 @@ module FinApps
         filter.merge!(search_query(params[:searchTerm])) if params[:searchTerm]
         filter.merge!(status_query(params[:status])) if params[:status]
         filter.merge!(assignment_query(params[:assignment])) if params.key?(:assignment) # assignment can be nil
+        filter.merge!(relation_query(params[:relation])) if params[:relation] && params[:relation].is_a?(Array)
         filter
       end
 
@@ -91,6 +92,15 @@ module FinApps
 
       def assignment_query(assignment)
         {"assignment.operator_id": assignment}
+      end
+
+      def relation_query(relation)
+          {
+              "$or": [
+                  {"public_id": {"$in": relation}},
+                  {"original_order_id": {"$in": relation}}
+              ]
+          }
       end
     end
   end
