@@ -51,11 +51,6 @@ module FinApps
 
       private
 
-      def set_filter(params)
-        params[:filter] = build_filter(params)
-        params
-      end
-
       def build_filter(params)
         filter = {}
         filter.merge!(search_query(params[:searchTerm])) if params[:searchTerm]
