@@ -60,7 +60,7 @@ module FinApps
       end
 
       def search_query(term)
-        {"last_name": {"$regex": term, "$options": "i"}}
+        {"last_name": {"$regex": term, "$options": 'i'}}
       end
 
       def role_query(role)
