@@ -95,12 +95,12 @@ module FinApps
       end
 
       def relation_query(relation)
-          {
-              "$or": [
-                  {"public_id": {"$in": relation}},
-                  {"original_order_id": {"$in": relation}}
-              ]
-          }
+        {
+          "$or": [
+            {"public_id": {"$in": relation}},
+            {"original_order_id": {"$in": relation}}
+          ]
+        }
       end
     end
   end
