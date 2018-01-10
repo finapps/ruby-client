@@ -55,7 +55,7 @@ module FinApps
         filter = {}
         filter.merge!(search_query(params[:searchTerm])) if params[:searchTerm]
         filter.merge!(status_query(params[:status])) if params[:status]
-        filter.merge!(assignment_query(params[:assignment])) if params.key?(:assignment) # assignment can be nil
+        filter.merge!(assignment_query(params[:assignment])) if params[:assignment] # assignment can be ""
         filter.merge!(relation_query(params[:relation])) if !params[:searchTerm] && !nil_or_empty?(params[:relation])
         filter
       end
@@ -91,7 +91,7 @@ module FinApps
       end
 
       def assignment_query(assignment)
-        {"assignment.operator_id": assignment}
+        {"assignment.operator_id": assignment.empty? ? nil : assignment} # translate "" to null assignment
       end
 
       def relation_query(relation)
