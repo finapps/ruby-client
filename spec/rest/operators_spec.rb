@@ -7,16 +7,37 @@ RSpec.describe FinApps::REST::Operators, 'initialized with valid FinApps::Client
   subject(:operators) { FinApps::REST::Operators.new(client) }
 
   describe '#list' do
+    let(:list) { subject.list(params) }
+    let(:results) { list[0] }
+    let(:error_messages) { list[1] }
+
     context 'when missing params' do
-      # use defaults
-      let(:list) { subject.list }
-      let(:results) { list[0] }
-      let(:error_messages) { list[1] }
+      let(:params) { nil }
+      it { expect { list }.not_to raise_error }
+      it('performs a get and returns the response') { expect(results).to respond_to(:records) }
+      it('returns an array of records') { expect(results.records).to be_a(Array) }
+      it('returns no error messages') { expect(error_messages).to be_empty }
+    end
+
+    context 'when invalid params are provided' do
+      let(:params) { ['invalid array'] }
+
+      it { expect { list }.to raise_error(FinAppsCore::InvalidArgumentsError) }
+    end
+
+    context 'when including valid params' do
+      let(:params) { {page: 2, sort: 'date_created', requested: 25, searchTerm: 'term', role: 2} }
 
       it { expect { list }.not_to raise_error }
       it('performs a get and returns the response') { expect(results).to respond_to(:records) }
       it('returns an array of records') { expect(results.records).to be_a(Array) }
       it('returns no error messages') { expect(error_messages).to be_empty }
+      it 'builds query and sends proper request' do
+        list
+        url = "#{FinAppsCore::REST::Defaults::DEFAULTS[:host]}/v2/operators?filter=%7B%22last_name%22:%7B%22$regex" +
+            "%22:%22term%22,%22$options%22:%22i%22%7D,%22role%22:2%7D&page=2&requested=25&sort=date_created"
+        expect(WebMock).to have_requested(:get, url)
+      end
     end
   end
 

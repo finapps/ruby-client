@@ -76,7 +76,7 @@ RSpec.describe FinApps::REST::Orders do
 
     context 'when including valid params' do
       subject { FinApps::REST::Orders.new(client).list(params) }
-      let(:params) { {page: 2, sort: 'status', requested: 25, searchTerm: 'term', status: [1,7],
+      let(:params) { {page: 2, sort: 'status', requested: 25, searchTerm: 'term', status: ['1','7'],
                       assignment: 'valid_operator'} }
 
       it { expect { subject }.not_to raise_error }

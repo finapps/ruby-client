@@ -3,6 +3,11 @@
 module FinApps
   module Utils
     module QueryBuilder
+      def set_filter(params)
+        params[:filter] = build_filter(params)
+        params
+      end
+
       def build_query_path(root_url, params)
         page = "page=#{params[:page]}" if params[:page]
         requested = "requested=#{params[:requested]}" if params[:requested]

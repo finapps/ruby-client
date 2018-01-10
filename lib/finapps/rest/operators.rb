@@ -52,11 +52,6 @@ module FinApps
         params.key?(:password) && params[:password] && params.key?(:password_confirm) && params[:password_confirm]
       end
 
-      def set_filter(params)
-        params[:filter] = build_filter(params)
-        params
-      end
-
       def build_filter(params)
         filter = {}
         filter.merge!(search_query(params[:searchTerm])) if params[:searchTerm]
@@ -69,7 +64,7 @@ module FinApps
       end
 
       def role_query(role)
-        role.is_a?(Array) ? {"role": {"$in": role}} : {"role": role}
+        role.is_a?(Array) ? {"role": {"$in": role.map(&:to_i)}} : {"role": role.to_i}
       end
     end
   end
