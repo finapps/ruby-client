@@ -48,6 +48,50 @@ module FinApps
         path = "#{end_point}/#{ERB::Util.url_encode(id)}/cancel"
         update nil, nil, path
       end
+
+      private
+
+      def build_filter(params)
+        filter = {}
+        filter.merge!(search_query(params[:searchTerm])) if params[:searchTerm]
+        filter.merge!(status_query(params[:status])) if params[:status]
+        filter.merge!(assignment_query(params[:assignment])) if params.key?(:assignment) # assignment can be nil
+        filter
+      end
+
+      def search_query(term)
+        {
+          "$or": [{
+            "public_id": {
+              "$regex": "^#{term}",
+              "$options": 'i'
+            }
+          }, {
+            "applicant.last_name": {
+              "$regex": term,
+              "$options": 'i'
+            }
+          }, {
+            "assignment.last_name": {
+              "$regex": term,
+              "$options": 'i'
+            }
+          }, {
+            "requestor.reference_no": {
+              "$regex": "^#{term}",
+              "$options": 'i'
+            }
+          }]
+        }
+      end
+
+      def status_query(status)
+        status.is_a?(Array) ? {"status": {"$in": status.map(&:to_i)}} : {"status": status.to_i}
+      end
+
+      def assignment_query(assignment)
+        {"assignment.operator_id": assignment}
+      end
     end
   end
 end
