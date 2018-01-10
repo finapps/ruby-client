@@ -91,7 +91,7 @@ module FinApps
       end
 
       def status_query(status)
-        status.is_a?(Array) ? {"status": {"$in": status}} : {"status": status}
+        status.is_a?(Array) ? {"status": {"$in": status.map(&:to_i)}} : {"status": status.to_i}
       end
 
       def assignment_query(assignment)
