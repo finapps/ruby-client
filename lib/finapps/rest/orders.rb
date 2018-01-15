@@ -63,10 +63,10 @@ module FinApps
       def search_query(term)
         {
           "$or": [
-              {"public_id": term},
-              {"applicant.last_name": term},
-              {"assignment.last_name": term},
-              {"requestor.reference_no": term}
+            {"public_id": term},
+            {"applicant.last_name": term},
+            {"assignment.last_name": term},
+            {"requestor.reference_no": term}
           ]
         }
       end
