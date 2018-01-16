@@ -51,6 +51,21 @@ module FinApps
       def validates(params)
         params.key?(:password) && params[:password] && params.key?(:password_confirm) && params[:password_confirm]
       end
+
+      def build_filter(params)
+        filter = {}
+        filter.merge!(search_query(params[:searchTerm])) if params[:searchTerm]
+        filter.merge!(role_query(params[:role])) if params[:role]
+        filter
+      end
+
+      def search_query(term)
+        {"last_name": {"$regex": term, "$options": 'i'}}
+      end
+
+      def role_query(role)
+        role.is_a?(Array) ? {"role": {"$in": role.map(&:to_i)}} : {"role": role.to_i}
+      end
     end
   end
 end
