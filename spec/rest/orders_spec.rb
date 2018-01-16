@@ -88,10 +88,11 @@ RSpec.describe FinApps::REST::Orders do
       it('returns no error messages') { expect(subject[ERROR_MESSAGES]).to be_empty }
       it 'builds query and sends proper request' do
         subject
-        url = "#{FinAppsCore::REST::Defaults::DEFAULTS[:host]}/v3/orders?filter=%7B%22$or%22:%5B%7B%22public_id%22" \
-              ':%22term%22%7D,%7B%22applicant.last_name%22:%22term%22%7D,%7B%22assignment.last_name%22:%22term%22%7D' \
-              ',%7B%22requestor.reference_no%22:%22term%22%7D%5D,%22status%22:%7B%22$in%22:%5B1,7%5D%7D,%22' \
-              'assignment.operator_id%22:%22valid_operator%22%7D&page=2&requested=25&sort=status'
+        url = "#{FinAppsCore::REST::Defaults::DEFAULTS[:host]}/v3/orders?filter=%7B%22$or%22:%5B%7B%22public_id%22:"  \
+              '%7B%22$regex%22:%22%5Eterm%22,%22$options%22:%22i%22%7D%7D,%7B%22applicant.last_name%22:%22term%22%7D' \
+              ',%7B%22assignment.last_name%22:%22term%22%7D,%7B%22requestor.reference_no%22:%7B%22$regex%22:%22%5E' \
+              'term%22,%22$options%22:%22i%22%7D%7D%5D,%22status%22:%7B%22$in%22:%5B1,7%5D%7D,%22assignment.' \
+              'operator_id%22:%22valid_operator%22%7D&page=2&requested=25&sort=status'
         expect(WebMock).to have_requested(:get, url)
       end
       it 'builds query and sends proper request with searchTerm/relation exclusivity' do
