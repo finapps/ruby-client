@@ -17,7 +17,7 @@ module FinApps
         super params
       end
 
-      # GET /v2/list/orders?page=1&requested=25&sort=-date
+      # GET /v3/list/orders?page=1&requested=25&sort=-date
       # :page - page number requested
       # :requested - number of results per page requested
       # :sort - sort order
