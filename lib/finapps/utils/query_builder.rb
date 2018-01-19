@@ -5,8 +5,8 @@ module FinApps
     module QueryBuilder
       def build_query_path(root_url, params)
         filter_obj = build_filter(params)
-        page = "page=#{params[:page]}" if params[:page]
-        requested = "requested=#{params[:requested]}" if params[:requested]
+        page = "page=#{params[:page].to_i}" if params[:page]
+        requested = "requested=#{params[:requested].to_i}" if params[:requested]
         sort = "sort=#{ERB::Util.url_encode(params[:sort])}" if params[:sort]
         filter = "filter=#{ERB::Util.url_encode(filter_obj.to_json)}" if filter_obj && !filter_obj.empty?
         query_join(root_url, [page, requested, sort, filter])
