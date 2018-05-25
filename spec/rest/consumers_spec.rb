@@ -6,6 +6,17 @@ RSpec.describe FinApps::REST::Consumers, 'initialized with valid FinApps::Client
   subject(:users) { FinApps::REST::Consumers.new(client) }
   missing_public_id = 'Missing argument: public_id'
 
+  describe '#create' do
+    let(:results) { create[0] }
+    let(:error_messages) { create[1] }
+
+    context 'when missing params' do
+      it { expect { subject.create(nil) }.to raise_error(FinAppsCore::MissingArgumentsError) }
+    end
+
+  #   continue here, add session logout specs as well
+  end
+
   describe '#show' do
     context 'when missing public_id' do
       it { expect { subject.show(nil) }.to raise_error(FinAppsCore::MissingArgumentsError, missing_public_id) }
