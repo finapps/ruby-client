@@ -77,6 +77,15 @@ class FakeApi < Sinatra::Base
   # consumers
   get('/v3/consumers/valid_public_id') { json_response 200, 'user.json' }
   get('/v3/consumers/invalid_public_id') { json_response 404, 'resource_not_found.json' }
+  post('/v3/consumers') do
+    request.body.rewind
+    request_payload = JSON.parse request.body.read
+    if request_payload['password']
+      json_response 201, 'user.json'
+    else
+      json_response 400, 'invalid_request_body.json'
+    end
+  end
   put('/v3/consumers/valid_public_id') { status 204 }
   put('/v3/consumers/invalid_public_id') { json_response 400, 'invalid_user_id.json' }
   put('/v3/consumers/valid_public_id/password') { json_response 200, 'user.json' }
