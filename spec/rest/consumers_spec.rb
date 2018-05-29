@@ -15,7 +15,7 @@ RSpec.describe FinApps::REST::Consumers, 'initialized with valid FinApps::Client
     end
 
     context 'for valid params' do
-      let(:create) { subject.create({email: 'email', password: 'password'}) }
+      let(:create) { subject.create(email: 'email', password: 'password') }
 
       it { expect { create }.not_to raise_error }
       it('results is a Hashie::Rash') { expect(results).to be_a(Hashie::Mash::Rash) }
@@ -24,7 +24,7 @@ RSpec.describe FinApps::REST::Consumers, 'initialized with valid FinApps::Client
     end
 
     context 'for invalid params' do
-      let(:create) { subject.create({email: 'email'}) }
+      let(:create) { subject.create(email: 'email') }
 
       it { expect { create }.not_to raise_error }
       it('results is nil') { expect(results).to be_nil }
