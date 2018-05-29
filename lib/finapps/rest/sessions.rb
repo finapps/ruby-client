@@ -3,13 +3,18 @@
 module FinApps
   module REST
     class Sessions < FinAppsCore::REST::Resources # :nodoc:
-      # @param [Hash] params
-      # @return [Array<String>]
+      LOGOUT = 'logout'
+
       def create(params, path=nil)
+        return super nil, path if path == LOGOUT
         raise FinAppsCore::InvalidArgumentsError.new 'Invalid argument: params.' unless validates params
         path ||= 'login'
 
         super params, path
+      end
+
+      def destroy
+        create nil, LOGOUT
       end
 
       private

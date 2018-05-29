@@ -4,9 +4,9 @@ require 'spec_helpers/client'
 
 RSpec.describe FinApps::REST::Sessions, 'initialized with valid FinApps::Client object' do
   include SpecHelpers::Client
+  subject { FinApps::REST::Sessions.new(client) }
 
   describe '#create' do
-    subject { FinApps::REST::Sessions.new(client) }
     let(:create) { subject.create(credentials) }
     let(:results) { create[0] }
     let(:error_messages) { create[1] }
@@ -49,5 +49,15 @@ RSpec.describe FinApps::REST::Sessions, 'initialized with valid FinApps::Client 
       it('returns operator for operator path') { expect(results).to respond_to(:role) }
       it('error_messages is empty') { expect(error_messages).to be_empty }
     end
+  end
+
+  describe '#destroy' do
+    let(:destroy) { subject.destroy }
+    let(:results) { destroy[0] }
+    let(:error_messages) { destroy[1] }
+
+    it { expect { destroy }.not_to raise_error }
+    it('results is nil') { expect(results).to be_nil }
+    it('error_messages array is empty') { expect(error_messages).to eq([]) }
   end
 end

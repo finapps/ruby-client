@@ -5,6 +5,11 @@ module FinApps
     class Consumers < FinAppsCore::REST::Resources # :nodoc:
       # @param [String] public_id
       # @return [FinApps::REST::User, Array<String>]
+      def create(params)
+        not_blank(params, :params)
+        super params
+      end
+
       def show(public_id)
         not_blank(public_id, :public_id)
         super public_id
