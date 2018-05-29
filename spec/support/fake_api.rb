@@ -92,6 +92,7 @@ class FakeApi < Sinatra::Base
   put('/v3/consumers/invalid_public_id/password') { json_response 404, 'resource_not_found.json' }
   delete('/v3/consumers/valid_public_id') { status 204 }
   delete('/v3/consumers/invalid_public_id') { json_response 404, 'resource_not_found.json' }
+  post('/v3/logout') { status 204 }
 
   # accounts
   get('/v3/accounts/valid_id/statement/valid_id') { json_response 200, 'fake_pdf_statement.json' }
