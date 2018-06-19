@@ -1,0 +1,7 @@
+{
+  "product": "mav-o-en",
+  "process_days": 90,
+  "webhook": "",
+  "pdf_statements": true,
+  "statements": 3
+}
