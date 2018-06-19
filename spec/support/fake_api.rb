@@ -14,6 +14,18 @@ class FakeApi < Sinatra::Base
   # version
   get('/v3/version') { 'Version => 2.1.29-.20161208.172810' }
 
+  # tenants
+  get('/v3/settings/app') { json_response 200, 'tenant_settings.json' }
+  put('/v3/settings/app') do
+    request.body.rewind
+    request_payload = JSON.parse request.body.read
+    if request_payload['product'] == 'valid'
+      status 204
+    else
+      json_response 401, 'resource_not_found.json'
+    end
+  end
+
   # orders
   post('/v3/orders/valid_token') { json_response 200, 'order_token.json' }
   post('/v3/orders/invalid_token') { json_response 404, 'resource_not_found.json' }
