@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helpers/client'
 
 RSpec.describe FinApps::REST::TenantSettings do
@@ -27,7 +29,7 @@ RSpec.describe FinApps::REST::TenantSettings do
 
       it { expect { update }.not_to raise_error }
       it('performs put and returns no content') { expect(update[RESULTS]).to be_nil }
-      it('error_messages array is empty') { expect(update[ERROR_MESSAGES]).to be_empty}
+      it('error_messages array is empty') { expect(update[ERROR_MESSAGES]).to be_empty }
     end
 
     context 'when invalid params are provided' do
@@ -35,7 +37,7 @@ RSpec.describe FinApps::REST::TenantSettings do
 
       it { expect { update }.not_to raise_error }
       it('results is nil') { expect(update[RESULTS]).to be_nil }
-      it('error_messages array is populated') { expect(update[ERROR_MESSAGES]).not_to be_empty}
+      it('error_messages array is populated') { expect(update[ERROR_MESSAGES]).not_to be_empty }
     end
   end
 end

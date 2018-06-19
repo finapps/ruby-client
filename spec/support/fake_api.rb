@@ -15,7 +15,7 @@ class FakeApi < Sinatra::Base
   get('/v3/version') { 'Version => 2.1.29-.20161208.172810' }
 
   # tenants
-  get('/v3/settings/app') { json_response 200, 'tenant_settings.json'}
+  get('/v3/settings/app') { json_response 200, 'tenant_settings.json' }
   put('/v3/settings/app') do
     request.body.rewind
     request_payload = JSON.parse request.body.read
