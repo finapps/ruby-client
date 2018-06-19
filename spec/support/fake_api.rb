@@ -16,7 +16,15 @@ class FakeApi < Sinatra::Base
 
   # tenants
   get('/v3/settings/app') { json_response 200, 'tenant_settings.json'}
-  put('/v3/settings/app') { status 204 }
+  put('/v3/settings/app') do
+    request.body.rewind
+    request_payload = JSON.parse request.body.read
+    if request_payload['product'] == 'valid'
+      status 204
+    else
+      json_response 401, 'resource_not_found.json'
+    end
+  end
 
   # orders
   post('/v3/orders/valid_token') { json_response 200, 'order_token.json' }

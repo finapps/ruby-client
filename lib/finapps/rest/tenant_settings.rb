@@ -8,6 +8,7 @@ module FinApps
       end
 
       def update(params)
+        not_blank params, :params
         super params, END_POINT
       end
     end
