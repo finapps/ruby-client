@@ -19,10 +19,10 @@ class FakeApi < Sinatra::Base
   put('/v3/settings/tenant') do
     request.body.rewind
     request_payload = JSON.parse request.body.read
-    unless request_payload['bad_params']
-      status 204
-    else
+    if request_payload['bad_params']
       json_response 401, 'resource_not_found.json'
+    else
+      status 204
     end
   end
   get('/v3/settings/app') { json_response 200, 'tenant_app_settings.json' }
