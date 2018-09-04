@@ -11,7 +11,7 @@ RSpec.describe FinApps::REST::TenantSettings do
 
     it { expect { show }.not_to raise_error }
     it('performs a get and returns the response') do
-      expect(show[RESULTS]).to respond_to(:product)
+      expect(show[RESULTS]).to respond_to(:iav_default_product)
     end
     it('returns no error messages') { expect(show[ERROR_MESSAGES]).to be_empty }
   end
@@ -25,7 +25,7 @@ RSpec.describe FinApps::REST::TenantSettings do
     end
 
     context 'when valid params are provided' do
-      let(:params) { {product: 'valid'} }
+      let(:params) { {iav_default_product: 'valid'} }
 
       it { expect { update }.not_to raise_error }
       it('performs put and returns no content') { expect(update[RESULTS]).to be_nil }
@@ -33,7 +33,7 @@ RSpec.describe FinApps::REST::TenantSettings do
     end
 
     context 'when invalid params are provided' do
-      let(:params) { {product: nil} }
+      let(:params) { {bad_params: true} }
 
       it { expect { update }.not_to raise_error }
       it('results is nil') { expect(update[RESULTS]).to be_nil }

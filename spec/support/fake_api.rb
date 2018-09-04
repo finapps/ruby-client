@@ -15,6 +15,16 @@ class FakeApi < Sinatra::Base
   get('/v3/version') { 'Version => 2.1.29-.20161208.172810' }
 
   # tenants
+  get('/v3/settings/tenant') { json_response 200, 'tenant_settings.json' }
+  put('/v3/settings/tenant') do
+    request.body.rewind
+    request_payload = JSON.parse request.body.read
+    unless request_payload['bad_params']
+      status 204
+    else
+      json_response 401, 'resource_not_found.json'
+    end
+  end
   get('/v3/settings/app') { json_response 200, 'tenant_app_settings.json' }
   put('/v3/settings/app') do
     request.body.rewind
