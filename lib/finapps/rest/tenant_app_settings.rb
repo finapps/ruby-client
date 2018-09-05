@@ -2,8 +2,8 @@
 
 module FinApps
   module REST
-    class TenantSettings < FinAppsCore::REST::Resources
-      END_POINT = 'settings/tenant'
+    class TenantAppSettings < FinAppsCore::REST::Resources
+      END_POINT = 'settings/app'
 
       def show
         super nil, END_POINT
