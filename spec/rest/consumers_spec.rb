@@ -6,6 +6,32 @@ RSpec.describe FinApps::REST::Consumers, 'initialized with valid FinApps::Client
   subject(:users) { FinApps::REST::Consumers.new(client) }
   missing_public_id = 'Missing argument: public_id'
 
+  describe '#create' do
+    let(:results) { create[0] }
+    let(:error_messages) { create[1] }
+
+    context 'when missing params' do
+      it { expect { subject.create(nil) }.to raise_error(FinAppsCore::MissingArgumentsError) }
+    end
+
+    context 'for valid params' do
+      let(:create) { subject.create(email: 'email', password: 'password') }
+
+      it { expect { create }.not_to raise_error }
+      it('results is a Hashie::Rash') { expect(results).to be_a(Hashie::Mash::Rash) }
+      it('performs a post and returns the response') { expect(results).to respond_to(:public_id) }
+      it('error_messages array is empty') { expect(error_messages).to eq([]) }
+    end
+
+    context 'for invalid params' do
+      let(:create) { subject.create(email: 'email') }
+
+      it { expect { create }.not_to raise_error }
+      it('results is nil') { expect(results).to be_nil }
+      it('error messages array is populated') { expect(error_messages.first.downcase).to eq('invalid request body') }
+    end
+  end
+
   describe '#show' do
     context 'when missing public_id' do
       it { expect { subject.show(nil) }.to raise_error(FinAppsCore::MissingArgumentsError, missing_public_id) }

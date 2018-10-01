@@ -102,6 +102,14 @@ RSpec.describe FinApps::REST::Client do
       it { expect(subject.statements).to be_an_instance_of(FinApps::REST::Statements) }
     end
 
+    describe '#tenant_settings' do
+      it { expect(subject.tenant_settings).to be_an_instance_of(FinApps::REST::TenantSettings) }
+    end
+
+    describe '#tenant_app_settings' do
+      it { expect(subject.tenant_app_settings).to be_an_instance_of(FinApps::REST::TenantAppSettings) }
+    end
+
     FinApps::REST::Client::RESOURCES.each do |method|
       it "memoizes the result of #{method}" do
         first = subject.send(method)

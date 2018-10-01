@@ -14,6 +14,28 @@ class FakeApi < Sinatra::Base
   # version
   get('/v3/version') { 'Version => 2.1.29-.20161208.172810' }
 
+  # tenants
+  get('/v3/settings/tenant') { json_response 200, 'tenant_settings.json' }
+  put('/v3/settings/tenant') do
+    request.body.rewind
+    request_payload = JSON.parse request.body.read
+    if request_payload['bad_params']
+      json_response 401, 'resource_not_found.json'
+    else
+      status 204
+    end
+  end
+  get('/v3/settings/app') { json_response 200, 'tenant_app_settings.json' }
+  put('/v3/settings/app') do
+    request.body.rewind
+    request_payload = JSON.parse request.body.read
+    if request_payload['pdf_statement_months']
+      status 204
+    else
+      json_response 401, 'resource_not_found.json'
+    end
+  end
+
   # orders
   post('/v3/orders/valid_token') { json_response 200, 'order_token.json' }
   post('/v3/orders/invalid_token') { json_response 404, 'resource_not_found.json' }
@@ -77,12 +99,22 @@ class FakeApi < Sinatra::Base
   # consumers
   get('/v3/consumers/valid_public_id') { json_response 200, 'user.json' }
   get('/v3/consumers/invalid_public_id') { json_response 404, 'resource_not_found.json' }
+  post('/v3/consumers') do
+    request.body.rewind
+    request_payload = JSON.parse request.body.read
+    if request_payload['password']
+      json_response 201, 'user.json'
+    else
+      json_response 400, 'invalid_request_body.json'
+    end
+  end
   put('/v3/consumers/valid_public_id') { status 204 }
   put('/v3/consumers/invalid_public_id') { json_response 400, 'invalid_user_id.json' }
   put('/v3/consumers/valid_public_id/password') { json_response 200, 'user.json' }
   put('/v3/consumers/invalid_public_id/password') { json_response 404, 'resource_not_found.json' }
   delete('/v3/consumers/valid_public_id') { status 204 }
   delete('/v3/consumers/invalid_public_id') { json_response 404, 'resource_not_found.json' }
+  post('/v3/logout') { status 204 }
 
   # accounts
   get('/v3/accounts/valid_id/statement/valid_id') { json_response 200, 'fake_pdf_statement.json' }
