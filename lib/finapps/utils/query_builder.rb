@@ -8,7 +8,7 @@ module FinApps
         page = "page=#{params[:page].to_i}" if params[:page]
         requested = "requested=#{params[:requested].to_i}" if params[:requested]
         sort = "sort=#{ERB::Util.url_encode(params[:sort])}" if params[:sort]
-        filter = "filter=#{ERB::Util.url_encode(filter_obj.to_json)}" if filter_obj && !filter_obj.empty?
+        filter = "filter=#{ERB::Util.url_encode(filter_obj.to_json)}" unless filter_obj.empty?
         query_join(root_url, [page, requested, sort, filter])
       end
 
