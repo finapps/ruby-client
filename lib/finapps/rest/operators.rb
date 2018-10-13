@@ -7,9 +7,10 @@ module FinApps
     class Operators < FinAppsCore::REST::Resources
       include FinApps::Utils::QueryBuilder
 
-      def list(params=nil)
+      def list(params = nil)
         return super if params.nil?
-        raise FinAppsCore::InvalidArgumentsError.new 'Invalid argument: params' unless params.is_a? Hash
+        raise FinAppsCore::InvalidArgumentsError, 'Invalid argument: params' unless params.is_a? Hash
+
         super build_query_path(end_point, params)
       end
 
@@ -19,7 +20,7 @@ module FinApps
         super id
       end
 
-      def create(params, path=nil)
+      def create(params, path = nil)
         not_blank(params, :params)
         super params, path
       end
@@ -35,7 +36,8 @@ module FinApps
       def update_password(params)
         # update password for current operator, need authorization session in header
         not_blank(params, :params)
-        raise FinAppsCore::InvalidArgumentsError.new 'Invalid argument: params.' unless validates params
+        raise FinAppsCore::InvalidArgumentsError, 'Invalid argument: params.' unless validates params
+
         path = "#{end_point}/password/change"
 
         create params, path
@@ -60,11 +62,11 @@ module FinApps
       end
 
       def search_query(term)
-        {"last_name": term}
+        { "last_name": term }
       end
 
       def role_query(role)
-        role.is_a?(Array) ? {"role": {"$in": role.map(&:to_i)}} : {"role": role.to_i}
+        role.is_a?(Array) ? { "role": { "$in": role.map(&:to_i) } } : { "role": role.to_i }
       end
     end
   end
