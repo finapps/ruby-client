@@ -3,7 +3,7 @@
 module FinApps
   module REST
     class OperatorsPasswordResets < FinAppsCore::REST::Resources
-      def create(params, path=nil)
+      def create(params, path = nil)
         not_blank(params, :params)
         validates_email(params) if path.nil?
 
@@ -22,9 +22,11 @@ module FinApps
       private
 
       def validates_email(params)
-        unless params.key?(:email) && params[:email]
-          raise FinAppsCore::InvalidArgumentsError.new 'Invalid argument: params.'
-        end
+        raise FinAppsCore::InvalidArgumentsError, 'Invalid argument: params.' unless email_exists? params
+      end
+
+      def email_exists?(params)
+        params.key?(:email) && params[:email]
       end
     end
   end
