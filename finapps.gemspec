@@ -20,7 +20,7 @@ Gem::Specification.new do |spec|
   spec.test_files = Dir['spec/**/*.rb']
   spec.require_paths = ['lib']
 
-  spec.add_runtime_dependency     'finapps_core',               '~> 4.0',   '>= 4.0.0'
+  spec.add_runtime_dependency     'finapps_core',               '~> 4.0',   '>= 4.0.4'
 
   spec.add_development_dependency 'bundler',                    '~> 1.16',  '>= 1.16.6'
   spec.add_development_dependency 'codeclimate-test-reporter',  '~> 1.0',   '>= 1.0.9'
@@ -28,6 +28,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rake',                       '~> 12.3',  '>= 12.3.1'
   spec.add_development_dependency 'rspec',                      '~> 3.8',   '>= 3.8.0'
   spec.add_development_dependency 'rubocop',                    '~> 0.59',  '>= 0.59.2'
+  spec.add_development_dependency 'rubocop-rspec',              '~> 1.30',  '>= 1.30.0'
   spec.add_development_dependency 'sinatra',                    '~> 2.0',   '>= 2.0.4'
   spec.add_development_dependency 'webmock',                    '~> 3.4',   '>= 3.4.2'
 
