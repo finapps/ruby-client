@@ -2,11 +2,8 @@
 
 require 'faraday'
 require 'faraday_middleware'
-require 'typhoeus'
-require 'typhoeus/adapters/faraday'
 
 require 'finapps_core'
-
 require 'finapps/rest/version'
 require 'finapps/rest/consumers'
 require 'finapps/rest/consumer_institution_refreshes'

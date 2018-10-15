@@ -4,7 +4,7 @@ require 'spec_helpers/client'
 RSpec.describe FinApps::REST::Consumers, 'initialized with valid FinApps::Client object' do
   include SpecHelpers::Client
   subject(:users) { FinApps::REST::Consumers.new(client) }
-  missing_public_id = 'Missing argument: public_id'
+  missing_public_id = ': public_id'
 
   describe '#create' do
     let(:results) { create[0] }
