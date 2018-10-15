@@ -24,7 +24,7 @@ RSpec.describe FinApps::REST::Sessions, 'initialized with valid FinApps::Client 
     end
 
     context 'for invalid credentials' do
-      let(:credentials) { {email: 'email@domain.com', password: 'invalid_password'} }
+      let(:credentials) { { email: 'email@domain.com', password: 'invalid_password' } }
 
       it { expect { create }.not_to raise_error }
       it('results is nil') { expect(results).to be_nil }
@@ -33,7 +33,7 @@ RSpec.describe FinApps::REST::Sessions, 'initialized with valid FinApps::Client 
     end
 
     context 'for valid credentials' do
-      let(:credentials) { {email: 'email@domain.com', password: 'valid_password'} }
+      let(:credentials) { { email: 'email@domain.com', password: 'valid_password' } }
 
       it('results is a Hashie::Rash') { expect(results).to be_a(Hashie::Mash::Rash) }
       it('token value is in the result') { expect(results).to respond_to(:token) }
@@ -42,7 +42,7 @@ RSpec.describe FinApps::REST::Sessions, 'initialized with valid FinApps::Client 
 
     context 'for valid credentials & path argument' do
       let(:create) { subject.create(credentials, 'operators/login') }
-      let(:credentials) { {email: 'email@domain.com', password: 'valid_password'} }
+      let(:credentials) { { email: 'email@domain.com', password: 'valid_password' } }
 
       it('results is a Hashie::Rash') { expect(results).to be_a(Hashie::Mash::Rash) }
       it('token value is in the result') { expect(results).to respond_to(:token) }

@@ -1,7 +1,6 @@
-# coding: utf-8
 # frozen_string_literal: true
 
-lib = File.expand_path('../lib', __FILE__)
+lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'finapps/version'
 Gem::Specification.new do |spec|
@@ -32,6 +31,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'sinatra',                    '~> 2.0',   '>= 2.0.4'
   spec.add_development_dependency 'webmock',                    '~> 3.4',   '>= 3.4.2'
 
-  spec.extra_rdoc_files = %w(README.md LICENSE.txt)
-  spec.rdoc_options = %w(--line-numbers --inline-source --title finapps-ruby --main README.md)
+  spec.extra_rdoc_files = %w[README.md LICENSE.txt]
+  spec.rdoc_options = %w[--line-numbers --inline-source --title finapps-ruby --main README.md]
 end
