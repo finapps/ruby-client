@@ -25,7 +25,7 @@ RSpec.describe FinApps::REST::TenantAppSettings do
     end
 
     context 'when valid params are provided' do
-      let(:params) { {pdf_statement_months: 2} }
+      let(:params) { { pdf_statement_months: 2 } }
 
       it { expect { update }.not_to raise_error }
       it('performs put and returns no content') { expect(update[RESULTS]).to be_nil }
@@ -33,7 +33,7 @@ RSpec.describe FinApps::REST::TenantAppSettings do
     end
 
     context 'when invalid params are provided' do
-      let(:params) { {pdf_statement_months: nil} }
+      let(:params) { { pdf_statement_months: nil } }
 
       it { expect { update }.not_to raise_error }
       it('results is nil') { expect(update[RESULTS]).to be_nil }

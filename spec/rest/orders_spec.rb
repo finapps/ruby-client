@@ -32,7 +32,7 @@ RSpec.describe FinApps::REST::Orders do
 
     context 'when valid params are provided' do
       subject { FinApps::REST::Orders.new(client).create(valid_params) }
-      let(:valid_params) { {applicant: 'valid', institutions: 'valid', product: 'valid'} }
+      let(:valid_params) { { applicant: 'valid', institutions: 'valid', product: 'valid' } }
 
       it { expect { subject }.not_to raise_error }
       it('returns an array') { expect(subject).to be_a(Array) }
@@ -45,7 +45,7 @@ RSpec.describe FinApps::REST::Orders do
 
     context 'when invalid params are provided' do
       subject { FinApps::REST::Orders.new(client).create(invalid_params) }
-      let(:invalid_params) { {applicant: 'valid'} }
+      let(:invalid_params) { { applicant: 'valid' } }
 
       it { expect { subject }.not_to raise_error }
       it('results is nil') { expect(subject[RESULTS]).to be_nil }
@@ -69,7 +69,7 @@ RSpec.describe FinApps::REST::Orders do
 
     context 'when invalid params are provided' do
       subject { FinApps::REST::Orders.new(client).list(invalid_params) }
-      let(:invalid_params) { %w(this is an array) }
+      let(:invalid_params) { %w[this is an array] }
 
       it { expect { subject }.to raise_error(FinAppsCore::InvalidArgumentsError) }
     end
@@ -77,8 +77,8 @@ RSpec.describe FinApps::REST::Orders do
     context 'when including valid params' do
       subject { FinApps::REST::Orders.new(client).list(params) }
       let(:params) do
-        {page: 2, sort: 'status', requested: 25, searchTerm: 'term', status: %w(1 7),
-         assignment: 'valid_operator', relation: ['valid_order_id']}
+        { page: 2, sort: 'status', requested: 25, searchTerm: 'term', status: %w[1 7],
+          assignment: 'valid_operator', relation: ['valid_order_id'] }
       end
 
       it { expect { subject }.not_to raise_error }

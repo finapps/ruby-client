@@ -5,9 +5,10 @@ module FinApps
     class Sessions < FinAppsCore::REST::Resources # :nodoc:
       LOGOUT = 'logout'
 
-      def create(params, path=nil)
+      def create(params, path = nil)
         return super nil, path if path == LOGOUT
-        raise FinAppsCore::InvalidArgumentsError.new 'Invalid argument: params.' unless validates params
+        raise FinAppsCore::InvalidArgumentsError, 'Invalid argument: params.' unless validates params
+
         path ||= 'login'
 
         begin
