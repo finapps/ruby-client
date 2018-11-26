@@ -10,7 +10,11 @@ module FinApps
         raise FinAppsCore::InvalidArgumentsError.new 'Invalid argument: params.' unless validates params
         path ||= 'login'
 
-        super params, path
+        begin
+          super params, path
+        rescue FinAppsCore::ApiUnauthenticatedError
+          return [nil, ["Invalid User Identifier or Credentials"]]
+        end
       end
 
       def destroy
