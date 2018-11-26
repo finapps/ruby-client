@@ -3,6 +3,7 @@
 module FinApps
   module REST
     class Sessions < FinAppsCore::REST::Resources # :nodoc:
+      LOGIN = 'login'
       LOGOUT = 'logout'
 
       def create(params, path=nil)
@@ -13,7 +14,7 @@ module FinApps
         begin
           super params, path
         rescue FinAppsCore::ApiUnauthenticatedError
-          return [nil, ['Invalid User Identifier or Credentials']]
+          return [nil, ["Invalid #{path == LOGIN ? 'Consumer' : 'Operator'} Identifier or Credentials"]]
         end
       end
 
