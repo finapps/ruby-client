@@ -3,15 +3,20 @@
 module FinApps
   module REST
     class Sessions < FinAppsCore::REST::Resources # :nodoc:
+      CONSUMER_LOGIN = 'login'
       LOGOUT = 'logout'
 
       def create(params, path = nil)
         return super nil, path if path == LOGOUT
         raise FinAppsCore::InvalidArgumentsError, 'Invalid argument: params.' unless validates params
 
-        path ||= 'login'
+        path ||= CONSUMER_LOGIN
 
-        super params, path
+        begin
+          super params, path
+        rescue FinAppsCore::ApiUnauthenticatedError
+          return [nil, ["Invalid #{path == CONSUMER_LOGIN ? 'Consumer' : 'Operator'} Identifier or Credentials"]]
+        end
       end
 
       def destroy

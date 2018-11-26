@@ -28,7 +28,7 @@ RSpec.describe FinApps::REST::Sessions, 'initialized with valid FinApps::Client 
 
       it { expect { create }.not_to raise_error }
       it('results is nil') { expect(results).to be_nil }
-      error_message = 'Invalid User Identifier or Credentials'
+      error_message = 'Invalid Consumer Identifier or Credentials'
       it('error_messages are populated') { expect(error_messages.first).to eq(error_message) }
     end
 

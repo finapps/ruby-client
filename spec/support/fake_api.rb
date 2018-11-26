@@ -20,7 +20,7 @@ class FakeApi < Sinatra::Base
     request.body.rewind
     request_payload = JSON.parse request.body.read
     if request_payload['bad_params']
-      json_response 401, 'resource_not_found.json'
+      json_response 404, 'resource_not_found.json'
     else
       status 204
     end
@@ -32,7 +32,7 @@ class FakeApi < Sinatra::Base
     if request_payload['pdf_statement_months']
       status 204
     else
-      json_response 401, 'resource_not_found.json'
+      json_response 404, 'resource_not_found.json'
     end
   end
 
