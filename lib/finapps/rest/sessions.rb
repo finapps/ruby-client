@@ -13,7 +13,7 @@ module FinApps
         begin
           super params, path
         rescue FinAppsCore::ApiUnauthenticatedError
-          return [nil, ["Invalid User Identifier or Credentials"]]
+          return [nil, ['Invalid User Identifier or Credentials']]
         end
       end
 
