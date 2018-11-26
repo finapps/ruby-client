@@ -6,7 +6,7 @@ require_relative './version'
 module FinApps
   module REST
     class Client < FinAppsCore::REST::BaseClient # :nodoc:
-      RESOURCES = %i(
+      RESOURCES = %i[
         institutions
         institutions_forms
         orders
@@ -30,12 +30,12 @@ module FinApps
         user_institutions_forms
         user_institutions_statuses
         version
-      ).freeze
+      ].freeze
 
       # @param [String] tenant_token
       # @param [Hash] options
       # @return [FinApps::REST::Client]
-      def initialize(tenant_token, options={}, logger=nil)
+      def initialize(tenant_token, options = {}, logger = nil)
         not_blank(tenant_token, :tenant_token)
 
         merged_options = options.merge(tenant_token: tenant_token)
@@ -56,7 +56,7 @@ module FinApps
         end
       end
 
-      def respond_to_missing?(method_sym, include_private=false)
+      def respond_to_missing?(method_sym, include_private = false)
         RESOURCES.include?(method_sym) ? true : super
       end
 
@@ -65,7 +65,7 @@ module FinApps
       def camelize(term)
         string = term.to_s
         string = string.sub(/^[a-z\d]*/) { $&.capitalize }
-        string.gsub!(%r{(?:_|(/))([a-z\d]*)}) { $2.capitalize.to_s }
+        string.gsub!(%r{(?:_|(/))([a-z\d]*)}) { Regexp.last_match(2).capitalize.to_s }
         string
       end
     end

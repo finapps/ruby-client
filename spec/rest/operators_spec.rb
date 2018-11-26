@@ -26,7 +26,7 @@ RSpec.describe FinApps::REST::Operators, 'initialized with valid FinApps::Client
     end
 
     context 'when including valid params' do
-      let(:params) { {page: 2, sort: 'date_created', requested: 25, searchTerm: 'term', role: 2} }
+      let(:params) { { page: 2, sort: 'date_created', requested: 25, searchTerm: 'term', role: 2 } }
 
       it { expect { list }.not_to raise_error }
       it('performs a get and returns the response') { expect(results).to respond_to(:records) }
@@ -160,7 +160,7 @@ RSpec.describe FinApps::REST::Operators, 'initialized with valid FinApps::Client
     end
 
     context 'with valid params' do
-      let(:valid_params) { {password: 'valid password', password_confirm: 'valid_password'} }
+      let(:valid_params) { { password: 'valid password', password_confirm: 'valid_password' } }
       let(:update_password) { subject.update_password(valid_params) }
 
       it { expect { update_password }.not_to raise_error }

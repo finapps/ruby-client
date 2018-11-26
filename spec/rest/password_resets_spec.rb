@@ -28,8 +28,8 @@ RSpec.describe FinApps::REST::PasswordResets do
   end
 
   describe '#update' do
-    let(:valid_params) { {token: 'valid_token'} }
-    let(:invalid_params) { {token: 'invalid_token'} }
+    let(:valid_params) { { token: 'valid_token' } }
+    let(:invalid_params) { { token: 'invalid_token' } }
 
     context 'when missing id' do
       subject { FinApps::REST::PasswordResets.new(client).update(nil, :params) }
