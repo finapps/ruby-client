@@ -180,6 +180,9 @@ class FakeApi < Sinatra::Base
   # products
   get('/v3/products') { json_response 200, 'products.json' }
 
+  # portfolios
+  get('/v3/portfolios') { json_response 200, 'portfolios.json' }
+
   # relevance
   get('/v3/relevance/ruleset/names') { json_response 200, 'relevance_ruleset_names.json' }
 

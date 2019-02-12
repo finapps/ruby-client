@@ -38,6 +38,7 @@ module FinApps
       private
 
       def build_filter(params)
+        # no filter for now, functionality will be determined by feedback
         filter={}
         filter
       end
