@@ -35,7 +35,14 @@ module FinApps
         super
       end
 
-      # need to create build_filter method
+      private
+
+      def build_filter(params)
+        filter={}
+        filter
+      end
+
+      # need to populate build_filter method
     end
   end
 end
