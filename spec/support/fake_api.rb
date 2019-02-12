@@ -182,6 +182,8 @@ class FakeApi < Sinatra::Base
 
   # portfolios
   get('/v3/portfolios') { json_response 200, 'portfolios.json' }
+  get('/v3/portfolios/valid_id') { json_response 200, 'portfolio.json' }
+  get('/v3/portfolios/invalid_id') { json_response 404, 'resource_not_found.json' }
 
   # relevance
   get('/v3/relevance/ruleset/names') { json_response 200, 'relevance_ruleset_names.json' }
