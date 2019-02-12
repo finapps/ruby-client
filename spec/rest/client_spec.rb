@@ -102,7 +102,6 @@ RSpec.describe FinApps::REST::Client do
       it { expect(subject.portfolios).to be_an_instance_of(FinApps::REST::Portfolios) }
     end
 
-
     describe '#statements' do
       it { expect(subject.statements).to be_an_instance_of(FinApps::REST::Statements) }
     end

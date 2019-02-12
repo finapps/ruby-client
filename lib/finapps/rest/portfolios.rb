@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module FinApps
   module REST
     class Portfolios < FinAppsCore::REST::Resources
@@ -37,9 +39,9 @@ module FinApps
 
       private
 
-      def build_filter(params)
+      def build_filter(_params)
         # no filter for now, functionality will be determined by feedback
-        filter={}
+        filter = {}
         filter
       end
 
