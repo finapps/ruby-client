@@ -20,6 +20,7 @@ module FinApps
         operators_password_resets
         password_resets
         products
+        portfolios
         sessions
         statements
         consumers
