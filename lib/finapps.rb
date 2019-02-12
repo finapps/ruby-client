@@ -28,6 +28,7 @@ require 'finapps/rest/order_refreshes'
 require 'finapps/rest/statements'
 require 'finapps/rest/tenant_settings'
 require 'finapps/rest/tenant_app_settings'
+require 'finapps/rest/portfolios'
 
 require 'finapps/utils/query_builder'
 require 'finapps/version' unless defined?(FinApps::VERSION)
