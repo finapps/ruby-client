@@ -75,15 +75,106 @@ RSpec.describe FinApps::REST::Portfolios do
   end
 
   describe '#create' do
+    let(:create) { subject.create(params) }
+    let(:results) { create[RESULTS] }
+    let(:errors) { create[ERROR_MESSAGES] }
 
+    context 'when missing params' do
+      let(:params) { nil }
+
+      it { expect { create }.to raise_error(FinAppsCore::MissingArgumentsError) }
+    end
+
+    context 'when valid params are provided' do
+      let(:params) { {name: "Account Checks", description: "Some Check Stuff", product: "valid"} }
+
+      it { expect { create }.not_to raise_error(FinAppsCore::MissingArgumentsError) }
+      it('returns an array') { expect(create).to be_a(Array)}
+      it('performs a get and returns the response') do
+        expect(results).to respond_to(:_id)
+        expect(results).to respond_to(:product)
+      end
+      it('returns no error messages') { expect(errors).to be_empty }
+    end
+
+    context 'when invalid params are provided' do
+      let(:params) { {name: "Account Checks", description: "Some Check Stuff", product: "invalid"} }
+
+      it { expect { create }.not_to raise_error(FinAppsCore::MissingArgumentsError) }
+      it('results is nil') { expect(results).to be_nil }
+      it('error messages array is populated') do
+        expect(errors.first.downcase).to eq('invalid request body')
+      end
+    end
   end
 
   describe '#update' do
+    let(:update) { subject.update(id, params) }
+    let(:results) { update[RESULTS] }
+    let(:errors) { update[ERROR_MESSAGES] }
 
+    context 'when missing id' do
+      let(:id) { nil}
+      let(:params) { {fake: 'data'} }
+
+      it { expect { update }.to raise_error(FinAppsCore::MissingArgumentsError) }
+    end
+
+    context 'when missing params' do
+      let(:id) { 'valid_id' }
+      let(:params) { nil }
+
+      it { expect { update }.to raise_error(FinAppsCore::MissingArgumentsError) }
+    end
+
+    context 'when invalid id or params are provided' do
+      let(:id) { 'invalid_id' }
+      let(:params) { {fake: 'data'} }
+
+      it { expect { update }.not_to raise_error(FinAppsCore::MissingArgumentsError) }
+      it('results is nil') { expect(results).to be_nil }
+      it('error messages array is populated') { expect(errors.first.downcase).to eq('resource not found') }
+    end
+
+    context 'when valid id and params are provided' do
+      let(:id) { 'valid_id' }
+      let(:params) { {fake: 'data'} }
+
+      it { expect { update }.not_to raise_error(FinAppsCore::MissingArgumentsError) }
+      it('returns an array') { expect(update).to be_a(Array)}
+      it('performs a get and returns the response') do
+        expect(results).to respond_to(:_id)
+        expect(results).to respond_to(:product)
+      end
+      it('returns no error messages') { expect(errors).to be_empty }
+    end
   end
 
   describe '#destroy' do
+    let(:destroy) { subject.destroy(id) }
+    let(:results) { destroy[RESULTS] }
+    let(:errors) { destroy[ERROR_MESSAGES] }
 
+    context 'when missing id' do
+      let(:id) { nil}
+
+      it { expect { destroy }.to raise_error(FinAppsCore::MissingArgumentsError) }
+    end
+
+    context 'when invalid id is provided' do
+      let(:id) { 'invalid_id' }
+
+      it { expect { destroy }.not_to raise_error }
+      it('results is nil') { expect(results).to be_nil }
+      it('error messages array is populated') { expect(errors.first.downcase).to eq('resource not found') }
+    end
+
+    context 'when valid id is provided' do
+      let(:id) { 'valid_id' }
+
+      it { expect { destroy }.not_to raise_error }
+      it('results is nil') { expect(results).to be_nil }
+      it('error messages array is empty') { expect(errors).to be_empty }
+    end
   end
-
 end
