@@ -180,6 +180,24 @@ class FakeApi < Sinatra::Base
   # products
   get('/v3/products') { json_response 200, 'products.json' }
 
+  # portfolios
+  get('/v3/portfolios') { json_response 200, 'portfolios.json' }
+  get('/v3/portfolios/valid_id') { json_response 200, 'portfolio.json' }
+  get('/v3/portfolios/invalid_id') { json_response 404, 'resource_not_found.json' }
+  post('/v3/portfolios') do
+    request.body.rewind
+    request_payload = JSON.parse request.body.read
+    if request_payload['product'] == 'invalid'
+      json_response(400, 'invalid_request_body.json')
+    else
+      json_response(200, 'portfolio.json')
+    end
+  end
+  put('/v3/portfolios/valid_id') { json_response 200, 'portfolio.json' }
+  put('/v3/portfolios/invalid_id') { json_response 404, 'resource_not_found.json' }
+  delete('/v3/portfolios/valid_id') { status 204 }
+  delete('/v3/portfolios/invalid_id') { json_response 404, 'resource_not_found.json' }
+
   # relevance
   get('/v3/relevance/ruleset/names') { json_response 200, 'relevance_ruleset_names.json' }
 
