@@ -19,7 +19,6 @@ module FinApps
 
         super nil, path
       end
-
     end
   end
 end
