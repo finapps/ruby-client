@@ -35,7 +35,8 @@ RSpec.describe FinApps::REST::AlertDefinitions do
       it('returns no error messages') { expect(errors).to be_empty }
       it 'builds query and sends proper request' do
         list
-        url = "#{FinAppsCore::REST::Defaults::DEFAULTS[:host]}/v3/portfolio/alerts/definitions?page=2&requested=25&sort=-created_date"
+        url = "#{FinAppsCore::REST::Defaults::DEFAULTS[:host]}/v3/portfolio/alerts/definitions?page=2&requested=25&" \
+        'sort=-created_date'
         expect(WebMock).to have_requested(:get, url)
       end
     end
@@ -75,4 +76,3 @@ RSpec.describe FinApps::REST::AlertDefinitions do
     end
   end
 end
-

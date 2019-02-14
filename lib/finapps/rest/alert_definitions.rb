@@ -6,7 +6,7 @@ module FinApps
       include FinApps::Utils::QueryBuilder
       END_POINT = 'portfolio/alerts/definitions'
 
-      def list(params=nil)
+      def list(params = nil)
         return super END_POINT if params.nil?
         raise FinAppsCore::InvalidArgumentsError, 'Invalid argument: params' unless params.is_a? Hash
 
