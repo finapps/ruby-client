@@ -1,0 +1,24 @@
+{
+  "total_records": 1,
+  "page": 1,
+  "total_pages": 1,
+  "records": [
+    {
+      "_id": "7d48e535-6405-4c9c-adc2-be94e19cf94e",
+      "name": "Low Balance Alert",
+      "rule_name": "min_balance",
+      "description": "Checks a consumer's account balance",
+      "params": [
+        {
+          "name": "minimum",
+          "display": "Minimum Balance",
+          "type": "float",
+          "message": "Account balance is too low.",
+          "value": 200.00
+        }
+      ],
+      "created_date": "2018-09-18T17:23:36.272Z",
+      "modified_date": "2018-09-18T17:23:36.272Z"
+    }
+  ]
+}
