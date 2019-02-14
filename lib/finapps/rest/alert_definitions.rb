@@ -13,8 +13,11 @@ module FinApps
         super build_query_path(END_POINT, params)
       end
 
-      def show
+      def show(id)
+        not_blank(id, :id)
+        path = "#{END_POINT}/#{ERB::Util.url_encode(id)}"
 
+        super nil, path
       end
 
       private
