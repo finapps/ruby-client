@@ -16,6 +16,10 @@ RSpec.describe FinApps::REST::Client do
       end
     end
 
+    describe '#alert_definitions' do
+      it { expect(subject.alert_definitions).to be_an_instance_of(FinApps::REST::AlertDefinitions) }
+    end
+
     describe '#version' do
       it { expect(subject.version).to be_an_instance_of(FinApps::REST::Version) }
     end

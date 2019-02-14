@@ -198,6 +198,11 @@ class FakeApi < Sinatra::Base
   delete('/v3/portfolios/valid_id') { status 204 }
   delete('/v3/portfolios/invalid_id') { json_response 404, 'resource_not_found.json' }
 
+  # alert definitions
+  get('/v3/portfolio/alerts/definitions') { json_response 200, 'alert_definitions.json' }
+  get('/v3/portfolio/alerts/definitions/valid_id') { json_response 200, 'alert_definition.json' }
+  get('/v3/portfolio/alerts/definitions/invalid_id') { json_response 404, 'resource_not_found.json' }
+
   # relevance
   get('/v3/relevance/ruleset/names') { json_response 200, 'relevance_ruleset_names.json' }
 
