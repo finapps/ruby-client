@@ -18,6 +18,12 @@ module FinApps
         query_string = params_array.compact.join('&')
         !query_string.empty? ? [root_url, query_string].join('?') : nil
       end
+
+      def build_filter(_params)
+        # no filter for now, functionality will be determined by feedback
+        filter = {}
+        filter
+      end
     end
   end
 end

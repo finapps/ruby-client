@@ -20,14 +20,6 @@ module FinApps
         super nil, path
       end
 
-      private
-
-      def build_filter(_params)
-        # no filter for now, functionality will be determined by feedback
-        filter = {}
-        filter
-      end
-
     end
   end
 end
