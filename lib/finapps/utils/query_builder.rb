@@ -20,7 +20,7 @@ module FinApps
       end
 
       def build_filter(_params)
-        # no filter for now, functionality will be determined by feedback
+        # stub, to be overwritten by classes that include this module
         filter = {}
         filter
       end
