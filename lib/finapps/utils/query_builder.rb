@@ -21,8 +21,7 @@ module FinApps
 
       def build_filter(_params)
         # stub, to be overwritten by classes that include this module
-        filter = {}
-        filter
+        {}
       end
     end
   end
