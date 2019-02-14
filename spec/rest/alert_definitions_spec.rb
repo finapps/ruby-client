@@ -39,7 +39,40 @@ RSpec.describe FinApps::REST::AlertDefinitions do
         expect(WebMock).to have_requested(:get, url)
       end
     end
+  end
 
+  describe '#show' do
+    let(:show) { subject.show(id) }
+    let(:results) { show[RESULTS] }
+    let(:errors) { show[ERROR_MESSAGES] }
+
+    context 'when missing params' do
+      let(:id) { nil }
+
+      it { expect { show }.to raise_error(FinAppsCore::MissingArgumentsError) }
+    end
+
+    context 'when valid id is provided' do
+      let(:id) { 'valid_id' }
+
+      it { expect { show }.not_to raise_error(FinAppsCore::MissingArgumentsError) }
+      it('returns an array') { expect(show).to be_a(Array) }
+      it('performs a get and returns the response') do
+        expect(results).to respond_to(:_id)
+        expect(results).to respond_to(:rule_name)
+      end
+      it('returns no error messages') { expect(errors).to be_empty }
+    end
+
+    context 'when invalid id is provided' do
+      let(:id) { 'invalid_id' }
+
+      it { expect { show }.not_to raise_error }
+      it('results is nil') { expect(results).to be_nil }
+      it('error messages array is populated') do
+        expect(errors.first.downcase).to eq('resource not found')
+      end
+    end
   end
 end
 
