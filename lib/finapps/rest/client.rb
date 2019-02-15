@@ -8,6 +8,7 @@ module FinApps
     class Client < FinAppsCore::REST::BaseClient # :nodoc:
       RESOURCES = %i[
         alert_definitions
+        alert_occurrences
         institutions
         institutions_forms
         orders
