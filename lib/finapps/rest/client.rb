@@ -23,6 +23,7 @@ module FinApps
         password_resets
         products
         portfolios
+        portfolios_available_consumers
         sessions
         statements
         consumers
