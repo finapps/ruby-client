@@ -1,0 +1,20 @@
+{
+  "total_records": 1,
+  "page": 1,
+  "total_pages": 1,
+  "records": [
+    {
+      "public_id": "b242cc06-2ca7-4158-6197-7f7af08f1b41",
+      "email": "testconsumer@finapps.com",
+      "first_name": "Ed",
+      "last_name": "Smith",
+      "memo": "",
+      "tenant_id": "49fb918d-7e71-44dd-7378-58f19606df2a",
+      "language": 1,
+      "currency": 1,
+      "date_modified": "2018-09-24T22:05:57.607-04:00",
+      "date_created": "2018-09-24T22:05:57.607-04:00",
+      "postal_code": ""
+    }
+  ]
+}

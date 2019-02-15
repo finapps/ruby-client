@@ -206,6 +206,9 @@ class FakeApi < Sinatra::Base
   # alert occurrences
   get('/v3/portfolio/alerts/occurrences') { json_response 200, 'alert_occurrences.json' }
 
+  # portfolios available consumers
+  get('/v3/portfolios/:id/consumers/available') { json_response 200, 'portfolios_available_consumers.json' }
+
   # relevance
   get('/v3/relevance/ruleset/names') { json_response 200, 'relevance_ruleset_names.json' }
 
