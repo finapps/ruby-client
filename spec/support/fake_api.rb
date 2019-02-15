@@ -203,6 +203,9 @@ class FakeApi < Sinatra::Base
   get('/v3/portfolio/alerts/definitions/valid_id') { json_response 200, 'alert_definition.json' }
   get('/v3/portfolio/alerts/definitions/invalid_id') { json_response 404, 'resource_not_found.json' }
 
+  # alert occurrences
+  get('/v3/portfolio/alerts/occurrences') { json_response 200, 'alert_occurrences.json' }
+
   # relevance
   get('/v3/relevance/ruleset/names') { json_response 200, 'relevance_ruleset_names.json' }
 
