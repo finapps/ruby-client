@@ -20,6 +20,10 @@ RSpec.describe FinApps::REST::Client do
       it { expect(subject.alert_definitions).to be_an_instance_of(FinApps::REST::AlertDefinitions) }
     end
 
+    describe '#alert_occurrences' do
+      it { expect(subject.alert_occurrences).to be_an_instance_of(FinApps::REST::AlertOccurrences) }
+    end
+
     describe '#version' do
       it { expect(subject.version).to be_an_instance_of(FinApps::REST::Version) }
     end
@@ -104,6 +108,12 @@ RSpec.describe FinApps::REST::Client do
 
     describe '#portfolios' do
       it { expect(subject.portfolios).to be_an_instance_of(FinApps::REST::Portfolios) }
+    end
+
+    describe '#portfolios_available_consumers' do
+      it {
+        expect(subject.portfolios_available_consumers).to be_an_instance_of(FinApps::REST::PortfoliosAvailableConsumers)
+      }
     end
 
     describe '#statements' do

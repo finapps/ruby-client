@@ -8,6 +8,7 @@ module FinApps
     class Client < FinAppsCore::REST::BaseClient # :nodoc:
       RESOURCES = %i[
         alert_definitions
+        alert_occurrences
         institutions
         institutions_forms
         orders
@@ -22,6 +23,7 @@ module FinApps
         password_resets
         products
         portfolios
+        portfolios_available_consumers
         sessions
         statements
         consumers
