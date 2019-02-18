@@ -10,18 +10,18 @@ module FinApps
         super build_path(portfolio_id)
       end
 
-      def create(portfolio_id, alert_id, params)
+      def create(portfolio_id, alert_id, params = nil)
         not_blank(portfolio_id, :portfolio_id)
         not_blank(alert_id, :alert_id)
 
         update params, build_path(portfolio_id, alert_id)
       end
 
-      def delete(portfolio_id, alert_id)
+      def destroy(portfolio_id, alert_id)
         not_blank(portfolio_id, :portfolio_id)
         not_blank(alert_id, :alert_id)
 
-        delete nil, build_path(portfolio_id, alert_id)
+        super nil, build_path(portfolio_id, alert_id)
       end
 
       private
