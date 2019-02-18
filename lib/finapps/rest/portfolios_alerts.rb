@@ -3,7 +3,6 @@
 module FinApps
   module REST
     class PortfoliosAlerts < FinAppsCore::REST::Resources
-
       def list(portfolio_id)
         not_blank(portfolio_id, :portfolio_id)
 
@@ -27,8 +26,8 @@ module FinApps
       private
 
       def build_path(portfolio_id, alert_id = nil)
-        alert_path = alert_id ? "alerts/#{ERB::Util.url_encode(alert_id)}" : "alerts"
-        return "portfolios/#{ERB::Util.url_encode(portfolio_id)}/" + alert_path
+        alert_path = alert_id ? "alerts/#{ERB::Util.url_encode(alert_id)}" : 'alerts'
+        "portfolios/#{ERB::Util.url_encode(portfolio_id)}/" + alert_path
       end
     end
   end
