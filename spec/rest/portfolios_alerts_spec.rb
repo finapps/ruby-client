@@ -20,7 +20,7 @@ RSpec.describe FinApps::REST::PortfoliosAlerts do
     context 'when valid id is provided' do
       let(:id) { 'valid_id' }
 
-      it { expect { list }.not_to raise_error(FinAppsCore::MissingArgumentsError) }
+      it { expect { list }.not_to raise_error }
       it('returns an array') { expect(list).to be_a(Array) }
       it('performs a get and returns array of alert definitions') do
         expect(results).to be_a(Array)

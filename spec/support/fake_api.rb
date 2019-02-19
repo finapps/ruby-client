@@ -214,6 +214,14 @@ class FakeApi < Sinatra::Base
   delete('/v3/portfolios/valid_id/alerts/valid_id') { status 204 }
   delete('/v3/portfolios/invalid_id/alerts/invalid_id') { json_response 404, 'resource_not_found.json' }
 
+  # portfolios consumers
+  get('/v3/portfolios/valid_id/consumers') { json_response 200, 'portfolios_consumers.json' }
+  get('/v3/portfolios/invalid_id/consumers') { json_response 404, 'resource_not_found.json' }
+  post('/v3/portfolios/valid_id/consumers/valid_id') { status 204 }
+  post('/v3/portfolios/invalid_id/consumers/invalid_id') { json_response 400, 'single_consumer_subscribe_error.json' }
+  delete('/v3/portfolios/valid_id/consumers/valid_id') { status 204 }
+  delete('/v3/portfolios/invalid_id/consumers/invalid_id') { json_response 404, 'resource_not_found.json' }
+
   # portfolios available consumers
   get('/v3/portfolios/:id/consumers/available') { json_response 200, 'portfolios_available_consumers.json' }
 
