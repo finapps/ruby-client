@@ -206,6 +206,14 @@ class FakeApi < Sinatra::Base
   # alert occurrences
   get('/v3/portfolio/alerts/occurrences') { json_response 200, 'alert_occurrences.json' }
 
+  # portfolios alerts
+  get('/v3/portfolios/valid_id/alerts') { json_response 200, 'portfolios_alerts.json' }
+  get('/v3/portfolios/invalid_id/alerts') { json_response 404, 'resource_not_found.json' }
+  put('/v3/portfolios/valid_id/alerts/valid_id') { status 204 }
+  put('/v3/portfolios/invalid_id/alerts/invalid_id') { json_response 404, 'resource_not_found.json' }
+  delete('/v3/portfolios/valid_id/alerts/valid_id') { status 204 }
+  delete('/v3/portfolios/invalid_id/alerts/invalid_id') { json_response 404, 'resource_not_found.json' }
+
   # portfolios available consumers
   get('/v3/portfolios/:id/consumers/available') { json_response 200, 'portfolios_available_consumers.json' }
 

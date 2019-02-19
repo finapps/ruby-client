@@ -32,6 +32,7 @@ require 'finapps/rest/portfolios'
 require 'finapps/rest/alert_definitions'
 require 'finapps/rest/alert_occurrences'
 require 'finapps/rest/portfolios_available_consumers'
+require 'finapps/rest/portfolios_alerts'
 
 require 'finapps/utils/query_builder'
 require 'finapps/version' unless defined?(FinApps::VERSION)
