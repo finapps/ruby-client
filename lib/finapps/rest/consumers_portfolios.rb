@@ -6,12 +6,13 @@ module FinApps
       def list(id, params = nil)
         not_blank(id)
 
-        return super if params.nil?
+        path = "consumers/#{ERB::Util.url_encode(id)}/portfolios"
+        return super path if params.nil?
+
         raise FinAppsCore::InvalidArgumentsError, 'Invalid argument: params' unless params.is_a? Hash
 
-        super build_query_path(end_point, params)
+        super build_query_path(path, params)
       end
-
     end
   end
 end

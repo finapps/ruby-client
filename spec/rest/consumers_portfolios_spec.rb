@@ -2,9 +2,9 @@
 
 require 'spec_helpers/client'
 
-RSpec.describe FinApps::REST::PortfoliosAvailableConsumers do
+RSpec.describe FinApps::REST::ConsumersPortfolios do
   include SpecHelpers::Client
-  subject { FinApps::REST::PortfoliosAvailableConsumers.new(client) }
+  subject { FinApps::REST::ConsumersPortfolios.new(client) }
 
   describe '#list' do
     let(:list) { subject.list(id, params) }
@@ -45,10 +45,11 @@ RSpec.describe FinApps::REST::PortfoliosAvailableConsumers do
       it('returns no error messages') { expect(errors).to be_empty }
       it 'builds query and sends proper request' do
         list
-        url = "#{FinAppsCore::REST::Defaults::DEFAULTS[:host]}/v3/portfolios/#{id}/consumers/available?page=2&" \
+        url = "#{FinAppsCore::REST::Defaults::DEFAULTS[:host]}/v3/consumers/#{id}/portfolios?page=2&" \
         'requested=25&sort=-created_date'
         expect(WebMock).to have_requested(:get, url)
       end
     end
   end
+
 end
