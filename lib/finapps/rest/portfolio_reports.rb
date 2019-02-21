@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module FinApps
   module REST
     class PortfolioReports < FinAppsCore::REST::Resources

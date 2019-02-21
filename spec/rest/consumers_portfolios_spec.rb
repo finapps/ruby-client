@@ -51,5 +51,4 @@ RSpec.describe FinApps::REST::ConsumersPortfolios do
       end
     end
   end
-
 end
