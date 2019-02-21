@@ -9,6 +9,7 @@ module FinApps
       RESOURCES = %i[
         alert_definitions
         alert_occurrences
+        consumers_portfolios
         institutions
         institutions_forms
         orders
@@ -25,6 +26,7 @@ module FinApps
         portfolios
         portfolios_alerts
         portfolios_available_consumers
+        portfolios_consumers
         sessions
         statements
         consumers

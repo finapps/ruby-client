@@ -120,6 +120,14 @@ RSpec.describe FinApps::REST::Client do
       }
     end
 
+    describe '#portfolios_consumers' do
+      it { expect(subject.portfolios_consumers).to be_an_instance_of(FinApps::REST::PortfoliosConsumers) }
+    end
+
+    describe '#consumers_portfolios' do
+      it { expect(subject.consumers_portfolios).to be_an_instance_of(FinApps::REST::ConsumersPortfolios) }
+    end
+
     describe '#statements' do
       it { expect(subject.statements).to be_an_instance_of(FinApps::REST::Statements) }
     end
