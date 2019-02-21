@@ -27,6 +27,7 @@ module FinApps
         portfolios_alerts
         portfolios_available_consumers
         portfolios_consumers
+        portfolio_reports
         sessions
         statements
         consumers
