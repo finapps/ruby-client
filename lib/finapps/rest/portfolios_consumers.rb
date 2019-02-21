@@ -3,10 +3,17 @@
 module FinApps
   module REST
     class PortfoliosConsumers < FinAppsCore::REST::Resources
-      def list(portfolio_id)
+      include FinApps::Utils::QueryBuilder
+
+      def list(portfolio_id, params = nil)
         not_blank(portfolio_id, :portfolio_id)
 
-        super build_path(portfolio_id)
+        path = build_path(portfolio_id)
+        return super path if params.nil?
+
+        raise FinAppsCore::InvalidArgumentsError, 'Invalid argument: params' unless params.is_a? Hash
+
+        super build_query_path(path, params)
       end
 
       def create(portfolio_id, params)
