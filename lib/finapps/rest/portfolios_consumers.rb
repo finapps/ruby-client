@@ -13,9 +13,7 @@ module FinApps
         not_blank(portfolio_id, :portfolio_id)
         not_blank(params, :params)
 
-        if params.is_a?(String) # Single Consumer Subscribe
-          return super nil, build_path(portfolio_id, params)
-        end
+        return super nil, build_path(portfolio_id, params) if params.is_a?(String) # Single Consumer Subscribe
 
         # Array Consumer Subscribe
         super params, build_path(portfolio_id)

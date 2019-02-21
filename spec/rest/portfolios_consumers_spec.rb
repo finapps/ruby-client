@@ -56,10 +56,10 @@ RSpec.describe FinApps::REST::PortfoliosConsumers do
       it { expect { create }.to raise_error(FinAppsCore::MissingArgumentsError) }
     end
 
-    xcontext 'for bulk subscribe' do
+    context 'for bulk subscribe' do
       context 'when valid id and params are provided' do
         let(:portfolio_id) { 'valid_id' }
-        let(:params) { [portfolio_id] }
+        let(:params) { %w[id1 id2 id3] }
 
         it { expect { create }.not_to raise_error }
         it('returns an array') { expect(create).to be_a(Array) }
@@ -67,19 +67,20 @@ RSpec.describe FinApps::REST::PortfoliosConsumers do
         it('returns no error messages') { expect(errors).to be_empty }
         it('builds correct url') do
           create
-          url = "#{FinAppsCore::REST::Defaults::DEFAULTS[:host]}/v3/portfolios/#{portfolio_id}/consumers/#{params}"
+          url = "#{FinAppsCore::REST::Defaults::DEFAULTS[:host]}/v3/portfolios/#{portfolio_id}/consumers"
           expect(WebMock).to have_requested(:post, url)
         end
       end
 
       context 'when invalid id and params are provided' do
         let(:portfolio_id) { 'invalid_id' }
-        let(:params) { portfolio_id }
+        let(:params) { %w[id1 id2 id3] }
 
         it { expect { create }.not_to raise_error }
         it('results is nil') { expect(results).to be_nil }
         it('error messages array is populated') do
-          expect(errors.first.downcase).to eq('consumer not eligible, no completed orders.')
+          # this will break when client is fixed to expect new array error response
+          expect(errors.first.downcase).to eq('the server responded with status 400')
         end
       end
     end
@@ -112,7 +113,6 @@ RSpec.describe FinApps::REST::PortfoliosConsumers do
       end
     end
   end
-
 
   describe '#destroy' do
     let(:destroy) { subject.destroy(portfolio_id, consumer_id) }

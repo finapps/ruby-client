@@ -1,0 +1,7 @@
+[
+  {"consumer_id": "a031137a-4c4b-4b8e-5be5-3747a7953e83", "message": "Consumer not eligible, no completed orders."},
+  {"consumer_id": "b2fbc913-c7c0-452a-5a10-09e4b34ab6a9", "message": "Consumer not found."},
+  {"consumer_id": "b2fbc913-c7c0-452a-5a10-09e4b34ab6a1", "message": "Application error"},
+  {"consumer_id": "c63fa6e8-0494-4ee1-5e96-c26fa31fc62a", "message": "Consumer not processed."},
+  {"consumer_id": "b5d03e74-92c9-462f-455f-827a77b8082d", "message": "Consumer not processed."}
+]
