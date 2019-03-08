@@ -12,6 +12,14 @@ module FinApps
 
         super build_query_path(END_POINT, params)
       end
+
+      private
+
+      def build_filter(params)
+        filter = {}
+        filter.merge!({"portfolio.id": params[:portfolio_id]}) if params[:portfolio_id]
+        filter
+      end
     end
   end
 end
