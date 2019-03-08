@@ -37,7 +37,7 @@ RSpec.configure do |config|
 end
 
 VALID_CREDENTIALS = { identifier: '49fb918d-7e71-44dd-7378-58f19606df2a',
-                      token:      'hohoho=' }.freeze
+                      token: 'hohoho=' }.freeze
 
 RESULTS = 0
 ERROR_MESSAGES = 1

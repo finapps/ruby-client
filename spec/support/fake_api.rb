@@ -20,7 +20,7 @@ class FakeApi < Sinatra::Base
     request.body.rewind
     request_payload = JSON.parse request.body.read
     if request_payload['bad_params']
-      json_response 401, 'resource_not_found.json'
+      json_response 404, 'resource_not_found.json'
     else
       status 204
     end
@@ -32,7 +32,7 @@ class FakeApi < Sinatra::Base
     if request_payload['pdf_statement_months']
       status 204
     else
-      json_response 401, 'resource_not_found.json'
+      json_response 404, 'resource_not_found.json'
     end
   end
 
@@ -179,6 +179,60 @@ class FakeApi < Sinatra::Base
 
   # products
   get('/v3/products') { json_response 200, 'products.json' }
+
+  # portfolios
+  get('/v3/portfolios') { json_response 200, 'portfolios.json' }
+  get('/v3/portfolios/valid_id') { json_response 200, 'portfolio.json' }
+  get('/v3/portfolios/invalid_id') { json_response 404, 'resource_not_found.json' }
+  post('/v3/portfolios') do
+    request.body.rewind
+    request_payload = JSON.parse request.body.read
+    if request_payload['product'] == 'invalid'
+      json_response(400, 'invalid_request_body.json')
+    else
+      json_response(200, 'portfolio.json')
+    end
+  end
+  put('/v3/portfolios/valid_id') { json_response 200, 'portfolio.json' }
+  put('/v3/portfolios/invalid_id') { json_response 404, 'resource_not_found.json' }
+  delete('/v3/portfolios/valid_id') { status 204 }
+  delete('/v3/portfolios/invalid_id') { json_response 404, 'resource_not_found.json' }
+
+  # alert definitions
+  get('/v3/portfolio/alerts/definitions') { json_response 200, 'alert_definitions.json' }
+  get('/v3/portfolio/alerts/definitions/valid_id') { json_response 200, 'alert_definition.json' }
+  get('/v3/portfolio/alerts/definitions/invalid_id') { json_response 404, 'resource_not_found.json' }
+
+  # alert occurrences
+  get('/v3/portfolio/alerts/occurrences') { json_response 200, 'alert_occurrences.json' }
+
+  # portfolios alerts
+  get('/v3/portfolios/valid_id/alerts') { json_response 200, 'portfolios_alerts.json' }
+  get('/v3/portfolios/invalid_id/alerts') { json_response 404, 'resource_not_found.json' }
+  put('/v3/portfolios/valid_id/alerts/valid_id') { status 204 }
+  put('/v3/portfolios/invalid_id/alerts/invalid_id') { json_response 404, 'resource_not_found.json' }
+  delete('/v3/portfolios/valid_id/alerts/valid_id') { status 204 }
+  delete('/v3/portfolios/invalid_id/alerts/invalid_id') { json_response 404, 'resource_not_found.json' }
+
+  # portfolios consumers
+  get('/v3/portfolios/valid_id/consumers') { json_response 200, 'portfolios_consumers.json' }
+  get('/v3/portfolios/invalid_id/consumers') { json_response 404, 'resource_not_found.json' }
+  post('/v3/portfolios/valid_id/consumers') { status 204 }
+  post('/v3/portfolios/invalid_id/consumers') { json_response 400, 'multiple_consumer_subscribe_error.json' }
+  post('/v3/portfolios/valid_id/consumers/valid_id') { status 204 }
+  post('/v3/portfolios/invalid_id/consumers/invalid_id') { json_response 400, 'single_consumer_subscribe_error.json' }
+  delete('/v3/portfolios/valid_id/consumers/valid_id') { status 204 }
+  delete('/v3/portfolios/invalid_id/consumers/invalid_id') { json_response 404, 'resource_not_found.json' }
+
+  # portfolios available consumers
+  get('/v3/portfolios/:id/consumers/available') { json_response 200, 'portfolios_available_consumers.json' }
+
+  # consumers portfolios
+  get('/v3/consumers/valid_id/portfolios') { json_response 200, 'portfolios.json' }
+  get('/v3/consumers/invalid_id/portfolios') { json_response 404, 'resource_not_found.json' }
+
+  # portfolio reports
+  get('/v3/portfolio/reports') { json_response 200, 'portfolio_reports.json' }
 
   # relevance
   get('/v3/relevance/ruleset/names') { json_response 200, 'relevance_ruleset_names.json' }
