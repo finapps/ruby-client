@@ -27,7 +27,7 @@ RSpec.describe FinApps::REST::AlertOccurrences do
     end
 
     context 'when including valid params' do
-      let(:params) { { page: 2, sort: '-created_date', requested: 25 } }
+      let(:params) { { page: 2, sort: '-created_date', requested: 25, portfolio_id: "valid_id" } }
 
       it { expect { list }.not_to raise_error }
       it('returns an array') { expect(list).to be_a(Array) }
@@ -35,8 +35,8 @@ RSpec.describe FinApps::REST::AlertOccurrences do
       it('returns no error messages') { expect(errors).to be_empty }
       it 'builds query and sends proper request' do
         list
-        url = "#{FinAppsCore::REST::Defaults::DEFAULTS[:host]}/v3/portfolio/alerts/occurrences?page=2&requested=25&" \
-        'sort=-created_date'
+        url = "#{FinAppsCore::REST::Defaults::DEFAULTS[:host]}/v3/portfolio/alerts/occurrences?" \
+'filter=%7B%22portfolio.id%22:%22valid_id%22%7D&page=2&requested=25&sort=-created_date'
         expect(WebMock).to have_requested(:get, url)
       end
     end
