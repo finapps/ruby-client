@@ -27,7 +27,7 @@ RSpec.describe FinApps::REST::AlertOccurrences do
     end
 
     context 'when including valid params' do
-      let(:params) { { page: 2, sort: '-created_date', requested: 25, portfolio_id: "valid_id" } }
+      let(:params) { { page: 2, sort: '-created_date', requested: 25, portfolio_id: 'valid_id' } }
 
       it { expect { list }.not_to raise_error }
       it('returns an array') { expect(list).to be_a(Array) }
