@@ -95,6 +95,15 @@ class FakeApi < Sinatra::Base
   get('/v3/institutions/consumer/valid_id/form') { json_response 200, 'institution_login_form.json' }
   get('/v3/institutions/consumer/invalid_id/form') { json_response 400, 'invalid_institution_id.json' }
   put('/v3/institutions/refresh') { json_response 200, 'user_institution_refresh.json' }
+  put('/v3/institutions/consumer/valid_consumer_institution_id/refresh') do
+    request.body.rewind
+    request_payload = JSON.parse request.body.read
+    if request_payload['token'] == 'invalid_token'
+      json_response(400, 'refresh_invalid_mfa.json')
+    else
+      json_response(200, 'refresh_queued.json')
+    end
+  end
 
   # consumers
   get('/v3/consumers/valid_public_id') { json_response 200, 'user.json' }

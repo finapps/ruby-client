@@ -17,7 +17,7 @@ module FinApps
 
       def build_filter(params)
         filter = {}
-        filter[:"portfolio.id"] = params[:portfolio_id] if params[:portfolio_id]
+        filter[:portfolio_id] = params[:portfolio_id] if params[:portfolio_id]
         filter
       end
     end

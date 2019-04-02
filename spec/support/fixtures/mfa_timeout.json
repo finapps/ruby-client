@@ -1,0 +1,12 @@
+{
+  "messages": [
+    "there was a timeout error trying to access the institution"
+  ],
+  "status": 13,
+  "status_message": "timeout error during communication",
+  "user_action": {
+    "code": 1,
+    "message": "request_timed_out"
+  }
+}
+}
