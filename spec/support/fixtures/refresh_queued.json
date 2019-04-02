@@ -1,0 +1,12 @@
+{
+  "consumer_institution": {
+    "_id": "5ca354c6ee35e00001481105",
+    "account_id": 10455527,
+    "institution_id": 16486,
+    "institution_name": "Dag Site SecurityQA (US)",
+    "mfa_type": 4,
+    "status": 3,
+    "status_message": "queued",
+    "last_refreshed": "2019-04-02T12:26:00Z"
+  }
+}

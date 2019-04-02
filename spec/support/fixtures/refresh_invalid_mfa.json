@@ -1,0 +1,11 @@
+{
+  "messages": [
+    "invalid credentials specified for institution"
+  ],
+  "status": 6,
+  "status_message": "login failure",
+  "user_action": {
+    "code": 1,
+    "message": "wrong_credentials"
+  }
+}
