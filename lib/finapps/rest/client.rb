@@ -32,6 +32,7 @@ module FinApps
         statements
         consumers
         consumer_institution_refreshes
+        consumer_institution_refresh
         tenant_settings
         tenant_app_settings
         user_institutions
