@@ -74,8 +74,7 @@ module FinApps
       def camelize(term)
         string = term.to_s
         string = string.sub(/^[a-z\d]*/) { $&.capitalize }
-        string.gsub!(%r{(?:_|(/))([a-z\d]*)}) { Regexp.last_match(2).capitalize.to_s }
-        string
+        string.gsub(%r{(?:_|(/))([a-z\d]*)}) { Regexp.last_match(2).capitalize.to_s }
       end
     end
   end
