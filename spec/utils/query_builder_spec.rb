@@ -24,10 +24,10 @@ RSpec.describe FinApps::Utils::QueryBuilder do
 
     context 'with no params' do
       let(:params) { {} }
-      it 'returns returns' do
+      it 'returns root' do
         allow(subject).to receive(:build_filter) { {} }
         expect(subject).to receive(:build_filter).with(params)
-        expect(subject.build_query_path(end_point, params)).to be_nil
+        expect(subject.build_query_path(end_point, params)).to eq(end_point)
       end
     end
   end
