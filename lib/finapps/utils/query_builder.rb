@@ -16,7 +16,7 @@ module FinApps
 
       def query_join(root_url, params_array)
         query_string = params_array.compact.join('&')
-        !query_string.empty? ? [root_url, query_string].join('?') : nil
+        [root_url, query_string].reject(&:empty?).join('?')
       end
 
       def build_filter(_params)
