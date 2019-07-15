@@ -153,5 +153,9 @@ RSpec.describe FinApps::REST::Client do
     describe '#tenant_app_settings' do
       it { expect(subject.tenant_app_settings).to be_an_instance_of(FinApps::REST::TenantAppSettings) }
     end
+
+    describe '#plaid_webhooks' do
+      it { expect(subject.plaid_webhooks).to be_an_instance_of(FinApps::REST::PlaidWebhooks) }
+    end
   end
 end

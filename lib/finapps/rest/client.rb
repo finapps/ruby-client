@@ -39,6 +39,7 @@ module FinApps
         user_institutions_forms
         user_institutions_statuses
         version
+        plaid_webhooks
       ].freeze
 
       # @param [String] tenant_token
