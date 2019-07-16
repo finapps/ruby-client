@@ -27,8 +27,9 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'gem-release',                '~> 2.0',   '>= 2.0.1'
   spec.add_development_dependency 'rake',                       '~> 12.3',  '>= 12.3.1'
   spec.add_development_dependency 'rspec',                      '~> 3.8',   '>= 3.8.0'
-  spec.add_development_dependency 'rubocop',                    '~> 0.59',  '>= 0.59.2'
-  spec.add_development_dependency 'rubocop-rspec',              '~> 1.30',  '>= 1.30.0'
+  spec.add_development_dependency 'rubocop',                    '~> 0.73',  '>= 0.73.0'
+  spec.add_development_dependency 'rubocop-performance',        '~> 1.4',   '>= 1.4.0'
+  spec.add_development_dependency 'rubocop-rspec',              '~> 1.33',  '>= 1.33.0'
   spec.add_development_dependency 'sinatra',                    '~> 2.0',   '>= 2.0.4'
   spec.add_development_dependency 'webmock',                    '~> 3.4',   '>= 3.4.2'
 
