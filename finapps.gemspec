@@ -30,7 +30,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rubocop',                    '~> 0.73',  '>= 0.73.0'
   spec.add_development_dependency 'rubocop-performance',        '~> 1.4',   '>= 1.4.0'
   spec.add_development_dependency 'rubocop-rspec',              '~> 1.33',  '>= 1.33.0'
-  spec.add_development_dependency 'sinatra',                    '~> 2.0',   '>= 2.0.4'
+  spec.add_development_dependency 'sinatra',                    '~> 2.0',   '>= 2.0.5'
   spec.add_development_dependency 'webmock',                    '~> 3.4',   '>= 3.4.2'
 
   spec.extra_rdoc_files = %w[README.md LICENSE.txt]
