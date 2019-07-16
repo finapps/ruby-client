@@ -22,7 +22,7 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency     'finapps_core',               '~> 4.0',   '>= 4.0.7'
 
-  spec.add_development_dependency 'bundler',                    '~> 1.16',  '>= 1.16.6'
+  spec.add_development_dependency 'bundler',                    '~> 1.17',  '>= 1.17.3'
   spec.add_development_dependency 'codeclimate-test-reporter',  '~> 1.0',   '>= 1.0.9'
   spec.add_development_dependency 'gem-release',                '~> 2.0',   '>= 2.0.3'
   spec.add_development_dependency 'rake',                       '~> 12.3',  '>= 12.3.2'
