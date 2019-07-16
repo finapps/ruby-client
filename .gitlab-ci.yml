@@ -1,9 +1,8 @@
-include:
-  template: Dependency-Scanning.gitlab-ci.yml
-
 test:
   stage: test
   script:
     - apt-get update -qy
     - bundle install --path /cache
     - bundle exec rspec
+include:
+  template: Dependency-Scanning.gitlab-ci.yml
