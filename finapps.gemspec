@@ -31,7 +31,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rubocop-performance',        '~> 1.4',   '>= 1.4.0'
   spec.add_development_dependency 'rubocop-rspec',              '~> 1.33',  '>= 1.33.0'
   spec.add_development_dependency 'sinatra',                    '~> 2.0',   '>= 2.0.5'
-  spec.add_development_dependency 'webmock',                    '~> 3.4',   '>= 3.4.2'
+  spec.add_development_dependency 'webmock',                    '~> 3.6',   '>= 3.6.0'
 
   spec.extra_rdoc_files = %w[README.md LICENSE.txt]
   spec.rdoc_options = %w[--line-numbers --inline-source --title finapps-ruby --main README.md]
