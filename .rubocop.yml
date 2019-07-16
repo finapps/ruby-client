@@ -1,7 +1,7 @@
 AllCops:
   DisplayCopNames: true
   Exclude:
-  - "finapps_core.gemspec"
+  - "finapps.gemspec"
   UseCache: false
 
 # Commonly used screens these days easily fit more than 80 characters.
