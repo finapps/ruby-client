@@ -13,7 +13,7 @@ class FakeApi < Sinatra::Base
 
   # plaid
   post('/v3/p/webhook') do
-    tenant_token = request.env["HTTP_X_TENANT_TOKEN"]
+    tenant_token = request.env['HTTP_X_TENANT_TOKEN']
     if tenant_token == 'invalid_tenant_token'
       json_response 404, 'resource_not_found.json'
     else
