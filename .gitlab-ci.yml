@@ -2,6 +2,9 @@ test:
   stage: test
   script:
     - apt-get update -qy
+    - gem update --system
+    - "echo 'gem: --no-ri --no-rdoc' > ~/.gemrc"
+    - gem install bundler
     - bundle install --path /cache
     - bundle exec rspec
 include:
