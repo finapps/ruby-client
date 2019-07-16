@@ -1,0 +1,11 @@
+test:
+  stage: test
+  script:
+    - apt-get update -qy
+    - gem update --system
+    - "echo 'gem: --no-document' > ~/.gemrc"
+    - gem install bundler
+    - bundle install --path /cache
+    - bundle exec rspec
+include:
+  template: Dependency-Scanning.gitlab-ci.yml

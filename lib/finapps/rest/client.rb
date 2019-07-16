@@ -32,12 +32,14 @@ module FinApps
         statements
         consumers
         consumer_institution_refreshes
+        consumer_institution_refresh
         tenant_settings
         tenant_app_settings
         user_institutions
         user_institutions_forms
         user_institutions_statuses
         version
+        plaid_webhooks
       ].freeze
 
       # @param [String] tenant_token
@@ -46,8 +48,8 @@ module FinApps
       def initialize(tenant_token, options = {}, logger = nil)
         not_blank(tenant_token, :tenant_token)
 
-        merged_options = options.merge(tenant_token: tenant_token)
-        super(merged_options, logger)
+        options[:tenant_token] = tenant_token
+        super(options, logger)
       end
 
       def method_missing(symbol, *arguments, &block)
@@ -73,8 +75,7 @@ module FinApps
       def camelize(term)
         string = term.to_s
         string = string.sub(/^[a-z\d]*/) { $&.capitalize }
-        string.gsub!(%r{(?:_|(/))([a-z\d]*)}) { Regexp.last_match(2).capitalize.to_s }
-        string
+        string.gsub(%r{(?:_|(/))([a-z\d]*)}) { Regexp.last_match(2).capitalize.to_s }
       end
     end
   end

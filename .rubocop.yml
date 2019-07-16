@@ -1,13 +1,7 @@
-Rails:
-  Enabled: true
-
 AllCops:
   DisplayCopNames: true
   Exclude:
-  - "vendor/**/*"
-  - "db/schema.rb"
-  - "bin/**/*"
-  - "finapps_core.gemspec"
+  - "finapps.gemspec"
   UseCache: false
 
 # Commonly used screens these days easily fit more than 80 characters.

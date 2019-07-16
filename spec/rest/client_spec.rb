@@ -11,8 +11,12 @@ RSpec.describe FinApps::REST::Client do
     subject { FinApps::REST::Client.new(:company_token) }
 
     FinApps::REST::Client::RESOURCES.each do |method|
-      it "responds to #{method}" do
-        expect(subject).to respond_to(method)
+      it("responds to #{method}") { expect(subject).to respond_to(method) }
+
+      it "memoizes the result of #{method}" do
+        first = subject.send(method)
+        second = subject.send(method)
+        expect(first.object_id).to eq(second.object_id)
       end
     end
 
@@ -35,6 +39,12 @@ RSpec.describe FinApps::REST::Client do
     describe '#consumer_institution_refreshes' do
       it do
         expect(subject.consumer_institution_refreshes).to be_an_instance_of FinApps::REST::ConsumerInstitutionRefreshes
+      end
+    end
+
+    describe '#consumer_institution_refresh' do
+      it do
+        expect(subject.consumer_institution_refresh).to be_an_instance_of FinApps::REST::ConsumerInstitutionRefresh
       end
     end
 
@@ -144,12 +154,8 @@ RSpec.describe FinApps::REST::Client do
       it { expect(subject.tenant_app_settings).to be_an_instance_of(FinApps::REST::TenantAppSettings) }
     end
 
-    FinApps::REST::Client::RESOURCES.each do |method|
-      it "memoizes the result of #{method}" do
-        first = subject.send(method)
-        second = subject.send(method)
-        expect(first.object_id).to eq(second.object_id)
-      end
+    describe '#plaid_webhooks' do
+      it { expect(subject.plaid_webhooks).to be_an_instance_of(FinApps::REST::PlaidWebhooks) }
     end
   end
 end
