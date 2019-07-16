@@ -48,8 +48,8 @@ module FinApps
       def initialize(tenant_token, options = {}, logger = nil)
         not_blank(tenant_token, :tenant_token)
 
-        merged_options = options.merge(tenant_token: tenant_token)
-        super(merged_options, logger)
+        options[:tenant_token] = tenant_token
+        super(options, logger)
       end
 
       def method_missing(symbol, *arguments, &block)

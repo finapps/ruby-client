@@ -11,6 +11,16 @@ class FakeApi < Sinatra::Base
   put('/v3/resources') { json_response 201, 'resource.json' }
   delete('/v3/resources/:id') { status 202 }
 
+  # plaid
+  post('/v3/p/webhook') do
+    # 'X-Tenant-Token'=>'invalid_tenant_token'
+    if request.env['X-Tenant-Token'] == 'invalid_tenant_token'
+      json_response 404, 'resource_not_found.json'
+    else
+      json_response 200, 'plaid/webhook.json'
+    end
+  end
+
   # version
   get('/v3/version') { 'Version => 2.1.29-.20161208.172810' }
 
