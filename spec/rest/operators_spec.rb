@@ -34,7 +34,7 @@ RSpec.describe FinApps::REST::Operators, 'initialized with valid FinApps::Client
       it('returns no error messages') { expect(error_messages).to be_empty }
       it 'builds query and sends proper request' do
         list
-        url = "#{FinAppsCore::REST::Defaults::DEFAULTS[:host]}/v3/operators?filter=%7B%22last_name%22:%22term%22," \
+        url = "#{versioned_api_path}/operators?filter=%7B%22last_name%22:%22term%22," \
               '%22role%22:2%7D&page=2&requested=25&sort=date_created'
         expect(WebMock).to have_requested(:get, url)
       end

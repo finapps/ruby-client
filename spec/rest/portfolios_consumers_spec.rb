@@ -45,7 +45,7 @@ RSpec.describe FinApps::REST::PortfoliosConsumers do
       it('returns no error messages') { expect(errors).to be_empty }
       it 'builds query and sends proper request' do
         list
-        url = "#{FinAppsCore::REST::Defaults::DEFAULTS[:host]}/v3/portfolios/#{portfolio_id}/consumers?page=2&" \
+        url = "#{versioned_api_path}/portfolios/#{portfolio_id}/consumers?page=2&" \
         'requested=25&sort=-created_date'
         expect(WebMock).to have_requested(:get, url)
       end
@@ -93,7 +93,7 @@ RSpec.describe FinApps::REST::PortfoliosConsumers do
         it('returns no error messages') { expect(errors).to be_empty }
         it('builds correct url') do
           create
-          url = "#{FinAppsCore::REST::Defaults::DEFAULTS[:host]}/v3/portfolios/#{portfolio_id}/consumers"
+          url = "#{versioned_api_path}/portfolios/#{portfolio_id}/consumers"
           expect(WebMock).to have_requested(:post, url)
         end
       end
@@ -122,7 +122,7 @@ RSpec.describe FinApps::REST::PortfoliosConsumers do
         it('returns no error messages') { expect(errors).to be_empty }
         it('builds correct url') do
           create
-          url = "#{FinAppsCore::REST::Defaults::DEFAULTS[:host]}/v3/portfolios/#{portfolio_id}/consumers/#{params}"
+          url = "#{versioned_api_path}/portfolios/#{portfolio_id}/consumers/#{params}"
           expect(WebMock).to have_requested(:post, url)
         end
       end

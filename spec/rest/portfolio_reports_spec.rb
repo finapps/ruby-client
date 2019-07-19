@@ -35,7 +35,7 @@ RSpec.describe FinApps::REST::PortfolioReports do
       it('returns no error messages') { expect(errors).to be_empty }
       it 'builds query and sends proper request' do
         list
-        url = "#{FinAppsCore::REST::Defaults::DEFAULTS[:host]}/v3/portfolio/reports?page=2&requested=25&" \
+        url = "#{versioned_api_path}/portfolio/reports?page=2&requested=25&" \
         'sort=-created_date'
         expect(WebMock).to have_requested(:get, url)
       end
