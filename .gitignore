@@ -28,3 +28,6 @@ mkmf.log
 .idea/
 /spec/tmp/*
 /Gemfile.lock
+
+# vim swap files
+*.swp
