@@ -104,7 +104,7 @@ class FakeApi < Sinatra::Base
   post("/#{version_path}/orders") do
     request.body.rewind
     request_payload = JSON.parse request.body.read
-    if %w[applicant institutions product].all? {|s| request_payload.key? s }
+    if %w[applicant institutions product].all? { |s| request_payload.key? s }
       json_response 200, 'order_token.json'
     else
       json_response 400, 'invalid_request_body.json'
