@@ -64,7 +64,7 @@ RSpec.describe FinApps::REST::PortfoliosAlerts do
       let(:portfolio_id) { 'valid_id' }
       let(:alert_id) { portfolio_id }
 
-      it { expect { create }.not_to raise_error(FinAppsCore::MissingArgumentsError) }
+      it { expect { create }.not_to raise_error }
       it('returns an array') { expect(create).to be_a(Array) }
       it('results is nil') { expect(results).to be_nil }
       it('returns no error messages') { expect(errors).to be_empty }
@@ -74,7 +74,7 @@ RSpec.describe FinApps::REST::PortfoliosAlerts do
       let(:portfolio_id) { 'invalid_id' }
       let(:alert_id) { portfolio_id }
 
-      it { expect { create }.not_to raise_error(FinAppsCore::MissingArgumentsError) }
+      it { expect { create }.not_to raise_error }
       it('results is nil') { expect(results).to be_nil }
       it('error messages array is populated') do
         expect(errors.first.downcase).to eq('resource not found')
@@ -105,7 +105,7 @@ RSpec.describe FinApps::REST::PortfoliosAlerts do
       let(:portfolio_id) { 'valid_id' }
       let(:alert_id) { portfolio_id }
 
-      it { expect { destroy }.not_to raise_error(FinAppsCore::MissingArgumentsError) }
+      it { expect { destroy }.not_to raise_error }
       it('returns an array') { expect(destroy).to be_a(Array) }
       it('results is nil') { expect(results).to be_nil }
       it('returns no error messages') { expect(errors).to be_empty }
@@ -115,7 +115,7 @@ RSpec.describe FinApps::REST::PortfoliosAlerts do
       let(:portfolio_id) { 'invalid_id' }
       let(:alert_id) { portfolio_id }
 
-      it { expect { destroy }.not_to raise_error(FinAppsCore::MissingArgumentsError) }
+      it { expect { destroy }.not_to raise_error }
       it('results is nil') { expect(results).to be_nil }
       it('error messages array is populated') do
         expect(errors.first.downcase).to eq('resource not found')
