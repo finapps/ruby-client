@@ -12,7 +12,7 @@ windows:
           - git status
           - bundle
   - 
-    logs: 
+    guard: 
       layout: even-horizontal
       panes:
         - guard:

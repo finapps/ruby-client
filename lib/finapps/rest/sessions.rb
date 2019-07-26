@@ -15,7 +15,12 @@ module FinApps
         begin
           super params, path
         rescue FinAppsCore::ApiUnauthenticatedError
-          return [nil, ["Invalid #{path == CONSUMER_LOGIN ? 'Consumer' : 'Operator'} Identifier or Credentials"]]
+          return [
+            nil,
+            [
+              "Invalid #{path == CONSUMER_LOGIN ? 'Consumer' : 'Operator'} Identifier or Credentials"
+            ]
+          ]
         end
       end
 
@@ -26,7 +31,8 @@ module FinApps
       private
 
       def validates(params)
-        params.key?(:email) && params[:email] && params.key?(:password) && params[:password]
+        params.key?(:email) && params[:email] && params.key?(:password) &&
+          params[:password]
       end
     end
   end

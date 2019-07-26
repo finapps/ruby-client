@@ -37,7 +37,12 @@ module FinApps
       private
 
       def build_path(portfolio_id, consumer_id = nil)
-        consumer_path = consumer_id ? "consumers/#{ERB::Util.url_encode(consumer_id)}" : 'consumers'
+        consumer_path =
+          if consumer_id
+            "consumers/#{ERB::Util.url_encode(consumer_id)}"
+          else
+            'consumers'
+          end
         "portfolios/#{ERB::Util.url_encode(portfolio_id)}/" + consumer_path
       end
     end

@@ -2,9 +2,12 @@
 
 require 'spec_helpers/client'
 
-RSpec.describe FinApps::REST::OperatorsPasswordResets, 'initialized with valid FinApps::Client object' do
+RSpec.describe FinApps::REST::OperatorsPasswordResets,
+               'initialized with valid FinApps::Client object' do
   include SpecHelpers::Client
-  subject(:operators_password_resets) { FinApps::REST::OperatorsPasswordResets.new(client) }
+  subject(:operators_password_resets) do
+    FinApps::REST::OperatorsPasswordResets.new(client)
+  end
 
   describe '#create' do
     let(:results) { create[0] }
@@ -13,13 +16,17 @@ RSpec.describe FinApps::REST::OperatorsPasswordResets, 'initialized with valid F
     context 'when missing params' do
       let(:create) { subject.create(nil) }
 
-      it { expect { create }.to raise_error(FinAppsCore::MissingArgumentsError) }
+      it do
+        expect { create }.to raise_error(FinAppsCore::MissingArgumentsError)
+      end
     end
 
     context 'for invalid params' do
       let(:create) { subject.create(params: 'invalid params') }
 
-      it { expect { create }.to raise_error(FinAppsCore::InvalidArgumentsError) }
+      it do
+        expect { create }.to raise_error(FinAppsCore::InvalidArgumentsError)
+      end
     end
 
     context 'for valid params' do
@@ -43,7 +50,9 @@ RSpec.describe FinApps::REST::OperatorsPasswordResets, 'initialized with valid F
     context 'when missing params' do
       let(:update) { subject.update(nil) }
 
-      it { expect { update }.to raise_error(FinAppsCore::MissingArgumentsError) }
+      it do
+        expect { update }.to raise_error(FinAppsCore::MissingArgumentsError)
+      end
     end
 
     context 'for invalid params' do

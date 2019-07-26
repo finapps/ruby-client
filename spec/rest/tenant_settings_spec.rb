@@ -21,15 +21,21 @@ RSpec.describe FinApps::REST::TenantSettings do
 
     context 'when missing params' do
       let(:params) { nil }
-      it { expect { update }.to raise_error(FinAppsCore::MissingArgumentsError) }
+      it do
+        expect { update }.to raise_error(FinAppsCore::MissingArgumentsError)
+      end
     end
 
     context 'when valid params are provided' do
       let(:params) { { iav_default_product: 'valid' } }
 
       it { expect { update }.not_to raise_error }
-      it('performs put and returns no content') { expect(update[RESULTS]).to be_nil }
-      it('error_messages array is empty') { expect(update[ERROR_MESSAGES]).to be_empty }
+      it('performs put and returns no content') do
+        expect(update[RESULTS]).to be_nil
+      end
+      it('error_messages array is empty') do
+        expect(update[ERROR_MESSAGES]).to be_empty
+      end
     end
 
     context 'when invalid params are provided' do
@@ -37,7 +43,9 @@ RSpec.describe FinApps::REST::TenantSettings do
 
       it { expect { update }.not_to raise_error }
       it('results is nil') { expect(update[RESULTS]).to be_nil }
-      it('error_messages array is populated') { expect(update[ERROR_MESSAGES]).not_to be_empty }
+      it('error_messages array is populated') do
+        expect(update[ERROR_MESSAGES]).not_to be_empty
+      end
     end
   end
 end

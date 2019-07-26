@@ -50,14 +50,18 @@ RSpec.describe FinApps::REST::PortfoliosAlerts do
       let(:portfolio_id) { nil }
       let(:alert_id) { 'valid_id' }
 
-      it { expect { create }.to raise_error(FinAppsCore::MissingArgumentsError) }
+      it do
+        expect { create }.to raise_error(FinAppsCore::MissingArgumentsError)
+      end
     end
 
     context 'when missing alert_id' do
       let(:portfolio_id) { 'valid_id' }
       let(:alert_id) { nil }
 
-      it { expect { create }.to raise_error(FinAppsCore::MissingArgumentsError) }
+      it do
+        expect { create }.to raise_error(FinAppsCore::MissingArgumentsError)
+      end
     end
 
     context 'when valid ids are provided' do
@@ -91,14 +95,18 @@ RSpec.describe FinApps::REST::PortfoliosAlerts do
       let(:portfolio_id) { nil }
       let(:alert_id) { 'valid_id' }
 
-      it { expect { destroy }.to raise_error(FinAppsCore::MissingArgumentsError) }
+      it do
+        expect { destroy }.to raise_error(FinAppsCore::MissingArgumentsError)
+      end
     end
 
     context 'when missing alert_id' do
       let(:portfolio_id) { 'valid_id' }
       let(:alert_id) { nil }
 
-      it { expect { destroy }.to raise_error(FinAppsCore::MissingArgumentsError) }
+      it do
+        expect { destroy }.to raise_error(FinAppsCore::MissingArgumentsError)
+      end
     end
 
     context 'when valid ids are provided' do

@@ -16,7 +16,9 @@ RSpec.describe FinApps::REST::Portfolios do
 
       it { expect { list }.not_to raise_error }
       it('returns an array') { expect(list).to be_a(Array) }
-      it('performs a get and returns the response') { expect(results).to respond_to(:records) }
+      it('performs a get and returns the response') do
+        expect(results).to respond_to(:records)
+      end
       it('returns no error messages') { expect(errors).to be_empty }
     end
 
@@ -31,11 +33,14 @@ RSpec.describe FinApps::REST::Portfolios do
 
       it { expect { list }.not_to raise_error }
       it('returns an array') { expect(list).to be_a(Array) }
-      it('performs a get and returns the response') { expect(results).to respond_to(:records) }
+      it('performs a get and returns the response') do
+        expect(results).to respond_to(:records)
+      end
       it('returns no error messages') { expect(errors).to be_empty }
       it 'builds query and sends proper request' do
         list
-        url = "#{versioned_api_path}/portfolios?page=2&requested=25&sort=-created_date"
+        url =
+          "#{versioned_api_path}/portfolios?page=2&requested=25&sort=-created_date"
         expect(WebMock).to have_requested(:get, url)
       end
     end
@@ -83,11 +88,19 @@ RSpec.describe FinApps::REST::Portfolios do
     context 'when missing params' do
       let(:params) { nil }
 
-      it { expect { create }.to raise_error(FinAppsCore::MissingArgumentsError) }
+      it do
+        expect { create }.to raise_error(FinAppsCore::MissingArgumentsError)
+      end
     end
 
     context 'when valid params are provided' do
-      let(:params) { { name: 'Account Checks', description: 'Some Check Stuff', product: 'valid' } }
+      let(:params) do
+        {
+          name: 'Account Checks',
+          description: 'Some Check Stuff',
+          product: 'valid'
+        }
+      end
 
       it { expect { create }.not_to raise_error }
       it('returns an array') { expect(create).to be_a(Array) }
@@ -99,7 +112,13 @@ RSpec.describe FinApps::REST::Portfolios do
     end
 
     context 'when invalid params are provided' do
-      let(:params) { { name: 'Account Checks', description: 'Some Check Stuff', product: 'invalid' } }
+      let(:params) do
+        {
+          name: 'Account Checks',
+          description: 'Some Check Stuff',
+          product: 'invalid'
+        }
+      end
 
       it { expect { create }.not_to raise_error }
       it('results is nil') { expect(results).to be_nil }
@@ -118,14 +137,18 @@ RSpec.describe FinApps::REST::Portfolios do
       let(:id) { nil }
       let(:params) { { fake: 'data' } }
 
-      it { expect { update }.to raise_error(FinAppsCore::MissingArgumentsError) }
+      it do
+        expect { update }.to raise_error(FinAppsCore::MissingArgumentsError)
+      end
     end
 
     context 'when missing params' do
       let(:id) { 'valid_id' }
       let(:params) { nil }
 
-      it { expect { update }.to raise_error(FinAppsCore::MissingArgumentsError) }
+      it do
+        expect { update }.to raise_error(FinAppsCore::MissingArgumentsError)
+      end
     end
 
     context 'when invalid id or params are provided' do
@@ -134,7 +157,9 @@ RSpec.describe FinApps::REST::Portfolios do
 
       it { expect { update }.not_to raise_error }
       it('results is nil') { expect(results).to be_nil }
-      it('error messages array is populated') { expect(errors.first.downcase).to eq('resource not found') }
+      it('error messages array is populated') do
+        expect(errors.first.downcase).to eq('resource not found')
+      end
     end
 
     context 'when valid id and params are provided' do
@@ -159,7 +184,9 @@ RSpec.describe FinApps::REST::Portfolios do
     context 'when missing id' do
       let(:id) { nil }
 
-      it { expect { destroy }.to raise_error(FinAppsCore::MissingArgumentsError) }
+      it do
+        expect { destroy }.to raise_error(FinAppsCore::MissingArgumentsError)
+      end
     end
 
     context 'when invalid id is provided' do
@@ -167,7 +194,9 @@ RSpec.describe FinApps::REST::Portfolios do
 
       it { expect { destroy }.not_to raise_error }
       it('results is nil') { expect(results).to be_nil }
-      it('error messages array is populated') { expect(errors.first.downcase).to eq('resource not found') }
+      it('error messages array is populated') do
+        expect(errors.first.downcase).to eq('resource not found')
+      end
     end
 
     context 'when valid id is provided' do

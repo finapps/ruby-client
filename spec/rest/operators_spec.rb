@@ -2,7 +2,8 @@
 
 require 'spec_helpers/client'
 
-RSpec.describe FinApps::REST::Operators, 'initialized with valid FinApps::Client object' do
+RSpec.describe FinApps::REST::Operators,
+               'initialized with valid FinApps::Client object' do
   include SpecHelpers::Client
   subject(:operators) { FinApps::REST::Operators.new(client) }
 
@@ -14,8 +15,12 @@ RSpec.describe FinApps::REST::Operators, 'initialized with valid FinApps::Client
     context 'when missing params' do
       let(:params) { nil }
       it { expect { list }.not_to raise_error }
-      it('performs a get and returns the response') { expect(results).to respond_to(:records) }
-      it('returns an array of records') { expect(results.records).to be_a(Array) }
+      it('performs a get and returns the response') do
+        expect(results).to respond_to(:records)
+      end
+      it('returns an array of records') do
+        expect(results.records).to be_a(Array)
+      end
       it('returns no error messages') { expect(error_messages).to be_empty }
     end
 
@@ -26,16 +31,29 @@ RSpec.describe FinApps::REST::Operators, 'initialized with valid FinApps::Client
     end
 
     context 'when including valid params' do
-      let(:params) { { page: 2, sort: 'date_created', requested: 25, searchTerm: 'term', role: 2 } }
+      let(:params) do
+        {
+          page: 2,
+          sort: 'date_created',
+          requested: 25,
+          searchTerm: 'term',
+          role: 2
+        }
+      end
 
       it { expect { list }.not_to raise_error }
-      it('performs a get and returns the response') { expect(results).to respond_to(:records) }
-      it('returns an array of records') { expect(results.records).to be_a(Array) }
+      it('performs a get and returns the response') do
+        expect(results).to respond_to(:records)
+      end
+      it('returns an array of records') do
+        expect(results.records).to be_a(Array)
+      end
       it('returns no error messages') { expect(error_messages).to be_empty }
       it 'builds query and sends proper request' do
         list
-        url = "#{versioned_api_path}/operators?filter=%7B%22last_name%22:%22term%22," \
-              '%22role%22:2%7D&page=2&requested=25&sort=date_created'
+        url =
+          "#{versioned_api_path}/operators?filter=%7B%22last_name%22:%22term%22," \
+            '%22role%22:2%7D&page=2&requested=25&sort=date_created'
         expect(WebMock).to have_requested(:get, url)
       end
     end
@@ -66,7 +84,9 @@ RSpec.describe FinApps::REST::Operators, 'initialized with valid FinApps::Client
 
       it { expect { show }.not_to raise_error }
       it('returns an array') { expect(show).to be_a(Array) }
-      it('performs a get and returns the response') { expect(results).to respond_to(:public_id) }
+      it('performs a get and returns the response') do
+        expect(results).to respond_to(:public_id)
+      end
       it('returns no error messages') { expect(error_messages).to be_empty }
     end
   end
@@ -78,7 +98,9 @@ RSpec.describe FinApps::REST::Operators, 'initialized with valid FinApps::Client
     context 'when missing params' do
       let(:create) { subject.create(nil) }
 
-      it { expect { create }.to raise_error(FinAppsCore::MissingArgumentsError) }
+      it do
+        expect { create }.to raise_error(FinAppsCore::MissingArgumentsError)
+      end
     end
 
     context 'when invalid params are provided' do
@@ -111,13 +133,17 @@ RSpec.describe FinApps::REST::Operators, 'initialized with valid FinApps::Client
     context 'when missing id' do
       let(:update) { subject.update(nil, params: 'params') }
 
-      it { expect { update }.to raise_error(FinAppsCore::MissingArgumentsError) }
+      it do
+        expect { update }.to raise_error(FinAppsCore::MissingArgumentsError)
+      end
     end
 
     context 'when missing params' do
       let(:update) { subject.update(:valid_id, nil) }
 
-      it { expect { update }.to raise_error(FinAppsCore::MissingArgumentsError) }
+      it do
+        expect { update }.to raise_error(FinAppsCore::MissingArgumentsError)
+      end
     end
 
     context 'with invalid params' do
@@ -150,17 +176,27 @@ RSpec.describe FinApps::REST::Operators, 'initialized with valid FinApps::Client
     context 'when missing params' do
       let(:update_password) { subject.update_password(nil) }
 
-      it { expect { update_password }.to raise_error(FinAppsCore::MissingArgumentsError) }
+      it do
+        expect { update_password }.to raise_error(
+          FinAppsCore::MissingArgumentsError
+        )
+      end
     end
 
     context 'with invalid params' do
       let(:update_password) { subject.update_password(password: 'invalid') }
 
-      it { expect { update_password }.to raise_error(FinAppsCore::InvalidArgumentsError) }
+      it do
+        expect { update_password }.to raise_error(
+          FinAppsCore::InvalidArgumentsError
+        )
+      end
     end
 
     context 'with valid params' do
-      let(:valid_params) { { password: 'valid password', password_confirm: 'valid_password' } }
+      let(:valid_params) do
+        { password: 'valid password', password_confirm: 'valid_password' }
+      end
       let(:update_password) { subject.update_password(valid_params) }
 
       it { expect { update_password }.not_to raise_error }
@@ -180,7 +216,9 @@ RSpec.describe FinApps::REST::Operators, 'initialized with valid FinApps::Client
     context 'when missing id' do
       let(:destroy) { subject.destroy(nil) }
 
-      it { expect { destroy }.to raise_error(FinAppsCore::MissingArgumentsError) }
+      it do
+        expect { destroy }.to raise_error(FinAppsCore::MissingArgumentsError)
+      end
     end
 
     context 'for invalid id' do

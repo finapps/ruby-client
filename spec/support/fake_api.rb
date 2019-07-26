@@ -29,7 +29,9 @@ class FakeApi < Sinatra::Base
   get("/#{version_path}/version") { 'Version => 2.1.29-.20161208.172810' }
 
   # tenants
-  get("/#{version_path}/settings/tenant") { json_response 200, 'tenant_settings.json' }
+  get("/#{version_path}/settings/tenant") do
+    json_response 200, 'tenant_settings.json'
+  end
   put("/#{version_path}/settings/tenant") do
     request.body.rewind
     request_payload = JSON.parse request.body.read
@@ -39,7 +41,9 @@ class FakeApi < Sinatra::Base
       status 204
     end
   end
-  get("/#{version_path}/settings/app") { json_response 200, 'tenant_app_settings.json' }
+  get("/#{version_path}/settings/app") do
+    json_response 200, 'tenant_app_settings.json'
+  end
   put("/#{version_path}/settings/app") do
     request.body.rewind
     request_payload = JSON.parse request.body.read
@@ -51,21 +55,43 @@ class FakeApi < Sinatra::Base
   end
 
   # orders
-  post("/#{version_path}/orders/valid_token") { json_response 200, 'order_token.json' }
-  post("/#{version_path}/orders/invalid_token") { json_response 404, 'resource_not_found.json' }
+  post("/#{version_path}/orders/valid_token") do
+    json_response 200, 'order_token.json'
+  end
+  post("/#{version_path}/orders/invalid_token") do
+    json_response 404, 'resource_not_found.json'
+  end
   get("/#{version_path}/orders/valid_id") { json_response 200, 'order.json' }
   get("/#{version_path}/orders") { json_response 200, 'orders.json' }
-  get("/#{version_path}/orders/valid_id/report.:format") { json_response 200, 'order_report.json' }
-  get("/#{version_path}/orders/invalid_id/report.:format") { json_response 404, 'resource_not_found.json' }
-  get("/#{version_path}/orders/valid_id/status") { json_response 200, 'order_status.json' }
-  get("/#{version_path}/orders/invalid_id/status") { json_response 404, 'resource_not_found.json' }
+  get("/#{version_path}/orders/valid_id/report.:format") do
+    json_response 200, 'order_report.json'
+  end
+  get("/#{version_path}/orders/invalid_id/report.:format") do
+    json_response 404, 'resource_not_found.json'
+  end
+  get("/#{version_path}/orders/valid_id/status") do
+    json_response 200, 'order_status.json'
+  end
+  get("/#{version_path}/orders/invalid_id/status") do
+    json_response 404, 'resource_not_found.json'
+  end
   put("/#{version_path}/orders/valid_id/cancel") { status 204 }
-  put("/#{version_path}/orders/invalid_id/cancel") { json_response 404, 'resource_not_found.json' }
+  put("/#{version_path}/orders/invalid_id/cancel") do
+    json_response 404, 'resource_not_found.json'
+  end
   put("/#{version_path}/orders/valid_id/notify") { status 204 }
-  put("/#{version_path}/orders/invalid_id/notify") { json_response 404, 'resource_not_found.json' }
-  put("/#{version_path}/orders/valid_id/refresh") { json_response 200, 'order_refresh.json' }
-  put("/#{version_path}/orders/invalid_id/refresh") { json_response 404, 'resource_not_found.json' }
-  put("/#{version_path}/orders/invalid_id") { json_response 404, 'resource_not_found.json' }
+  put("/#{version_path}/orders/invalid_id/notify") do
+    json_response 404, 'resource_not_found.json'
+  end
+  put("/#{version_path}/orders/valid_id/refresh") do
+    json_response 200, 'order_refresh.json'
+  end
+  put("/#{version_path}/orders/invalid_id/refresh") do
+    json_response 404, 'resource_not_found.json'
+  end
+  put("/#{version_path}/orders/invalid_id") do
+    json_response 404, 'resource_not_found.json'
+  end
   put("/#{version_path}/orders/valid_id") do
     request.body.rewind
     request_payload = JSON.parse request.body.read
@@ -86,34 +112,72 @@ class FakeApi < Sinatra::Base
   end
 
   # institutions
-  get("/#{version_path}/institutions/site/valid_site_id/form") { json_response 200, 'institution_login_form.json' }
-  get("/#{version_path}/institutions/site/invalid_site_id/form") { json_response 400, 'invalid_institution_id.json' }
-  post("/#{version_path}/institutions/site/valid_site_id/add") { json_response 200, 'institution_add.json' }
-  get("/#{version_path}/institutions/search/:search_term") { json_response 200, 'institutions_search_list.json' }
-  get("/#{version_path}/institutions/routing/:routing_number") { json_response 200, 'institutions_routing_number.json' }
-  get("/#{version_path}/institutions/site/:site_id") { json_response 200, 'institutions_routing_number.json' }
+  get("/#{version_path}/institutions/site/valid_site_id/form") do
+    json_response 200, 'institution_login_form.json'
+  end
+  get("/#{version_path}/institutions/site/invalid_site_id/form") do
+    json_response 400, 'invalid_institution_id.json'
+  end
+  post("/#{version_path}/institutions/site/valid_site_id/add") do
+    json_response 200, 'institution_add.json'
+  end
+  get("/#{version_path}/institutions/search/:search_term") do
+    json_response 200, 'institutions_search_list.json'
+  end
+  get("/#{version_path}/institutions/routing/:routing_number") do
+    json_response 200, 'institutions_routing_number.json'
+  end
+  get("/#{version_path}/institutions/site/:site_id") do
+    json_response 200, 'institutions_routing_number.json'
+  end
 
   # user institutions
-  get("/#{version_path}/institutions/consumer/valid_id/status") { json_response 200, 'user_institution_status.json' }
+  get("/#{version_path}/institutions/consumer/valid_id/status") do
+    json_response 200, 'user_institution_status.json'
+  end
   get("/#{version_path}/institutions/consumer/invalid_id/status") do
     json_response 400, 'invalid_user_institution_id.json'
   end
-  get("/#{version_path}/institutions/consumer") { json_response 200, 'user_institutions_list.json' }
-  get("/#{version_path}/institutions/consumer/valid_id") { json_response 200, 'user_institutions_show.json' }
-  get("/#{version_path}/institutions/consumer/invalid_id") { json_response 400, 'invalid_user_institution_id.json' }
-  put("/#{version_path}/institutions/consumer/refresh") { json_response 200, 'user_institutions_refresh_all.json' }
-  put("/#{version_path}/institutions/consumer/valid_id/credentials") { json_response 200, 'institution_add.json' }
+  get("/#{version_path}/institutions/consumer") do
+    json_response 200, 'user_institutions_list.json'
+  end
+  get("/#{version_path}/institutions/consumer/valid_id") do
+    json_response 200, 'user_institutions_show.json'
+  end
+  get("/#{version_path}/institutions/consumer/invalid_id") do
+    json_response 400, 'invalid_user_institution_id.json'
+  end
+  put("/#{version_path}/institutions/consumer/refresh") do
+    json_response 200, 'user_institutions_refresh_all.json'
+  end
+  put("/#{version_path}/institutions/consumer/valid_id/credentials") do
+    json_response 200, 'institution_add.json'
+  end
   put("/#{version_path}/institutions/consumer/invalid_id/credentials") do
     json_response 400, 'invalid_user_institution_id.json'
   end
-  put("/#{version_path}/institutions/consumer/valid_id/mfa") { json_response 200, 'institution_add.json' }
-  put("/#{version_path}/institutions/consumer/invalid_id/mfa") { json_response 400, 'invalid_user_institution_id.json' }
+  put("/#{version_path}/institutions/consumer/valid_id/mfa") do
+    json_response 200, 'institution_add.json'
+  end
+  put("/#{version_path}/institutions/consumer/invalid_id/mfa") do
+    json_response 400, 'invalid_user_institution_id.json'
+  end
   delete("/#{version_path}/institutions/consumer/valid_id") { status 204 }
-  delete("/#{version_path}/institutions/consumer/invalid_id") { json_response 400, 'invalid_user_institution_id.json' }
-  get("/#{version_path}/institutions/consumer/valid_id/form") { json_response 200, 'institution_login_form.json' }
-  get("/#{version_path}/institutions/consumer/invalid_id/form") { json_response 400, 'invalid_institution_id.json' }
-  put("/#{version_path}/institutions/refresh") { json_response 200, 'user_institution_refresh.json' }
-  put("/#{version_path}/institutions/consumer/valid_consumer_institution_id/refresh") do
+  delete("/#{version_path}/institutions/consumer/invalid_id") do
+    json_response 400, 'invalid_user_institution_id.json'
+  end
+  get("/#{version_path}/institutions/consumer/valid_id/form") do
+    json_response 200, 'institution_login_form.json'
+  end
+  get("/#{version_path}/institutions/consumer/invalid_id/form") do
+    json_response 400, 'invalid_institution_id.json'
+  end
+  put("/#{version_path}/institutions/refresh") do
+    json_response 200, 'user_institution_refresh.json'
+  end
+  put(
+    "/#{version_path}/institutions/consumer/valid_consumer_institution_id/refresh"
+  ) do
     request.body.rewind
     request_payload = JSON.parse request.body.read
     if request_payload['token'] == 'invalid_token'
@@ -124,8 +188,12 @@ class FakeApi < Sinatra::Base
   end
 
   # consumers
-  get("/#{version_path}/consumers/valid_public_id") { json_response 200, 'user.json' }
-  get("/#{version_path}/consumers/invalid_public_id") { json_response 404, 'resource_not_found.json' }
+  get("/#{version_path}/consumers/valid_public_id") do
+    json_response 200, 'user.json'
+  end
+  get("/#{version_path}/consumers/invalid_public_id") do
+    json_response 404, 'resource_not_found.json'
+  end
   post("/#{version_path}/consumers") do
     request.body.rewind
     request_payload = JSON.parse request.body.read
@@ -136,30 +204,58 @@ class FakeApi < Sinatra::Base
     end
   end
   put("/#{version_path}/consumers/valid_public_id") { status 204 }
-  put("/#{version_path}/consumers/invalid_public_id") { json_response 400, 'invalid_user_id.json' }
-  put("/#{version_path}/consumers/valid_public_id/password") { json_response 200, 'user.json' }
-  put("/#{version_path}/consumers/invalid_public_id/password") { json_response 404, 'resource_not_found.json' }
+  put("/#{version_path}/consumers/invalid_public_id") do
+    json_response 400, 'invalid_user_id.json'
+  end
+  put("/#{version_path}/consumers/valid_public_id/password") do
+    json_response 200, 'user.json'
+  end
+  put("/#{version_path}/consumers/invalid_public_id/password") do
+    json_response 404, 'resource_not_found.json'
+  end
   delete("/#{version_path}/consumers/valid_public_id") { status 204 }
-  delete("/#{version_path}/consumers/invalid_public_id") { json_response 404, 'resource_not_found.json' }
+  delete("/#{version_path}/consumers/invalid_public_id") do
+    json_response 404, 'resource_not_found.json'
+  end
   post("/#{version_path}/logout") { status 204 }
 
   # accounts
-  get("/#{version_path}/accounts/valid_id/statement/valid_id") { json_response 200, 'fake_pdf_statement.json' }
-  get("/#{version_path}/accounts/invalid_id/statement/valid_id") { json_response 404, 'resource_not_found.json' }
+  get("/#{version_path}/accounts/valid_id/statement/valid_id") do
+    json_response 200, 'fake_pdf_statement.json'
+  end
+  get("/#{version_path}/accounts/invalid_id/statement/valid_id") do
+    json_response 404, 'resource_not_found.json'
+  end
 
   # operators
   get("/#{version_path}/operators") { json_response 200, 'operator_list.json' }
-  get("/#{version_path}/operators/invalid_id") { json_response 404, 'resource_not_found.json' }
-  get("/#{version_path}/operators/valid_id") { json_response 200, 'operator.json' }
-  delete("/#{version_path}/operators/invalid_id") { json_response 404, 'resource_not_found.json' }
+  get("/#{version_path}/operators/invalid_id") do
+    json_response 404, 'resource_not_found.json'
+  end
+  get("/#{version_path}/operators/valid_id") do
+    json_response 200, 'operator.json'
+  end
+  delete("/#{version_path}/operators/invalid_id") do
+    json_response 404, 'resource_not_found.json'
+  end
   delete("/#{version_path}/operators/valid_id") { status 204 }
-  post("/#{version_path}/operators/password/change") { json_response 200, 'operator.json' }
-  put("/#{version_path}/operators/invalid_id") { json_response 404, 'resource_not_found.json' }
-  put("/#{version_path}/operators/valid_id") { json_response 200, 'operator.json' }
+  post("/#{version_path}/operators/password/change") do
+    json_response 200, 'operator.json'
+  end
+  put("/#{version_path}/operators/invalid_id") do
+    json_response 404, 'resource_not_found.json'
+  end
+  put("/#{version_path}/operators/valid_id") do
+    json_response 200, 'operator.json'
+  end
   put("/#{version_path}/operators/valid_id/assign") { status 204 }
-  put("/#{version_path}/operators/invalid_id/assign") { json_response 404, 'resource_not_found.json' }
-  post("/#{version_path}/operators/password/forgot") { json_response 200, 'operator_forgot_password.json' }
-  post("/#{version_path}/operators/password/reset")  do
+  put("/#{version_path}/operators/invalid_id/assign") do
+    json_response 404, 'resource_not_found.json'
+  end
+  post("/#{version_path}/operators/password/forgot") do
+    json_response 200, 'operator_forgot_password.json'
+  end
+  post("/#{version_path}/operators/password/reset") do
     request.body.rewind
     request_payload = JSON.parse request.body.read
     if request_payload['params'] == 'valid'
@@ -188,11 +284,17 @@ class FakeApi < Sinatra::Base
       json_response(401, 'unauthorized.json')
     end
   end
-  post("/#{version_path}/operators/login") { json_response 200, 'operator.json' }
+  post("/#{version_path}/operators/login") do
+    json_response 200, 'operator.json'
+  end
 
   # password resets
-  post("/#{version_path}/tenant/valid_user_id/password") { json_response 200, 'password_reset_token.json' }
-  post("/#{version_path}/tenant/invalid_user_id/password") { json_response 404, 'resource_not_found.json' }
+  post("/#{version_path}/tenant/valid_user_id/password") do
+    json_response 200, 'password_reset_token.json'
+  end
+  post("/#{version_path}/tenant/invalid_user_id/password") do
+    json_response 404, 'resource_not_found.json'
+  end
   put("/#{version_path}/tenant/valid_user_id/password") do
     request.body.rewind
     request_payload = JSON.parse request.body.read
@@ -202,15 +304,21 @@ class FakeApi < Sinatra::Base
       json_response(400, 'invalid_request_body.json')
     end
   end
-  put("/#{version_path}/tenant/invalid_user_id/password") { json_response 404, 'resource_not_found.json' }
+  put("/#{version_path}/tenant/invalid_user_id/password") do
+    json_response 404, 'resource_not_found.json'
+  end
 
   # products
   get("/#{version_path}/products") { json_response 200, 'products.json' }
 
   # portfolios
   get("/#{version_path}/portfolios") { json_response 200, 'portfolios.json' }
-  get("/#{version_path}/portfolios/valid_id") { json_response 200, 'portfolio.json' }
-  get("/#{version_path}/portfolios/invalid_id") { json_response 404, 'resource_not_found.json' }
+  get("/#{version_path}/portfolios/valid_id") do
+    json_response 200, 'portfolio.json'
+  end
+  get("/#{version_path}/portfolios/invalid_id") do
+    json_response 404, 'resource_not_found.json'
+  end
   post("/#{version_path}/portfolios") do
     request.body.rewind
     request_payload = JSON.parse request.body.read
@@ -220,30 +328,56 @@ class FakeApi < Sinatra::Base
       json_response(200, 'portfolio.json')
     end
   end
-  put("/#{version_path}/portfolios/valid_id") { json_response 200, 'portfolio.json' }
-  put("/#{version_path}/portfolios/invalid_id") { json_response 404, 'resource_not_found.json' }
+  put("/#{version_path}/portfolios/valid_id") do
+    json_response 200, 'portfolio.json'
+  end
+  put("/#{version_path}/portfolios/invalid_id") do
+    json_response 404, 'resource_not_found.json'
+  end
   delete("/#{version_path}/portfolios/valid_id") { status 204 }
-  delete("/#{version_path}/portfolios/invalid_id") { json_response 404, 'resource_not_found.json' }
+  delete("/#{version_path}/portfolios/invalid_id") do
+    json_response 404, 'resource_not_found.json'
+  end
 
   # alert definitions
-  get("/#{version_path}/portfolio/alerts/definitions") { json_response 200, 'alert_definitions.json' }
-  get("/#{version_path}/portfolio/alerts/definitions/valid_id") { json_response 200, 'alert_definition.json' }
-  get("/#{version_path}/portfolio/alerts/definitions/invalid_id") { json_response 404, 'resource_not_found.json' }
+  get("/#{version_path}/portfolio/alerts/definitions") do
+    json_response 200, 'alert_definitions.json'
+  end
+  get("/#{version_path}/portfolio/alerts/definitions/valid_id") do
+    json_response 200, 'alert_definition.json'
+  end
+  get("/#{version_path}/portfolio/alerts/definitions/invalid_id") do
+    json_response 404, 'resource_not_found.json'
+  end
 
   # alert occurrences
-  get("/#{version_path}/portfolio/alerts/occurrences") { json_response 200, 'alert_occurrences.json' }
+  get("/#{version_path}/portfolio/alerts/occurrences") do
+    json_response 200, 'alert_occurrences.json'
+  end
 
   # portfolios alerts
-  get("/#{version_path}/portfolios/valid_id/alerts") { json_response 200, 'portfolios_alerts.json' }
-  get("/#{version_path}/portfolios/invalid_id/alerts") { json_response 404, 'resource_not_found.json' }
+  get("/#{version_path}/portfolios/valid_id/alerts") do
+    json_response 200, 'portfolios_alerts.json'
+  end
+  get("/#{version_path}/portfolios/invalid_id/alerts") do
+    json_response 404, 'resource_not_found.json'
+  end
   put("/#{version_path}/portfolios/valid_id/alerts/valid_id") { status 204 }
-  put("/#{version_path}/portfolios/invalid_id/alerts/invalid_id") { json_response 404, 'resource_not_found.json' }
+  put("/#{version_path}/portfolios/invalid_id/alerts/invalid_id") do
+    json_response 404, 'resource_not_found.json'
+  end
   delete("/#{version_path}/portfolios/valid_id/alerts/valid_id") { status 204 }
-  delete("/#{version_path}/portfolios/invalid_id/alerts/invalid_id") { json_response 404, 'resource_not_found.json' }
+  delete("/#{version_path}/portfolios/invalid_id/alerts/invalid_id") do
+    json_response 404, 'resource_not_found.json'
+  end
 
   # portfolios consumers
-  get("/#{version_path}/portfolios/valid_id/consumers") { json_response 200, 'portfolios_consumers.json' }
-  get("/#{version_path}/portfolios/invalid_id/consumers") { json_response 404, 'resource_not_found.json' }
+  get("/#{version_path}/portfolios/valid_id/consumers") do
+    json_response 200, 'portfolios_consumers.json'
+  end
+  get("/#{version_path}/portfolios/invalid_id/consumers") do
+    json_response 404, 'resource_not_found.json'
+  end
   post("/#{version_path}/portfolios/valid_id/consumers") { status 204 }
   post("/#{version_path}/portfolios/invalid_id/consumers") do
     json_response 400, 'multiple_consumer_subscribe_error.json'
@@ -252,8 +386,12 @@ class FakeApi < Sinatra::Base
   post("/#{version_path}/portfolios/invalid_id/consumers/invalid_id") do
     json_response 400, 'single_consumer_subscribe_error.json'
   end
-  delete("/#{version_path}/portfolios/valid_id/consumers/valid_id") { status 204 }
-  delete("/#{version_path}/portfolios/invalid_id/consumers/invalid_id") { json_response 404, 'resource_not_found.json' }
+  delete("/#{version_path}/portfolios/valid_id/consumers/valid_id") do
+    status 204
+  end
+  delete("/#{version_path}/portfolios/invalid_id/consumers/invalid_id") do
+    json_response 404, 'resource_not_found.json'
+  end
 
   # portfolios available consumers
   get("/#{version_path}/portfolios/:id/consumers/available") do
@@ -261,14 +399,22 @@ class FakeApi < Sinatra::Base
   end
 
   # consumers portfolios
-  get("/#{version_path}/consumers/valid_id/portfolios") { json_response 200, 'portfolios.json' }
-  get("/#{version_path}/consumers/invalid_id/portfolios") { json_response 404, 'resource_not_found.json' }
+  get("/#{version_path}/consumers/valid_id/portfolios") do
+    json_response 200, 'portfolios.json'
+  end
+  get("/#{version_path}/consumers/invalid_id/portfolios") do
+    json_response 404, 'resource_not_found.json'
+  end
 
   # portfolio reports
-  get("/#{version_path}/portfolio/reports") { json_response 200, 'portfolio_reports.json' }
+  get("/#{version_path}/portfolio/reports") do
+    json_response 200, 'portfolio_reports.json'
+  end
 
   # relevance
-  get("/#{version_path}/relevance/ruleset/names") { json_response 200, 'relevance_ruleset_names.json' }
+  get("/#{version_path}/relevance/ruleset/names") do
+    json_response 200, 'relevance_ruleset_names.json'
+  end
 
   # errors
   get("/#{version_path}/client_error") { json_response 400, 'error.json' }

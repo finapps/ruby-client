@@ -49,7 +49,8 @@ module FinApps
           class_name = camelize(symbol.to_s)
           variable = "@#{class_name.downcase}"
           unless instance_variable_defined? variable
-            klass = Object.const_get('FinApps').const_get('REST').const_get class_name
+            klass =
+              Object.const_get('FinApps').const_get('REST').const_get class_name
             instance_variable_set(variable, klass.new(self))
           end
           instance_variable_get(variable)
@@ -67,7 +68,9 @@ module FinApps
       def camelize(term)
         string = term.to_s
         string = string.sub(/^[a-z\d]*/) { $&.capitalize }
-        string.gsub(%r{(?:_|(/))([a-z\d]*)}) { Regexp.last_match(2).capitalize.to_s }
+        string.gsub(%r{(?:_|(/))([a-z\d]*)}) do
+          Regexp.last_match(2).capitalize.to_s
+        end
       end
     end
   end

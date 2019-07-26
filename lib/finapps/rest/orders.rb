@@ -68,22 +68,24 @@ module FinApps
       def search_query(term)
         {
           "$or": [
-            { "public_id": {
-              "$regex": "^#{term}",
-              "$options": 'i'
-            } },
+            { "public_id": { "$regex": "^#{term}", "$options": 'i' } },
             { "applicant.last_name": term },
             { "assignment.last_name": term },
-            { "requestor.reference_no": {
-              "$regex": "^#{term}",
-              "$options": 'i'
-            } }
+            {
+              "requestor.reference_no": {
+                "$regex": "^#{term}", "$options": 'i'
+              }
+            }
           ]
         }
       end
 
       def status_query(status)
-        status.is_a?(Array) ? { "status": { "$in": status.map(&:to_i) } } : { "status": status.to_i }
+        if status.is_a?(Array)
+          { "status": { "$in": status.map(&:to_i) } }
+        else
+          { "status": status.to_i }
+        end
       end
 
       def assignment_query(assignment)

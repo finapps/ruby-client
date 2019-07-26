@@ -13,12 +13,17 @@ RSpec.describe FinApps::Utils::QueryBuilder do
     let(:end_point) { 'orders' }
 
     context 'with full params' do
-      let(:params) { { page: '1', requested: '20', sort: '-date', random: 'random' } }
+      let(:params) do
+        { page: '1', requested: '20', sort: '-date', random: 'random' }
+      end
       it 'calls #build_filter and returns correct string' do
         allow(subject).to receive(:build_filter) { { role: 2 } }
         expect(subject).to receive(:build_filter).with(params)
-        correct_string = 'orders?page=1&requested=20&sort=-date&filter=%7B%22role%22%3A2%7D'
-        expect(subject.build_query_path(end_point, params)).to eq(correct_string)
+        correct_string =
+          'orders?page=1&requested=20&sort=-date&filter=%7B%22role%22%3A2%7D'
+        expect(subject.build_query_path(end_point, params)).to eq(
+          correct_string
+        )
       end
     end
 

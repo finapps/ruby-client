@@ -20,7 +20,9 @@ RSpec.describe FinApps::REST::PlaidWebhooks do
       it('performs a post and returns the webhook url') do
         expect(create[RESULTS]).to respond_to(:url)
       end
-      it('returns no error messages') { expect(create[ERROR_MESSAGES]).to be_empty }
+      it('returns no error messages') do
+        expect(create[ERROR_MESSAGES]).to be_empty
+      end
     end
 
     context 'when invalid tenant token is provided' do
@@ -29,7 +31,9 @@ RSpec.describe FinApps::REST::PlaidWebhooks do
       it_behaves_like 'an API request'
       it('results is nil') { expect(create[RESULTS]).to be_nil }
       it('error messages array is populated') do
-        expect(create[ERROR_MESSAGES].first.downcase).to eq('resource not found')
+        expect(create[ERROR_MESSAGES].first.downcase).to eq(
+          'resource not found'
+        )
       end
     end
   end
