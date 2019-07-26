@@ -27,7 +27,7 @@ RSpec.describe FinApps::REST::OrderReports do
       subject { order_report.show(:valid_id, :json) }
 
       it { expect { subject }.not_to raise_error }
-      it('performs a get and returns the response') { expect(subject[0]).to respond_to(:days_requested) }
+      it('performs a get and returns the response') { expect(subject[0]).to include('days_requested') }
       it('returns no error messages') { expect(subject[1]).to be_empty }
     end
 

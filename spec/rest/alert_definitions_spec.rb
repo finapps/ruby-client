@@ -56,7 +56,7 @@ RSpec.describe FinApps::REST::AlertDefinitions do
     context 'when valid id is provided' do
       let(:id) { 'valid_id' }
 
-      it { expect { show }.not_to raise_error(FinAppsCore::MissingArgumentsError) }
+      it { expect { show }.not_to raise_error }
       it('returns an array') { expect(show).to be_a(Array) }
       it('performs a get and returns the response') do
         expect(results).to respond_to(:_id)

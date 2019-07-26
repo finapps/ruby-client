@@ -55,7 +55,7 @@ RSpec.describe FinApps::REST::Portfolios do
     context 'when valid id is provided' do
       let(:id) { 'valid_id' }
 
-      it { expect { show }.not_to raise_error(FinAppsCore::MissingArgumentsError) }
+      it { expect { show }.not_to raise_error }
       it('returns an array') { expect(show).to be_a(Array) }
       it('performs a get and returns the response') do
         expect(results).to respond_to(:_id)
@@ -89,7 +89,7 @@ RSpec.describe FinApps::REST::Portfolios do
     context 'when valid params are provided' do
       let(:params) { { name: 'Account Checks', description: 'Some Check Stuff', product: 'valid' } }
 
-      it { expect { create }.not_to raise_error(FinAppsCore::MissingArgumentsError) }
+      it { expect { create }.not_to raise_error }
       it('returns an array') { expect(create).to be_a(Array) }
       it('performs a get and returns the response') do
         expect(results).to respond_to(:_id)
@@ -101,7 +101,7 @@ RSpec.describe FinApps::REST::Portfolios do
     context 'when invalid params are provided' do
       let(:params) { { name: 'Account Checks', description: 'Some Check Stuff', product: 'invalid' } }
 
-      it { expect { create }.not_to raise_error(FinAppsCore::MissingArgumentsError) }
+      it { expect { create }.not_to raise_error }
       it('results is nil') { expect(results).to be_nil }
       it('error messages array is populated') do
         expect(errors.first.downcase).to eq('invalid request body')
@@ -132,7 +132,7 @@ RSpec.describe FinApps::REST::Portfolios do
       let(:id) { 'invalid_id' }
       let(:params) { { fake: 'data' } }
 
-      it { expect { update }.not_to raise_error(FinAppsCore::MissingArgumentsError) }
+      it { expect { update }.not_to raise_error }
       it('results is nil') { expect(results).to be_nil }
       it('error messages array is populated') { expect(errors.first.downcase).to eq('resource not found') }
     end
@@ -141,7 +141,7 @@ RSpec.describe FinApps::REST::Portfolios do
       let(:id) { 'valid_id' }
       let(:params) { { fake: 'data' } }
 
-      it { expect { update }.not_to raise_error(FinAppsCore::MissingArgumentsError) }
+      it { expect { update }.not_to raise_error }
       it('returns an array') { expect(update).to be_a(Array) }
       it('performs a get and returns the response') do
         expect(results).to respond_to(:_id)
