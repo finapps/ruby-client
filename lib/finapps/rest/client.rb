@@ -10,8 +10,6 @@ module FinApps
         alert_definitions
         alert_occurrences
         consumers_portfolios
-        institutions
-        institutions_forms
         orders
         order_assignments
         order_notifications
@@ -29,15 +27,9 @@ module FinApps
         portfolios_consumers
         portfolio_reports
         sessions
-        statements
         consumers
-        consumer_institution_refreshes
-        consumer_institution_refresh
         tenant_settings
         tenant_app_settings
-        user_institutions
-        user_institutions_forms
-        user_institutions_statuses
         version
         plaid_webhooks
       ].freeze

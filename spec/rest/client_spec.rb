@@ -36,15 +36,9 @@ RSpec.describe FinApps::REST::Client do
       it { expect(subject.consumers).to be_an_instance_of(FinApps::REST::Consumers) }
     end
 
-    describe '#consumer_institution_refreshes' do
+    describe '#plaid_webhooks' do
       it do
-        expect(subject.consumer_institution_refreshes).to be_an_instance_of FinApps::REST::ConsumerInstitutionRefreshes
-      end
-    end
-
-    describe '#consumer_institution_refresh' do
-      it do
-        expect(subject.consumer_institution_refresh).to be_an_instance_of FinApps::REST::ConsumerInstitutionRefresh
+        expect(subject.plaid_webhooks).to be_an_instance_of FinApps::REST::PlaidWebhooks
       end
     end
 
@@ -78,26 +72,6 @@ RSpec.describe FinApps::REST::Client do
 
     describe '#orders' do
       it { expect(subject.orders).to be_an_instance_of(FinApps::REST::Orders) }
-    end
-
-    describe '#institutions' do
-      it { expect(subject.institutions).to be_an_instance_of(FinApps::REST::Institutions) }
-    end
-
-    describe '#institutions_forms' do
-      it { expect(subject.institutions_forms).to be_an_instance_of(FinApps::REST::InstitutionsForms) }
-    end
-
-    describe '#user_institutions_statuses' do
-      it { expect(subject.user_institutions_statuses).to be_an_instance_of(FinApps::REST::UserInstitutionsStatuses) }
-    end
-
-    describe '#user_institutions' do
-      it { expect(subject.user_institutions).to be_an_instance_of(FinApps::REST::UserInstitutions) }
-    end
-
-    describe '#user_institutions_forms' do
-      it { expect(subject.user_institutions_forms).to be_an_instance_of(FinApps::REST::UserInstitutionsForms) }
     end
 
     describe '#password_resets' do
@@ -140,10 +114,6 @@ RSpec.describe FinApps::REST::Client do
 
     describe '#portfolio_reports' do
       it { expect(subject.portfolio_reports).to be_an_instance_of(FinApps::REST::PortfolioReports) }
-    end
-
-    describe '#statements' do
-      it { expect(subject.statements).to be_an_instance_of(FinApps::REST::Statements) }
     end
 
     describe '#tenant_settings' do
