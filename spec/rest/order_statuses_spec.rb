@@ -16,7 +16,7 @@ RSpec.describe FinApps::REST::OrderStatuses do
 
       it { expect { subject }.not_to raise_error }
       it('performs a get and returns the response') do
-        expect(subject[RESULTS]).to respond_to(:status)
+        expect(subject[RESULTS]).to have_key(:status)
       end
       it('returns no error messages') do
         expect(subject[ERROR_MESSAGES]).to be_empty

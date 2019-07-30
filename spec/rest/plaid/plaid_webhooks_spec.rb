@@ -18,7 +18,7 @@ RSpec.describe FinApps::REST::PlaidWebhooks do
       it_behaves_like 'an API request'
 
       it('performs a post and returns the webhook url') do
-        expect(create[RESULTS]).to respond_to(:url)
+        expect(create[RESULTS]).to have_key(:url)
       end
       it('returns no error messages') do
         expect(create[ERROR_MESSAGES]).to be_empty

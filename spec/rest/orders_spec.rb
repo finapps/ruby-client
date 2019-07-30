@@ -19,8 +19,8 @@ RSpec.describe FinApps::REST::Orders do
       it { expect { subject }.not_to raise_error }
       it('returns an array') { expect(subject).to be_a(Array) }
       it('performs a get and returns the response') do
-        expect(subject[RESULTS]).to respond_to(:public_id)
-        expect(subject[RESULTS]).to respond_to(:consumer_id)
+        expect(subject[RESULTS]).to have_key(:public_id)
+        expect(subject[RESULTS]).to have_key(:consumer_id)
       end
       it('returns no error messages') do
         expect(subject[ERROR_MESSAGES]).to be_empty
@@ -45,8 +45,8 @@ RSpec.describe FinApps::REST::Orders do
       it { expect { subject }.not_to raise_error }
       it('returns an array') { expect(subject).to be_a(Array) }
       it('performs a post and returns the response') do
-        expect(subject[RESULTS]).to respond_to(:public_id)
-        expect(subject[RESULTS]).to respond_to(:consumer_id)
+        expect(subject[RESULTS]).to have_key(:public_id)
+        expect(subject[RESULTS]).to have_key(:consumer_id)
       end
       it('returns no error messages') do
         expect(subject[ERROR_MESSAGES]).to be_empty
@@ -76,7 +76,7 @@ RSpec.describe FinApps::REST::Orders do
 
       it('returns an array') { expect(subject).to be_a(Array) }
       it('performs a get and returns the response') do
-        expect(subject[RESULTS]).to respond_to(:orders)
+        expect(subject[RESULTS]).to have_key(:orders)
       end
       it('returns no error messages') do
         expect(subject[ERROR_MESSAGES]).to be_empty
@@ -109,10 +109,10 @@ RSpec.describe FinApps::REST::Orders do
       it { expect { subject }.not_to raise_error }
       it('returns an array') { expect(subject).to be_a(Array) }
       it('performs a get and returns the response') do
-        expect(subject[RESULTS]).to respond_to(:orders)
+        expect(subject[RESULTS]).to have_key(:orders)
       end
       it('each order contains a consumer_id') do
-        expect(subject[RESULTS].orders).to all(have_key('consumer_id'))
+        expect(subject[RESULTS][:orders]).to all(have_key(:consumer_id))
       end
       it('returns no error messages') do
         expect(subject[ERROR_MESSAGES]).to be_empty

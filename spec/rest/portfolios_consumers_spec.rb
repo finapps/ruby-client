@@ -32,7 +32,7 @@ RSpec.describe FinApps::REST::PortfoliosConsumers do
       it { expect { list }.not_to raise_error }
       it('returns an array') { expect(list).to be_a(Array) }
       it('performs a get and returns the response') do
-        expect(results).to respond_to(:records)
+        expect(results).to have_key(:records)
       end
       it('returns no error messages') { expect(errors).to be_empty }
     end
@@ -44,7 +44,7 @@ RSpec.describe FinApps::REST::PortfoliosConsumers do
       it { expect { list }.not_to raise_error }
       it('returns an array') { expect(list).to be_a(Array) }
       it('performs a get and returns the response') do
-        expect(results).to respond_to(:records)
+        expect(results).to have_key(:records)
       end
       it('returns no error messages') { expect(errors).to be_empty }
       it 'builds query and sends proper request' do

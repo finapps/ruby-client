@@ -17,7 +17,7 @@ RSpec.describe FinApps::REST::Portfolios do
       it { expect { list }.not_to raise_error }
       it('returns an array') { expect(list).to be_a(Array) }
       it('performs a get and returns the response') do
-        expect(results).to respond_to(:records)
+        expect(results).to have_key(:records)
       end
       it('returns no error messages') { expect(errors).to be_empty }
     end
@@ -34,7 +34,7 @@ RSpec.describe FinApps::REST::Portfolios do
       it { expect { list }.not_to raise_error }
       it('returns an array') { expect(list).to be_a(Array) }
       it('performs a get and returns the response') do
-        expect(results).to respond_to(:records)
+        expect(results).to have_key(:records)
       end
       it('returns no error messages') { expect(errors).to be_empty }
       it 'builds query and sends proper request' do
@@ -63,8 +63,8 @@ RSpec.describe FinApps::REST::Portfolios do
       it { expect { show }.not_to raise_error }
       it('returns an array') { expect(show).to be_a(Array) }
       it('performs a get and returns the response') do
-        expect(results).to respond_to(:_id)
-        expect(results).to respond_to(:product)
+        expect(results).to have_key(:_id)
+        expect(results).to have_key(:product)
       end
       it('returns no error messages') { expect(errors).to be_empty }
     end
@@ -105,8 +105,8 @@ RSpec.describe FinApps::REST::Portfolios do
       it { expect { create }.not_to raise_error }
       it('returns an array') { expect(create).to be_a(Array) }
       it('performs a get and returns the response') do
-        expect(results).to respond_to(:_id)
-        expect(results).to respond_to(:product)
+        expect(results).to have_key(:_id)
+        expect(results).to have_key(:product)
       end
       it('returns no error messages') { expect(errors).to be_empty }
     end
@@ -169,8 +169,8 @@ RSpec.describe FinApps::REST::Portfolios do
       it { expect { update }.not_to raise_error }
       it('returns an array') { expect(update).to be_a(Array) }
       it('performs a get and returns the response') do
-        expect(results).to respond_to(:_id)
-        expect(results).to respond_to(:product)
+        expect(results).to have_key(:_id)
+        expect(results).to have_key(:product)
       end
       it('returns no error messages') { expect(errors).to be_empty }
     end

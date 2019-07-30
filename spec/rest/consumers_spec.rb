@@ -23,11 +23,11 @@ RSpec.describe FinApps::REST::Consumers,
       let(:create) { subject.create(email: 'email', password: 'password') }
 
       it { expect { create }.not_to raise_error }
-      it('results is a Hashie::Rash') do
-        expect(results).to be_a(Hashie::Mash::Rash)
+      it('results is a Hash') do
+        expect(results).to be_a(Hash)
       end
       it('performs a post and returns the response') do
-        expect(results).to respond_to(:public_id)
+        expect(results).to have_key(:public_id)
       end
       it('error_messages array is empty') { expect(error_messages).to eq([]) }
     end
@@ -59,11 +59,11 @@ RSpec.describe FinApps::REST::Consumers,
       let(:error_messages) { show[1] }
 
       it { expect { show }.not_to raise_error }
-      it('results is a Hashie::Rash') do
-        expect(results).to be_a(Hashie::Mash::Rash)
+      it('results is a Hash') do
+        expect(results).to be_a(Hash)
       end
       it('performs a get and returns the response') do
-        expect(results).to respond_to(:public_id)
+        expect(results).to have_key(:public_id)
       end
       it('error_messages array is empty') { expect(error_messages).to eq([]) }
     end
@@ -131,14 +131,14 @@ RSpec.describe FinApps::REST::Consumers,
         let(:error_messages) { update[1] }
 
         it { expect { update }.not_to raise_error }
-        it('results is a Hashie::Rash') do
-          expect(results).to be_a(Hashie::Mash::Rash)
+        it('results is a Hash') do
+          expect(results).to be_a(Hash)
         end
         it('the public_id is on the results') do
-          expect(results).to respond_to(:public_id)
+          expect(results).to have_key(:public_id)
         end
         it('the new token is on the results') do
-          expect(results).to respond_to(:token)
+          expect(results).to have_key(:token)
         end
         it('error_messages array is empty') { expect(error_messages).to eq([]) }
       end

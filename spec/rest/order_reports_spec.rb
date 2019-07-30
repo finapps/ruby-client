@@ -34,7 +34,7 @@ RSpec.describe FinApps::REST::OrderReports do
 
       it { expect { subject }.not_to raise_error }
       it('performs a get and returns the response') do
-        expect(subject[0]).to include('days_requested')
+        expect(subject[0]).to have_key(:days_requested)
       end
       it('returns no error messages') { expect(subject[1]).to be_empty }
     end

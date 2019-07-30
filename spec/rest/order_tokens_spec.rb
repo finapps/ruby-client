@@ -24,10 +24,10 @@ RSpec.describe FinApps::REST::OrderTokens,
       let(:show) { subject.show(:valid_token) }
       it { expect { show }.not_to raise_error }
       it('results is a Hashie::Rash') do
-        expect(results).to be_a(Hashie::Mash::Rash)
+        expect(results).to be_a(Hash)
       end
       it('results contains a consumer_id') do
-        expect(results).to respond_to(:consumer_id)
+        expect(results).to have_key(:consumer_id)
       end
       it('error_messages array is empty') { expect(error_messages).to eq([]) }
     end

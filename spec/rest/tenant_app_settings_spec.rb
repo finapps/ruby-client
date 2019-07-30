@@ -11,7 +11,7 @@ RSpec.describe FinApps::REST::TenantAppSettings do
 
     it { expect { show }.not_to raise_error }
     it('performs a get and returns the response') do
-      expect(show[RESULTS]).to respond_to(:pdf_statement_months)
+      expect(show[RESULTS]).to have_key(:pdf_statement_months)
     end
     it('returns no error messages') { expect(show[ERROR_MESSAGES]).to be_empty }
   end

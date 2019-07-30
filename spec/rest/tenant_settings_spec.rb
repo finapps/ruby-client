@@ -11,7 +11,7 @@ RSpec.describe FinApps::REST::TenantSettings do
 
     it { expect { show }.not_to raise_error }
     it('performs a get and returns the response') do
-      expect(show[RESULTS]).to respond_to(:iav_default_product)
+      expect(show[RESULTS]).to have_key(:iav_default_product)
     end
     it('returns no error messages') { expect(show[ERROR_MESSAGES]).to be_empty }
   end

@@ -35,9 +35,9 @@ RSpec.describe FinApps::REST::OperatorsPasswordResets,
       it { expect { create }.not_to raise_error }
       it('returns an array') { expect(create).to be_a(Array) }
       it('performs a post and returns the response') do
-        expect(results).to respond_to(:public_id)
-        expect(results).to respond_to(:token)
-        expect(results).to respond_to(:expiry_date)
+        expect(results).to have_key(:public_id)
+        expect(results).to have_key(:token)
+        expect(results).to have_key(:expiry_date)
       end
       it('returns no error messages') { expect(error_messages).to be_empty }
     end
@@ -71,8 +71,8 @@ RSpec.describe FinApps::REST::OperatorsPasswordResets,
       it { expect { update }.not_to raise_error }
       it('returns an array') { expect(update).to be_a(Array) }
       it('performs a post and returns the response') do
-        expect(results).to respond_to(:public_id)
-        expect(results).to respond_to(:role)
+        expect(results).to have_key(:public_id)
+        expect(results).to have_key(:role)
       end
       it('returns no error messages') { expect(error_messages).to be_empty }
     end

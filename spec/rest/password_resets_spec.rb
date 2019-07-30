@@ -31,7 +31,7 @@ RSpec.describe FinApps::REST::PasswordResets do
       it { expect { subject }.not_to raise_error }
       it('returns an array') { expect(subject).to be_a(Array) }
       it('performs a post and returns the response') do
-        expect(subject[0]).to respond_to(:token)
+        expect(subject[0]).to have_key(:token)
       end
       it('returns no error messages') { expect(subject[1]).to be_empty }
     end
@@ -98,7 +98,7 @@ RSpec.describe FinApps::REST::PasswordResets do
       it { expect { subject }.not_to raise_error }
       it('returns an array') { expect(subject).to be_a(Array) }
       it('performs a post and returns the response') do
-        expect(subject[0]).to respond_to(:token)
+        expect(subject[0]).to have_key(:token)
       end
       it('returns no error messages') { expect(subject[1]).to be_empty }
     end

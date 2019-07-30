@@ -22,7 +22,7 @@ RSpec.describe FinApps::REST::Statements do
       it { expect { show }.not_to raise_error }
       it('returns an array') { expect(show).to be_a(Array) }
       it('performs a get and returns the response') do
-        expect(show[RESULTS]).to respond_to(:data)
+        expect(show[RESULTS]).to have_key(:data)
       end
       it('returns no error messages') do
         expect(show[ERROR_MESSAGES]).to be_empty
