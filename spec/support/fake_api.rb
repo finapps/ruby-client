@@ -15,13 +15,31 @@ class FakeApi < Sinatra::Base
   put("/#{version}/resources") { json_response 201, 'resource.json' }
   delete("/#{version}/resources/:id") { status 202 }
 
-  # plaid
+  # plaid_webhook
   post("/#{version}/p/webhook") do
     tenant_token = request.env['HTTP_X_TENANT_TOKEN']
     if tenant_token == 'invalid_tenant_token'
       json_response 404, 'resource_not_found.json'
     else
       json_response 200, 'plaid/webhook.json'
+    end
+  end
+
+  # plaid_institution_consumer
+  get("/#{version}/p/institution/consumer") do
+    tenant_token = request.env['HTTP_X_TENANT_TOKEN']
+    if tenant_token == 'invalid_tenant_token'
+      json_response 404, 'resource_not_found.json'
+    else
+      json_response 200, 'plaid/institution/consumer/list.json'
+    end
+  end
+  post("/#{version}/p/institution/consumer") do
+    tenant_token = request.env['HTTP_X_TENANT_TOKEN']
+    if tenant_token == 'invalid_tenant_token'
+      json_response 404, 'resource_not_found.json'
+    else
+      json_response 200, 'plaid/institution/consumer/add.json'
     end
   end
 
@@ -108,82 +126,6 @@ class FakeApi < Sinatra::Base
       json_response 200, 'order_token.json'
     else
       json_response 400, 'invalid_request_body.json'
-    end
-  end
-
-  # institutions
-  get("/#{version}/institutions/site/valid_site_id/form") do
-    json_response 200, 'institution_login_form.json'
-  end
-  get("/#{version}/institutions/site/invalid_site_id/form") do
-    json_response 400, 'invalid_institution_id.json'
-  end
-  post("/#{version}/institutions/site/valid_site_id/add") do
-    json_response 200, 'institution_add.json'
-  end
-  get("/#{version}/institutions/search/:search_term") do
-    json_response 200, 'institutions_search_list.json'
-  end
-  get("/#{version}/institutions/routing/:routing_number") do
-    json_response 200, 'institutions_routing_number.json'
-  end
-  get("/#{version}/institutions/site/:site_id") do
-    json_response 200, 'institutions_routing_number.json'
-  end
-
-  # user institutions
-  get("/#{version}/institutions/consumer/valid_id/status") do
-    json_response 200, 'user_institution_status.json'
-  end
-  get("/#{version}/institutions/consumer/invalid_id/status") do
-    json_response 400, 'invalid_user_institution_id.json'
-  end
-  get("/#{version}/institutions/consumer") do
-    json_response 200, 'user_institutions_list.json'
-  end
-  get("/#{version}/institutions/consumer/valid_id") do
-    json_response 200, 'user_institutions_show.json'
-  end
-  get("/#{version}/institutions/consumer/invalid_id") do
-    json_response 400, 'invalid_user_institution_id.json'
-  end
-  put("/#{version}/institutions/consumer/refresh") do
-    json_response 200, 'user_institutions_refresh_all.json'
-  end
-  put("/#{version}/institutions/consumer/valid_id/credentials") do
-    json_response 200, 'institution_add.json'
-  end
-  put("/#{version}/institutions/consumer/invalid_id/credentials") do
-    json_response 400, 'invalid_user_institution_id.json'
-  end
-  put("/#{version}/institutions/consumer/valid_id/mfa") do
-    json_response 200, 'institution_add.json'
-  end
-  put("/#{version}/institutions/consumer/invalid_id/mfa") do
-    json_response 400, 'invalid_user_institution_id.json'
-  end
-  delete("/#{version}/institutions/consumer/valid_id") { status 204 }
-  delete("/#{version}/institutions/consumer/invalid_id") do
-    json_response 400, 'invalid_user_institution_id.json'
-  end
-  get("/#{version}/institutions/consumer/valid_id/form") do
-    json_response 200, 'institution_login_form.json'
-  end
-  get("/#{version}/institutions/consumer/invalid_id/form") do
-    json_response 400, 'invalid_institution_id.json'
-  end
-  put("/#{version}/institutions/refresh") do
-    json_response 200, 'user_institution_refresh.json'
-  end
-  put(
-    "/#{version}/institutions/consumer/valid_consumer_institution_id/refresh"
-  ) do
-    request.body.rewind
-    request_payload = JSON.parse request.body.read
-    if request_payload['token'] == 'invalid_token'
-      json_response(400, 'refresh_invalid_mfa.json')
-    else
-      json_response(200, 'refresh_queued.json')
     end
   end
 

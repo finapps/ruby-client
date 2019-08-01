@@ -10,8 +10,8 @@ RSpec.describe FinApps::REST::PlaidWebhooks do
 
   describe '#create' do
     RSpec.shared_examples 'an API request' do |_parameter|
-      it { expect { create }.not_to raise_error }
-      it('returns an array') { expect(create).to be_a(Array) }
+      it { expect { subject }.not_to raise_error }
+      it('returns an array') { expect(subject).to be_a(Array) }
     end
 
     context 'when valid tenant token is provided' do

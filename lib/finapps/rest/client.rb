@@ -32,6 +32,7 @@ module FinApps
         tenant_app_settings
         version
         plaid_webhooks
+        plaid_consumer_institutions
       ].freeze
 
       # @param [String] tenant_token
