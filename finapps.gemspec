@@ -20,7 +20,7 @@ Gem::Specification.new do |spec|
   spec.test_files = Dir['spec/**/*.rb']
   spec.require_paths = ['lib']
 
-  spec.add_runtime_dependency     'finapps_core',               '~> 5.0',   '>= 5.0.1'
+  spec.add_runtime_dependency     'finapps_core',               '~> 5.0',   '>= 5.0.2'
 
   spec.add_development_dependency 'bundler',                    '~> 2.0',   '>= 2.0.2'
   spec.add_development_dependency 'codeclimate-test-reporter',  '~> 1.0',   '>= 1.0.9'
