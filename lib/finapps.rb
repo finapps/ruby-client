@@ -31,6 +31,7 @@ require 'finapps/rest/portfolios_consumers'
 require 'finapps/rest/consumers_portfolios'
 require 'finapps/rest/portfolio_reports'
 
+require 'finapps/rest/plaid/plaid_resources'
 require 'finapps/rest/plaid/plaid_webhooks'
 require 'finapps/rest/plaid/plaid_consumer_institutions'
 

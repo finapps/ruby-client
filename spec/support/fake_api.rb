@@ -16,10 +16,10 @@ class FakeApi < Sinatra::Base
   delete("/#{version}/resources/:id") { status 202 }
 
   # plaid_webhook
-  post("/#{version}/p/webhook") do
+  get("/#{version}/p/webhook") do
     tenant_token = request.env['HTTP_X_TENANT_TOKEN']
     if tenant_token == 'invalid_tenant_token'
-      json_response 404, 'resource_not_found.json'
+      json_response 404, 'invalid_tenant_credentials.json'
     else
       json_response 200, 'plaid/webhook.json'
     end

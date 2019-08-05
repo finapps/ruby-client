@@ -2,7 +2,7 @@
 
 module FinApps
   module REST
-    class PlaidConsumerInstitutions < FinAppsCore::REST::Resources # :nodoc:
+    class PlaidConsumerInstitutions < PlaidResources # :nodoc:
       def create(params)
         super(params, 'p/institution/consumer')
       end
