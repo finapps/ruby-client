@@ -7,6 +7,10 @@ module FinApps
         super(params, 'p/institution/consumer')
       end
 
+      def show(id)
+        super nil, "p/institution/consumer/#{id}"
+      end
+
       def list
         super 'p/institution/consumer'
       end

@@ -6,7 +6,7 @@ module FinApps
       protected
 
       def end_point
-        super.gsub!('plaid', 'p/')
+        super.gsub('plaid', 'p/')
       end
     end
   end

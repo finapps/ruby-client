@@ -14,6 +14,14 @@ RSpec.describe FinApps::REST::PlaidConsumerInstitutions do
     it('returns an array') { expect(subject).to be_a(Array) }
   end
 
+  RSpec.shared_examples 'a successful request' do |_parameter|
+    it('returns no error messages') { expect(subject[ERROR_MESSAGES]).to be_empty }
+  end
+
+  RSpec.shared_examples 'a request that returns institution data' do |_parameter|
+    it('returns institution data') { expect(subject[RESULTS]).to have_key(:_id) }
+  end
+
   describe '#create' do
     subject(:create) do
       FinApps::REST::PlaidConsumerInstitutions
@@ -21,26 +29,21 @@ RSpec.describe FinApps::REST::PlaidConsumerInstitutions do
         .create(public_token: 'le-token')
     end
 
-    context 'when valid tenant token is provided' do
-      it_behaves_like 'an API request'
+    it_behaves_like 'an API request'
+    it_behaves_like 'a successful request'
+    it_behaves_like 'a request that returns institution data'
+  end
 
-      it('performs a post and returns information about the institution') do
-        expect(create[RESULTS]).to have_key(:_id)
-      end
-      it('returns no error messages') do
-        expect(create[ERROR_MESSAGES]).to be_empty
-      end
+  describe '#show' do
+    subject(:show) do
+      FinApps::REST::PlaidConsumerInstitutions
+        .new(api_client)
+        .show(:consumer_institution_id)
     end
 
-    context 'when invalid tenant token is provided' do
-      let(:api_client) { client(:invalid_tenant_token) }
-
-      it_behaves_like 'an API request'
-      it('results is nil') { expect(create[RESULTS]).to be_nil }
-      it('error messages array is populated') do
-        expect(create[ERROR_MESSAGES].first.downcase).to eq('resource not found')
-      end
-    end
+    it_behaves_like 'an API request'
+    it_behaves_like 'a successful request'
+    it_behaves_like 'a request that returns institution data'
   end
 
   describe '#list' do
@@ -50,27 +53,8 @@ RSpec.describe FinApps::REST::PlaidConsumerInstitutions do
         .list
     end
 
-    context 'when valid tenant token is provided' do
-      it_behaves_like 'an API request'
-
-      it('returns an Array of institution data') do
-        result = list[RESULTS]
-        expect(result).to be_an(Array)
-        expect(result.first).to have_key(:_id)
-      end
-      it('returns no error messages') do
-        expect(list[ERROR_MESSAGES]).to be_empty
-      end
-    end
-
-    context 'when invalid tenant token is provided' do
-      let(:api_client) { client(:invalid_tenant_token) }
-
-      it_behaves_like 'an API request'
-      it('results is nil') { expect(list[RESULTS]).to be_nil }
-      it('error messages array is populated') do
-        expect(list[ERROR_MESSAGES].first.downcase).to eq('resource not found')
-      end
-    end
+    it_behaves_like 'an API request'
+    it_behaves_like 'a successful request'
+    it('returns an Array of institution data') { expect(list[RESULTS].first).to have_key(:_id) }
   end
 end
