@@ -45,12 +45,8 @@ RSpec.describe FinApps::REST::Sessions,
         { email: 'email@domain.com', password: 'valid_password' }
       end
 
-      it('results is a Hashie::Rash') do
-        expect(results).to be_a(Hash)
-      end
-      it('token value is in the result') do
-        expect(results).to have_key(:token)
-      end
+      it('results is a Hash') { expect(results).to be_a(Hash) }
+      it('token value is in the result') { expect(results).to have_key(:token) }
       it('error_messages is empty') { expect(error_messages).to be_empty }
     end
 
@@ -60,12 +56,8 @@ RSpec.describe FinApps::REST::Sessions,
         { email: 'email@domain.com', password: 'valid_password' }
       end
 
-      it('results is a Hashie::Rash') do
-        expect(results).to be_a(Hash)
-      end
-      it('token value is in the result') do
-        expect(results).to have_key(:token)
-      end
+      it('results is a Hash') { expect(results).to be_a(Hash) }
+      it('token value is in the result') { expect(results).to have_key(:token) }
       it('returns operator for operator path') do
         expect(results).to have_key(:role)
       end

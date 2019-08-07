@@ -23,9 +23,7 @@ RSpec.describe FinApps::REST::OrderTokens,
     context 'for valid token' do
       let(:show) { subject.show(:valid_token) }
       it { expect { show }.not_to raise_error }
-      it('results is a Hashie::Rash') do
-        expect(results).to be_a(Hash)
-      end
+      it('results is a Hash') { expect(results).to be_a(Hash) }
       it('results contains a consumer_id') do
         expect(results).to have_key(:consumer_id)
       end

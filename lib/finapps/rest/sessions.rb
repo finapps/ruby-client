@@ -15,12 +15,14 @@ module FinApps
         begin
           super params, path
         rescue FinAppsCore::ApiUnauthenticatedError
-          return [
-            nil,
+          return(
             [
-              "Invalid #{path == CONSUMER_LOGIN ? 'Consumer' : 'Operator'} Identifier or Credentials"
+              nil,
+              [
+                "Invalid #{path == CONSUMER_LOGIN ? 'Consumer' : 'Operator'} Identifier or Credentials"
+              ]
             ]
-          ]
+          )
         end
       end
 

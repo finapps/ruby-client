@@ -23,9 +23,7 @@ RSpec.describe FinApps::REST::Consumers,
       let(:create) { subject.create(email: 'email', password: 'password') }
 
       it { expect { create }.not_to raise_error }
-      it('results is a Hash') do
-        expect(results).to be_a(Hash)
-      end
+      it('results is a Hash') { expect(results).to be_a(Hash) }
       it('performs a post and returns the response') do
         expect(results).to have_key(:public_id)
       end
@@ -59,9 +57,7 @@ RSpec.describe FinApps::REST::Consumers,
       let(:error_messages) { show[1] }
 
       it { expect { show }.not_to raise_error }
-      it('results is a Hash') do
-        expect(results).to be_a(Hash)
-      end
+      it('results is a Hash') { expect(results).to be_a(Hash) }
       it('performs a get and returns the response') do
         expect(results).to have_key(:public_id)
       end
@@ -131,9 +127,7 @@ RSpec.describe FinApps::REST::Consumers,
         let(:error_messages) { update[1] }
 
         it { expect { update }.not_to raise_error }
-        it('results is a Hash') do
-          expect(results).to be_a(Hash)
-        end
+        it('results is a Hash') { expect(results).to be_a(Hash) }
         it('the public_id is on the results') do
           expect(results).to have_key(:public_id)
         end
