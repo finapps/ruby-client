@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helpers/client'
+require 'rest/api_request'
 
 RSpec.describe FinApps::REST::PlaidConsumerInstitutions do
   include SpecHelpers::Client
@@ -8,25 +9,9 @@ RSpec.describe FinApps::REST::PlaidConsumerInstitutions do
   # noinspection RubyBlockToMethodReference
   let(:api_client) { client }
 
-  RSpec.shared_examples 'an API request' do |_parameter|
-    it do
-      expect do
-        # noinspection RubyBlockToMethodReference
-        subject
-      end.not_to raise_error
-    end
-    it('returns an array') { expect(subject).to be_a(Array) }
-  end
-
-  RSpec.shared_examples 'a successful request' do |_parameter|
-    it('returns no error messages') do
-      expect(subject[ERROR_MESSAGES]).to be_empty
-    end
-  end
-
   RSpec.shared_examples 'a request that returns institution data' do |_parameter|
     it('returns institution data') do
-      expect(subject[RESULTS]).to have_key(:_id)
+      expect(subject[RESULTS]).to have_key(:plaid_institution_id)
     end
   end
 
@@ -52,6 +37,20 @@ RSpec.describe FinApps::REST::PlaidConsumerInstitutions do
     it_behaves_like 'an API request'
     it_behaves_like 'a successful request'
     it_behaves_like 'a request that returns institution data'
+    context 'when requesting accounts information' do
+      subject(:show) do
+        FinApps::REST::PlaidConsumerInstitutions.new(api_client).show(
+          :consumer_institution_id, show_accounts: true
+        )
+      end
+
+      it_behaves_like 'an API request'
+      it_behaves_like 'a successful request'
+      it_behaves_like 'a request that returns institution data'
+      it('returns institution account data') do
+        expect(subject[RESULTS]).to have_key(:accounts)
+      end
+    end
   end
 
   describe '#list' do

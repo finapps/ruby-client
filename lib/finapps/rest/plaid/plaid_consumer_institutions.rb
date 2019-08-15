@@ -7,8 +7,15 @@ module FinApps
         super(params, 'p/institution/consumer')
       end
 
-      def show(id)
-        super nil, "p/institution/consumer/#{id}"
+      def show(id, options = { show_accounts: false })
+        results, error_messages = super(nil, "p/institution/consumer/#{id}")
+
+        if error_messages.empty? && options[:show_accounts]
+          account_results, error_messages = super(nil, "p/institution/consumer/#{id}/account")
+          results[:accounts] = account_results if error_messages.empty?
+        end
+
+        [results, error_messages]
       end
 
       def list

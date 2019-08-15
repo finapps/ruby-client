@@ -29,6 +29,9 @@ class FakeApi < Sinatra::Base
   get("/#{version}/p/institution/consumer/:consumer_institution_id") do
     json_response 200, 'plaid/institution/consumer/show.json'
   end
+  get("/#{version}/p/institution/consumer/:consumer_institution_id/account") do
+    json_response 200, 'plaid/institution/consumer/show_accounts.json'
+  end
   get("/#{version}/p/institution/consumer") do
     tenant_token = request.env['HTTP_X_TENANT_TOKEN']
     if tenant_token == 'invalid_tenant_token'
