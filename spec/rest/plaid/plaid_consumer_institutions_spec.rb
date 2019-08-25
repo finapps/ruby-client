@@ -10,9 +10,7 @@ RSpec.describe FinApps::REST::PlaidConsumerInstitutions do
   let(:api_client) { client }
 
   RSpec.shared_examples 'a request that returns institution data' do |_parameter|
-    it('returns institution data') do
-      expect(subject[RESULTS]).to have_key(:plaid_institution_id)
-    end
+    it('returns institution data') { expect(subject[RESULTS]).to have_key(:plaid_institution_id) }
   end
 
   describe '#create' do
@@ -47,21 +45,15 @@ RSpec.describe FinApps::REST::PlaidConsumerInstitutions do
       it_behaves_like 'an API request'
       it_behaves_like 'a successful request'
       it_behaves_like 'a request that returns institution data'
-      it('returns institution account data') do
-        expect(subject[RESULTS]).to have_key(:accounts)
-      end
+      it('returns institution account data') { expect(subject[RESULTS]).to have_key(:accounts) }
     end
   end
 
   describe '#list' do
-    subject(:list) do
-      FinApps::REST::PlaidConsumerInstitutions.new(api_client).list
-    end
+    subject(:list) { FinApps::REST::PlaidConsumerInstitutions.new(api_client).list }
 
     it_behaves_like 'an API request'
     it_behaves_like 'a successful request'
-    it('returns an Array of institution data') do
-      expect(list[RESULTS].first).to have_key(:_id)
-    end
+    it('returns an Array of institution data') { expect(list[RESULTS].first).to have_key(:plaid_institution_id) }
   end
 end
