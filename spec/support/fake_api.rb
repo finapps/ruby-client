@@ -56,6 +56,12 @@ class FakeApi < Sinatra::Base
   get("/#{version}/p/account/:account_id") do
     json_response 200, 'plaid/account/show.json'
   end
+  put("/#{version}/p/accounts/permissions") do
+    status 204
+  end
+  delete("/#{version}/p/accounts/permissions") do
+    status 204
+  end
 
   # version
   get("/#{version}/version") { 'Version => 2.1.29-.20161208.172810' }
