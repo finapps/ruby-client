@@ -57,10 +57,22 @@ class FakeApi < Sinatra::Base
     json_response 200, 'plaid/account/show.json'
   end
   put("/#{version}/p/accounts/permissions") do
-    status 204
+    request.body.rewind
+    request_payload = JSON.parse request.body.read
+    if request_payload.respond_to?(:key?) && request_payload.key?('ids')
+      status 204
+    else
+      json_response 400, 'invalid_request_body.json'
+    end
   end
   delete("/#{version}/p/accounts/permissions") do
-    status 204
+    request.body.rewind
+    request_payload = JSON.parse request.body.read
+    if request_payload.respond_to?(:key?) && request_payload.key?('ids')
+      status 204
+    else
+      json_response 400, 'invalid_request_body.json'
+    end
   end
 
   # version
