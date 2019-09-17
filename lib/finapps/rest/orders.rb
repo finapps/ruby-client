@@ -33,7 +33,7 @@ module FinApps
         super build_query_path(end_point, params)
       end
 
-      def update(id, path = nil)
+      def update(id)
         not_blank(id, :id)
         path = "#{end_point}/#{ERB::Util.url_encode(id)}"
 
