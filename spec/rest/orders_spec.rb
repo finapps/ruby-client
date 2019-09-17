@@ -151,21 +151,14 @@ RSpec.describe FinApps::REST::Orders do
     subject(:orders) { FinApps::REST::Orders.new(client) }
 
     context 'when missing id' do
-      let(:update) { subject.update(nil, :params) }
+      let(:update) { subject.update(nil) }
       it('returns missing argument error') do
         expect { update }.to raise_error(FinAppsCore::MissingArgumentsError)
       end
     end
 
-    context 'when missing params' do
-      let(:update) { subject.update(:id, nil) }
-      it('returns missing argument error') do
-        expect { update }.to raise_error(FinAppsCore::MissingArgumentsError)
-      end
-    end
-
-    context 'when valid id and params are provided' do
-      let(:update) { subject.update('valid_id', accounts: 'valid_account') } # how to stub params
+    context 'when valid id is provided' do
+      let(:update) { subject.update('valid_id') } # how to stub params
       let(:results) { update[RESULTS] }
       let(:error_messages) { update[ERROR_MESSAGES] }
 
@@ -175,7 +168,7 @@ RSpec.describe FinApps::REST::Orders do
     end
 
     context 'when invalid id is provided' do
-      let(:update) { subject.update('invalid_id', :params) }
+      let(:update) { subject.update('invalid_id') }
       let(:results) { update[RESULTS] }
       let(:error_messages) { update[ERROR_MESSAGES] }
 
@@ -183,18 +176,6 @@ RSpec.describe FinApps::REST::Orders do
       it('results is nil') { expect(results).to be_nil }
       it('error messages array is populated') do
         expect(error_messages.first.downcase).to eq('resource not found')
-      end
-    end
-
-    context 'when invalid params are provided' do
-      let(:update) { subject.update('valid_id', accounts: 'invalid_account') }
-      let(:results) { update[RESULTS] }
-      let(:error_messages) { update[ERROR_MESSAGES] }
-
-      it { expect { update }.not_to raise_error }
-      it('results is nil') { expect(results).to be_nil }
-      it('error messages array is populated') do
-        expect(error_messages.first.downcase).to eq('invalid request body')
       end
     end
   end
