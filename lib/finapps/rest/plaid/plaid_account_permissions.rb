@@ -4,11 +4,11 @@ module FinApps
   module REST
     class PlaidAccountPermissions < PlaidResources # :nodoc:
       def create(id)
-        send_request 'p/accounts/permissions', :put, ids: [id]
+        send_request 'p/accounts/permissions', :put, [id]
       end
 
       def destroy(id)
-        send_request 'p/accounts/permissions', :delete, ids: [id]
+        send_request 'p/accounts/permissions', :delete, [id]
       end
     end
   end

@@ -59,7 +59,7 @@ class FakeApi < Sinatra::Base
   put("/#{version}/p/accounts/permissions") do
     request.body.rewind
     request_payload = JSON.parse request.body.read
-    if request_payload.respond_to?(:key?) && request_payload.key?('ids')
+    if request_payload.is_a? Array
       status 204
     else
       json_response 400, 'invalid_request_body.json'
@@ -68,7 +68,7 @@ class FakeApi < Sinatra::Base
   delete("/#{version}/p/accounts/permissions") do
     request.body.rewind
     request_payload = JSON.parse request.body.read
-    if request_payload.respond_to?(:key?) && request_payload.key?('ids')
+    if request_payload.is_a? Array
       status 204
     else
       json_response 400, 'invalid_request_body.json'
