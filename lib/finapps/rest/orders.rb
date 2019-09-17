@@ -33,25 +33,18 @@ module FinApps
         super build_query_path(end_point, params)
       end
 
-      def update(id, params, path = nil)
-        return super nil, path if path
-
+      def update(id, path = nil)
         not_blank(id, :id)
-        not_blank(params, :params)
-        # Params array need matching Institution ids & Account ids
-        # Validations to check each Institution id has at least one account id
-        # Validations to check at least 1 Institution id or 1 account "params.length >= 1"
-
         path = "#{end_point}/#{ERB::Util.url_encode(id)}"
 
-        super params, path
+        super nil, path
       end
 
       def destroy(id)
         not_blank(id, :id)
-
         path = "#{end_point}/#{ERB::Util.url_encode(id)}/cancel"
-        update nil, nil, path
+
+        send_request path, :put
       end
 
       private
