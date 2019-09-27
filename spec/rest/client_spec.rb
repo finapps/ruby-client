@@ -215,5 +215,14 @@ RSpec.describe FinApps::REST::Client do
         )
       end
     end
+
+    describe '#plaid_institution_logos' do
+      it do
+        expect(subject.plaid_institution_logos).to be_an_instance_of(
+                                              FinApps::REST::PlaidInstitutionLogos
+                                          )
+      end
+    end
+
   end
 end
