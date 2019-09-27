@@ -75,6 +75,12 @@ class FakeApi < Sinatra::Base
     end
   end
 
+  # plaid_institution_logos
+  get("/#{version}/p/institution/logo/:inst_id") do
+    json_response 200, 'plaid/institution/fake_logo.json'
+  end
+
+
   # version
   get("/#{version}/version") { 'Version => 2.1.29-.20161208.172810' }
 

@@ -36,6 +36,7 @@ require 'finapps/rest/plaid/plaid_webhooks'
 require 'finapps/rest/plaid/plaid_consumer_institutions'
 require 'finapps/rest/plaid/plaid_accounts'
 require 'finapps/rest/plaid/plaid_account_permissions'
+require 'finapps/rest/plaid/plaid_institution_logos'
 
 require 'finapps/utils/query_builder'
 require 'finapps/version' unless defined?(FinApps::VERSION)
