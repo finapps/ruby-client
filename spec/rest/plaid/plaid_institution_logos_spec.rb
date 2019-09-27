@@ -12,7 +12,7 @@ RSpec.describe FinApps::REST::PlaidInstitutionLogos do
   describe '#show' do
     subject(:show) do
       FinApps::REST::PlaidInstitutionLogos.new(api_client).show(
-          :inst_id
+        :inst_id
       )
     end
 

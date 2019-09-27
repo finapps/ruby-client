@@ -80,7 +80,6 @@ class FakeApi < Sinatra::Base
     json_response 200, 'plaid/institution/fake_logo.json'
   end
 
-
   # version
   get("/#{version}/version") { 'Version => 2.1.29-.20161208.172810' }
 
