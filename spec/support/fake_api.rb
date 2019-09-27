@@ -75,6 +75,11 @@ class FakeApi < Sinatra::Base
     end
   end
 
+  # plaid_institution_logos
+  get("/#{version}/p/institution/logo/:inst_id") do
+    png_response 'plaid/institution/logo.png'
+  end
+
   # version
   get("/#{version}/version") { 'Version => 2.1.29-.20161208.172810' }
 
@@ -381,7 +386,15 @@ class FakeApi < Sinatra::Base
   private
 
   def json_response(response_code, file_name)
-    content_type :json
+    http_response :json, response_code, file_name
+  end
+
+  def png_response(file_name)
+    http_response :png, 200, file_name
+  end
+
+  def http_response(content_type, response_code, file_name)
+    content_type content_type
     status response_code
     File.open(File.dirname(__FILE__) + '/fixtures/' + file_name, 'rb').read
   end

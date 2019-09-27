@@ -35,6 +35,7 @@ module FinApps
         plaid_consumer_institutions
         plaid_accounts
         plaid_account_permissions
+        plaid_institution_logos
       ].freeze
 
       # @param [String] tenant_token
