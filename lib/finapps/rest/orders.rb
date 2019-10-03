@@ -34,12 +34,12 @@ module FinApps
       end
 
       def update(id, params = nil)
-        return super params if params
+        return super params if params # create&submit
 
         not_blank(id, :id)
         path = "#{end_point}/#{ERB::Util.url_encode(id)}"
 
-        super nil, path
+        super nil, path # submit
       end
 
       def destroy(id)
