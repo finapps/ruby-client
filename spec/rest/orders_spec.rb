@@ -213,6 +213,15 @@ RSpec.describe FinApps::REST::Orders do
     end
   end
 
+  describe '#create_and_submit' do
+    subject(:orders) { FinApps::REST::Orders.new(client) }
+    let(:params) { {params: 'valid'} }
+    it('calls #update') do
+      expect(subject).to receive(:update).with(nil, params)
+      subject.create_and_submit(params)
+    end
+  end
+
   describe '#destroy' do
     subject(:orders) { FinApps::REST::Orders.new(client) }
 

@@ -49,6 +49,10 @@ module FinApps
         send_request path, :put
       end
 
+      def create_and_submit(params)
+        update(nil, params)
+      end
+
       private
 
       def build_filter(params)
