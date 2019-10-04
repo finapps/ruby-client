@@ -33,11 +33,13 @@ module FinApps
         super build_query_path(end_point, params)
       end
 
-      def update(id)
+      def update(id, params = nil)
+        return super params if params # create&submit
+
         not_blank(id, :id)
         path = "#{end_point}/#{ERB::Util.url_encode(id)}"
 
-        super nil, path
+        super nil, path # submit
       end
 
       def destroy(id)
@@ -45,6 +47,10 @@ module FinApps
         path = "#{end_point}/#{ERB::Util.url_encode(id)}/cancel"
 
         send_request path, :put
+      end
+
+      def create_and_submit(params)
+        update(nil, params)
       end
 
       private

@@ -150,33 +150,75 @@ RSpec.describe FinApps::REST::Orders do
   describe '#update' do
     subject(:orders) { FinApps::REST::Orders.new(client) }
 
-    context 'when missing id' do
-      let(:update) { subject.update(nil) }
-      it('returns missing argument error') do
-        expect { update }.to raise_error(FinAppsCore::MissingArgumentsError)
+    context 'with nil params' do
+      context 'when missing id' do
+        let(:update) { subject.update(nil) }
+        it('returns missing argument error') do
+          expect { update }.to raise_error(FinAppsCore::MissingArgumentsError)
+        end
+      end
+
+      context 'when valid id is provided' do
+        let(:update) { subject.update('valid_id') } # how to stub params
+        let(:results) { update[RESULTS] }
+        let(:error_messages) { update[ERROR_MESSAGES] }
+
+        it { expect { update }.not_to raise_error }
+        it('results is nil') { expect(results).to be_nil }
+        it('error_messages array is empty') { expect(error_messages).to eq([]) }
+      end
+
+      context 'when invalid id is provided' do
+        let(:update) { subject.update('invalid_id') }
+        let(:results) { update[RESULTS] }
+        let(:error_messages) { update[ERROR_MESSAGES] }
+
+        it { expect { update }.not_to raise_error }
+        it('results is nil') { expect(results).to be_nil }
+        it('error messages array is populated') do
+          expect(error_messages.first.downcase).to eq('resource not found')
+        end
       end
     end
 
-    context 'when valid id is provided' do
-      let(:update) { subject.update('valid_id') } # how to stub params
-      let(:results) { update[RESULTS] }
-      let(:error_messages) { update[ERROR_MESSAGES] }
-
-      it { expect { update }.not_to raise_error }
-      it('results is nil') { expect(results).to be_nil }
-      it('error_messages array is empty') { expect(error_messages).to eq([]) }
-    end
-
-    context 'when invalid id is provided' do
-      let(:update) { subject.update('invalid_id') }
-      let(:results) { update[RESULTS] }
-      let(:error_messages) { update[ERROR_MESSAGES] }
-
-      it { expect { update }.not_to raise_error }
-      it('results is nil') { expect(results).to be_nil }
-      it('error messages array is populated') do
-        expect(error_messages.first.downcase).to eq('resource not found')
+    context 'with params' do
+      context 'when missing id' do
+        let(:update) { subject.update(nil, params: 'valid') }
+        it('does not raise error') do
+          expect { update }.not_to raise_error
+        end
       end
+
+      context 'when valid params are provided' do
+        let(:update) { subject.update(nil, params: 'valid') }
+        let(:results) { update[RESULTS] }
+        let(:error_messages) { update[ERROR_MESSAGES] }
+
+        it { expect { update }.not_to raise_error }
+        it('results is nil') { expect(results).to be_nil }
+        it('error_messages array is empty') { expect(error_messages).to eq([]) }
+      end
+
+      context 'when invalid params are provided' do
+        let(:update) { subject.update(nil, params: 'invalid') }
+        let(:results) { update[RESULTS] }
+        let(:error_messages) { update[ERROR_MESSAGES] }
+
+        it { expect { update }.not_to raise_error }
+        it('results is nil') { expect(results).to be_nil }
+        it('error messages array is populated') do
+          expect(error_messages.first.downcase).to eq('invalid request body')
+        end
+      end
+    end
+  end
+
+  describe '#create_and_submit' do
+    subject(:orders) { FinApps::REST::Orders.new(client) }
+    let(:params) { { params: 'valid' } }
+    it('calls #update') do
+      expect(subject).to receive(:update).with(nil, params)
+      subject.create_and_submit(params)
     end
   end
 

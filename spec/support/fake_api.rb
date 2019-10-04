@@ -148,6 +148,15 @@ class FakeApi < Sinatra::Base
     json_response 404, 'resource_not_found.json'
   end
   put("/#{version}/orders/valid_id") { status 204 }
+  put("/#{version}/orders") do
+    request.body.rewind
+    request_payload = JSON.parse request.body.read
+    if request_payload['params'] == 'invalid'
+      json_response 400, 'invalid_request_body.json'
+    else
+      status 204
+    end
+  end
   post("/#{version}/orders") do
     request.body.rewind
     request_payload = JSON.parse request.body.read
