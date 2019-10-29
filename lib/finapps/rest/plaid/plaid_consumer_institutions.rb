@@ -13,7 +13,8 @@ module FinApps
         results, error_messages = super(nil, "p/institution/consumer/#{id}")
 
         if error_messages.empty? && options[:show_accounts]
-          account_results, error_messages = super(nil, "p/institution/consumer/#{id}/account")
+          account_results, error_messages =
+            super(nil, "p/institution/consumer/#{id}/account")
           results[:accounts] = account_results if error_messages.empty?
         end
 
@@ -27,7 +28,7 @@ module FinApps
       def destroy(id)
         not_blank(id, :consumer_institution_id)
 
-        super "p/institution/consumer/#{ERB::Util.url_encode(id)}"
+        super id, "p/institution/consumer/#{id}"
       end
     end
   end
