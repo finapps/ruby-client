@@ -11,7 +11,6 @@ rvm:
 before_install:
   - "echo 'gem: --no-document' > ~/.gemrc"
   - gem update --system
-  - gem update bundler
 
 script:
   - bundle exec rspec
