@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'erb'
+
 module FinApps
   module REST
     class PlaidConsumerInstitutions < PlaidResources # :nodoc:
@@ -20,6 +22,12 @@ module FinApps
 
       def list
         super 'p/institution/consumer'
+      end
+
+      def destroy(id)
+        not_blank(id, :consumer_institution_id)
+
+        super "p/institution/consumer/#{ERB::Util.url_encode(id)}"
       end
     end
   end
