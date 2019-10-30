@@ -48,6 +48,9 @@ class FakeApi < Sinatra::Base
       json_response 200, 'plaid/institution/consumer/add.json'
     end
   end
+  delete("/#{version}/p/institution/consumer/:consumer_institution_id") do
+    status 204
+  end
 
   # plaid_accounts
   get("/#{version}/p/account") do
