@@ -6,7 +6,6 @@ cache:
 rvm:
   - 2.5
   - 2.6
-  - ruby-head
 
 before_install:
   - "echo 'gem: --no-document' > ~/.gemrc"
