@@ -36,6 +36,7 @@ module FinApps
         plaid_accounts
         plaid_account_permissions
         plaid_institution_logos
+        verix_metadata
       ].freeze
 
       # @param [String] tenant_token
