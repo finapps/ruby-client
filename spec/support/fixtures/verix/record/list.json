@@ -1,0 +1,82 @@
+[
+  {
+    "_id": "5df7eadbfe13f5000148ca0e",
+    "consumer_id": "594625b4-e8fe-40b7-422f-f758bb877ae7",
+    "status": 2,
+    "error": "",
+    "date_exchanged": "2019-12-16T20:36:43.342Z",
+    "date_modified": "2019-12-16T20:36:45.59Z",
+    "documents": [
+      {
+        "type": "form_1040",
+        "document_id": "5df7eadbc496df0001e9daa0",
+        "count": 2,
+        "downloaded": false,
+        "date_synced": "2019-12-16T20:36:43.537Z"
+      },
+      {
+        "type": "schedule_c",
+        "document_id": "5df7eadbc496df0001e9daa1",
+        "count": 0,
+        "downloaded": false,
+        "date_synced": "2019-12-16T20:36:43.613Z"
+      },
+      {
+        "type": "schedule_d",
+        "document_id": "5df7eadbc496df0001e9daa2",
+        "count": 2,
+        "downloaded": false,
+        "date_synced": "2019-12-16T20:36:43.676Z"
+      },
+      {
+        "type": "schedule_e",
+        "document_id": "5df7eadbc496df0001e9daa3",
+        "count": 2,
+        "downloaded": false,
+        "date_synced": "2019-12-16T20:36:43.737Z"
+      },
+      {
+        "type": "schedule_k1_form_1065",
+        "document_id": "5df7eadbc496df0001e9daa4",
+        "count": 1,
+        "downloaded": false,
+        "date_synced": "2019-12-16T20:36:43.807Z"
+      },
+      {
+        "type": "schedule_k1_form_1120s",
+        "document_id": "5df7eadbc496df0001e9daa5",
+        "count": 2,
+        "downloaded": false,
+        "date_synced": "2019-12-16T20:36:43.912Z"
+      },
+      {
+        "type": "form_w2",
+        "document_id": "5df7eadcc496df0001e9daa6",
+        "count": 1,
+        "downloaded": false,
+        "date_synced": "2019-12-16T20:36:44.015Z"
+      },
+      {
+        "type": "form_1099_div",
+        "document_id": "5df7eaddc496df0001e9daa9",
+        "count": 4,
+        "downloaded": false,
+        "date_synced": "2019-12-16T20:36:45.441Z"
+      },
+      {
+        "type": "form_1099_int",
+        "document_id": "5df7eaddc496df0001e9daaa",
+        "count": 2,
+        "downloaded": false,
+        "date_synced": "2019-12-16T20:36:45.501Z"
+      },
+      {
+        "type": "form_5498",
+        "document_id": "5df7eaddc496df0001e9daab",
+        "count": 4,
+        "downloaded": false,
+        "date_synced": "2019-12-16T20:36:45.587Z"
+      }
+    ]
+  }
+]
