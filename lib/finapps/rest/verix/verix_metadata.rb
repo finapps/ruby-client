@@ -3,8 +3,8 @@
 module FinApps
   module REST
     class VerixMetadata < FinAppsCore::REST::Resources # :nodoc:
-      def list
-        super 'v/metadata'
+      def show
+        super nil,'v/metadata'
       end
     end
   end
