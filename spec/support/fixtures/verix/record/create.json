@@ -1,0 +1,17 @@
+{
+  "_id": "string",
+  "consumer_id": "string",
+  "date_exchanged": "2019-12-17T14:50:00Z",
+  "date_modified": "2019-12-17T14:50:00Z",
+  "documents": [
+    {
+      "count": 0,
+      "date_synced": "2019-12-17T14:50:00Z",
+      "document_id": "string",
+      "downloaded": true,
+      "type": "string"
+    }
+  ],
+  "error": "string",
+  "status": 0
+}

@@ -15,6 +15,19 @@ class FakeApi < Sinatra::Base
   put("/#{version}/resources") { json_response 201, 'resource.json' }
   delete("/#{version}/resources/:id") { status 202 }
 
+  # verix_metadata
+  get("/#{version}/v/metadata") do
+    json_response 200, 'verix/metadata.json'
+  end
+
+  # verix_records
+  get("/#{version}/v/record") do
+    json_response 200, 'verix/record/list.json'
+  end
+  post("/#{version}/v/record") do
+    json_response 200, 'verix/record/create.json'
+  end
+
   # plaid_webhook
   get("/#{version}/p/webhook") do
     tenant_token = request.env['HTTP_X_TENANT_TOKEN']
