@@ -15,7 +15,7 @@ module FinApps
         begin
           super params, path
         rescue FinAppsCore::ApiUnauthenticatedError
-          return(
+          (
             [
               nil,
               [
