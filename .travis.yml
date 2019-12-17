@@ -8,7 +8,6 @@ rvm:
 
 before_install:
   - "echo 'gem: --no-document' > ~/.gemrc"
-  - bundle update --bundler
 
 script:
   - bundle exec rspec
