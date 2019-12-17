@@ -8,6 +8,7 @@ rvm:
 
 before_install:
   - "echo 'gem: --no-document' > ~/.gemrc"
+  - gem install bundler --force --quiet
 
 script:
   - bundle exec rspec
