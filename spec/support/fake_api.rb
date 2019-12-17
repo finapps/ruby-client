@@ -24,6 +24,9 @@ class FakeApi < Sinatra::Base
   get("/#{version}/v/record") do
     json_response 200, 'verix/record/list.json'
   end
+  post("/#{version}/v/record") do
+    json_response 200, 'verix/record/create.json'
+  end
 
   # plaid_webhook
   get("/#{version}/p/webhook") do
