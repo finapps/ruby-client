@@ -89,7 +89,3 @@ Style/VariableInterpolation:
     strings.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#curlies-interpolate
   Enabled: false
-Lint/SuppressedExceptions:
-  Description: Don't suppress exception.
-  StyleGuide: https://github.com/bbatsov/ruby-style-guide#dont-hide-exceptions
-  Enabled: false
