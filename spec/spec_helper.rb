@@ -21,7 +21,7 @@ RSpec.configure do |config|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
     expectations.syntax = :expect
   end
-  config.mock_with(:rspec) {|mocks| mocks.verify_partial_doubles = true }
+  config.mock_with(:rspec) { |mocks| mocks.verify_partial_doubles = true }
   # config.filter_run_including :focus => true
   config.default_formatter = 'doc' if config.files_to_run.one?
   config.order = :random
@@ -30,14 +30,20 @@ RSpec.configure do |config|
   Kernel.srand config.seed
 
   config.before(:each) do
-    base_url = "#{FinAppsCore::REST::Defaults::DEFAULTS[:host]}/v#{FinAppsCore::REST::Defaults::API_VERSION}/"
+    base_url =
+      "#{FinAppsCore::REST::Defaults::DEFAULTS[:host]}/v#{FinAppsCore::REST::Defaults::API_VERSION}/"
     stub_request(:any, /#{base_url}/).to_rack(::FakeApi)
   end
   WebMock.disable_net_connect!(allow: 'codeclimate.com')
 end
 
-VALID_CREDENTIALS = { identifier: '49fb918d-7e71-44dd-7378-58f19606df2a',
-                      token: 'hohoho=' }.freeze
+VALID_CREDENTIALS = {
+  identifier: '49fb918d-7e71-44dd-7378-58f19606df2a', token: 'hohoho='
+}.freeze
 
 RESULTS = 0
 ERROR_MESSAGES = 1
+
+def versioned_api_path
+  "#{FinAppsCore::REST::Defaults::DEFAULTS[:host]}/v#{FinAppsCore::REST::Defaults::API_VERSION}"
+end

@@ -10,7 +10,9 @@ RSpec.describe FinApps::REST::OrderNotifications do
 
     context 'when missing id' do
       let(:update) { subject.update(nil) }
-      it('returns missing argument error') { expect { update }.to raise_error(FinAppsCore::MissingArgumentsError) }
+      it('returns missing argument error') do
+        expect { update }.to raise_error(FinAppsCore::MissingArgumentsError)
+      end
     end
 
     context 'when invalid id is provided' do
@@ -20,7 +22,9 @@ RSpec.describe FinApps::REST::OrderNotifications do
 
       it { expect { update }.not_to raise_error }
       it('results is nil') { expect(results).to be_nil }
-      it('error messages array is populated') { expect(error_messages.first.downcase).to eq('resource not found') }
+      it('error messages array is populated') do
+        expect(error_messages.first.downcase).to eq('resource not found')
+      end
     end
 
     context 'for valid id' do

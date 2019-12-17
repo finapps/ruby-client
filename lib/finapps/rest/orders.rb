@@ -33,25 +33,24 @@ module FinApps
         super build_query_path(end_point, params)
       end
 
-      def update(id, params, path = nil)
-        return super nil, path if path
+      def update(id, params = nil)
+        return super params if params # create&submit
 
         not_blank(id, :id)
-        not_blank(params, :params)
-        # Params array need matching Institution ids & Account ids
-        # Validations to check each Institution id has at least one account id
-        # Validations to check at least 1 Institution id or 1 account "params.length >= 1"
-
         path = "#{end_point}/#{ERB::Util.url_encode(id)}"
 
-        super params, path
+        super nil, path # submit
       end
 
       def destroy(id)
         not_blank(id, :id)
-
         path = "#{end_point}/#{ERB::Util.url_encode(id)}/cancel"
-        update nil, nil, path
+
+        send_request path, :put
+      end
+
+      def create_and_submit(params)
+        update(nil, params)
       end
 
       private
@@ -68,22 +67,24 @@ module FinApps
       def search_query(term)
         {
           "$or": [
-            { "public_id": {
-              "$regex": "^#{term}",
-              "$options": 'i'
-            } },
+            { "public_id": { "$regex": "^#{term}", "$options": 'i' } },
             { "applicant.last_name": term },
             { "assignment.last_name": term },
-            { "requestor.reference_no": {
-              "$regex": "^#{term}",
-              "$options": 'i'
-            } }
+            {
+              "requestor.reference_no": {
+                "$regex": "^#{term}", "$options": 'i'
+              }
+            }
           ]
         }
       end
 
       def status_query(status)
-        status.is_a?(Array) ? { "status": { "$in": status.map(&:to_i) } } : { "status": status.to_i }
+        if status.is_a?(Array)
+          { "status": { "$in": status.map(&:to_i) } }
+        else
+          { "status": status.to_i }
+        end
       end
 
       def assignment_query(assignment)

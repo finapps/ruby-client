@@ -2,7 +2,8 @@
 
 require 'spec_helpers/client'
 
-RSpec.describe FinApps::REST::Products, 'initialized with valid FinApps::Client object' do
+RSpec.describe FinApps::REST::Products,
+               'initialized with valid FinApps::Client object' do
   include SpecHelpers::Client
   subject(:products) { FinApps::REST::Products.new(client) }
 
@@ -14,7 +15,9 @@ RSpec.describe FinApps::REST::Products, 'initialized with valid FinApps::Client 
 
       it { expect { list }.not_to raise_error }
       it('returns an array of records') { expect(results).to be_a(Array) }
-      it('performs a get and returns the response') { expect(results[0]).to respond_to(:code) }
+      it('performs a get and returns the response') do
+        expect(results[0]).to have_key(:code)
+      end
       it('returns no error messages') { expect(error_messages).to be_empty }
     end
   end

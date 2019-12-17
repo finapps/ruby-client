@@ -8,7 +8,8 @@ module FinApps
         not_blank(format, :format)
         raise FinAppsCore::InvalidArgumentsError, 'Invalid argument: format' unless accepted_format?(format)
 
-        path = "orders/#{ERB::Util.url_encode(id)}/report.#{ERB::Util.url_encode(format)}"
+        path =
+          "orders/#{ERB::Util.url_encode(id)}/report.#{ERB::Util.url_encode(format)}"
         super nil, path
       end
 

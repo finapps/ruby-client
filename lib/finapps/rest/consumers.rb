@@ -21,7 +21,8 @@ module FinApps
         not_blank(public_id, :public_id)
         not_blank(params, :params)
 
-        path = "#{end_point}/#{ERB::Util.url_encode(public_id)}#{'/password' if password_update?(params)}"
+        path =
+          "#{end_point}/#{ERB::Util.url_encode(public_id)}#{'/password' if password_update?(params)}"
         super params, path
       end
 

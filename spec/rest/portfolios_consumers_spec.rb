@@ -31,7 +31,9 @@ RSpec.describe FinApps::REST::PortfoliosConsumers do
 
       it { expect { list }.not_to raise_error }
       it('returns an array') { expect(list).to be_a(Array) }
-      it('performs a get and returns the response') { expect(results).to respond_to(:records) }
+      it('performs a get and returns the response') do
+        expect(results).to have_key(:records)
+      end
       it('returns no error messages') { expect(errors).to be_empty }
     end
 
@@ -41,12 +43,15 @@ RSpec.describe FinApps::REST::PortfoliosConsumers do
 
       it { expect { list }.not_to raise_error }
       it('returns an array') { expect(list).to be_a(Array) }
-      it('performs a get and returns the response') { expect(results).to respond_to(:records) }
+      it('performs a get and returns the response') do
+        expect(results).to have_key(:records)
+      end
       it('returns no error messages') { expect(errors).to be_empty }
       it 'builds query and sends proper request' do
         list
-        url = "#{FinAppsCore::REST::Defaults::DEFAULTS[:host]}/v3/portfolios/#{portfolio_id}/consumers?page=2&" \
-        'requested=25&sort=-created_date'
+        url =
+          "#{versioned_api_path}/portfolios/#{portfolio_id}/consumers?page=2&" \
+            'requested=25&sort=-created_date'
         expect(WebMock).to have_requested(:get, url)
       end
     end
@@ -72,14 +77,18 @@ RSpec.describe FinApps::REST::PortfoliosConsumers do
       let(:portfolio_id) { nil }
       let(:params) { 'valid_id' }
 
-      it { expect { create }.to raise_error(FinAppsCore::MissingArgumentsError) }
+      it do
+        expect { create }.to raise_error(FinAppsCore::MissingArgumentsError)
+      end
     end
 
     context 'when missing params' do
       let(:portfolio_id) { 'valid_id' }
       let(:params) { nil }
 
-      it { expect { create }.to raise_error(FinAppsCore::MissingArgumentsError) }
+      it do
+        expect { create }.to raise_error(FinAppsCore::MissingArgumentsError)
+      end
     end
 
     context 'for bulk subscribe' do
@@ -93,7 +102,7 @@ RSpec.describe FinApps::REST::PortfoliosConsumers do
         it('returns no error messages') { expect(errors).to be_empty }
         it('builds correct url') do
           create
-          url = "#{FinAppsCore::REST::Defaults::DEFAULTS[:host]}/v3/portfolios/#{portfolio_id}/consumers"
+          url = "#{versioned_api_path}/portfolios/#{portfolio_id}/consumers"
           expect(WebMock).to have_requested(:post, url)
         end
       end
@@ -106,7 +115,9 @@ RSpec.describe FinApps::REST::PortfoliosConsumers do
         it('results is nil') { expect(results).to be_nil }
         it('error messages array is populated') do
           # this will break when client is fixed to expect new array error response
-          expect(errors.first.downcase).to eq('the server responded with status 400')
+          expect(errors.first.downcase).to eq(
+            'the server responded with status 400'
+          )
         end
       end
     end
@@ -122,7 +133,8 @@ RSpec.describe FinApps::REST::PortfoliosConsumers do
         it('returns no error messages') { expect(errors).to be_empty }
         it('builds correct url') do
           create
-          url = "#{FinAppsCore::REST::Defaults::DEFAULTS[:host]}/v3/portfolios/#{portfolio_id}/consumers/#{params}"
+          url =
+            "#{versioned_api_path}/portfolios/#{portfolio_id}/consumers/#{params}"
           expect(WebMock).to have_requested(:post, url)
         end
       end
@@ -134,7 +146,9 @@ RSpec.describe FinApps::REST::PortfoliosConsumers do
         it { expect { create }.not_to raise_error }
         it('results is nil') { expect(results).to be_nil }
         it('error messages array is populated') do
-          expect(errors.first.downcase).to eq('consumer not eligible, no completed orders.')
+          expect(errors.first.downcase).to eq(
+            'consumer not eligible, no completed orders.'
+          )
         end
       end
     end
@@ -149,14 +163,18 @@ RSpec.describe FinApps::REST::PortfoliosConsumers do
       let(:portfolio_id) { nil }
       let(:consumer_id) { 'valid_id' }
 
-      it { expect { destroy }.to raise_error(FinAppsCore::MissingArgumentsError) }
+      it do
+        expect { destroy }.to raise_error(FinAppsCore::MissingArgumentsError)
+      end
     end
 
     context 'when missing consumer_id' do
       let(:portfolio_id) { 'valid_id' }
       let(:consumer_id) { nil }
 
-      it { expect { destroy }.to raise_error(FinAppsCore::MissingArgumentsError) }
+      it do
+        expect { destroy }.to raise_error(FinAppsCore::MissingArgumentsError)
+      end
     end
 
     context 'when valid ids are provided' do

@@ -1,3 +1,0 @@
-{
-    "login_form_html": "<div class='loginField'><label class='loginFieldName'>Catalog</label><input class='loginFieldInput' type='TEXT' name='LOGIN' value='' maxlength='40' size='20'></div><div class='loginField'><label class='loginFieldName'>Password</label><input class='loginFieldInput' type='PASSWORD' name='PASSWORD' value='' maxlength='40' size='20'></div>"
-}

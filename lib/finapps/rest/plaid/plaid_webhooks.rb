@@ -2,9 +2,9 @@
 
 module FinApps
   module REST
-    class PlaidWebhooks < FinAppsCore::REST::Resources # :nodoc:
-      def create
-        super({}, 'p/webhook')
+    class PlaidWebhooks < PlaidResources # :nodoc:
+      def show
+        send_request_for_id 'p/webhook', :get, nil
       end
     end
   end

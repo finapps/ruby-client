@@ -8,17 +8,6 @@ AllCops:
 Metrics/LineLength:
   Max: 120
 
-# Re-enable this when the following is resolved:
-# https://github.com/rubocop-hq/rubocop/issues/5953
-Style/AccessModifierDeclarations:
-  Enabled: false
-
-Layout/SpaceInsideBlockBraces:
-  # The space here provides no real gain in readability while consuming
-  # horizontal space that could be used for a better parameter name.
-  # Also {| differentiates better from a hash than { | does.
-  SpaceBeforeBlockParameters: false
-
 Style/CollectionMethods:
   Description: Preferred collection methods.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#map-find-select-reduce-size
@@ -40,7 +29,7 @@ Naming/PredicateName:
   - is_
   - has_
   - have_
-  NamePrefixBlacklist:
+  ForbiddenPrefixes:
   - is_
   Exclude:
   - spec/**/*
@@ -94,8 +83,4 @@ Style/VariableInterpolation:
   Description: Don't interpolate global, instance and class variables directly in
     strings.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#curlies-interpolate
-  Enabled: false
-Lint/HandleExceptions:
-  Description: Don't suppress exception.
-  StyleGuide: https://github.com/bbatsov/ruby-style-guide#dont-hide-exceptions
   Enabled: false

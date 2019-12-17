@@ -1,0 +1,57 @@
+[
+  {
+    "_id": "ObjectId(\"507f1f77bcf86cd799439012\")",
+    "consumer_institution_id": "ObjectId(\"507f1f77bcf86cd799439011\")",
+    "plaid_account_id": "vzeNDwK7KQIm4yEog683uElbp9GRLEFXGK98D",
+    "balances": {
+      "available": 100,
+      "current": 110,
+      "limit": null,
+      "iso_currency_code": "USD",
+      "unofficial_currency_code": null
+    },
+    "mask": "0000",
+    "name": "Plaid Checking",
+    "official_name": "Plaid Gold Checking",
+    "subtype": "checking",
+    "type": "depository",
+    "identifiers": {
+      "wire_routing": "123456789",
+      "routing": "123456789",
+      "account": "987654321"
+    },
+    "identities": [
+      {
+        "names": [
+          {
+            "data": "John Doe"
+          }
+        ],
+        "emails": [
+          {
+            "data": "johndoe@ardanlabs.com",
+            "type": "primary",
+            "primary": true
+          }
+        ],
+        "phone_numbers": [
+          {
+            "data": "13165551234",
+            "type": "primary",
+            "primary": true
+          }
+        ],
+        "addresses": [
+          {
+            "city": "Wichita",
+            "region": "KS",
+            "street": "123 Foobar Ave",
+            "postal_code": "67002",
+            "country": "US",
+            "primary": true
+          }
+        ]
+      }
+    ]
+  }
+]

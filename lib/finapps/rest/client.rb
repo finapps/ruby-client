@@ -10,8 +10,6 @@ module FinApps
         alert_definitions
         alert_occurrences
         consumers_portfolios
-        institutions
-        institutions_forms
         orders
         order_assignments
         order_notifications
@@ -29,17 +27,17 @@ module FinApps
         portfolios_consumers
         portfolio_reports
         sessions
-        statements
         consumers
-        consumer_institution_refreshes
-        consumer_institution_refresh
         tenant_settings
         tenant_app_settings
-        user_institutions
-        user_institutions_forms
-        user_institutions_statuses
         version
         plaid_webhooks
+        plaid_consumer_institutions
+        plaid_accounts
+        plaid_account_permissions
+        plaid_institution_logos
+        verix_metadata
+        verix_records
       ].freeze
 
       # @param [String] tenant_token
@@ -57,7 +55,8 @@ module FinApps
           class_name = camelize(symbol.to_s)
           variable = "@#{class_name.downcase}"
           unless instance_variable_defined? variable
-            klass = Object.const_get('FinApps').const_get('REST').const_get class_name
+            klass =
+              Object.const_get('FinApps').const_get('REST').const_get class_name
             instance_variable_set(variable, klass.new(self))
           end
           instance_variable_get(variable)
@@ -75,7 +74,9 @@ module FinApps
       def camelize(term)
         string = term.to_s
         string = string.sub(/^[a-z\d]*/) { $&.capitalize }
-        string.gsub(%r{(?:_|(/))([a-z\d]*)}) { Regexp.last_match(2).capitalize.to_s }
+        string.gsub(%r{(?:_|(/))([a-z\d]*)}) do
+          Regexp.last_match(2).capitalize.to_s
+        end
       end
     end
   end

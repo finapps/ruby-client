@@ -1,0 +1,85 @@
+{
+  "_id": "string",
+  "balances": {
+    "available": 0,
+    "current": 0,
+    "iso_currency_code": "string",
+    "limit": 0,
+    "unofficial_currency_code": "string"
+  },
+  "consumer_institution_id": "string",
+  "created_date": "2019-08-25T22:17:52Z",
+  "identifiers": {
+    "BACS": [
+      {
+        "account": "string",
+        "plaid_account_id": "string",
+        "sort_code": "string"
+      }
+    ],
+    "ach": [
+      {
+        "account": "string",
+        "plaid_account_id": "string",
+        "routing": "string",
+        "wire_routing": "string"
+      }
+    ],
+    "eft": [
+      {
+        "account": "string",
+        "branch": "string",
+        "institution": "string",
+        "plaid_account_id": "string"
+      }
+    ],
+    "international": [
+      {
+        "bic": "string",
+        "iban": "string",
+        "plaid_account_id": "string"
+      }
+    ]
+  },
+  "identities": [
+    {
+      "addresses": [
+        {
+          "city": "string",
+          "country": "string",
+          "postal_code": "string",
+          "primary": true,
+          "region": "string",
+          "street": "string"
+        }
+      ],
+      "emails": [
+        {
+          "data": "string",
+          "primary": true,
+          "type": "string"
+        }
+      ],
+      "names": [
+        {
+          "data": "string"
+        }
+      ],
+      "phones": [
+        {
+          "data": "string",
+          "primary": true,
+          "type": "string"
+        }
+      ]
+    }
+  ],
+  "mask": "string",
+  "modified_date": "2019-08-25T22:17:52Z",
+  "name": "string",
+  "official_name": "string",
+  "permissioned": true,
+  "provider_id": "string",
+  "subtype": "string",
+  "type": "string"
+}

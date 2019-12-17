@@ -24,8 +24,8 @@ RSpec.describe FinApps::REST::PortfoliosAlerts do
       it('returns an array') { expect(list).to be_a(Array) }
       it('performs a get and returns array of alert definitions') do
         expect(results).to be_a(Array)
-        expect(results.first).to respond_to(:_id)
-        expect(results.first).to respond_to(:rule_name)
+        expect(results.first).to have_key(:_id)
+        expect(results.first).to have_key(:rule_name)
       end
       it('returns no error messages') { expect(errors).to be_empty }
     end
@@ -50,21 +50,25 @@ RSpec.describe FinApps::REST::PortfoliosAlerts do
       let(:portfolio_id) { nil }
       let(:alert_id) { 'valid_id' }
 
-      it { expect { create }.to raise_error(FinAppsCore::MissingArgumentsError) }
+      it do
+        expect { create }.to raise_error(FinAppsCore::MissingArgumentsError)
+      end
     end
 
     context 'when missing alert_id' do
       let(:portfolio_id) { 'valid_id' }
       let(:alert_id) { nil }
 
-      it { expect { create }.to raise_error(FinAppsCore::MissingArgumentsError) }
+      it do
+        expect { create }.to raise_error(FinAppsCore::MissingArgumentsError)
+      end
     end
 
     context 'when valid ids are provided' do
       let(:portfolio_id) { 'valid_id' }
       let(:alert_id) { portfolio_id }
 
-      it { expect { create }.not_to raise_error(FinAppsCore::MissingArgumentsError) }
+      it { expect { create }.not_to raise_error }
       it('returns an array') { expect(create).to be_a(Array) }
       it('results is nil') { expect(results).to be_nil }
       it('returns no error messages') { expect(errors).to be_empty }
@@ -74,7 +78,7 @@ RSpec.describe FinApps::REST::PortfoliosAlerts do
       let(:portfolio_id) { 'invalid_id' }
       let(:alert_id) { portfolio_id }
 
-      it { expect { create }.not_to raise_error(FinAppsCore::MissingArgumentsError) }
+      it { expect { create }.not_to raise_error }
       it('results is nil') { expect(results).to be_nil }
       it('error messages array is populated') do
         expect(errors.first.downcase).to eq('resource not found')
@@ -91,21 +95,25 @@ RSpec.describe FinApps::REST::PortfoliosAlerts do
       let(:portfolio_id) { nil }
       let(:alert_id) { 'valid_id' }
 
-      it { expect { destroy }.to raise_error(FinAppsCore::MissingArgumentsError) }
+      it do
+        expect { destroy }.to raise_error(FinAppsCore::MissingArgumentsError)
+      end
     end
 
     context 'when missing alert_id' do
       let(:portfolio_id) { 'valid_id' }
       let(:alert_id) { nil }
 
-      it { expect { destroy }.to raise_error(FinAppsCore::MissingArgumentsError) }
+      it do
+        expect { destroy }.to raise_error(FinAppsCore::MissingArgumentsError)
+      end
     end
 
     context 'when valid ids are provided' do
       let(:portfolio_id) { 'valid_id' }
       let(:alert_id) { portfolio_id }
 
-      it { expect { destroy }.not_to raise_error(FinAppsCore::MissingArgumentsError) }
+      it { expect { destroy }.not_to raise_error }
       it('returns an array') { expect(destroy).to be_a(Array) }
       it('results is nil') { expect(results).to be_nil }
       it('returns no error messages') { expect(errors).to be_empty }
@@ -115,7 +123,7 @@ RSpec.describe FinApps::REST::PortfoliosAlerts do
       let(:portfolio_id) { 'invalid_id' }
       let(:alert_id) { portfolio_id }
 
-      it { expect { destroy }.not_to raise_error(FinAppsCore::MissingArgumentsError) }
+      it { expect { destroy }.not_to raise_error }
       it('results is nil') { expect(results).to be_nil }
       it('error messages array is populated') do
         expect(errors.first.downcase).to eq('resource not found')

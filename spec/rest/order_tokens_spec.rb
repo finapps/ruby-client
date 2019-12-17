@@ -2,7 +2,8 @@
 
 require 'spec_helpers/client'
 
-RSpec.describe FinApps::REST::OrderTokens, 'initialized with valid FinApps::Client object' do
+RSpec.describe FinApps::REST::OrderTokens,
+               'initialized with valid FinApps::Client object' do
   include SpecHelpers::Client
 
   describe '#show' do
@@ -11,14 +12,21 @@ RSpec.describe FinApps::REST::OrderTokens, 'initialized with valid FinApps::Clie
     let(:error_messages) { show[ERROR_MESSAGES] }
 
     context 'when missing token' do
-      it { expect { subject.show(nil) }.to raise_error(FinAppsCore::MissingArgumentsError, ': token') }
+      it do
+        expect { subject.show(nil) }.to raise_error(
+          FinAppsCore::MissingArgumentsError,
+          ': token'
+        )
+      end
     end
 
     context 'for valid token' do
       let(:show) { subject.show(:valid_token) }
       it { expect { show }.not_to raise_error }
-      it('results is a Hashie::Rash') { expect(results).to be_a(Hashie::Mash::Rash) }
-      it('results contains a consumer_id') { expect(results).to respond_to(:consumer_id) }
+      it('results is a Hash') { expect(results).to be_a(Hash) }
+      it('results contains a consumer_id') do
+        expect(results).to have_key(:consumer_id)
+      end
       it('error_messages array is empty') { expect(error_messages).to eq([]) }
     end
 
@@ -26,7 +34,9 @@ RSpec.describe FinApps::REST::OrderTokens, 'initialized with valid FinApps::Clie
       let(:show) { subject.show(:invalid_token) }
       it { expect { show }.not_to raise_error }
       it('results is nil') { expect(results).to be_nil }
-      it('error messages array is populated') { expect(error_messages.first.downcase).to eq('resource not found') }
+      it('error messages array is populated') do
+        expect(error_messages.first.downcase).to eq('resource not found')
+      end
     end
   end
 end

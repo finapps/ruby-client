@@ -8,7 +8,8 @@ module FinApps
       def list(portfolio_id, params = nil)
         not_blank(portfolio_id, :portfolio_id)
 
-        path = "portfolios/#{ERB::Util.url_encode(portfolio_id)}/consumers/available"
+        path =
+          "portfolios/#{ERB::Util.url_encode(portfolio_id)}/consumers/available"
         return super path if params.nil?
 
         raise FinAppsCore::InvalidArgumentsError, 'Invalid argument: params' unless params.is_a? Hash
