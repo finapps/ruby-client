@@ -12,10 +12,10 @@ RSpec.describe FinApps::REST::VerixRecords do
   describe '#create' do
     subject(:create) do
       FinApps::REST::VerixRecords.new(api_client).create(
-          code: 'authcode',
-          download: [
-              'form_1040'
-          ]
+        code: 'authcode',
+        download: [
+          'form_1040'
+        ]
       )
     end
 

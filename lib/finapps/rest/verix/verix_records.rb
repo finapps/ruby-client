@@ -3,7 +3,6 @@
 module FinApps
   module REST
     class VerixRecords < FinAppsCore::REST::Resources # :nodoc:
-
       def create(params)
         super(params, 'v/record')
       end

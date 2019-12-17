@@ -3,7 +3,6 @@
 module FinApps
   module REST
     class VerixMetadata < FinAppsCore::REST::Resources # :nodoc:
-
       def list
         super 'v/metadata'
       end
