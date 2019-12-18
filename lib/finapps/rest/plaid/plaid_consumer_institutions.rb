@@ -30,6 +30,12 @@ module FinApps
 
         super id, "p/institution/consumer/#{id}"
       end
+
+      def public_token(id)
+        not_blank(id, :consumer_institution_id)
+
+        send_request "p/institution/consumer/#{id}/publicToken", :get
+      end
     end
   end
 end
