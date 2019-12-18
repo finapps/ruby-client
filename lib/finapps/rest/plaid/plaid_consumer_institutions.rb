@@ -34,7 +34,7 @@ module FinApps
       def public_token(id)
         not_blank(id, :consumer_institution_id)
 
-        send_request "p/institution/consumer/#{id}/publicToken", :get
+        send_request "p/institution/consumer/#{id}/token", :get
       end
     end
   end

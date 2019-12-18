@@ -64,7 +64,7 @@ class FakeApi < Sinatra::Base
   delete("/#{version}/p/institution/consumer/:consumer_institution_id") do
     status 204
   end
-  get("/#{version}/p/institution/consumer/:consumer_institution_id/publicToken") do
+  get("/#{version}/p/institution/consumer/:consumer_institution_id/token") do
     json_response 200, 'plaid/institution/consumer/public_token.json'
   end
 
