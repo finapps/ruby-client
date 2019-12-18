@@ -77,4 +77,16 @@ RSpec.describe FinApps::REST::PlaidConsumerInstitutions do
       expect(destroy[RESULTS]).to be_nil
     end
   end
+
+  describe '#public_token' do
+    subject(:public_token) do
+      FinApps::REST::PlaidConsumerInstitutions.new(api_client)
+                                              .public_token(:consumer_institution_id)
+    end
+
+    it_behaves_like 'an API request'
+    it_behaves_like 'a successful request'
+    it('returns no results') { expect(public_token[RESULTS]).not_to be_nil }
+    it('returns the public token') { expect(public_token[RESULTS]).to have_key(:public_token) }
+  end
 end
