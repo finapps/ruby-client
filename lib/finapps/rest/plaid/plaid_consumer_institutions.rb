@@ -36,6 +36,12 @@ module FinApps
 
         send_request "p/institution/consumer/#{id}/token", :get
       end
+
+      def set_active_pending_update(id)
+        not_blank(id, :consumer_institution_id)
+
+        send_request "p/institution/consumer/#{id}", :put
+      end
     end
   end
 end
