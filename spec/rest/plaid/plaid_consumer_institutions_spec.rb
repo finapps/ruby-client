@@ -78,6 +78,17 @@ RSpec.describe FinApps::REST::PlaidConsumerInstitutions do
     end
   end
 
+  describe '#update_status' do
+    subject(:update_status) do
+      FinApps::REST::PlaidConsumerInstitutions.new(api_client)
+                                              .update_status(:consumer_institution_id)
+    end
+
+    it_behaves_like 'an API request'
+    it_behaves_like 'a successful request'
+    it('returns no results') { expect(update_status[RESULTS]).to be_nil }
+  end
+
   describe '#public_token' do
     subject(:public_token) do
       FinApps::REST::PlaidConsumerInstitutions.new(api_client)
@@ -86,7 +97,7 @@ RSpec.describe FinApps::REST::PlaidConsumerInstitutions do
 
     it_behaves_like 'an API request'
     it_behaves_like 'a successful request'
-    it('returns no results') { expect(public_token[RESULTS]).not_to be_nil }
+    it('returns results') { expect(public_token[RESULTS]).not_to be_nil }
     it('returns the public token') { expect(public_token[RESULTS]).to have_key(:public_token) }
   end
 end
