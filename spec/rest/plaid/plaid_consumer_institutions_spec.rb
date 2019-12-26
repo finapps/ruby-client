@@ -86,8 +86,8 @@ RSpec.describe FinApps::REST::PlaidConsumerInstitutions do
 
     it_behaves_like 'an API request'
     it_behaves_like 'a successful request'
-    it('returns no results') do 
-      expect(set_active_pending_update[RESULTS]).to be_nil 
+    it('returns no results') do
+      expect(set_active_pending_update[RESULTS]).to be_nil
     end
   end
 
