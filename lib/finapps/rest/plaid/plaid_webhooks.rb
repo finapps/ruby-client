@@ -4,7 +4,7 @@ module FinApps
   module REST
     class PlaidWebhooks < PlaidResources # :nodoc:
       def show
-        send_request_for_id 'p/webhook', :get, nil
+        send_request_for_id 'p/metadata', :get, nil
       end
     end
   end

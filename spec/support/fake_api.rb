@@ -28,8 +28,8 @@ class FakeApi < Sinatra::Base
     json_response 200, 'verix/record/create.json'
   end
 
-  # plaid_webhook
-  get("/#{version}/p/webhook") do
+  # plaid_webhook/metadata
+  get("/#{version}/p/metadata") do
     tenant_token = request.env['HTTP_X_TENANT_TOKEN']
     if tenant_token == 'invalid_tenant_token'
       json_response 404, 'invalid_tenant_credentials.json'
