@@ -3,19 +3,38 @@
 module FinApps
   module REST
     class Sessions < FinAppsCore::REST::Resources # :nodoc:
-      # @param [Hash] params
-      # @return [Array<String>]
-      def create(params, path=nil)
-        raise FinAppsCore::InvalidArgumentsError.new 'Invalid argument: params.' unless validates params
-        path ||= 'login'
+      CONSUMER_LOGIN = 'login'
+      LOGOUT = 'logout'
 
-        super params, path
+      def create(params, path = nil)
+        return super nil, path if path == LOGOUT
+        raise FinAppsCore::InvalidArgumentsError, 'Invalid argument: params.' unless validates params
+
+        path ||= CONSUMER_LOGIN
+
+        begin
+          super params, path
+        rescue FinAppsCore::ApiUnauthenticatedError
+          (
+            [
+              nil,
+              [
+                "Invalid #{path == CONSUMER_LOGIN ? 'Consumer' : 'Operator'} Identifier or Credentials"
+              ]
+            ]
+          )
+        end
+      end
+
+      def destroy
+        create nil, LOGOUT
       end
 
       private
 
       def validates(params)
-        params.key?(:email) && params[:email] && params.key?(:password) && params[:password]
+        params.key?(:email) && params[:email] && params.key?(:password) &&
+          params[:password]
       end
     end
   end

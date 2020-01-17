@@ -1,0 +1,19 @@
+--- 
+name: ruby-client
+root: ~/projects/ruby-client/
+windows: 
+  - 
+    editor: 
+      layout: main-vertical
+      panes: 
+        - vim: $EDITOR
+        - bash: 
+          - git pull
+          - git status
+          - bundle
+  - 
+    guard: 
+      layout: even-horizontal
+      panes:
+        - guard:
+          - bundle exec guard

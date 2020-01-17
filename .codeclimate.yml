@@ -1,8 +1,9 @@
-engines:
+---
+version: "2"
+plugins:
   rubocop:
     enabled: true
-  brakeman:
-    enabled: false
+    channel: rubocop-0-74 # Minimum version to support ruby 2.6
   eslint:
     enabled: false
   csslint:
@@ -12,10 +13,12 @@ engines:
     config:
       languages:
       - ruby
+
 ratings:
   paths:
   - lib/**
   - "**.rb"
+
 exclude_paths:
 - spec/**/*
 - "**/vendor/**/*"

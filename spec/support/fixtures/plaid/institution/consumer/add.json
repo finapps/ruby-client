@@ -1,0 +1,19 @@
+{
+  "_id": "5d435bb8c80c5c00010d88b1",
+  "status": 4,
+  "status_text": null,
+  "error": null,
+  "webhook": null,
+  "institution_name": "",
+  "plaid_institution_id": "",
+  "metrics": {
+    "available_products": null,
+    "billed_products": null,
+    "last_webhook": null,
+    "last_webhook_code": null,
+    "last_successful_transaction_update": null,
+    "last_failed_transaction_update": null
+  },
+  "created_date": "2019-08-01T21:38:00.261008261Z",
+  "modified_date": "2019-08-01T21:38:00.261008261Z"
+}

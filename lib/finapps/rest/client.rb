@@ -6,9 +6,10 @@ require_relative './version'
 module FinApps
   module REST
     class Client < FinAppsCore::REST::BaseClient # :nodoc:
-      RESOURCES = %i(
-        institutions
-        institutions_forms
+      RESOURCES = %i[
+        alert_definitions
+        alert_occurrences
+        consumers_portfolios
         orders
         order_assignments
         order_notifications
@@ -20,24 +21,33 @@ module FinApps
         operators_password_resets
         password_resets
         products
+        portfolios
+        portfolios_alerts
+        portfolios_available_consumers
+        portfolios_consumers
+        portfolio_reports
         sessions
-        statements
         consumers
-        consumer_institution_refreshes
-        user_institutions
-        user_institutions_forms
-        user_institutions_statuses
+        tenant_settings
+        tenant_app_settings
         version
-      ).freeze
+        plaid_webhooks
+        plaid_consumer_institutions
+        plaid_accounts
+        plaid_account_permissions
+        plaid_institution_logos
+        verix_metadata
+        verix_records
+      ].freeze
 
       # @param [String] tenant_token
       # @param [Hash] options
       # @return [FinApps::REST::Client]
-      def initialize(tenant_token, options={}, logger=nil)
+      def initialize(tenant_token, options = {}, logger = nil)
         not_blank(tenant_token, :tenant_token)
 
-        merged_options = options.merge(tenant_token: tenant_token)
-        super(merged_options, logger)
+        options[:tenant_token] = tenant_token
+        super(options, logger)
       end
 
       def method_missing(symbol, *arguments, &block)
@@ -45,7 +55,8 @@ module FinApps
           class_name = camelize(symbol.to_s)
           variable = "@#{class_name.downcase}"
           unless instance_variable_defined? variable
-            klass = Object.const_get('FinApps').const_get('REST').const_get class_name
+            klass =
+              Object.const_get('FinApps').const_get('REST').const_get class_name
             instance_variable_set(variable, klass.new(self))
           end
           instance_variable_get(variable)
@@ -54,7 +65,7 @@ module FinApps
         end
       end
 
-      def respond_to_missing?(method_sym, include_private=false)
+      def respond_to_missing?(method_sym, include_private = false)
         RESOURCES.include?(method_sym) ? true : super
       end
 
@@ -63,8 +74,9 @@ module FinApps
       def camelize(term)
         string = term.to_s
         string = string.sub(/^[a-z\d]*/) { $&.capitalize }
-        string.gsub!(%r{(?:_|(/))([a-z\d]*)}) { $2.capitalize.to_s }
-        string
+        string.gsub(%r{(?:_|(/))([a-z\d]*)}) do
+          Regexp.last_match(2).capitalize.to_s
+        end
       end
     end
   end

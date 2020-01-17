@@ -12,21 +12,27 @@ RSpec.describe FinApps::REST::OrderAssignments do
 
     context 'when missing id' do
       let(:update) { subject.update(nil, []) }
-      it('returns missing argument error') { expect { update }.to raise_error(FinAppsCore::MissingArgumentsError) }
+      it('returns missing argument error') do
+        expect { update }.to raise_error(FinAppsCore::MissingArgumentsError)
+      end
     end
 
     context 'when missing params' do
       let(:update) { subject.update(:valid_id, nil) }
-      it('returns missing argument error') { expect { update }.to raise_error(FinAppsCore::MissingArgumentsError) }
+      it('returns missing argument error') do
+        expect { update }.to raise_error(FinAppsCore::MissingArgumentsError)
+      end
     end
 
     context 'with invalid params' do
       let(:update) { subject.update(:valid_id, params: 'params') }
-      it('returns invalid argument error') { expect { update }.to raise_error(FinAppsCore::InvalidArgumentsError) }
+      it('returns invalid argument error') do
+        expect { update }.to raise_error(FinAppsCore::InvalidArgumentsError)
+      end
     end
 
     context 'with invalid operator' do
-      let(:update) { subject.update(:invalid_id, ['invalid']) }
+      let(:update) { subject.update(:invalid_id, %w[invalid]) }
 
       it { expect { update }.not_to raise_error }
       it('results is nil') { expect(results).to be_nil }
@@ -36,7 +42,7 @@ RSpec.describe FinApps::REST::OrderAssignments do
     end
 
     context 'with valid params' do
-      let(:update) { subject.update(:valid_id, ['valid']) }
+      let(:update) { subject.update(:valid_id, %w[valid]) }
 
       it { expect { update }.not_to raise_error }
       it('results is nil') { expect(results).to be_nil }

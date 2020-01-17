@@ -9,7 +9,9 @@ RSpec.describe FinApps::REST::OrderRefreshes do
   describe '#create' do
     context 'when missing id' do
       let(:create) { subject.create(nil) }
-      it { expect { create }.to raise_error(FinAppsCore::MissingArgumentsError) }
+      it do
+        expect { create }.to raise_error(FinAppsCore::MissingArgumentsError)
+      end
     end
 
     context 'when valid id is provided' do
@@ -17,10 +19,12 @@ RSpec.describe FinApps::REST::OrderRefreshes do
       it { expect { create }.not_to raise_error }
       it('returns an array') { expect(create).to be_a(Array) }
       it('performs a post and returns new refreshed order response') do
-        expect(create[RESULTS]).to respond_to(:public_id)
-        expect(create[RESULTS]).to respond_to(:original_order_id)
+        expect(create[RESULTS]).to have_key(:public_id)
+        expect(create[RESULTS]).to have_key(:original_order_id)
       end
-      it('returns no error messages') { expect(create[ERROR_MESSAGES]).to be_empty }
+      it('returns no error messages') do
+        expect(create[ERROR_MESSAGES]).to be_empty
+      end
     end
 
     context 'when invalid id is provided' do
@@ -29,7 +33,9 @@ RSpec.describe FinApps::REST::OrderRefreshes do
       it('returns an array') { expect(create).to be_a(Array) }
       it('results is nil') { expect(create[RESULTS]).to be_nil }
       it('error messages array is populated') do
-        expect(create[ERROR_MESSAGES].first.downcase).to eq('resource not found')
+        expect(create[ERROR_MESSAGES].first.downcase).to eq(
+          'resource not found'
+        )
       end
     end
   end

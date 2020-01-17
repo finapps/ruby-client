@@ -17,36 +17,40 @@ module FinApps
         super params
       end
 
-      # GET /v2/list/orders?page=1&requested=25&sort=-date
+      # GET /v3/list/orders?page=1&requested=25&sort=-date
+      # @param [Hash] params
+      # Optional keys:
       # :page - page number requested
       # :requested - number of results per page requested
       # :sort - sort order
       # :filter - mongo object to filter
       #     descending - append "-" before option for descending sort
-      def list(params=nil) # params hash with optional keys [:page, :sort, :requested]
+      #
+      def list(params = nil)
         return super if params.nil?
-        raise FinAppsCore::InvalidArgumentsError.new 'Invalid argument: params' unless params.is_a? Hash
+        raise FinAppsCore::InvalidArgumentsError, 'Invalid argument: params' unless params.is_a? Hash
+
         super build_query_path(end_point, params)
       end
 
-      def update(id, params, path=nil)
-        return super nil, path if path
-        not_blank(id, :id)
-        not_blank(params, :params)
-        # Params array need matching Institution ids & Account ids
-        # Validations to check each Institution id has at least one account id
-        # Validations to check at least 1 Institution id or 1 account "params.length >= 1"
+      def update(id, params = nil)
+        return super params if params # create&submit
 
+        not_blank(id, :id)
         path = "#{end_point}/#{ERB::Util.url_encode(id)}"
 
-        super params, path
+        super nil, path # submit
       end
 
       def destroy(id)
         not_blank(id, :id)
-
         path = "#{end_point}/#{ERB::Util.url_encode(id)}/cancel"
-        update nil, nil, path
+
+        send_request path, :put
+      end
+
+      def create_and_submit(params)
+        update(nil, params)
       end
 
       private
@@ -62,43 +66,36 @@ module FinApps
 
       def search_query(term)
         {
-          "$or": [{
-            "public_id": {
-              "$regex": "^#{term}",
-              "$options": 'i'
+          "$or": [
+            { "public_id": { "$regex": "^#{term}", "$options": 'i' } },
+            { "applicant.last_name": term },
+            { "assignment.last_name": term },
+            {
+              "requestor.reference_no": {
+                "$regex": "^#{term}", "$options": 'i'
+              }
             }
-          }, {
-            "applicant.last_name": {
-              "$regex": term,
-              "$options": 'i'
-            }
-          }, {
-            "assignment.last_name": {
-              "$regex": term,
-              "$options": 'i'
-            }
-          }, {
-            "requestor.reference_no": {
-              "$regex": "^#{term}",
-              "$options": 'i'
-            }
-          }]
+          ]
         }
       end
 
       def status_query(status)
-        status.is_a?(Array) ? {"status": {"$in": status.map(&:to_i)}} : {"status": status.to_i}
+        if status.is_a?(Array)
+          { "status": { "$in": status.map(&:to_i) } }
+        else
+          { "status": status.to_i }
+        end
       end
 
       def assignment_query(assignment)
-        {"assignment.operator_id": assignment.empty? ? nil : assignment} # translate "" to null assignment
+        { "assignment.operator_id": assignment.empty? ? nil : assignment } # translate "" to null assignment
       end
 
       def relation_query(relation)
         {
           "$or": [
-            {"public_id": {"$in": relation}},
-            {"original_order_id": {"$in": relation}}
+            { "public_id": { "$in": relation } },
+            { "original_order_id": { "$in": relation } }
           ]
         }
       end

@@ -1,0 +1,5 @@
+{
+  "messages":[
+    "Plaid Error - request ID: l2OkRpPk9UP5zms, http status: 400, type: INVALID_INPUT, code: INVALID_PUBLIC_TOKEN, message: provided public token is in an invalid format. expected format: public-<environment>-<identifier>"
+  ]
+}
