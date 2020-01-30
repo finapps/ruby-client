@@ -56,48 +56,71 @@ module FinApps
       private
 
       def build_filter(params)
-        filter = {}
-        filter.merge!(search_query(params[:searchTerm])) if params[:searchTerm]
-        filter.merge!(status_query(params[:status])) if params[:status]
-        filter.merge!(assignment_query(params[:assignment])) if params[:assignment] # assignment can be ""
-        filter.merge!(relation_query(params[:relation])) if !params[:searchTerm] && !nil_or_empty?(params[:relation])
-        filter
+        search_query(params[:searchTerm]).merge(status_query(params[:status]))
+                                         .merge(assignment_query(params[:assignment]))
+                                         .merge(consumer_query(params[:consumer]))
+                                         .merge(relation_query(params[:relation], params[:searchTerm]))
       end
 
       def search_query(term)
-        {
-          "$or": [
-            { "public_id": { "$regex": "^#{term}", "$options": 'i' } },
-            { "applicant.last_name": term },
-            { "assignment.last_name": term },
-            {
-              "requestor.reference_no": {
-                "$regex": "^#{term}", "$options": 'i'
+        if term
+          {
+            "$or": [
+              { "public_id": { "$regex": "^#{term}", "$options": 'i' } },
+              { "applicant.last_name": term },
+              { "assignment.last_name": term },
+              {
+                "requestor.reference_no": {
+                  "$regex": "^#{term}", "$options": 'i'
+                }
               }
-            }
-          ]
-        }
+            ]
+          }
+        else
+          {}
+        end
       end
 
       def status_query(status)
-        if status.is_a?(Array)
-          { "status": { "$in": status.map(&:to_i) } }
+        if status
+          if status.is_a?(Array)
+            { "status": { "$in": status.map(&:to_i) } }
+          else
+            { "status": status.to_i }
+          end
         else
-          { "status": status.to_i }
+          {}
         end
       end
 
       def assignment_query(assignment)
-        { "assignment.operator_id": assignment.empty? ? nil : assignment } # translate "" to null assignment
+        # translate "" to null assignment
+        if assignment
+          { "assignment.operator_id": assignment.empty? ? nil : assignment }
+        else
+          {}
+        end
       end
 
-      def relation_query(relation)
-        {
-          "$or": [
-            { "public_id": { "$in": relation } },
-            { "original_order_id": { "$in": relation } }
-          ]
-        }
+      def consumer_query(consumer)
+        if consumer
+          { "consumer_id": consumer.empty? ? nil : consumer }
+        else
+          {}
+        end
+      end
+
+      def relation_query(relation, search_term)
+        if !search_term && !nil_or_empty?(relation)
+          {
+            "$or": [
+              { "public_id": { "$in": relation } },
+              { "original_order_id": { "$in": relation } }
+            ]
+          }
+        else
+          {}
+        end
       end
     end
   end
