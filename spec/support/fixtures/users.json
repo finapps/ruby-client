@@ -1,0 +1,18 @@
+{
+  "total_records": 1,
+  "page": 1,
+  "total_pages": 1,
+  "records": [
+    {
+      "public_id": "b090a422-b62f-4210-7526-f9513df0c3a5",
+      "email": "test.1578406657576@postman.com",
+      "first_name": "API",
+      "last_name": "Test",
+      "memo": "memo goes here",
+      "tenant_id": "988a0c8f-8a17-4bfd-6ac5-9df8ba91c095",
+      "date_modified": "2020-01-07T14:17:37.643Z",
+      "date_created": "2020-01-07T14:17:37.643Z",
+      "postal_code": "33136"
+    }
+  ]
+}

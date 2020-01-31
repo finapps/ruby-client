@@ -41,6 +41,55 @@ RSpec.describe FinApps::REST::Consumers,
     end
   end
 
+  describe '#list' do
+    let(:list) { subject.list(params) }
+    let(:results) { list[0] }
+    let(:error_messages) { list[1] }
+
+    context 'when missing params' do
+      let(:params) { nil }
+      it { expect { list }.to_not raise_error }
+      it('performs a get and returns the response') do
+        expect(results).to have_key(:records)
+      end
+      it('returns an array of records') { expect(results[:records]).to be_a(Array) }
+      it('returns no error messages') { expect(error_messages).to be_empty }
+    end
+
+    context 'when invalid params are provided' do
+      let(:params) { ['invalid array'] }
+
+      it { expect { list }.to raise_error(FinAppsCore::InvalidArgumentsError) }
+    end
+
+    context 'when including valid params' do
+      let(:params) do
+        {
+          page: 2,
+          sort: 'date_created',
+          requested: 25,
+          searchTerm: 'term'
+        }
+      end
+
+      it { expect { list }.to_not raise_error }
+      it('returns an array') { expect(list).to be_a(Array) }
+      it('performs a get and returns the response') do
+        expect(results).to have_key(:records)
+      end
+      it('returns no error messages') do
+        expect(error_messages).to be_empty
+      end
+      it 'builds query and sends proper request' do
+        list
+        url = "#{versioned_api_path}/consumers?filter=%7B%22$or%22:%5B%7B%22email%22:%22term%22%7D," \
+            '%7B%22first_name%22:%22term%22%7D,%7B%22last_name%22:%22term%22%7D%5D%7D&page=2&requested=25' \
+            '&sort=date_created'
+        expect(WebMock).to have_requested(:get, url)
+      end
+    end
+  end
+
   describe '#show' do
     context 'when missing public_id' do
       it do
