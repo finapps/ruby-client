@@ -190,6 +190,9 @@ class FakeApi < Sinatra::Base
   end
 
   # consumers
+  get("/#{version}/consumers") do
+    json_response 200, 'users.json'
+  end
   get("/#{version}/consumers/valid_public_id") do
     json_response 200, 'user.json'
   end
