@@ -62,7 +62,30 @@ RSpec.describe FinApps::REST::Consumers,
       it { expect { list }.to raise_error(FinAppsCore::InvalidArgumentsError) }
     end
 
-    context 'when including valid params' do
+    context 'when including valid params without searchTerm' do
+      let(:params) do
+        {
+          page: 3,
+          requested: 19
+        }
+      end
+
+      it { expect { list }.to_not raise_error }
+      it('returns an array') { expect(list).to be_a(Array) }
+      it('performs a get and returns the response') do
+        expect(results).to have_key(:records)
+      end
+      it('returns no error messages') do
+        expect(error_messages).to be_empty
+      end
+      it 'builds query and sends proper request' do
+        list
+        url = "#{versioned_api_path}/consumers?page=3&requested=19"
+        expect(WebMock).to have_requested(:get, url)
+      end
+    end
+
+    context 'when including valid params with searchTerm' do
       let(:params) do
         {
           page: 2,

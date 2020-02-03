@@ -48,7 +48,9 @@ module FinApps
       end
 
       def build_filter(params)
-        search_query(params[:searchTerm]) if params[:searchTerm]
+        return {} unless params[:searchTerm]
+
+        search_query(params[:searchTerm])
       end
 
       def search_query(term)
