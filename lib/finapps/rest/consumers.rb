@@ -48,7 +48,9 @@ module FinApps
       end
 
       def build_filter(params)
-        search_query(params[:searchTerm]) if params[:searchTerm]
+        filter = {}
+        filter.merge!(search_query(params[:searchTerm])) if params[:searchTerm]
+        filter
       end
 
       def search_query(term)
