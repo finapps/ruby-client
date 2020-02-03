@@ -49,7 +49,7 @@ module FinApps
 
       def build_filter(params)
         return {} unless params[:searchTerm]
-        
+
         search_query(params[:searchTerm])
       end
 
