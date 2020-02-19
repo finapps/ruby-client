@@ -1,3 +1,10 @@
+## [5.0.28] - 2020-02-19
+
+### Added
+* Verix document endpoints ([#217][i217])
+
+[i217]: https://github.com/finapps/ruby-client/issues/217
+
 ## [5.0.27] - 2020-02-11
 
 ### Changed
