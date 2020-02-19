@@ -38,6 +38,7 @@ module FinApps
         plaid_institution_logos
         verix_metadata
         verix_records
+        verix_pdf_documents
       ].freeze
 
       # @param [String] tenant_token

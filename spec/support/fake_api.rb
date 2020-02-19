@@ -28,6 +28,11 @@ class FakeApi < Sinatra::Base
     json_response 200, 'verix/record/create.json'
   end
 
+  # verix_pdf_documents
+  get("/#{version}/v/record/:record_id/file/:provider_id") do
+    pdf_response 'verix/document/document.pdf'
+  end
+
   # plaid_webhook/metadata
   get("/#{version}/p/metadata") do
     tenant_token = request.env['HTTP_X_TENANT_TOKEN']
@@ -425,6 +430,10 @@ class FakeApi < Sinatra::Base
 
   def png_response(file_name)
     http_response :png, 200, file_name
+  end
+
+  def pdf_response(file_name)
+    http_response 'application/pdf', 200, file_name
   end
 
   def http_response(content_type, response_code, file_name)
