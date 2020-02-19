@@ -1,17 +1,25 @@
-{
-  "_id": "string",
-  "consumer_id": "string",
-  "date_exchanged": "2019-12-17T14:50:00Z",
-  "date_modified": "2019-12-17T14:50:00Z",
-  "documents": [
-    {
-      "count": 0,
-      "date_synced": "2019-12-17T14:50:00Z",
-      "document_id": "string",
-      "downloaded": true,
-      "type": "string"
-    }
-  ],
-  "error": "string",
-  "status": 0
-}
+
+  {
+    "_id": "string",
+    "consumer_id": "string",
+    "date_exchanged": "2020-02-19T14:13:34Z",
+    "date_modified": "2020-02-19T14:13:34Z",
+    "documents": [
+      {
+        "date_synced": "2020-02-19T14:13:34Z",
+        "document_id": "string",
+        "tax_period_ends_at": "string",
+        "type": "string"
+      }
+    ],
+    "downloaded_documents": [
+      {
+        "provider_id": 0,
+        "successful": true,
+        "tax_period_ends_at": "string",
+        "type": "string"
+      }
+    ],
+    "error": "string",
+    "status": 0
+  }

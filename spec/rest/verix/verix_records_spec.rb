@@ -12,10 +12,7 @@ RSpec.describe FinApps::REST::VerixRecords do
   describe '#create' do
     subject(:create) do
       FinApps::REST::VerixRecords.new(api_client).create(
-        code: 'authcode',
-        download: [
-          'form_1040'
-        ]
+        code: 'authcode'
       )
     end
 
@@ -26,11 +23,7 @@ RSpec.describe FinApps::REST::VerixRecords do
     it('returns a status') { expect(create[RESULTS]).to have_key(:status) }
     it('returns an error node') { expect(create[RESULTS]).to have_key(:error) }
     it('returns a list of documents') { expect(create[RESULTS]).to have_key(:documents) }
-    it('returns a document count') { expect(create[RESULTS][:documents].first).to have_key(:count) }
-    it('returns a document date sycned node') { expect(create[RESULTS][:documents].first).to have_key(:date_synced) }
-    it('returns a document id') { expect(create[RESULTS][:documents].first).to have_key(:document_id) }
-    it('returns a document downloaded bool') { expect(create[RESULTS][:documents].first).to have_key(:downloaded) }
-    it('returns a document type') { expect(create[RESULTS][:documents].first).to have_key(:type) }
+    it('returns a list of downloaded documents') { expect(create[RESULTS]).to have_key(:downloaded_documents) }
   end
 
   describe '#list' do
@@ -44,10 +37,6 @@ RSpec.describe FinApps::REST::VerixRecords do
     it('returns a consumer id') { expect(list[RESULTS].first).to have_key(:consumer_id) }
     it('returns an error node') { expect(list[RESULTS].first).to have_key(:error) }
     it('returns a list of documents') { expect(list[RESULTS].first).to have_key(:documents) }
-    it('returns a document type') { expect(list[RESULTS].first[:documents].first).to have_key(:type) }
-    it('returns a document id') { expect(list[RESULTS].first[:documents].first).to have_key(:document_id) }
-    it('returns a document count') { expect(list[RESULTS].first[:documents].first).to have_key(:count) }
-    it('returns a document downloaded bool') { expect(list[RESULTS].first[:documents].first).to have_key(:downloaded) }
-    it('returns a document date_synced') { expect(list[RESULTS].first[:documents].first).to have_key(:date_synced) }
+    it('returns a list of downloaded documents') { expect(list[RESULTS].first).to have_key(:downloaded_documents) }
   end
 end
