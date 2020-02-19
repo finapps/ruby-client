@@ -19,7 +19,6 @@ require 'finapps/rest/products'
 require 'finapps/rest/order_assignments'
 require 'finapps/rest/client'
 require 'finapps/rest/order_refreshes'
-require 'finapps/rest/statements'
 require 'finapps/rest/tenant_settings'
 require 'finapps/rest/tenant_app_settings'
 require 'finapps/rest/portfolios'
@@ -40,6 +39,8 @@ require 'finapps/rest/plaid/plaid_institution_logos'
 
 require 'finapps/rest/verix/verix_metadata'
 require 'finapps/rest/verix/verix_records'
+require 'finapps/rest/verix/verix_pdf_documents'
+require 'finapps/rest/verix/verix_documents'
 
 require 'finapps/utils/query_builder'
 require 'finapps/version' unless defined?(FinApps::VERSION)

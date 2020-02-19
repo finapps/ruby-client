@@ -28,6 +28,19 @@ class FakeApi < Sinatra::Base
     json_response 200, 'verix/record/create.json'
   end
 
+  # verix_pdf_documents
+  get("/#{version}/v/record/:record_id/file/:provider_id") do
+    pdf_response 'verix/document/document.pdf'
+  end
+
+  # verix_documents
+  get("/#{version}/v/record/:record_id/document") do
+    json_response 200, 'verix/document/show.json'
+  end
+  get("/#{version}/v/record/:record_id/document/:document_id") do
+    json_response 200, 'verix/document/list.json'
+  end
+
   # plaid_webhook/metadata
   get("/#{version}/p/metadata") do
     tenant_token = request.env['HTTP_X_TENANT_TOKEN']
@@ -224,14 +237,6 @@ class FakeApi < Sinatra::Base
   end
   post("/#{version}/logout") { status 204 }
 
-  # accounts
-  get("/#{version}/accounts/valid_id/statement/valid_id") do
-    json_response 200, 'fake_pdf_statement.json'
-  end
-  get("/#{version}/accounts/invalid_id/statement/valid_id") do
-    json_response 404, 'resource_not_found.json'
-  end
-
   # operators
   get("/#{version}/operators") { json_response 200, 'operator_list.json' }
   get("/#{version}/operators/invalid_id") do
@@ -425,6 +430,10 @@ class FakeApi < Sinatra::Base
 
   def png_response(file_name)
     http_response :png, 200, file_name
+  end
+
+  def pdf_response(file_name)
+    http_response 'application/pdf', 200, file_name
   end
 
   def http_response(content_type, response_code, file_name)

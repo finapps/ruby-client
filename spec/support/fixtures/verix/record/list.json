@@ -1,81 +1,157 @@
 [
   {
-    "_id": "5df7eadbfe13f5000148ca0e",
-    "consumer_id": "594625b4-e8fe-40b7-422f-f758bb877ae7",
+    "_id": "5e4c44a46c20ec0001e3a505",
+    "consumer_id": "1f50bddc-4cbf-4e16-6782-a2295d695d4e",
     "status": 2,
     "error": "",
-    "date_exchanged": "2019-12-16T20:36:43.342Z",
-    "date_modified": "2019-12-16T20:36:45.59Z",
+    "date_exchanged": "2020-02-18T20:10:12.887Z",
+    "date_modified": "2020-02-18T20:10:16.321Z",
     "documents": [
       {
         "type": "form_1040",
-        "document_id": "5df7eadbc496df0001e9daa0",
-        "count": 2,
-        "downloaded": false,
-        "date_synced": "2019-12-16T20:36:43.537Z"
+        "document_id": "5e4c44a5b778c00001a81275",
+        "tax_period_ends_at": "2017-12-31",
+        "date_synced": "2020-02-18T20:10:13.245Z"
       },
       {
-        "type": "schedule_c",
-        "document_id": "5df7eadbc496df0001e9daa1",
-        "count": 0,
-        "downloaded": false,
-        "date_synced": "2019-12-16T20:36:43.613Z"
+        "type": "form_1040",
+        "document_id": "5e4c44a5b778c00001a81276",
+        "tax_period_ends_at": "2018-12-31",
+        "date_synced": "2020-02-18T20:10:13.245Z"
       },
       {
         "type": "schedule_d",
-        "document_id": "5df7eadbc496df0001e9daa2",
-        "count": 2,
-        "downloaded": false,
-        "date_synced": "2019-12-16T20:36:43.676Z"
+        "document_id": "5e4c44a5b778c00001a81277",
+        "tax_period_ends_at": "2017-12-31",
+        "date_synced": "2020-02-18T20:10:13.469Z"
+      },
+      {
+        "type": "schedule_d",
+        "document_id": "5e4c44a5b778c00001a81278",
+        "tax_period_ends_at": "2018-12-31",
+        "date_synced": "2020-02-18T20:10:13.469Z"
       },
       {
         "type": "schedule_e",
-        "document_id": "5df7eadbc496df0001e9daa3",
-        "count": 2,
-        "downloaded": false,
-        "date_synced": "2019-12-16T20:36:43.737Z"
+        "document_id": "5e4c44a5b778c00001a81279",
+        "tax_period_ends_at": "2017-12-31",
+        "date_synced": "2020-02-18T20:10:13.7Z"
+      },
+      {
+        "type": "schedule_e",
+        "document_id": "5e4c44a5b778c00001a8127a",
+        "tax_period_ends_at": "2018-12-31",
+        "date_synced": "2020-02-18T20:10:13.7Z"
       },
       {
         "type": "schedule_k1_form_1065",
-        "document_id": "5df7eadbc496df0001e9daa4",
-        "count": 1,
-        "downloaded": false,
-        "date_synced": "2019-12-16T20:36:43.807Z"
+        "document_id": "5e4c44a5b778c00001a8127b",
+        "tax_period_ends_at": "2017-12-31",
+        "date_synced": "2020-02-18T20:10:13.78Z"
       },
       {
         "type": "schedule_k1_form_1120s",
-        "document_id": "5df7eadbc496df0001e9daa5",
-        "count": 2,
-        "downloaded": false,
-        "date_synced": "2019-12-16T20:36:43.912Z"
+        "document_id": "5e4c44a5b778c00001a8127c",
+        "tax_period_ends_at": "2017-12-31",
+        "date_synced": "2020-02-18T20:10:13.881Z"
+      },
+      {
+        "type": "schedule_k1_form_1120s",
+        "document_id": "5e4c44a5b778c00001a8127d",
+        "tax_period_ends_at": "2018-12-31",
+        "date_synced": "2020-02-18T20:10:13.881Z"
       },
       {
         "type": "form_w2",
-        "document_id": "5df7eadcc496df0001e9daa6",
-        "count": 1,
-        "downloaded": false,
-        "date_synced": "2019-12-16T20:36:44.015Z"
+        "document_id": "5e4c44a5b778c00001a8127e",
+        "tax_period_ends_at": "2017-12-31",
+        "date_synced": "2020-02-18T20:10:13.972Z"
       },
       {
         "type": "form_1099_div",
-        "document_id": "5df7eaddc496df0001e9daa9",
-        "count": 4,
-        "downloaded": false,
-        "date_synced": "2019-12-16T20:36:45.441Z"
+        "document_id": "5e4c44a6b778c00001a8127f",
+        "tax_period_ends_at": "2017-12-31",
+        "date_synced": "2020-02-18T20:10:14.082Z"
+      },
+      {
+        "type": "form_1099_div",
+        "document_id": "5e4c44a6b778c00001a81280",
+        "tax_period_ends_at": "2017-12-31",
+        "date_synced": "2020-02-18T20:10:14.082Z"
+      },
+      {
+        "type": "form_1099_div",
+        "document_id": "5e4c44a6b778c00001a81281",
+        "tax_period_ends_at": "2018-12-31",
+        "date_synced": "2020-02-18T20:10:14.082Z"
+      },
+      {
+        "type": "form_1099_div",
+        "document_id": "5e4c44a6b778c00001a81282",
+        "tax_period_ends_at": "2018-12-31",
+        "date_synced": "2020-02-18T20:10:14.082Z"
       },
       {
         "type": "form_1099_int",
-        "document_id": "5df7eaddc496df0001e9daaa",
-        "count": 2,
-        "downloaded": false,
-        "date_synced": "2019-12-16T20:36:45.501Z"
+        "document_id": "5e4c44a6b778c00001a81283",
+        "tax_period_ends_at": "2017-12-31",
+        "date_synced": "2020-02-18T20:10:14.223Z"
+      },
+      {
+        "type": "form_1099_int",
+        "document_id": "5e4c44a6b778c00001a81284",
+        "tax_period_ends_at": "2018-12-31",
+        "date_synced": "2020-02-18T20:10:14.223Z"
       },
       {
         "type": "form_5498",
-        "document_id": "5df7eaddc496df0001e9daab",
-        "count": 4,
-        "downloaded": false,
-        "date_synced": "2019-12-16T20:36:45.587Z"
+        "document_id": "5e4c44a6b778c00001a81285",
+        "tax_period_ends_at": "2017-12-31",
+        "date_synced": "2020-02-18T20:10:14.34Z"
+      },
+      {
+        "type": "form_5498",
+        "document_id": "5e4c44a6b778c00001a81286",
+        "tax_period_ends_at": "2017-12-31",
+        "date_synced": "2020-02-18T20:10:14.34Z"
+      },
+      {
+        "type": "form_5498",
+        "document_id": "5e4c44a6b778c00001a81287",
+        "tax_period_ends_at": "2017-12-31",
+        "date_synced": "2020-02-18T20:10:14.34Z"
+      },
+      {
+        "type": "form_5498",
+        "document_id": "5e4c44a6b778c00001a81288",
+        "tax_period_ends_at": "2017-12-31",
+        "date_synced": "2020-02-18T20:10:14.34Z"
+      }
+    ],
+    "downloaded_documents": [
+      {
+        "provider_id": 7661,
+        "type": "tax_return",
+        "tax_period_ends_at": "2017-12-31",
+        "successful": false
+      },
+      {
+        "provider_id": 7662,
+        "type": "tax_return",
+        "tax_period_ends_at": "2018-12-31",
+        "successful": false
+      },
+      {
+        "provider_id": 7663,
+        "type": "wage_and_income",
+        "tax_period_ends_at": "2017-12-31",
+        "successful": false
+      },
+      {
+        "provider_id": 7664,
+        "type": "wage_and_income",
+        "tax_period_ends_at": "2018-12-31",
+        "successful": false
       }
     ]
   }
