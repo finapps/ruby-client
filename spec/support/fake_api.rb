@@ -237,14 +237,6 @@ class FakeApi < Sinatra::Base
   end
   post("/#{version}/logout") { status 204 }
 
-  # accounts
-  get("/#{version}/accounts/valid_id/statement/valid_id") do
-    json_response 200, 'fake_pdf_statement.json'
-  end
-  get("/#{version}/accounts/invalid_id/statement/valid_id") do
-    json_response 404, 'resource_not_found.json'
-  end
-
   # operators
   get("/#{version}/operators") { json_response 200, 'operator_list.json' }
   get("/#{version}/operators/invalid_id") do
