@@ -39,6 +39,7 @@ module FinApps
         verix_metadata
         verix_records
         verix_pdf_documents
+        verix_documents
       ].freeze
 
       # @param [String] tenant_token

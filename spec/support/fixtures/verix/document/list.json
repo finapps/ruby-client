@@ -1,0 +1,36 @@
+[
+  {
+    "_id": "5e4c44a5b778c00001a81277",
+    "consumer_id": "1f50bddc-4cbf-4e16-6782-a2295d695d4e",
+    "date_synced": "2020-02-18T20:10:13.469Z",
+    "document": {
+      "form_type": "schedule_d",
+      "id": 34790,
+      "net_long_term_gain_loss": 1275,
+      "net_short_term_gain_loss": 2,
+      "tax_period_ends_at": "2017-12-31"
+    },
+    "document_id": "5e4c44a5b778c00001a81277",
+    "record_id": "5e4c44a46c20ec0001e3a505",
+    "tax_period_ends_at": "2017-12-31",
+    "tenant_id": "4dd607b1-565f-4da4-722c-2e84c5c87f43",
+    "type": "schedule_d"
+  },
+  {
+    "_id": "5e4c44a5b778c00001a81278",
+    "consumer_id": "1f50bddc-4cbf-4e16-6782-a2295d695d4e",
+    "date_synced": "2020-02-18T20:10:13.469Z",
+    "document": {
+      "form_type": "schedule_d",
+      "id": 34793,
+      "net_long_term_gain_loss": 5816,
+      "net_short_term_gain_loss": 0,
+      "tax_period_ends_at": "2018-12-31"
+    },
+    "document_id": "5e4c44a5b778c00001a81278",
+    "record_id": "5e4c44a46c20ec0001e3a505",
+    "tax_period_ends_at": "2018-12-31",
+    "tenant_id": "4dd607b1-565f-4da4-722c-2e84c5c87f43",
+    "type": "schedule_d"
+  }
+]
