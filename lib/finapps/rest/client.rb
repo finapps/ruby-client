@@ -9,7 +9,9 @@ module FinApps
       RESOURCES = %i[
         alert_definitions
         alert_occurrences
+        consumers
         consumers_portfolios
+        documents_orders
         orders
         order_assignments
         order_notifications
@@ -20,26 +22,25 @@ module FinApps
         operators
         operators_password_resets
         password_resets
-        products
-        portfolios
-        portfolios_alerts
-        portfolios_available_consumers
-        portfolios_consumers
-        portfolio_reports
-        sessions
-        consumers
-        tenant_settings
-        tenant_app_settings
-        version
         plaid_webhooks
         plaid_consumer_institutions
         plaid_accounts
         plaid_account_permissions
         plaid_institution_logos
+        portfolios
+        portfolios_alerts
+        portfolios_available_consumers
+        portfolios_consumers
+        portfolio_reports
+        products
+        sessions
+        tenant_settings
+        tenant_app_settings
         verix_metadata
         verix_records
         verix_pdf_documents
         verix_documents
+        version
       ].freeze
 
       # @param [String] tenant_token
