@@ -30,6 +30,7 @@ require 'finapps/rest/portfolios_consumers'
 require 'finapps/rest/consumers_portfolios'
 require 'finapps/rest/portfolio_reports'
 require 'finapps/rest/documents_orders'
+require 'finapps/rest/esign_templates'
 
 require 'finapps/rest/plaid/plaid_resources'
 require 'finapps/rest/plaid/plaid_webhooks'

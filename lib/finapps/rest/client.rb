@@ -12,6 +12,7 @@ module FinApps
         consumers
         consumers_portfolios
         documents_orders
+        esign_templates
         orders
         order_assignments
         order_notifications

@@ -236,6 +236,9 @@ class FakeApi < Sinatra::Base
     json_response 404, 'resource_not_found.json'
   end
 
+  # esign_templates
+  get("/#{version}/esign_templates") { json_response 200, 'esign_templates.json' }
+
   # consumers
   get("/#{version}/consumers") do
     json_response 200, 'users.json'

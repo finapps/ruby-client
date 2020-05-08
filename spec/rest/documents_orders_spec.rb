@@ -29,6 +29,7 @@ RSpec.describe FinApps::REST::DocumentsOrders do
           consumer: 'valid_consumer_id'
         }
       end
+
       context 'without searchTerm' do
         let(:params) { { "searchTerm": nil, "page": 2 } }
         it_behaves_like 'an API request'
@@ -42,6 +43,7 @@ RSpec.describe FinApps::REST::DocumentsOrders do
           expect(WebMock).to have_requested(:get, url)
         end
       end
+
       context 'with search term' do
         it_behaves_like 'an API request'
         it_behaves_like 'a successful request'
@@ -164,6 +166,7 @@ RSpec.describe FinApps::REST::DocumentsOrders do
 
     context 'with valid id' do
       let(:id) { :valid_order_id }
+
       context 'with valid params' do
         let(:params) { { "tag": 'pending' } }
         it_behaves_like 'an API request'
