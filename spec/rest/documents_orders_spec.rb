@@ -228,4 +228,44 @@ RSpec.describe FinApps::REST::DocumentsOrders do
       it_behaves_like 'a request that raises an error'
     end
   end
+
+  describe '#show_signing_url' do
+    subject(:sign_url) { FinApps::REST::DocumentsOrders.new(client).show_signing_url(order_id, signature_id) }
+    let(:results) { sign_url[0] }
+    let(:error_messages) { sign_url[1] }
+    let(:order_id) { :valid_order_id }
+    let(:signature_id) { :valid_signature_id }
+
+    context 'with valid order id' do
+      context 'with valid signature id' do
+        it_behaves_like 'an API request'
+        it_behaves_like 'a successful request'
+        it('performs a get and returns the response') do
+          expect(results).to have_key(:sign_url)
+        end
+      end
+
+      context 'with invalid signature id' do
+        let(:signature_id) { :invalid_signature_id }
+        it { expect(results).to be_nil }
+        it { expect(error_messages).to_not be_empty }
+      end
+    end
+
+    context 'with invalid order id' do
+      let(:order_id) { :invalid_order_id }
+      it { expect(results).to be_nil }
+      it { expect(error_messages).to_not be_empty }
+    end
+
+    context 'with missing order id' do
+      let(:order_id) { nil }
+      it_behaves_like 'a request that raises an error'
+    end
+
+    context 'with missing signature id' do
+      let(:signature_id) { nil }
+      it_behaves_like 'a request that raises an error'
+    end
+  end
 end

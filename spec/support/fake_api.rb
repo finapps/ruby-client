@@ -235,6 +235,15 @@ class FakeApi < Sinatra::Base
   delete("/#{version}/documents/orders/invalid_order_id") do
     json_response 404, 'resource_not_found.json'
   end
+  get("/#{version}/documents/orders/valid_order_id/sign_url/valid_signature_id") do
+    json_response 200, 'sign_url.json'
+  end
+  get("/#{version}/documents/orders/invalid_order_id/sign_url/valid_signature_id") do
+    json_response 400, 'invalid_order_id.json'
+  end
+  get("/#{version}/documents/orders/valid_order_id/sign_url/invalid_signature_id") do
+    json_response 404, 'invalid_signature_id.json'
+  end
 
   # esign_templates
   get("/#{version}/esign_templates") { json_response 200, 'esign_templates.json' }

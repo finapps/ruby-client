@@ -28,13 +28,19 @@ module FinApps
       def update(id, params = nil)
         not_blank(id, :order_id)
         not_blank(params, :params)
-
         super(params, "documents/orders/#{id}")
       end
 
       def destroy(id)
         not_blank(id, :order_id)
         super(id, "documents/orders/#{id}")
+      end
+
+      def show_signing_url(order_id, signature_id)
+        not_blank(order_id, :order_id)
+        not_blank(signature_id, :signature_id)
+        path = "documents/orders/#{order_id}/sign_url/#{signature_id}"
+        send_request path, :get
       end
 
       private
