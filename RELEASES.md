@@ -1,9 +1,20 @@
+## [5.0.29] - 2020-05-08
+
+### Added
+* Document-orders endpoints ([#219][i219])
+
+[i219]: https://github.com/finapps/ruby-client/issues/219
+
+[5.0.29]: https://github.com/finapps/ruby-client/compare/5.0.28...5.0.29
+
 ## [5.0.28] - 2020-02-19
 
 ### Added
 * Verix document endpoints ([#217][i217])
 
 [i217]: https://github.com/finapps/ruby-client/issues/217
+
+[5.0.28]: https://github.com/finapps/ruby-client/compare/5.0.27...5.0.28
 
 ## [5.0.27] - 2020-02-11
 

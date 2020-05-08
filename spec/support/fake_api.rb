@@ -202,6 +202,52 @@ class FakeApi < Sinatra::Base
     end
   end
 
+  # documents_orders
+  get("/#{version}/documents/orders") { json_response 200, 'documents_orders.json' }
+  get("/#{version}/documents/orders/valid_order_id") do
+    json_response 200, 'documents_order.json'
+  end
+  get("/#{version}/documents/orders/invalid_order_id") do
+    json_response 404, 'resource_not_found.json'
+  end
+  post("/#{version}/documents/orders") do
+    request.body.rewind
+    request_payload = JSON.parse request.body.read
+    if %w[applicant esign_documents tag].all? { |s| request_payload.key? s }
+      json_response 200, 'documents_order.json'
+    else
+      json_response 400, 'invalid_request_body.json'
+    end
+  end
+  put("/#{version}/documents/orders/valid_order_id") do
+    request.body.rewind
+    request_payload = JSON.parse request.body.read
+    if request_payload['tag'] == 'invalid'
+      json_response 400, 'invalid_request_body.json'
+    else
+      status 204
+    end
+  end
+  put("/#{version}/documents/orders/invalid_order_id") do
+    json_response 400, 'invalid_order_id.json'
+  end
+  delete("/#{version}/documents/orders/valid_order_id") { status 204 }
+  delete("/#{version}/documents/orders/invalid_order_id") do
+    json_response 404, 'resource_not_found.json'
+  end
+  get("/#{version}/documents/orders/valid_order_id/sign_url/valid_signature_id") do
+    json_response 200, 'sign_url.json'
+  end
+  get("/#{version}/documents/orders/invalid_order_id/sign_url/valid_signature_id") do
+    json_response 400, 'invalid_order_id.json'
+  end
+  get("/#{version}/documents/orders/valid_order_id/sign_url/invalid_signature_id") do
+    json_response 404, 'invalid_signature_id.json'
+  end
+
+  # esign_templates
+  get("/#{version}/esign_templates") { json_response 200, 'esign_templates.json' }
+
   # consumers
   get("/#{version}/consumers") do
     json_response 200, 'users.json'
