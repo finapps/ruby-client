@@ -1,14 +1,21 @@
 # frozen_string_literal: true
 
 require 'spec_helpers/client'
+require 'rest/api_request'
 
-RSpec.describe FinApps::REST::DocumentsOrders, 'initialize with valid FinApps::Client object' do
+RSpec.describe FinApps::REST::DocumentsOrders do
   include SpecHelpers::Client
-  subject(:doc_orders) { FinApps::REST::DocumentsOrders.new(client) }
-  missing_order_id = ': order_id'
+
+  RSpec.shared_examples 'a request that raises an error' do |_parameter|
+    it do
+      expect { subject }.to raise_error(
+        FinAppsCore::MissingArgumentsError
+      )
+    end
+  end
 
   describe '#list' do
-    let(:list) { subject.list(params) }
+    subject(:list) { FinApps::REST::DocumentsOrders.new(client).list(params) }
     let(:results) { list[0] }
     let(:error_messages) { list[1] }
 
@@ -24,13 +31,10 @@ RSpec.describe FinApps::REST::DocumentsOrders, 'initialize with valid FinApps::C
       end
       context 'without searchTerm' do
         let(:params) { { "searchTerm": nil, "page": 2 } }
-        it { expect { list }.to_not raise_error }
-        it('returns an array') { expect(list).to be_a(Array) }
+        it_behaves_like 'an API request'
+        it_behaves_like 'a successful request'
         it 'performs a get and returns the response' do
           expect(results).to have_key(:records)
-        end
-        it 'returns no error messages' do
-          expect(error_messages).to be_empty
         end
         it 'builds query and sends proper request' do
           list
@@ -39,13 +43,10 @@ RSpec.describe FinApps::REST::DocumentsOrders, 'initialize with valid FinApps::C
         end
       end
       context 'with search term' do
-        it { expect { list }.to_not raise_error }
-        it('returns an array') { expect(list).to be_a(Array) }
+        it_behaves_like 'an API request'
+        it_behaves_like 'a successful request'
         it 'performs a get and returns the response' do
           expect(results).to have_key(:records)
-        end
-        it 'returns no error messages' do
-          expect(error_messages).to be_empty
         end
         it 'builds query and sends proper request' do
           list
@@ -66,50 +67,43 @@ RSpec.describe FinApps::REST::DocumentsOrders, 'initialize with valid FinApps::C
 
     context 'with missing params' do
       let(:params) { nil }
-      it { expect { list }.to_not raise_error }
+      it_behaves_like 'an API request'
+      it_behaves_like 'a successful request'
       it('performs a get and returns the response') do
         expect(results).to have_key(:records)
       end
-      it('returns an array of records') { expect(results[:records]).to be_a(Array) }
-      it('returns no error messages') { expect(error_messages).to be_empty }
     end
   end
 
   describe '#show' do
-    context 'with valid id' do
-      let(:show) { subject.show(:valid_order_id) }
-      let(:results) { show[0] }
-      let(:error_messages) { show[1] }
+    subject(:show) { FinApps::REST::DocumentsOrders.new(client).show(id) }
+    let(:results) { show[0] }
+    let(:error_messages) { show[1] }
 
-      it { expect { show }.not_to raise_error }
+    context 'with valid id' do
+      let(:id) { :valid_order_id }
+      it_behaves_like 'an API request'
+      it_behaves_like 'a successful request'
       it('results is a Hash') { expect(results).to be_a(Hash) }
       it('performs a get and returns the response') do
         expect(results).to have_key(:order_id)
       end
-      it('error_messages array is empty') { expect(error_messages).to eq([]) }
     end
 
     context 'with invalid id' do
-      let(:show) { subject.show(:invalid_order_id) }
-      let(:results) { show[0] }
-      let(:error_messages) { show[1] }
-
+      let(:id) { :invalid_order_id }
       it { expect(results).to be_nil }
       it { expect(error_messages).to_not be_empty }
     end
 
     context 'when missing id' do
-      it 'raises error' do
-        expect { subject.show(nil) }.to raise_error(
-          FinAppsCore::MissingArgumentsError,
-          missing_order_id
-        )
-      end
+      let(:id) { nil }
+      it_behaves_like 'a request that raises an error'
     end
   end
 
   describe '#create' do
-    let(:create) { subject.create(params) }
+    subject(:create) { FinApps::REST::DocumentsOrders.new(client).create(params) }
     let(:results) { create[0] }
     let(:error_messages) { create[1] }
 
@@ -129,12 +123,12 @@ RSpec.describe FinApps::REST::DocumentsOrders, 'initialize with valid FinApps::C
           "tag": 'new'
         }
       end
-      it { expect { create }.not_to raise_error }
+      it_behaves_like 'an API request'
+      it_behaves_like 'a successful request'
       it('results is a Hash') { expect(results).to be_a(Hash) }
       it('performs a post and returns the response') do
         expect(results).to have_key(:order_id)
       end
-      it('error_messages array is empty') { expect(error_messages).to eq([]) }
     end
 
     context 'with invalid params' do
@@ -157,30 +151,29 @@ RSpec.describe FinApps::REST::DocumentsOrders, 'initialize with valid FinApps::C
     end
 
     context 'with missing  params' do
-      it 'raises an error' do
-        expect { subject.create(nil) }.to raise_error(
-          FinAppsCore::MissingArgumentsError
-        )
-      end
+      let(:params) { nil }
+      it_behaves_like 'a request that raises an error'
     end
   end
 
   describe '#update' do
-    context 'with valid id' do
-      let(:update) { subject.update(:valid_order_id, params) }
-      let(:results) { update[0] }
-      let(:error_messages) { update[1] }
+    subject(:update) { FinApps::REST::DocumentsOrders.new(client).update(id, params) }
+    let(:params) { {} }
+    let(:results) { update[0] }
+    let(:error_messages) { update[1] }
 
+    context 'with valid id' do
+      let(:id) { :valid_order_id }
       context 'with valid params' do
         let(:params) { { "tag": 'pending' } }
-        it { expect { update }.not_to raise_error }
+        it_behaves_like 'an API request'
+        it_behaves_like 'a successful request'
         it('results is nil') { expect(results).to be_nil }
-        it('error_messages array is empty') { expect(error_messages).to eq([]) }
       end
 
       context 'with invalid params' do
         let(:params) { { "tag": 'invalid' } }
-        it { expect { update }.not_to raise_error }
+        it_behaves_like 'an API request'
         it('results is nil') { expect(results).to be_nil }
         it('error messages array is populated') do
           expect(error_messages.first.downcase).to eq('invalid request body')
@@ -189,11 +182,9 @@ RSpec.describe FinApps::REST::DocumentsOrders, 'initialize with valid FinApps::C
     end
 
     context 'with invalid id' do
-      let(:update) { subject.update(:invalid_order_id, applicant: { first_name: 'Quasar' }) }
-      let(:results) { update[0] }
-      let(:error_messages) { update[1] }
-
-      it { expect { update }.not_to raise_error }
+      let(:id) { :invalid_order_id }
+      let(:params) { { applicant: { first_name: 'Quasar' } } }
+      it_behaves_like 'an API request'
       it('results is nil') { expect(results).to be_nil }
       it('error messages array is populated') do
         expect(error_messages.first.downcase).to eq(
@@ -203,32 +194,26 @@ RSpec.describe FinApps::REST::DocumentsOrders, 'initialize with valid FinApps::C
     end
 
     context 'with missing id' do
-      it 'raises an error' do
-        expect { subject.update(nil, {}) }.to raise_error(
-          FinAppsCore::MissingArgumentsError,
-          missing_order_id
-        )
-      end
+      let(:id) { nil }
+      it_behaves_like 'a request that raises an error'
     end
   end
 
   describe '#destroy' do
-    context 'with valid id' do
-      let(:destroy) { subject.destroy(:valid_order_id) }
-      let(:results) { destroy[0] }
-      let(:error_messages) { destroy[1] }
+    subject(:destroy) { FinApps::REST::DocumentsOrders.new(client).destroy(id) }
+    let(:results) { destroy[0] }
+    let(:error_messages) { destroy[1] }
 
-      it { expect { destroy }.not_to raise_error }
+    context 'with valid id' do
+      let(:id) { :valid_order_id }
+      it_behaves_like 'an API request'
+      it_behaves_like 'a successful request'
       it('results is nil') { expect(results).to be_nil }
-      it('error_messages array is empty') { expect(error_messages).to eq([]) }
     end
 
     context 'with invalid id' do
-      let(:destroy) { subject.destroy(:invalid_order_id) }
-      let(:results) { destroy[0] }
-      let(:error_messages) { destroy[1] }
-
-      it { expect { destroy }.not_to raise_error }
+      let(:id) { :invalid_order_id }
+      it_behaves_like 'an API request'
       it('results is nil') { expect(results).to be_nil }
       it('error messages array is populated') do
         expect(error_messages.first.downcase).to eq('resource not found')
@@ -236,12 +221,8 @@ RSpec.describe FinApps::REST::DocumentsOrders, 'initialize with valid FinApps::C
     end
 
     context 'with missing id' do
-      it do
-        expect { subject.destroy(nil) }.to raise_error(
-          FinAppsCore::MissingArgumentsError,
-          missing_order_id
-        )
-      end
+      let(:id) { nil }
+      it_behaves_like 'a request that raises an error'
     end
   end
 end

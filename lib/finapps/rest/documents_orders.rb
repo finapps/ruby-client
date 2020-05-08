@@ -63,7 +63,7 @@ module FinApps
 
       def tag_query(tag)
         if tag
-          { "tag": tag }
+          { "tag": tag.empty? ? nil : tag }
         else
           {}
         end
