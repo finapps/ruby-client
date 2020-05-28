@@ -12,12 +12,12 @@ RSpec.describe FinApps::REST::SignedDocumentsDownloads do
   describe '#show' do
     context 'when missing parameters' do
       subject { document.show(nil, :signature_request_id) }
-      it 'raises an error when missing record id' do
+      it 'raises an error when missing consumer id' do
         expect { subject }.to raise_error(FinAppsCore::MissingArgumentsError)
       end
 
       subject { document.show(:consumer_id, nil) }
-      it 'raises an error when missing provider id' do
+      it 'raises an error when missing signature request id' do
         expect { subject }.to raise_error(FinAppsCore::MissingArgumentsError)
       end
     end
