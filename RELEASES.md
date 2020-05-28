@@ -1,9 +1,13 @@
 ## [5.0.30] - 2020-05-28
 
+### Added
+* New esign endpoints ([#222][i222])
+
 ### Changed
 * Search query for documents orders ([#221][i221])
 
 [i221]: https://github.com/finapps/ruby-client/issues/221
+[i222]: https://github.com/finapps/ruby-client/issues/222
 
 [5.0.30]: https://github.com/finapps/ruby-client/compare/5.0.29...5.0.30
 

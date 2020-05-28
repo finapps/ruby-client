@@ -245,6 +245,17 @@ class FakeApi < Sinatra::Base
     json_response 404, 'invalid_signature_id.json'
   end
 
+  # documents orders notifications
+  post("/#{version}/documents/orders/valid_id/notify") { status 204 }
+  post("/#{version}/documents/orders/invalid_id/notify") do
+    json_response 400, 'invalid_order_id.json'
+  end
+
+  # signed documents downloads
+  get("/#{version}/consumers/:consumer_id/documents/:signature_request_id") do
+    pdf_response 'signed_document.pdf'
+  end
+
   # esign_templates
   get("/#{version}/esign_templates") { json_response 200, 'esign_templates.json' }
 
