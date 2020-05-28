@@ -12,6 +12,7 @@ module FinApps
         consumers
         consumers_portfolios
         documents_orders
+        documents_orders_notifications
         esign_templates
         orders
         order_assignments
@@ -35,6 +36,7 @@ module FinApps
         portfolio_reports
         products
         sessions
+        signed_documents_downloads
         tenant_settings
         tenant_app_settings
         verix_metadata

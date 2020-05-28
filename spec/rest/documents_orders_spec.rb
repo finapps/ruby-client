@@ -53,10 +53,11 @@ RSpec.describe FinApps::REST::DocumentsOrders do
         it 'builds query and sends proper request' do
           list
           url =
-            "#{versioned_api_path}/documents/orders?filter=%7B%22$or%22:%5B%7B%22order_id%22:%7B%22$regex%22:"\
-            '%22%5Eterm%22,%22$options%22:%22i%22%7D%7D,%7B%22applicant.last_name%22:%22term%22%7D,'\
-            '%7B%22reference_no%22:%7B%22$regex%22:%22%5Eterm%22,%22$options%22:%22i%22%7D%7D%5D,'\
-            '%22consumer_id%22:%22valid_consumer_id%22%7D&page=2&requested=25&sort=tag'
+            "#{versioned_api_path}/documents/orders?filter=%7B%22$or%22:%5B%7B%22applicant.email%22:"\
+            '%22term%22%7D,%7B%22applicant.first_name%22:%22term%22%7D,%7B%22applicant.last_name%22:'\
+            '%22term%22%7D,%7B%22reference_no%22:%7B%22$regex%22:%22%5Eterm%22,%22$options%22:%22i%22%7D%7D%5D,'\
+            '%22consumer_id%22:%22valid_consumer_id%22%7D&page=2&requested=25&sort=tag '
+
           expect(WebMock).to have_requested(:get, url)
         end
       end

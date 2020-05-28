@@ -53,7 +53,8 @@ module FinApps
         if term
           {
             "$or": [
-              { "order_id": { "$regex": "^#{term}", "$options": 'i' } },
+              { "applicant.email": term },
+              { "applicant.first_name": term },
               { "applicant.last_name": term },
               {
                 "reference_no": {
