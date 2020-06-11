@@ -1,3 +1,12 @@
+## [5.0.31] - 2020-06-11
+
+### Changed
+* Consumer and Doc-order search to query names on spaces ([#224][i224])
+
+[i224]: https://github.com/finapps/ruby-client/issues/224
+
+[5.0.31]: https://github.com/finapps/ruby-client/compare/5.0.30...5.0.31
+
 ## [5.0.30] - 2020-05-28
 
 ### Added

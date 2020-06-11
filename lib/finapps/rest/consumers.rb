@@ -54,13 +54,24 @@ module FinApps
       end
 
       def search_query(term)
+        query = with_space_search(term).concat(name_search(term))
         {
-          "$or": [
-            { "email": term },
-            { "first_name": term },
-            { "last_name": term }
-          ]
+          "$or": query
         }
+      end
+
+      def with_space_search(term)
+        [
+          { "email": term },
+          { "first_name": term },
+          { "last_name": term }
+        ]
+      end
+
+      def name_search(term)
+        search_arr = []
+        term.split.each { |t| search_arr.append({ "first_name": t }, "last_name": t) } if term.match(/\s/)
+        search_arr
       end
     end
   end

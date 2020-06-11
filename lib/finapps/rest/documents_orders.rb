@@ -51,21 +51,34 @@ module FinApps
 
       def search_query(term)
         if term
+          query = with_space_search(term).concat(name_search(term))
           {
-            "$or": [
-              { "applicant.email": term },
-              { "applicant.first_name": term },
-              { "applicant.last_name": term },
-              {
-                "reference_no": {
-                  "$regex": "^#{term}", "$options": 'i'
-                }
-              }
-            ]
+            "$or": query
           }
         else
           {}
         end
+      end
+
+      def name_search(term)
+        search_arr = []
+        if term.match(/\s/)
+          term.split.each { |t| search_arr.append({ "applicant.first_name": t }, "applicant.last_name": t) }
+        end
+        search_arr
+      end
+
+      def with_space_search(term)
+        [
+          { "applicant.email": term },
+          { "applicant.first_name": term },
+          { "applicant.last_name": term },
+          {
+            "reference_no": {
+              "$regex": "^#{term}", "$options": 'i'
+            }
+          }
+        ]
       end
 
       def tag_query(tag)
