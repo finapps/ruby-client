@@ -72,8 +72,8 @@ module FinApps
         search_arr = []
         if term.match(/\s/)
           term.split.each do |t|
-            search_arr.append({ "first_name": t })
-            search_arr.append({"last_name": t})
+            search_arr.append("first_name": t)
+            search_arr.append("last_name": t)
           end
         end
         search_arr
