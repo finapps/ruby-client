@@ -54,13 +54,20 @@ module FinApps
       end
 
       def search_query(term)
+        query = email_search(term).concat(name_search(term))
         {
-          "$or": [
-            { "email": term },
-            { "first_name": term },
-            { "last_name": term }
-          ]
+          "$or": query
         }
+      end
+
+      def email_search(term)
+        [{ "email": term }]
+      end
+
+      def name_search(term)
+        search_arr = []
+        term.split.each { |t| search_arr.append({ "first_name": t }, "last_name": t) }
+        search_arr
       end
     end
   end

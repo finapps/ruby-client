@@ -110,6 +110,24 @@ RSpec.describe FinApps::REST::Consumers,
             '&sort=date_created'
         expect(WebMock).to have_requested(:get, url)
       end
+
+      context 'when search term contains a space' do
+        let(:params) do
+          {
+            page: 2,
+            sort: 'date_created',
+            requested: 25,
+            searchTerm: 'Two terms'
+          }
+        end
+        it 'treats space as start of a new query for first and last name' do
+          list
+          url = "#{versioned_api_path}/consumers?filter=%7B%22$or%22:%5B%7B%22email%22:%22Two%20terms%22%7D," \
+              '%7B%22first_name%22:%22Two%22%7D,%7B%22last_name%22:%22Two%22%7D,%7B%22first_name%22:%22terms%22%7D,'\
+              '%7B%22last_name%22:%22terms%22%7D%5D%7D&page=2&requested=25&sort=date_created'
+          expect(WebMock).to have_requested(:get, url)
+        end
+      end
     end
   end
 

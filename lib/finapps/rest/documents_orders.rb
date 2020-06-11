@@ -51,21 +51,35 @@ module FinApps
 
       def search_query(term)
         if term
+          query = email_search(term).concat(name_search(term)).concat(reference_no_search(term))
           {
-            "$or": [
-              { "applicant.email": term },
-              { "applicant.first_name": term },
-              { "applicant.last_name": term },
-              {
-                "reference_no": {
-                  "$regex": "^#{term}", "$options": 'i'
-                }
-              }
-            ]
+            "$or": query
           }
         else
           {}
         end
+      end
+
+      def name_search(term)
+        search_arr = []
+        term.split.each { |t| search_arr.append({ "applicant.first_name": t }, "applicant.last_name": t) }
+        search_arr
+      end
+
+      def email_search(term)
+        [
+          { "applicant.email": term }
+        ]
+      end
+
+      def reference_no_search(term)
+        [
+          {
+            "reference_no": {
+              "$regex": "^#{term}", "$options": 'i'
+            }
+          }
+        ]
       end
 
       def tag_query(tag)
