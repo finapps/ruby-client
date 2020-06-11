@@ -70,7 +70,12 @@ module FinApps
 
       def name_search(term)
         search_arr = []
-        term.split.each { |t| search_arr.append({ "first_name": t }, "last_name": t) } if term.match(/\s/)
+        if term.match(/\s/)
+          term.split.each do |t|
+            search_arr.append("first_name": t)
+            search_arr.append("last_name": t)
+          end
+        end
         search_arr
       end
     end

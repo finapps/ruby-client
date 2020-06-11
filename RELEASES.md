@@ -1,3 +1,12 @@
+## [5.0.32] - 2020-06-11
+
+### Fixed
+* Argument error resulting from space search ([#225][i225])
+
+[i225]: https://github.com/finapps/ruby-client/issues/225
+
+[5.0.32]: https://github.com/finapps/ruby-client/compare/5.0.31...5.0.32
+
 ## [5.0.31] - 2020-06-11
 
 ### Changed
