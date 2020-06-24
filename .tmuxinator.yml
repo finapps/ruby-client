@@ -11,6 +11,7 @@ windows:
           - git pull
           - git status
           - bundle
+          - bundle outdated
   - 
     guard: 
       layout: even-horizontal
