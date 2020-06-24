@@ -204,7 +204,7 @@ class FakeApi < Sinatra::Base
 
   # documents_orders
   get("/#{version}/documents/orders") do
-    if params[:filter] && params[:filter].include?('"status":2')
+    if params[:filter]&.include?('"status":2')
       json_response 200, 'documents_orders_none.json'
     else
       json_response 200, 'documents_orders.json'

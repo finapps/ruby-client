@@ -84,11 +84,9 @@ module FinApps
       end
 
       def tag_query(tag)
-        if tag
-          { "tag": tag.empty? ? nil : tag }
-        else
-          {}
-        end
+        return {} unless tag
+
+        { "tag": tag.empty? ? nil : tag }
       end
 
       def status_query(status)
@@ -98,11 +96,9 @@ module FinApps
       end
 
       def consumer_query(consumer)
-        if consumer
-          { "consumer_id": consumer.empty? ? nil : consumer }
-        else
-          {}
-        end
+        return {} unless consumer
+
+        { "consumer_id": consumer.empty? ? nil : consumer }
       end
     end
   end
