@@ -7,16 +7,16 @@ RSpec.describe FinApps::REST::VerixPdfDocuments do
   include SpecHelpers::Client
 
   let(:api_client) { client }
-  let(:document) { FinApps::REST::VerixPdfDocuments.new(api_client) }
+  let(:document) { described_class.new(api_client) }
 
   describe '#show' do
     context 'when missing parameters' do
-      subject { document.show(nil, :provider_id) }
+      subject { document.show(:record_id, nil) }
+
       it 'raises an error when missing record id' do
         expect { subject }.to raise_error(FinAppsCore::MissingArgumentsError)
       end
 
-      subject { document.show(:record_id, nil) }
       it 'raises an error when missing provider id' do
         expect { subject }.to raise_error(FinAppsCore::MissingArgumentsError)
       end

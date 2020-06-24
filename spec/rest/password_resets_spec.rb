@@ -5,7 +5,8 @@ RSpec.describe FinApps::REST::PasswordResets do
 
   describe '#create' do
     context 'when missing id' do
-      subject { FinApps::REST::PasswordResets.new(client).create(nil) }
+      subject { described_class.new(client).create(nil) }
+
       it do
         expect { subject }.to raise_error(FinAppsCore::MissingArgumentsError)
       end
@@ -13,11 +14,12 @@ RSpec.describe FinApps::REST::PasswordResets do
 
     context 'when invalid id is provided' do
       subject do
-        FinApps::REST::PasswordResets.new(client).create(:invalid_user_id)
+        described_class.new(client).create(:invalid_user_id)
       end
 
       it { expect { subject }.not_to raise_error }
       it('results is nil') { expect(subject[0]).to be_nil }
+
       it('error messages array is populated') do
         expect(subject[1]).not_to be_nil
       end
@@ -25,24 +27,27 @@ RSpec.describe FinApps::REST::PasswordResets do
 
     context 'when valid id is provided' do
       subject do
-        FinApps::REST::PasswordResets.new(client).create(:valid_user_id)
+        described_class.new(client).create(:valid_user_id)
       end
 
       it { expect { subject }.not_to raise_error }
       it('returns an array') { expect(subject).to be_a(Array) }
+
       it('performs a post and returns the response') do
         expect(subject[0]).to have_key(:token)
       end
+
       it('returns no error messages') { expect(subject[1]).to be_empty }
     end
   end
 
   describe '#update' do
-    let(:valid_params) { { token: 'valid_token' } }
-    let(:invalid_params) { { token: 'invalid_token' } }
+    let(:valid_params) { {token: 'valid_token'} }
+    let(:invalid_params) { {token: 'invalid_token'} }
 
     context 'when missing id' do
-      subject { FinApps::REST::PasswordResets.new(client).update(nil, :params) }
+      subject { described_class.new(client).update(nil, :params) }
+
       it do
         expect { subject }.to raise_error(FinAppsCore::MissingArgumentsError)
       end
@@ -50,8 +55,9 @@ RSpec.describe FinApps::REST::PasswordResets do
 
     context 'when missing params' do
       subject do
-        FinApps::REST::PasswordResets.new(client).update(:valid_user_id, nil)
+        described_class.new(client).update(:valid_user_id, nil)
       end
+
       it do
         expect { subject }.to raise_error(FinAppsCore::MissingArgumentsError)
       end
@@ -59,7 +65,7 @@ RSpec.describe FinApps::REST::PasswordResets do
 
     context 'when invalid id is provided' do
       subject do
-        FinApps::REST::PasswordResets.new(client).update(
+        described_class.new(client).update(
           :invalid_user_id,
           valid_params
         )
@@ -67,6 +73,7 @@ RSpec.describe FinApps::REST::PasswordResets do
 
       it { expect { subject }.not_to raise_error }
       it('results is nil') { expect(subject[0]).to be_nil }
+
       it('error messages array is populated') do
         expect(subject[1]).not_to be_nil
       end
@@ -74,7 +81,7 @@ RSpec.describe FinApps::REST::PasswordResets do
 
     context 'when invalid params are provided' do
       subject do
-        FinApps::REST::PasswordResets.new(client).update(
+        described_class.new(client).update(
           :valid_user_id,
           invalid_params
         )
@@ -82,6 +89,7 @@ RSpec.describe FinApps::REST::PasswordResets do
 
       it { expect { subject }.not_to raise_error }
       it('results is nil') { expect(subject[0]).to be_nil }
+
       it('error messages array is populated') do
         expect(subject[1]).not_to be_nil
       end
@@ -89,7 +97,7 @@ RSpec.describe FinApps::REST::PasswordResets do
 
     context 'when valid params are provided' do
       subject do
-        FinApps::REST::PasswordResets.new(client).update(
+        described_class.new(client).update(
           :valid_user_id,
           valid_params
         )
@@ -97,9 +105,11 @@ RSpec.describe FinApps::REST::PasswordResets do
 
       it { expect { subject }.not_to raise_error }
       it('returns an array') { expect(subject).to be_a(Array) }
+
       it('performs a post and returns the response') do
         expect(subject[0]).to have_key(:token)
       end
+
       it('returns no error messages') { expect(subject[1]).to be_empty }
     end
   end

@@ -15,7 +15,7 @@ module FinApps
 
       def list(params = nil)
         return super if params.nil?
-        raise FinAppsCore::InvalidArgumentsError, 'Invalid argument: params' unless params.is_a? Hash
+        fail FinAppsCore::InvalidArgumentsError, 'Invalid argument: params' unless params.is_a? Hash
 
         super build_query_path(end_point, params)
       end
@@ -62,15 +62,15 @@ module FinApps
 
       def with_space_search(term)
         [
-          { "email": term },
-          { "first_name": term },
-          { "last_name": term }
+          {"email": term},
+          {"first_name": term},
+          {"last_name": term}
         ]
       end
 
       def name_search(term)
         search_arr = []
-        if term.match(/\s/)
+        if /\s/.match?(term)
           term.split.each do |t|
             search_arr.append("first_name": t)
             search_arr.append("last_name": t)

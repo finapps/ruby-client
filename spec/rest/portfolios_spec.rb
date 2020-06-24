@@ -4,7 +4,7 @@ require 'spec_helpers/client'
 
 RSpec.describe FinApps::REST::Portfolios do
   include SpecHelpers::Client
-  subject { FinApps::REST::Portfolios.new(client) }
+  subject { described_class.new(client) }
 
   describe '#list' do
     let(:list) { subject.list(params) }
@@ -16,9 +16,11 @@ RSpec.describe FinApps::REST::Portfolios do
 
       it { expect { list }.not_to raise_error }
       it('returns an array') { expect(list).to be_a(Array) }
+
       it('performs a get and returns the response') do
         expect(results).to have_key(:records)
       end
+
       it('returns no error messages') { expect(errors).to be_empty }
     end
 
@@ -29,14 +31,17 @@ RSpec.describe FinApps::REST::Portfolios do
     end
 
     context 'when including valid params' do
-      let(:params) { { page: 2, sort: '-created_date', requested: 25 } }
+      let(:params) { {page: 2, sort: '-created_date', requested: 25} }
 
       it { expect { list }.not_to raise_error }
       it('returns an array') { expect(list).to be_a(Array) }
+
       it('performs a get and returns the response') do
         expect(results).to have_key(:records)
       end
+
       it('returns no error messages') { expect(errors).to be_empty }
+
       it 'builds query and sends proper request' do
         list
         url =
@@ -62,10 +67,12 @@ RSpec.describe FinApps::REST::Portfolios do
 
       it { expect { show }.not_to raise_error }
       it('returns an array') { expect(show).to be_a(Array) }
+
       it('performs a get and returns the response') do
         expect(results).to have_key(:_id)
         expect(results).to have_key(:product)
       end
+
       it('returns no error messages') { expect(errors).to be_empty }
     end
 
@@ -74,6 +81,7 @@ RSpec.describe FinApps::REST::Portfolios do
 
       it { expect { show }.not_to raise_error }
       it('results is nil') { expect(results).to be_nil }
+
       it('error messages array is populated') do
         expect(errors.first.downcase).to eq('resource not found')
       end
@@ -104,10 +112,12 @@ RSpec.describe FinApps::REST::Portfolios do
 
       it { expect { create }.not_to raise_error }
       it('returns an array') { expect(create).to be_a(Array) }
+
       it('performs a get and returns the response') do
         expect(results).to have_key(:_id)
         expect(results).to have_key(:product)
       end
+
       it('returns no error messages') { expect(errors).to be_empty }
     end
 
@@ -122,6 +132,7 @@ RSpec.describe FinApps::REST::Portfolios do
 
       it { expect { create }.not_to raise_error }
       it('results is nil') { expect(results).to be_nil }
+
       it('error messages array is populated') do
         expect(errors.first.downcase).to eq('invalid request body')
       end
@@ -135,7 +146,7 @@ RSpec.describe FinApps::REST::Portfolios do
 
     context 'when missing id' do
       let(:id) { nil }
-      let(:params) { { fake: 'data' } }
+      let(:params) { {fake: 'data'} }
 
       it do
         expect { update }.to raise_error(FinAppsCore::MissingArgumentsError)
@@ -153,10 +164,11 @@ RSpec.describe FinApps::REST::Portfolios do
 
     context 'when invalid id or params are provided' do
       let(:id) { 'invalid_id' }
-      let(:params) { { fake: 'data' } }
+      let(:params) { {fake: 'data'} }
 
       it { expect { update }.not_to raise_error }
       it('results is nil') { expect(results).to be_nil }
+
       it('error messages array is populated') do
         expect(errors.first.downcase).to eq('resource not found')
       end
@@ -164,14 +176,16 @@ RSpec.describe FinApps::REST::Portfolios do
 
     context 'when valid id and params are provided' do
       let(:id) { 'valid_id' }
-      let(:params) { { fake: 'data' } }
+      let(:params) { {fake: 'data'} }
 
       it { expect { update }.not_to raise_error }
       it('returns an array') { expect(update).to be_a(Array) }
+
       it('performs a get and returns the response') do
         expect(results).to have_key(:_id)
         expect(results).to have_key(:product)
       end
+
       it('returns no error messages') { expect(errors).to be_empty }
     end
   end
@@ -194,6 +208,7 @@ RSpec.describe FinApps::REST::Portfolios do
 
       it { expect { destroy }.not_to raise_error }
       it('results is nil') { expect(results).to be_nil }
+
       it('error messages array is populated') do
         expect(errors.first.downcase).to eq('resource not found')
       end

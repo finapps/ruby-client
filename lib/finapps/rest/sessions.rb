@@ -8,7 +8,7 @@ module FinApps
 
       def create(params, path = nil)
         return super nil, path if path == LOGOUT
-        raise FinAppsCore::InvalidArgumentsError, 'Invalid argument: params.' unless validates params
+        fail FinAppsCore::InvalidArgumentsError, 'Invalid argument: params.' unless validates params
 
         path ||= CONSUMER_LOGIN
 

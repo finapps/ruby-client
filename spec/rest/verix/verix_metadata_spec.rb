@@ -10,7 +10,7 @@ RSpec.describe FinApps::REST::VerixMetadata do
   let(:api_client) { client }
 
   describe '#show' do
-    subject(:show) { FinApps::REST::VerixMetadata.new(api_client).show }
+    subject(:show) { described_class.new(api_client).show }
 
     it_behaves_like 'an API request'
     it_behaves_like 'a successful request'

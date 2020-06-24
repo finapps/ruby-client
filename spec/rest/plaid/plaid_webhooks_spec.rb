@@ -6,8 +6,9 @@ require 'rest/api_request'
 RSpec.describe FinApps::REST::PlaidWebhooks do
   include SpecHelpers::Client
 
+  subject(:show) { described_class.new(api_client).show }
+
   let(:api_client) { client }
-  subject(:show) { FinApps::REST::PlaidWebhooks.new(api_client).show }
 
   describe '#show' do
     context 'when valid tenant token is provided' do
@@ -25,6 +26,7 @@ RSpec.describe FinApps::REST::PlaidWebhooks do
       it_behaves_like 'an API request'
 
       it('results is nil') { expect(show[RESULTS]).to be_nil }
+
       it('error messages array is populated') do
         expect(show[ERROR_MESSAGES].first.downcase).to eq(
           'invalid tenant api key or secret'

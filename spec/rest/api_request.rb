@@ -7,6 +7,7 @@ RSpec.shared_examples 'an API request' do |_parameter|
       subject
     end.not_to raise_error
   end
+
   it('returns an array') { expect(subject).to be_a(Array) }
 end
 

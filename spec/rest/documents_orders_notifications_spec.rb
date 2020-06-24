@@ -6,10 +6,11 @@ RSpec.describe FinApps::REST::DocumentsOrdersNotifications do
   include SpecHelpers::Client
 
   describe '#create' do
-    subject(:notifications) { FinApps::REST::DocumentsOrdersNotifications.new(client) }
+    subject(:notifications) { described_class.new(client) }
 
     context 'when missing id' do
       let(:create) { subject.create(nil) }
+
       it('returns missing argument error') do
         expect { create }.to raise_error(FinAppsCore::MissingArgumentsError)
       end
@@ -22,6 +23,7 @@ RSpec.describe FinApps::REST::DocumentsOrdersNotifications do
 
       it { expect { create }.not_to raise_error }
       it('results is nil') { expect(results).to be_nil }
+
       it('error messages array is populated') do
         expect(error_messages.first.downcase).to eq('order id is invalid')
       end

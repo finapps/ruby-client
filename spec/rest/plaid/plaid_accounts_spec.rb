@@ -17,7 +17,7 @@ RSpec.describe FinApps::REST::PlaidAccounts do
 
   describe '#show' do
     subject(:show) do
-      FinApps::REST::PlaidAccounts.new(api_client).show(
+      described_class.new(api_client).show(
         :account_id
       )
     end
@@ -28,11 +28,16 @@ RSpec.describe FinApps::REST::PlaidAccounts do
   end
 
   describe '#list' do
-    subject(:list) { FinApps::REST::PlaidAccounts.new(api_client).list }
+    subject(:list) { described_class.new(api_client).list }
 
     it_behaves_like 'an API request'
     it_behaves_like 'a successful request'
-    it('returns an Array of institution data') { expect(list[RESULTS].first).to have_key(:plaid_institution_id) }
-    it('returns institution account data') { expect(list[RESULTS].first).to have_key(:accounts) }
+    it('returns an Array of institution data') {
+      expect(list[RESULTS].first).to have_key(:plaid_institution_id)
+    }
+
+    it('returns institution account data') {
+      expect(list[RESULTS].first).to have_key(:accounts)
+    }
   end
 end

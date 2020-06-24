@@ -17,7 +17,7 @@ RSpec.describe FinApps::REST::PlaidConsumerInstitutions do
 
   describe '#create' do
     subject(:create) do
-      FinApps::REST::PlaidConsumerInstitutions.new(api_client).create(
+      described_class.new(api_client).create(
         public_token: 'le-token'
       )
     end
@@ -29,7 +29,7 @@ RSpec.describe FinApps::REST::PlaidConsumerInstitutions do
 
   describe '#show' do
     subject(:show) do
-      FinApps::REST::PlaidConsumerInstitutions.new(api_client).show(
+      described_class.new(api_client).show(
         :consumer_institution_id
       )
     end
@@ -39,7 +39,7 @@ RSpec.describe FinApps::REST::PlaidConsumerInstitutions do
     it_behaves_like 'a request that returns institution data'
     context 'when requesting accounts information' do
       subject(:show) do
-        FinApps::REST::PlaidConsumerInstitutions.new(api_client).show(
+        described_class.new(api_client).show(
           :consumer_institution_id, show_accounts: true
         )
       end
@@ -55,7 +55,7 @@ RSpec.describe FinApps::REST::PlaidConsumerInstitutions do
 
   describe '#list' do
     subject(:list) do
-      FinApps::REST::PlaidConsumerInstitutions.new(api_client).list
+      described_class.new(api_client).list
     end
 
     it_behaves_like 'an API request'
@@ -67,8 +67,8 @@ RSpec.describe FinApps::REST::PlaidConsumerInstitutions do
 
   describe '#destroy' do
     subject(:destroy) do
-      FinApps::REST::PlaidConsumerInstitutions.new(api_client)
-                                              .destroy(:consumer_institution_id)
+      described_class.new(api_client)
+                     .destroy(:consumer_institution_id)
     end
 
     it_behaves_like 'an API request'
@@ -80,8 +80,8 @@ RSpec.describe FinApps::REST::PlaidConsumerInstitutions do
 
   describe '#update_status' do
     subject(:update_status) do
-      FinApps::REST::PlaidConsumerInstitutions.new(api_client)
-                                              .update_status(:consumer_institution_id)
+      described_class.new(api_client)
+                     .update_status(:consumer_institution_id)
     end
 
     it_behaves_like 'an API request'
@@ -91,8 +91,8 @@ RSpec.describe FinApps::REST::PlaidConsumerInstitutions do
 
   describe '#public_token' do
     subject(:public_token) do
-      FinApps::REST::PlaidConsumerInstitutions.new(api_client)
-                                              .public_token(:consumer_institution_id)
+      described_class.new(api_client)
+                     .public_token(:consumer_institution_id)
     end
 
     it_behaves_like 'an API request'

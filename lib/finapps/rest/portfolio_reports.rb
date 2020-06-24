@@ -9,7 +9,7 @@ module FinApps
         path = 'portfolio/reports'
 
         return super path if params.nil?
-        raise FinAppsCore::InvalidArgumentsError, 'Invalid argument: params' unless params.is_a? Hash
+        fail FinAppsCore::InvalidArgumentsError, 'Invalid argument: params' unless params.is_a? Hash
 
         super build_query_path(path, params)
       end

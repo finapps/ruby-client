@@ -8,7 +8,7 @@ module FinApps
 
       def list(params = nil)
         return super END_POINT if params.nil?
-        raise FinAppsCore::InvalidArgumentsError, 'Invalid argument: params' unless params.is_a? Hash
+        fail FinAppsCore::InvalidArgumentsError, 'Invalid argument: params' unless params.is_a? Hash
 
         super build_query_path(END_POINT, params)
       end

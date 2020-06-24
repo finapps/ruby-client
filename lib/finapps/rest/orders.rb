@@ -28,7 +28,7 @@ module FinApps
       #
       def list(params = nil)
         return super if params.nil?
-        raise FinAppsCore::InvalidArgumentsError, 'Invalid argument: params' unless params.is_a? Hash
+        fail FinAppsCore::InvalidArgumentsError, 'Invalid argument: params' unless params.is_a? Hash
 
         super build_query_path(end_point, params)
       end
@@ -66,9 +66,9 @@ module FinApps
         if term
           {
             "$or": [
-              { "public_id": { "$regex": "^#{term}", "$options": 'i' } },
-              { "applicant.last_name": term },
-              { "assignment.last_name": term },
+              {"public_id": {"$regex": "^#{term}", "$options": 'i'}},
+              {"applicant.last_name": term},
+              {"assignment.last_name": term},
               {
                 "requestor.reference_no": {
                   "$regex": "^#{term}", "$options": 'i'
@@ -84,9 +84,9 @@ module FinApps
       def status_query(status)
         if status
           if status.is_a?(Array)
-            { "status": { "$in": status.map(&:to_i) } }
+            {"status": {"$in": status.map(&:to_i)}}
           else
-            { "status": status.to_i }
+            {"status": status.to_i}
           end
         else
           {}
@@ -96,7 +96,7 @@ module FinApps
       def assignment_query(assignment)
         # translate "" to null assignment
         if assignment
-          { "assignment.operator_id": assignment.empty? ? nil : assignment }
+          {"assignment.operator_id": assignment.empty? ? nil : assignment}
         else
           {}
         end
@@ -104,7 +104,7 @@ module FinApps
 
       def consumer_query(consumer)
         if consumer
-          { "consumer_id": consumer.empty? ? nil : consumer }
+          {"consumer_id": consumer.empty? ? nil : consumer}
         else
           {}
         end
@@ -114,8 +114,8 @@ module FinApps
         if !search_term && !nil_or_empty?(relation)
           {
             "$or": [
-              { "public_id": { "$in": relation } },
-              { "original_order_id": { "$in": relation } }
+              {"public_id": {"$in": relation}},
+              {"original_order_id": {"$in": relation}}
             ]
           }
         else

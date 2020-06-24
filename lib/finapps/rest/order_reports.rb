@@ -6,7 +6,7 @@ module FinApps
       def show(id, format)
         not_blank(id, :id)
         not_blank(format, :format)
-        raise FinAppsCore::InvalidArgumentsError, 'Invalid argument: format' unless accepted_format?(format)
+        fail FinAppsCore::InvalidArgumentsError, 'Invalid argument: format' unless accepted_format?(format)
 
         path =
           "orders/#{ERB::Util.url_encode(id)}/report.#{ERB::Util.url_encode(format)}"

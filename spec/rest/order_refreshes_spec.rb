@@ -4,11 +4,12 @@ require 'spec_helpers/client'
 
 RSpec.describe FinApps::REST::OrderRefreshes do
   include SpecHelpers::Client
-  subject { FinApps::REST::OrderRefreshes.new(client) }
+  subject { described_class.new(client) }
 
   describe '#create' do
     context 'when missing id' do
       let(:create) { subject.create(nil) }
+
       it do
         expect { create }.to raise_error(FinAppsCore::MissingArgumentsError)
       end
@@ -16,12 +17,15 @@ RSpec.describe FinApps::REST::OrderRefreshes do
 
     context 'when valid id is provided' do
       let(:create) { subject.create(:valid_id) }
+
       it { expect { create }.not_to raise_error }
       it('returns an array') { expect(create).to be_a(Array) }
+
       it('performs a post and returns new refreshed order response') do
         expect(create[RESULTS]).to have_key(:public_id)
         expect(create[RESULTS]).to have_key(:original_order_id)
       end
+
       it('returns no error messages') do
         expect(create[ERROR_MESSAGES]).to be_empty
       end
@@ -29,9 +33,11 @@ RSpec.describe FinApps::REST::OrderRefreshes do
 
     context 'when invalid id is provided' do
       let(:create) { subject.create(:invalid_id) }
+
       it { expect { create }.not_to raise_error }
       it('returns an array') { expect(create).to be_a(Array) }
       it('results is nil') { expect(create[RESULTS]).to be_nil }
+
       it('error messages array is populated') do
         expect(create[ERROR_MESSAGES].first.downcase).to eq(
           'resource not found'

@@ -6,10 +6,11 @@ RSpec.describe FinApps::REST::OrderNotifications do
   include SpecHelpers::Client
 
   describe '#update' do
-    subject(:orders) { FinApps::REST::OrderNotifications.new(client) }
+    subject(:orders) { described_class.new(client) }
 
     context 'when missing id' do
       let(:update) { subject.update(nil) }
+
       it('returns missing argument error') do
         expect { update }.to raise_error(FinAppsCore::MissingArgumentsError)
       end
@@ -22,6 +23,7 @@ RSpec.describe FinApps::REST::OrderNotifications do
 
       it { expect { update }.not_to raise_error }
       it('results is nil') { expect(results).to be_nil }
+
       it('error messages array is populated') do
         expect(error_messages.first.downcase).to eq('resource not found')
       end
