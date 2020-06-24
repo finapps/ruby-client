@@ -5,7 +5,7 @@ require 'spec_helpers/client'
 RSpec.describe FinApps::REST::Operators,
                'initialized with valid FinApps::Client object' do
   include SpecHelpers::Client
-  subject(:operators) { FinApps::REST::Operators.new(client) }
+  subject(:operators) { described_class.new(client) }
 
   describe '#list' do
     let(:list) { subject.list(params) }
@@ -14,13 +14,17 @@ RSpec.describe FinApps::REST::Operators,
 
     context 'when missing params' do
       let(:params) { nil }
+
       it { expect { list }.not_to raise_error }
+
       it('performs a get and returns the response') do
         expect(results).to have_key(:records)
       end
+
       it('returns an array of records') do
         expect(results[:records]).to be_a(Array)
       end
+
       it('returns no error messages') { expect(error_messages).to be_empty }
     end
 
@@ -42,13 +46,17 @@ RSpec.describe FinApps::REST::Operators,
       end
 
       it { expect { list }.not_to raise_error }
+
       it('performs a get and returns the response') do
         expect(results).to have_key(:records)
       end
+
       it('returns an array of records') do
         expect(results[:records]).to be_a(Array)
       end
+
       it('returns no error messages') { expect(error_messages).to be_empty }
+
       it 'builds query and sends proper request' do
         list
         url =
@@ -74,6 +82,7 @@ RSpec.describe FinApps::REST::Operators,
 
       it { expect { show }.not_to raise_error }
       it('results is nil') { expect(results).to be_nil }
+
       it('error messages array is populated') do
         expect(error_messages.first.downcase).to eq('resource not found')
       end
@@ -84,9 +93,11 @@ RSpec.describe FinApps::REST::Operators,
 
       it { expect { show }.not_to raise_error }
       it('returns an array') { expect(show).to be_a(Array) }
+
       it('performs a get and returns the response') do
         expect(results).to have_key(:public_id)
       end
+
       it('returns no error messages') { expect(error_messages).to be_empty }
     end
   end
@@ -108,6 +119,7 @@ RSpec.describe FinApps::REST::Operators,
 
       it { expect { create }.not_to raise_error }
       it('results is nil') { expect(results).to be_nil }
+
       it('error messages array is populated') do
         expect(error_messages.first.downcase).to eq('invalid request body')
       end
@@ -118,10 +130,12 @@ RSpec.describe FinApps::REST::Operators,
 
       it { expect { create }.not_to raise_error }
       it('returns an array') { expect(create).to be_a(Array) }
+
       it('performs a post and returns the response') do
         expect(results).to have_key(:public_id)
         expect(results).to have_key(:role)
       end
+
       it('returns no error messages') { expect(error_messages).to be_empty }
     end
   end
@@ -151,6 +165,7 @@ RSpec.describe FinApps::REST::Operators,
 
       it { expect { update }.not_to raise_error }
       it('results is nil') { expect(results).to be_nil }
+
       it('error messages array is populated') do
         expect(error_messages.first.downcase).to eq('resource not found')
       end
@@ -161,10 +176,12 @@ RSpec.describe FinApps::REST::Operators,
 
       it { expect { update }.not_to raise_error }
       it('returns an array') { expect(update).to be_a(Array) }
+
       it('performs a put and returns the response') do
         expect(results).to have_key(:email)
         expect(results).to have_key(:role)
       end
+
       it('returns no error messages') { expect(error_messages).to be_empty }
     end
   end
@@ -195,16 +212,18 @@ RSpec.describe FinApps::REST::Operators,
 
     context 'with valid params' do
       let(:valid_params) do
-        { password: 'valid password', password_confirm: 'valid_password' }
+        {password: 'valid password', password_confirm: 'valid_password'}
       end
       let(:update_password) { subject.update_password(valid_params) }
 
       it { expect { update_password }.not_to raise_error }
       it('returns an array') { expect(update_password).to be_a(Array) }
+
       it('performs a post and returns the response') do
         expect(results).to have_key(:public_id)
         expect(results).to have_key(:role)
       end
+
       it('returns no error messages') { expect(error_messages).to be_empty }
     end
   end
@@ -226,6 +245,7 @@ RSpec.describe FinApps::REST::Operators,
 
       it { expect { destroy }.not_to raise_error }
       it('results is nil') { expect(results).to be_nil }
+
       it('error messages array is populated') do
         expect(error_messages.first.downcase).to eq('resource not found')
       end

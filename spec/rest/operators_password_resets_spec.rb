@@ -6,7 +6,7 @@ RSpec.describe FinApps::REST::OperatorsPasswordResets,
                'initialized with valid FinApps::Client object' do
   include SpecHelpers::Client
   subject(:operators_password_resets) do
-    FinApps::REST::OperatorsPasswordResets.new(client)
+    described_class.new(client)
   end
 
   describe '#create' do
@@ -34,11 +34,13 @@ RSpec.describe FinApps::REST::OperatorsPasswordResets,
 
       it { expect { create }.not_to raise_error }
       it('returns an array') { expect(create).to be_a(Array) }
+
       it('performs a post and returns the response') do
         expect(results).to have_key(:public_id)
         expect(results).to have_key(:token)
         expect(results).to have_key(:expiry_date)
       end
+
       it('returns no error messages') { expect(error_messages).to be_empty }
     end
   end
@@ -60,6 +62,7 @@ RSpec.describe FinApps::REST::OperatorsPasswordResets,
 
       it { expect { update }.not_to raise_error }
       it('results is nil') { expect(results).to be_nil }
+
       it('error messages array is populated') do
         expect(error_messages.first.downcase).to eq('invalid request body')
       end
@@ -70,10 +73,12 @@ RSpec.describe FinApps::REST::OperatorsPasswordResets,
 
       it { expect { update }.not_to raise_error }
       it('returns an array') { expect(update).to be_a(Array) }
+
       it('performs a post and returns the response') do
         expect(results).to have_key(:public_id)
         expect(results).to have_key(:role)
       end
+
       it('returns no error messages') { expect(error_messages).to be_empty }
     end
   end

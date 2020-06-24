@@ -5,7 +5,7 @@ require 'spec_helpers/client'
 RSpec.describe FinApps::REST::Sessions,
                'initialized with valid FinApps::Client object' do
   include SpecHelpers::Client
-  subject { FinApps::REST::Sessions.new(client) }
+  subject { described_class.new(client) }
 
   describe '#create' do
     let(:create) { subject.create(credentials) }
@@ -19,6 +19,7 @@ RSpec.describe FinApps::REST::Sessions,
           subject.create(email: nil, password: 'password')
         end.to raise_error(FinAppsCore::InvalidArgumentsError, message)
       end
+
       it do
         expect { subject.create(email: 'email', password: nil) }.to raise_error(
           FinAppsCore::InvalidArgumentsError,
@@ -29,11 +30,12 @@ RSpec.describe FinApps::REST::Sessions,
 
     context 'for invalid credentials' do
       let(:credentials) do
-        { email: 'email@domain.com', password: 'invalid_password' }
+        {email: 'email@domain.com', password: 'invalid_password'}
       end
 
       it { expect { create }.not_to raise_error }
       it('results is nil') { expect(results).to be_nil }
+
       error_message = 'Invalid Consumer Identifier or Credentials'
       it('error_messages are populated') do
         expect(error_messages.first).to eq(error_message)
@@ -42,7 +44,7 @@ RSpec.describe FinApps::REST::Sessions,
 
     context 'for valid credentials' do
       let(:credentials) do
-        { email: 'email@domain.com', password: 'valid_password' }
+        {email: 'email@domain.com', password: 'valid_password'}
       end
 
       it('results is a Hash') { expect(results).to be_a(Hash) }
@@ -53,14 +55,16 @@ RSpec.describe FinApps::REST::Sessions,
     context 'for valid credentials & path argument' do
       let(:create) { subject.create(credentials, 'operators/login') }
       let(:credentials) do
-        { email: 'email@domain.com', password: 'valid_password' }
+        {email: 'email@domain.com', password: 'valid_password'}
       end
 
       it('results is a Hash') { expect(results).to be_a(Hash) }
       it('token value is in the result') { expect(results).to have_key(:token) }
+
       it('returns operator for operator path') do
         expect(results).to have_key(:role)
       end
+
       it('error_messages is empty') { expect(error_messages).to be_empty }
     end
   end

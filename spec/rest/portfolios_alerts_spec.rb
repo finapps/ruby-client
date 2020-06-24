@@ -4,7 +4,7 @@ require 'spec_helpers/client'
 
 RSpec.describe FinApps::REST::PortfoliosAlerts do
   include SpecHelpers::Client
-  subject { FinApps::REST::PortfoliosAlerts.new(client) }
+  subject { described_class.new(client) }
 
   describe '#list' do
     let(:list) { subject.list(id) }
@@ -22,11 +22,13 @@ RSpec.describe FinApps::REST::PortfoliosAlerts do
 
       it { expect { list }.not_to raise_error }
       it('returns an array') { expect(list).to be_a(Array) }
+
       it('performs a get and returns array of alert definitions') do
         expect(results).to be_a(Array)
         expect(results.first).to have_key(:_id)
         expect(results.first).to have_key(:rule_name)
       end
+
       it('returns no error messages') { expect(errors).to be_empty }
     end
 
@@ -35,6 +37,7 @@ RSpec.describe FinApps::REST::PortfoliosAlerts do
 
       it { expect { list }.not_to raise_error }
       it('results is nil') { expect(results).to be_nil }
+
       it('error messages array is populated') do
         expect(errors.first.downcase).to eq('resource not found')
       end
@@ -80,6 +83,7 @@ RSpec.describe FinApps::REST::PortfoliosAlerts do
 
       it { expect { create }.not_to raise_error }
       it('results is nil') { expect(results).to be_nil }
+
       it('error messages array is populated') do
         expect(errors.first.downcase).to eq('resource not found')
       end
@@ -125,6 +129,7 @@ RSpec.describe FinApps::REST::PortfoliosAlerts do
 
       it { expect { destroy }.not_to raise_error }
       it('results is nil') { expect(results).to be_nil }
+
       it('error messages array is populated') do
         expect(errors.first.downcase).to eq('resource not found')
       end

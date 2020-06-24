@@ -12,7 +12,7 @@ module FinApps
           "portfolios/#{ERB::Util.url_encode(portfolio_id)}/consumers/available"
         return super path if params.nil?
 
-        raise FinAppsCore::InvalidArgumentsError, 'Invalid argument: params' unless params.is_a? Hash
+        fail FinAppsCore::InvalidArgumentsError, 'Invalid argument: params' unless params.is_a? Hash
 
         super build_query_path(path, params)
       end

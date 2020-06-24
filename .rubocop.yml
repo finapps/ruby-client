@@ -1,26 +1,59 @@
+inherit_from: .rubocop_todo.yml
+
+require: 
+  - rubocop-rspec
+  - rubocop-performance
+
 AllCops:
-  DisplayCopNames: true
+  TargetRubyVersion: 2.6
   Exclude:
-  - "finapps.gemspec"
-  UseCache: false
+    - "vendor/**/*"
+    - "bin/**/*"
+  CacheRootDirectory: tmp
 
-# Commonly used screens these days easily fit more than 80 characters.
-Layout/LineLength:
-  Max: 120
-
-Style/CollectionMethods:
-  Description: Preferred collection methods.
-  StyleGuide: https://github.com/bbatsov/ruby-style-guide#map-find-select-reduce-size
+Layout/SpaceAroundMethodCallOperator:
   Enabled: true
-  PreferredMethods:
-    collect: map
-    collect!: map!
-    find: detect
-    find_all: select
-    reduce: inject
-Style/OptionHash:
-  Description: Don't use option hashes when you can use keyword arguments.
-  Enabled: false
+Layout/EmptyLinesAroundAttributeAccessor:
+  Enabled: true
+Layout/SpaceInsideBlockBraces:
+  # The space here provides no real gain in readability while consuming
+  # horizontal space that could be used for a better parameter name.
+  # Also {| differentiates better from a hash than { | does.
+  SpaceBeforeBlockParameters: false
+Layout/SpaceInsideHashLiteralBraces:
+  EnforcedStyle: no_space
+Layout/DotPosition:
+  Description: Checks the position of the dot in multi-line method calls.
+  StyleGuide: https://github.com/bbatsov/ruby-style-guide#consistent-multi-line-chains
+  Enabled: true
+  EnforcedStyle: leading
+  SupportedStyles:
+  - leading
+  - trailing
+Layout/LineLength:
+  Max: 110
+
+Lint/DeprecatedOpenSSLConstant:
+  Enabled: true
+Lint/MixedRegexpCaptureTypes:
+  Enabled: true
+Lint/RaiseException:
+  Enabled: true
+Lint/StructNewOverride:
+  Enabled: true
+
+Metrics/ClassLength:
+  Exclude:
+    - app/controllers/orders_controller.rb
+    - app/models/order.rb
+Metrics/BlockLength:
+  ExcludedMethods: ['describe', 'context']
+  Exclude:
+    - config/environments/**/**
+    - Guardfile
+    - config/routes.rb
+    - config/Guardfile
+
 Naming/PredicateName:
   Description: Check the names of predicate methods.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#bool-methods-qmark
@@ -33,54 +66,94 @@ Naming/PredicateName:
   - is_
   Exclude:
   - spec/**/*
-Metrics/AbcSize:
-  Description: A calculated magnitude based on number of assignments, branches, and
-    conditions.
+
+RSpec/FilePath:
   Enabled: false
-  Max: 15
-Metrics/BlockLength:
-  ExcludedMethods: ['describe', 'context']
-Metrics/ClassLength:
-  Description: Avoid classes longer than 100 lines of code.
+    
+Style/RedundantRegexpCharacterClass:
+  Enabled: true
+Style/RedundantRegexpEscape:
+  Enabled: true
+Style/CollectionMethods:
+  Description: Preferred collection methods.
+  StyleGuide: https://github.com/bbatsov/ruby-style-guide#map-find-select-reduce-size
+  Enabled: true
+  PreferredMethods:
+    collect: map
+    collect!: map!
+    find: detect
+    find_all: select
+    reduce: inject
+Style/GuardClause:
+  Description: Check for conditionals that can be replaced with guard clauses
+  StyleGuide: https://github.com/bbatsov/ruby-style-guide#no-nested-conditionals
+  Enabled: true
+  MinBodyLength: 1
+Style/OptionHash:
+  Description: Don't use option hashes when you can use keyword arguments.
   Enabled: false
-  CountComments: false
-  Max: 100
-Metrics/ModuleLength:
-  CountComments: false
-  Max: 100
-  Description: Avoid modules longer than 100 lines of code.
+Style/PercentLiteralDelimiters:
+  Description: Use `%`-literal delimiters consistently
+  StyleGuide: https://github.com/bbatsov/ruby-style-guide#percent-literal-braces
   Enabled: false
-Metrics/CyclomaticComplexity:
-  Description: A complexity metric that is strongly correlated to the number of test
-    cases needed to validate a method.
-  Enabled: false
-  Max: 6
-Metrics/MethodLength:
-  Description: Avoid methods longer than 10 lines of code.
-  StyleGuide: https://github.com/bbatsov/ruby-style-guide#short-methods
-  Enabled: false
-  CountComments: false
-  Max: 10
-Metrics/ParameterLists:
-  Description: Avoid parameter lists longer than three or four parameters.
-  StyleGuide: https://github.com/bbatsov/ruby-style-guide#too-many-params
-  Enabled: false
-  Max: 5
-  CountKeywordArgs: true
-Metrics/PerceivedComplexity:
-  Description: A complexity metric geared towards measuring complexity for a human
-    reader.
-  Enabled: false
-  Max: 7
+  PreferredDelimiters:
+    "%": "()"
+    "%i": "()"
+    "%q": "()"
+    "%Q": "()"
+    "%r": "{}"
+    "%s": "()"
+    "%w": "()"
+    "%W": "()"
+    "%x": "()"
+Style/SignalException:
+  Description: Checks for proper usage of fail and raise.
+  StyleGuide: https://github.com/bbatsov/ruby-style-guide#fail-method
+  Enabled: true
+  EnforcedStyle: semantic
+  SupportedStyles:
+  - only_raise
+  - only_fail
+  - semantic
+Style/StringLiterals:
+  Description: Checks if uses of quotes match the configured preference.
+  StyleGuide: https://github.com/bbatsov/ruby-style-guide#consistent-string-literals
+  Enabled: true
+  EnforcedStyle: single_quotes
+  SupportedStyles:
+  - single_quotes
+  - double_quotes
+Style/StringLiteralsInInterpolation:
+  Description: Checks if uses of quotes inside expressions in interpolated strings
+    match the configured preference.
+  Enabled: true
+  EnforcedStyle: single_quotes
+  SupportedStyles:
+  - single_quotes
+  - double_quotes
 Style/Documentation:
   Description: Document classes and non-namespace modules.
   Enabled: false
-Style/EmptyLiteral:
-  Description: Prefer literals to Array.new/Hash.new/String.new.
-  StyleGuide: https://github.com/bbatsov/ruby-style-guide#literal-array-hash
+Style/OneLineConditional:
+  Description: Favor the ternary operator(?:) over if/then/else/end constructs.
+  StyleGuide: https://github.com/bbatsov/ruby-style-guide#ternary-operator
   Enabled: false
-Style/VariableInterpolation:
-  Description: Don't interpolate global, instance and class variables directly in
-    strings.
-  StyleGuide: https://github.com/bbatsov/ruby-style-guide#curlies-interpolate
-  Enabled: false
+Style/ExponentialNotation:
+  Enabled: true
+Style/HashEachMethods:
+  Enabled: true
+Style/HashTransformKeys:
+  Enabled: true
+Style/HashTransformValues:
+  Enabled: true
+Style/RedundantFetchBlock:
+  Enabled: true
+Style/SlicingWithRange:
+  Enabled: true
+
+RSpec/NestedGroups:
+  Max: 5
+RSpec/DescribeClass:
+  Exclude:
+    - spec/system/*
+    - spec/factories_spec.rb

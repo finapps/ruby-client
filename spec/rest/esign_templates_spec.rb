@@ -5,7 +5,8 @@ require 'rest/api_request'
 
 RSpec.describe FinApps::REST::EsignTemplates do
   include SpecHelpers::Client
-  subject(:templates) { FinApps::REST::EsignTemplates.new(client).list }
+  subject(:templates) { described_class.new(client).list }
+
   let(:results) { templates[0] }
 
   describe '#list' do

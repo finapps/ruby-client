@@ -21,7 +21,7 @@ RSpec.configure do |config|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
     expectations.syntax = :expect
   end
-  config.mock_with(:rspec) { |mocks| mocks.verify_partial_doubles = true }
+  config.mock_with(:rspec) {|mocks| mocks.verify_partial_doubles = true }
   # config.filter_run_including :focus => true
   config.default_formatter = 'doc' if config.files_to_run.one?
   config.order = :random
@@ -29,7 +29,7 @@ RSpec.configure do |config|
   config.warnings = true
   Kernel.srand config.seed
 
-  config.before(:each) do
+  config.before do
     base_url =
       "#{FinAppsCore::REST::Defaults::DEFAULTS[:host]}/v#{FinAppsCore::REST::Defaults::API_VERSION}/"
     stub_request(:any, /#{base_url}/).to_rack(::FakeApi)

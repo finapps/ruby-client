@@ -6,12 +6,14 @@ RSpec.describe FinApps::REST::OrderAssignments do
   include SpecHelpers::Client
 
   describe '#update' do
-    subject(:order_assignments) { FinApps::REST::OrderAssignments.new(client) }
+    subject(:order_assignments) { described_class.new(client) }
+
     let(:results) { update[RESULTS] }
     let(:error_messages) { update[ERROR_MESSAGES] }
 
     context 'when missing id' do
       let(:update) { subject.update(nil, []) }
+
       it('returns missing argument error') do
         expect { update }.to raise_error(FinAppsCore::MissingArgumentsError)
       end
@@ -19,6 +21,7 @@ RSpec.describe FinApps::REST::OrderAssignments do
 
     context 'when missing params' do
       let(:update) { subject.update(:valid_id, nil) }
+
       it('returns missing argument error') do
         expect { update }.to raise_error(FinAppsCore::MissingArgumentsError)
       end
@@ -26,6 +29,7 @@ RSpec.describe FinApps::REST::OrderAssignments do
 
     context 'with invalid params' do
       let(:update) { subject.update(:valid_id, params: 'params') }
+
       it('returns invalid argument error') do
         expect { update }.to raise_error(FinAppsCore::InvalidArgumentsError)
       end
@@ -36,6 +40,7 @@ RSpec.describe FinApps::REST::OrderAssignments do
 
       it { expect { update }.not_to raise_error }
       it('results is nil') { expect(results).to be_nil }
+
       it('error messages array is populated') do
         expect(error_messages.first.downcase).to eq('resource not found')
       end

@@ -22,7 +22,7 @@ module FinApps
       private
 
       def validates_email(params)
-        raise FinAppsCore::InvalidArgumentsError, 'Invalid argument: params.' unless email_exists? params
+        fail FinAppsCore::InvalidArgumentsError, 'Invalid argument: params.' unless email_exists? params
       end
 
       def email_exists?(params)

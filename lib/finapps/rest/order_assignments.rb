@@ -6,7 +6,7 @@ module FinApps
       def update(id, orders_array)
         not_blank(id, :operator_id)
         not_blank(orders_array, :params)
-        raise FinAppsCore::InvalidArgumentsError, 'Invalid argument: params' unless orders_array.is_a? Array
+        fail FinAppsCore::InvalidArgumentsError, 'Invalid argument: params' unless orders_array.is_a? Array
 
         path = "operators/#{ERB::Util.url_encode(id)}/assign"
         super orders_array, path

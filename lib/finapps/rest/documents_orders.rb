@@ -10,7 +10,7 @@ module FinApps
       def list(params = nil)
         path = 'documents/orders'
         return super(path) if params.nil?
-        raise FinAppsCore::InvalidArgumentsError, 'Invalid argument: params' unless params.is_a? Hash
+        fail FinAppsCore::InvalidArgumentsError, 'Invalid argument: params' unless params.is_a? Hash
 
         super build_query_path(path, params)
       end
@@ -56,12 +56,12 @@ module FinApps
         return {} unless term
 
         query = with_space_search(term).concat(name_search(term))
-        { "$or": query }
+        {"$or": query}
       end
 
       def name_search(term)
         search_arr = []
-        if term.match(/\s/)
+        if /\s/.match?(term)
           term.split.each do |t|
             search_arr.append("applicant.first_name": t)
             search_arr.append("applicant.last_name": t)
@@ -72,9 +72,9 @@ module FinApps
 
       def with_space_search(term)
         [
-          { "applicant.email": term },
-          { "applicant.first_name": term },
-          { "applicant.last_name": term },
+          {"applicant.email": term},
+          {"applicant.first_name": term},
+          {"applicant.last_name": term},
           {
             "reference_no": {
               "$regex": "^#{term}", "$options": 'i'
@@ -86,19 +86,19 @@ module FinApps
       def tag_query(tag)
         return {} unless tag
 
-        { "tag": tag.empty? ? nil : tag }
+        {"tag": tag.empty? ? nil : tag}
       end
 
       def status_query(status)
         return {} unless status
 
-        { status: status }
+        {status: status}
       end
 
       def consumer_query(consumer)
         return {} unless consumer
 
-        { "consumer_id": consumer.empty? ? nil : consumer }
+        {"consumer_id": consumer.empty? ? nil : consumer}
       end
     end
   end

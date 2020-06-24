@@ -9,7 +9,7 @@ module FinApps
 
       def list(params = nil)
         return super if params.nil?
-        raise FinAppsCore::InvalidArgumentsError, 'Invalid argument: params' unless params.is_a? Hash
+        fail FinAppsCore::InvalidArgumentsError, 'Invalid argument: params' unless params.is_a? Hash
 
         super build_query_path(end_point, params)
       end
@@ -36,7 +36,7 @@ module FinApps
       def update_password(params)
         # update password for current operator, need authorization session in header
         not_blank(params, :params)
-        raise FinAppsCore::InvalidArgumentsError, 'Invalid argument: params.' unless validates params
+        fail FinAppsCore::InvalidArgumentsError, 'Invalid argument: params.' unless validates params
 
         path = "#{end_point}/password/change"
 
@@ -64,14 +64,14 @@ module FinApps
       end
 
       def search_query(term)
-        { "last_name": term }
+        {"last_name": term}
       end
 
       def role_query(role)
         if role.is_a?(Array)
-          { "role": { "$in": role.map(&:to_i) } }
+          {"role": {"$in": role.map(&:to_i)}}
         else
-          { "role": role.to_i }
+          {"role": role.to_i}
         end
       end
     end

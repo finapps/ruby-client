@@ -3,14 +3,14 @@
 RSpec.describe FinApps::REST::Client do
   describe '#new' do
     it 'raises for missing company_token' do
-      expect { FinApps::REST::Client.new nil }.to raise_error(
+      expect { described_class.new nil }.to raise_error(
         FinAppsCore::MissingArgumentsError
       )
     end
   end
 
   context 'an instance of Client' do
-    subject { FinApps::REST::Client.new(:company_token) }
+    subject { described_class.new(:company_token) }
 
     FinApps::REST::Client::RESOURCES.each do |method|
       it("responds to #{method}") { expect(subject).to respond_to(method) }

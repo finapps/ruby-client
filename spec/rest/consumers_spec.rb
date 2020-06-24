@@ -4,7 +4,8 @@ require 'spec_helpers/client'
 RSpec.describe FinApps::REST::Consumers,
                'initialized with valid FinApps::Client object' do
   include SpecHelpers::Client
-  subject(:users) { FinApps::REST::Consumers.new(client) }
+  subject(:users) { described_class.new(client) }
+
   missing_public_id = ': public_id'
 
   describe '#create' do
@@ -24,9 +25,11 @@ RSpec.describe FinApps::REST::Consumers,
 
       it { expect { create }.not_to raise_error }
       it('results is a Hash') { expect(results).to be_a(Hash) }
+
       it('performs a post and returns the response') do
         expect(results).to have_key(:public_id)
       end
+
       it('error_messages array is empty') { expect(error_messages).to eq([]) }
     end
 
@@ -35,6 +38,7 @@ RSpec.describe FinApps::REST::Consumers,
 
       it { expect { create }.not_to raise_error }
       it('results is nil') { expect(results).to be_nil }
+
       it('error messages array is populated') do
         expect(error_messages.first.downcase).to eq('invalid request body')
       end
@@ -48,10 +52,13 @@ RSpec.describe FinApps::REST::Consumers,
 
     context 'when missing params' do
       let(:params) { nil }
-      it { expect { list }.to_not raise_error }
+
+      it { expect { list }.not_to raise_error }
+
       it('performs a get and returns the response') do
         expect(results).to have_key(:records)
       end
+
       it('returns an array of records') { expect(results[:records]).to be_a(Array) }
       it('returns no error messages') { expect(error_messages).to be_empty }
     end
@@ -70,14 +77,17 @@ RSpec.describe FinApps::REST::Consumers,
         }
       end
 
-      it { expect { list }.to_not raise_error }
+      it { expect { list }.not_to raise_error }
       it('returns an array') { expect(list).to be_a(Array) }
+
       it('performs a get and returns the response') do
         expect(results).to have_key(:records)
       end
+
       it('returns no error messages') do
         expect(error_messages).to be_empty
       end
+
       it 'builds query and sends proper request' do
         list
         url = "#{versioned_api_path}/consumers?page=3&requested=19"
@@ -95,19 +105,24 @@ RSpec.describe FinApps::REST::Consumers,
         }
       end
 
-      it { expect { list }.to_not raise_error }
+      it { expect { list }.not_to raise_error }
       it('returns an array') { expect(list).to be_a(Array) }
+
       it('performs a get and returns the response') do
         expect(results).to have_key(:records)
       end
+
       it('returns no error messages') do
         expect(error_messages).to be_empty
       end
+
       it 'builds query and sends proper request' do
         list
-        url = "#{versioned_api_path}/consumers?filter=%7B%22$or%22:%5B%7B%22email%22:%22term%22%7D," \
-            '%7B%22first_name%22:%22term%22%7D,%7B%22last_name%22:%22term%22%7D%5D%7D&page=2&requested=25' \
-            '&sort=date_created'
+        url = "#{versioned_api_path}/consumers?"\
+          'filter=%7B%22$or%22:%5B%7B%22email%22:%22term%22%7D,' \
+          '%7B%22first_name%22:%22term%22%7D,'\
+          '%7B%22last_name%22:%22term%22%7D%5D%7D&page=2&requested=25' \
+          '&sort=date_created'
         expect(WebMock).to have_requested(:get, url)
       end
 
@@ -120,12 +135,16 @@ RSpec.describe FinApps::REST::Consumers,
             searchTerm: 'Two terms'
           }
         end
+
         it 'treats space as start of a new query for first and last name' do
           list
-          url = "#{versioned_api_path}/consumers?filter=%7B%22$or%22:%5B%7B%22email%22:%22Two%20terms%22%7D,"\
-              '%7B%22first_name%22:%22Two%20terms%22%7D,%7B%22last_name%22:%22Two%20terms%22%7D,%7B%22first_name%22:'\
-              '%22Two%22%7D,%7B%22last_name%22:%22Two%22%7D,%7B%22first_name%22:%22terms%22%7D,%7B%22last_name%22:'\
-              '%22terms%22%7D%5D%7D&page=2&requested=25&sort=date_created'
+          url = "#{versioned_api_path}/consumers?"\
+            'filter=%7B%22$or%22:%5B%7B%22email%22:%22Two%20terms%22%7D,'\
+            '%7B%22first_name%22:%22Two%20terms%22%7D,'\
+            '%7B%22last_name%22:%22Two%20terms%22%7D,%7B%22first_name%22:'\
+            '%22Two%22%7D,%7B%22last_name%22:%22Two%22%7D,'\
+            '%7B%22first_name%22:%22terms%22%7D,%7B%22last_name%22:'\
+            '%22terms%22%7D%5D%7D&page=2&requested=25&sort=date_created'
           expect(WebMock).to have_requested(:get, url)
         end
       end
@@ -149,9 +168,11 @@ RSpec.describe FinApps::REST::Consumers,
 
       it { expect { show }.not_to raise_error }
       it('results is a Hash') { expect(results).to be_a(Hash) }
+
       it('performs a get and returns the response') do
         expect(results).to have_key(:public_id)
       end
+
       it('error_messages array is empty') { expect(error_messages).to eq([]) }
     end
 
@@ -162,6 +183,7 @@ RSpec.describe FinApps::REST::Consumers,
 
       it { expect { show }.not_to raise_error }
       it('results is nil') { expect(results).to be_nil }
+
       it('error messages array is populated') do
         expect(error_messages.first.downcase).to eq('resource not found')
       end
@@ -198,6 +220,7 @@ RSpec.describe FinApps::REST::Consumers,
 
         it { expect { update }.not_to raise_error }
         it('results is nil') { expect(results).to be_nil }
+
         it('error messages array is populated') do
           expect(error_messages.first.downcase).to eq(
             'invalid user id specified.'
@@ -219,12 +242,15 @@ RSpec.describe FinApps::REST::Consumers,
 
         it { expect { update }.not_to raise_error }
         it('results is a Hash') { expect(results).to be_a(Hash) }
+
         it('the public_id is on the results') do
           expect(results).to have_key(:public_id)
         end
+
         it('the new token is on the results') do
           expect(results).to have_key(:token)
         end
+
         it('error_messages array is empty') { expect(error_messages).to eq([]) }
       end
 
@@ -240,6 +266,7 @@ RSpec.describe FinApps::REST::Consumers,
 
         it { expect { update }.not_to raise_error }
         it('results is nil') { expect(results).to be_nil }
+
         it('error messages array is populated') do
           expect(error_messages.first.downcase).to eq('resource not found')
         end
@@ -273,6 +300,7 @@ RSpec.describe FinApps::REST::Consumers,
 
         it { expect { destroy }.not_to raise_error }
         it('results is nil') { expect(results).to be_nil }
+
         it('error messages array is populated') do
           expect(error_messages.first.downcase).to eq('resource not found')
         end
