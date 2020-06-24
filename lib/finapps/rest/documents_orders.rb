@@ -46,18 +46,17 @@ module FinApps
       private
 
       def build_filter(params)
-        search_query(params[:searchTerm]).merge(consumer_query(params[:consumer])).merge(tag_query(params[:tag]))
+        search_query(params[:searchTerm])
+          .merge(consumer_query(params[:consumer]))
+          .merge(tag_query(params[:tag]))
+          .merge(status_query(params[:status]))
       end
 
       def search_query(term)
-        if term
-          query = with_space_search(term).concat(name_search(term))
-          {
-            "$or": query
-          }
-        else
-          {}
-        end
+        return {} unless term
+
+        query = with_space_search(term).concat(name_search(term))
+        { "$or": query }
       end
 
       def name_search(term)
@@ -90,6 +89,12 @@ module FinApps
         else
           {}
         end
+      end
+
+      def status_query(status)
+        return {} unless status
+
+        { status: status }
       end
 
       def consumer_query(consumer)

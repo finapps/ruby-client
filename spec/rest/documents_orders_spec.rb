@@ -31,7 +31,7 @@ RSpec.describe FinApps::REST::DocumentsOrders do
       end
 
       context 'without searchTerm' do
-        let(:params) { { "searchTerm": nil, "page": 2 } }
+        let(:params) { { searchTerm: nil, page: 2 } }
         it_behaves_like 'an API request'
         it_behaves_like 'a successful request'
         it 'performs a get and returns the response' do
@@ -75,6 +75,22 @@ RSpec.describe FinApps::REST::DocumentsOrders do
             expect(WebMock).to have_requested(:get, url)
           end
         end
+      end
+
+      context 'when filtering by open status ordes' do
+        let(:params) { { status: 1 } }
+
+        it_behaves_like 'an API request'
+        it_behaves_like 'a successful request'
+        it { expect(subject.first[:records]).not_to be_empty }
+      end
+
+      context 'when filtering by closed status ordes' do
+        let(:params) { { status: 2, searchTerm: 'term' } }
+
+        it_behaves_like 'an API request'
+        it_behaves_like 'a successful request'
+        it { expect(results[:records]).to be_empty }
       end
     end
 
