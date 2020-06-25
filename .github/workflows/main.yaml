@@ -14,9 +14,6 @@ jobs:
 
     strategy:
       fail-fast: true
-      matrix:
-        ci_node_total: [2]
-        ci_node_index: [0, 1]
 
     steps:
       - uses: actions/checkout@v1
