@@ -3,6 +3,7 @@ FinApps Ruby-Client
 ===================
 
 [![Gem Version](https://img.shields.io/gem/v/finapps.svg)](https://rubygems.org/gems/finapps)
+![Main](https://github.com/finapps/ruby-client/workflows/Main/badge.svg)
 [![Build Status](https://travis-ci.org/finapps/ruby-client.svg?branch=master)](https://travis-ci.org/finapps/ruby-client)
 [![Code Climate](https://codeclimate.com/github/finapps/ruby-client/badges/gpa.svg)](https://codeclimate.com/github/finapps/ruby-client)
 [![Test Coverage](https://codeclimate.com/github/finapps/ruby-client/badges/coverage.svg)](https://codeclimate.com/github/finapps/ruby-client/coverage)
