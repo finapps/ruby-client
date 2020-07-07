@@ -7,69 +7,69 @@ RSpec.describe FinApps::REST::Orders do
 
   describe '#show' do
     context 'when missing params' do
-      subject { described_class.new(client).show(nil) }
+      subject(:show) { described_class.new(client).show(nil) }
 
       it do
-        expect { subject }.to raise_error(FinAppsCore::MissingArgumentsError)
+        expect { show }.to raise_error(FinAppsCore::MissingArgumentsError)
       end
     end
 
     context 'when valid params are provided' do
-      subject { described_class.new(client).show(:valid_id) }
+      subject(:show) { described_class.new(client).show(:valid_id) }
 
-      it { expect { subject }.not_to raise_error }
-      it('returns an array') { expect(subject).to be_a(Array) }
+      it { expect { show }.not_to raise_error }
+      it('returns an array') { expect(show).to be_a(Array) }
 
       it('performs a get and returns the response') do
-        expect(subject[RESULTS]).to have_key(:public_id)
-        expect(subject[RESULTS]).to have_key(:consumer_id)
+        expect(show[RESULTS]).to have_key(:public_id)
+        expect(show[RESULTS]).to have_key(:consumer_id)
       end
 
       it('returns no error messages') do
-        expect(subject[ERROR_MESSAGES]).to be_empty
+        expect(show[ERROR_MESSAGES]).to be_empty
       end
     end
   end
 
   describe '#create' do
     context 'when missing params' do
-      subject { described_class.new(client).create(nil) }
+      subject(:create) { described_class.new(client).create(nil) }
 
       it do
-        expect { subject }.to raise_error(FinAppsCore::MissingArgumentsError)
+        expect { create }.to raise_error(FinAppsCore::MissingArgumentsError)
       end
     end
 
     context 'when valid params are provided' do
-      subject { described_class.new(client).create(valid_params) }
+      subject(:create) { described_class.new(client).create(valid_params) }
 
       let(:valid_params) do
         {applicant: 'valid', institutions: 'valid', product: 'valid'}
       end
 
-      it { expect { subject }.not_to raise_error }
-      it('returns an array') { expect(subject).to be_a(Array) }
+      it { expect { create }.not_to raise_error }
+      it('returns an array') { expect(create).to be_a(Array) }
 
       it('performs a post and returns the response') do
-        expect(subject[RESULTS]).to have_key(:public_id)
-        expect(subject[RESULTS]).to have_key(:consumer_id)
+        expect(create[RESULTS]).to have_key(:public_id)
+        expect(create[RESULTS]).to have_key(:consumer_id)
       end
 
       it('returns no error messages') do
-        expect(subject[ERROR_MESSAGES]).to be_empty
+        expect(create[ERROR_MESSAGES]).to be_empty
       end
     end
 
     context 'when invalid params are provided' do
-      subject { described_class.new(client).create(invalid_params) }
+      subject(:create) { described_class.new(client).create(invalid_params) }
 
       let(:invalid_params) { {applicant: 'valid'} }
 
-      it { expect { subject }.not_to raise_error }
-      it('results is nil') { expect(subject[RESULTS]).to be_nil }
+      it { expect { create }.not_to raise_error }
+      it('results is nil') { expect(create[RESULTS]).to be_nil }
 
       it('error messages array is populated') do
-        expect(subject[ERROR_MESSAGES].first.downcase).to eq(
+        expect(create[ERROR_MESSAGES].first.downcase).to eq(
           'invalid request body'
         )
       end
@@ -80,33 +80,33 @@ RSpec.describe FinApps::REST::Orders do
     context 'when missing params' do
       # use defaults
 
-      subject { described_class.new(client).list }
+      subject(:list) { described_class.new(client).list }
 
-      it { expect { subject }.not_to raise_error }
+      it { expect { list }.not_to raise_error }
 
-      it('returns an array') { expect(subject).to be_a(Array) }
+      it('returns an array') { expect(list).to be_a(Array) }
 
       it('performs a get and returns the response') do
-        expect(subject[RESULTS]).to have_key(:orders)
+        expect(list[RESULTS]).to have_key(:orders)
       end
 
       it('returns no error messages') do
-        expect(subject[ERROR_MESSAGES]).to be_empty
+        expect(list[ERROR_MESSAGES]).to be_empty
       end
     end
 
     context 'when invalid params are provided' do
-      subject { described_class.new(client).list(invalid_params) }
+      subject(:list) { described_class.new(client).list(invalid_params) }
 
       let(:invalid_params) { %w[this is an array] }
 
       it do
-        expect { subject }.to raise_error(FinAppsCore::InvalidArgumentsError)
+        expect { list }.to raise_error(FinAppsCore::InvalidArgumentsError)
       end
     end
 
     context 'when including valid params' do
-      subject { described_class.new(client).list(params) }
+      subject(:list) { described_class.new(client).list(params) }
 
       let(:params) do
         {
@@ -121,23 +121,23 @@ RSpec.describe FinApps::REST::Orders do
         }
       end
 
-      it { expect { subject }.not_to raise_error }
-      it('returns an array') { expect(subject).to be_a(Array) }
+      it { expect { list }.not_to raise_error }
+      it('returns an array') { expect(list).to be_a(Array) }
 
       it('performs a get and returns the response') do
-        expect(subject[RESULTS]).to have_key(:orders)
+        expect(list[RESULTS]).to have_key(:orders)
       end
 
       it('each order contains a consumer_id') do
-        expect(subject[RESULTS][:orders]).to all(have_key(:consumer_id))
+        expect(list[RESULTS][:orders]).to all(have_key(:consumer_id))
       end
 
       it('returns no error messages') do
-        expect(subject[ERROR_MESSAGES]).to be_empty
+        expect(list[ERROR_MESSAGES]).to be_empty
       end
 
       it 'builds query and sends proper request' do
-        subject
+        list
         url = "#{versioned_api_path}/orders?"\
           'filter=%7B%22$or%22:%5B%7B%22public_id%22:' \
           '%7B%22$regex%22:%22%5Eterm%22,%22$options%22:%22i%22%7D%7D,'\
@@ -154,7 +154,7 @@ RSpec.describe FinApps::REST::Orders do
 
       it 'builds query and sends proper request with searchTerm/relation exclusivity' do
         params[:searchTerm] = nil
-        subject
+        list
         url = "#{versioned_api_path}/orders?"\
           'filter=%7B%22status%22:%7B%22$in%22:%5B1,7%5D%7D,' \
           '%22assignment.operator_id%22:%22valid_operator%22,'\
@@ -180,7 +180,7 @@ RSpec.describe FinApps::REST::Orders do
 
     context 'with nil params' do
       context 'when missing id' do
-        let(:update) { subject.update(nil) }
+        let(:update) { orders.update(nil) }
 
         it('returns missing argument error') do
           expect { update }.to raise_error(FinAppsCore::MissingArgumentsError)
@@ -188,7 +188,7 @@ RSpec.describe FinApps::REST::Orders do
       end
 
       context 'when valid id is provided' do
-        let(:update) { subject.update('valid_id') } # how to stub params
+        let(:update) { orders.update('valid_id') } # how to stub params
         let(:results) { update[RESULTS] }
         let(:error_messages) { update[ERROR_MESSAGES] }
 
@@ -198,7 +198,7 @@ RSpec.describe FinApps::REST::Orders do
       end
 
       context 'when invalid id is provided' do
-        let(:update) { subject.update('invalid_id') }
+        let(:update) { orders.update('invalid_id') }
         let(:results) { update[RESULTS] }
         let(:error_messages) { update[ERROR_MESSAGES] }
 
@@ -213,7 +213,7 @@ RSpec.describe FinApps::REST::Orders do
 
     context 'with params' do
       context 'when missing id' do
-        let(:update) { subject.update(nil, params: 'valid') }
+        let(:update) { orders.update(nil, params: 'valid') }
 
         it('does not raise error') do
           expect { update }.not_to raise_error
@@ -221,7 +221,7 @@ RSpec.describe FinApps::REST::Orders do
       end
 
       context 'when valid params are provided' do
-        let(:update) { subject.update(nil, params: 'valid') }
+        let(:update) { orders.update(nil, params: 'valid') }
         let(:results) { update[RESULTS] }
         let(:error_messages) { update[ERROR_MESSAGES] }
 
@@ -231,7 +231,7 @@ RSpec.describe FinApps::REST::Orders do
       end
 
       context 'when invalid params are provided' do
-        let(:update) { subject.update(nil, params: 'invalid') }
+        let(:update) { orders.update(nil, params: 'invalid') }
         let(:results) { update[RESULTS] }
         let(:error_messages) { update[ERROR_MESSAGES] }
 
@@ -251,8 +251,8 @@ RSpec.describe FinApps::REST::Orders do
     let(:params) { {params: 'valid'} }
 
     it('calls #update') do
-      expect(subject).to receive(:update).with(nil, params)
-      subject.create_and_submit(params)
+      expect(orders).to receive(:update).with(nil, params)
+      orders.create_and_submit(params)
     end
   end
 
@@ -260,7 +260,7 @@ RSpec.describe FinApps::REST::Orders do
     subject(:orders) { described_class.new(client) }
 
     context 'when missing id' do
-      let(:destroy) { subject.destroy(nil) }
+      let(:destroy) { orders.destroy(nil) }
 
       it('returns missing argument error') do
         expect { destroy }.to raise_error(FinAppsCore::MissingArgumentsError)
@@ -268,7 +268,7 @@ RSpec.describe FinApps::REST::Orders do
     end
 
     context 'when invalid id is provided' do
-      let(:destroy) { subject.destroy(:invalid_id) }
+      let(:destroy) { orders.destroy(:invalid_id) }
       let(:results) { destroy[RESULTS] }
       let(:error_messages) { destroy[ERROR_MESSAGES] }
 
@@ -281,7 +281,7 @@ RSpec.describe FinApps::REST::Orders do
     end
 
     context 'for valid id' do
-      let(:destroy) { subject.destroy(:valid_id) }
+      let(:destroy) { orders.destroy(:valid_id) }
       let(:results) { destroy[RESULTS] }
       let(:error_messages) { destroy[ERROR_MESSAGES] }
 

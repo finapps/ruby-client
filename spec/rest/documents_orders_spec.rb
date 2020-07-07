@@ -98,7 +98,7 @@ RSpec.describe FinApps::REST::DocumentsOrders do
 
         it_behaves_like 'an API request'
         it_behaves_like 'a successful request'
-        it { expect(subject.first[:records]).not_to be_empty }
+        it { expect(list.first[:records]).not_to be_empty }
       end
 
       context 'when filtering by closed status ordes' do

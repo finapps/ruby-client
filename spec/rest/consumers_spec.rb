@@ -14,7 +14,7 @@ RSpec.describe FinApps::REST::Consumers,
 
     context 'when missing params' do
       it do
-        expect { subject.create(nil) }.to raise_error(
+        expect { users.create(nil) }.to raise_error(
           FinAppsCore::MissingArgumentsError
         )
       end
@@ -154,7 +154,7 @@ RSpec.describe FinApps::REST::Consumers,
   describe '#show' do
     context 'when missing public_id' do
       it do
-        expect { subject.show(nil) }.to raise_error(
+        expect { users.show(nil) }.to raise_error(
           FinAppsCore::MissingArgumentsError,
           missing_public_id
         )
@@ -162,7 +162,7 @@ RSpec.describe FinApps::REST::Consumers,
     end
 
     context 'for valid public_id' do
-      let(:show) { subject.show(:valid_public_id) }
+      let(:show) { users.show(:valid_public_id) }
       let(:results) { show[0] }
       let(:error_messages) { show[1] }
 
@@ -177,7 +177,7 @@ RSpec.describe FinApps::REST::Consumers,
     end
 
     context 'for invalid token' do
-      let(:show) { subject.show(:invalid_public_id) }
+      let(:show) { users.show(:invalid_public_id) }
       let(:results) { show[0] }
       let(:error_messages) { show[1] }
 
@@ -193,7 +193,7 @@ RSpec.describe FinApps::REST::Consumers,
   describe '#update' do
     context 'when missing public_id' do
       it do
-        expect { subject.update(nil, {}) }.to raise_error(
+        expect { users.update(nil, {}) }.to raise_error(
           FinAppsCore::MissingArgumentsError,
           missing_public_id
         )
@@ -202,7 +202,7 @@ RSpec.describe FinApps::REST::Consumers,
 
     context 'when updating user details' do
       context 'for valid public_id' do
-        let(:update) { subject.update(:valid_public_id, postal_code: '33021') }
+        let(:update) { users.update(:valid_public_id, postal_code: '33021') }
         let(:results) { update[0] }
         let(:error_messages) { update[1] }
 
@@ -276,7 +276,7 @@ RSpec.describe FinApps::REST::Consumers,
     describe '#destroy' do
       context 'when missing public_id' do
         it do
-          expect { subject.destroy(nil) }.to raise_error(
+          expect { users.destroy(nil) }.to raise_error(
             FinAppsCore::MissingArgumentsError,
             missing_public_id
           )
@@ -284,7 +284,7 @@ RSpec.describe FinApps::REST::Consumers,
       end
 
       context 'for valid public_id' do
-        let(:destroy) { subject.destroy(:valid_public_id) }
+        let(:destroy) { users.destroy(:valid_public_id) }
         let(:results) { destroy[0] }
         let(:error_messages) { destroy[1] }
 

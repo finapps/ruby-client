@@ -14,7 +14,7 @@ RSpec.describe FinApps::REST::OrderTokens,
 
     context 'when missing token' do
       it do
-        expect { subject.show(nil) }.to raise_error(
+        expect { order_tokens.show(nil) }.to raise_error(
           FinAppsCore::MissingArgumentsError,
           ': token'
         )

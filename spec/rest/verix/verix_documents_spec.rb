@@ -11,10 +11,10 @@ RSpec.describe FinApps::REST::VerixDocuments do
 
   describe '#list' do
     context 'when missing parameters' do
-      subject { document.list(nil) }
+      subject(:list) { document.list(nil) }
 
       it 'raises an error when missing record id' do
-        expect { subject }.to raise_error(FinAppsCore::MissingArgumentsError)
+        expect { list }.to raise_error(FinAppsCore::MissingArgumentsError)
       end
     end
 

@@ -5,10 +5,10 @@ require 'spec_helpers/client'
 RSpec.describe FinApps::REST::Sessions,
                'initialized with valid FinApps::Client object' do
   include SpecHelpers::Client
-  subject { described_class.new(client) }
+  subject(:session) { described_class.new(client) }
 
   describe '#create' do
-    let(:create) { subject.create(credentials) }
+    let(:create) { session.create(credentials) }
     let(:results) { create[0] }
     let(:error_messages) { create[1] }
 
@@ -16,12 +16,12 @@ RSpec.describe FinApps::REST::Sessions,
       message = 'Invalid argument: params.'
       it do
         expect do
-          subject.create(email: nil, password: 'password')
+          session.create(email: nil, password: 'password')
         end.to raise_error(FinAppsCore::InvalidArgumentsError, message)
       end
 
       it do
-        expect { subject.create(email: 'email', password: nil) }.to raise_error(
+        expect { session.create(email: 'email', password: nil) }.to raise_error(
           FinAppsCore::InvalidArgumentsError,
           message
         )

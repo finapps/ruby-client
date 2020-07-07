@@ -48,7 +48,7 @@ RSpec.describe FinApps::REST::PlaidConsumerInstitutions do
       it_behaves_like 'a successful request'
       it_behaves_like 'a request that returns institution data'
       it('returns institution account data') do
-        expect(subject[RESULTS]).to have_key(:accounts)
+        expect(show[RESULTS]).to have_key(:accounts)
       end
     end
   end

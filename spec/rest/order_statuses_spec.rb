@@ -5,35 +5,35 @@ RSpec.describe FinApps::REST::OrderStatuses do
 
   describe '#show' do
     context 'when missing id' do
-      subject { described_class.new(client).show(nil) }
+      subject(:show) { described_class.new(client).show(nil) }
 
       it do
-        expect { subject }.to raise_error(FinAppsCore::MissingArgumentsError)
+        expect { show }.to raise_error(FinAppsCore::MissingArgumentsError)
       end
     end
 
     context 'when valid id is provided' do
-      subject { described_class.new(client).show(:valid_id) }
+      subject(:show) { described_class.new(client).show(:valid_id) }
 
-      it { expect { subject }.not_to raise_error }
+      it { expect { show }.not_to raise_error }
 
       it('performs a get and returns the response') do
-        expect(subject[RESULTS]).to have_key(:status)
+        expect(show[RESULTS]).to have_key(:status)
       end
 
       it('returns no error messages') do
-        expect(subject[ERROR_MESSAGES]).to be_empty
+        expect(show[ERROR_MESSAGES]).to be_empty
       end
     end
 
     context 'when invalid id is provided' do
-      subject { described_class.new(client).show(:invalid_id) }
+      subject(:show) { described_class.new(client).show(:invalid_id) }
 
-      it { expect { subject }.not_to raise_error }
-      it('results is nil') { expect(subject[RESULTS]).to be_nil }
+      it { expect { show }.not_to raise_error }
+      it('results is nil') { expect(show[RESULTS]).to be_nil }
 
       it('error messages array is populated') do
-        expect(subject[ERROR_MESSAGES].first.downcase).to eq(
+        expect(show[ERROR_MESSAGES].first.downcase).to eq(
           'resource not found'
         )
       end

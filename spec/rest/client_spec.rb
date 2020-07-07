@@ -10,21 +10,21 @@ RSpec.describe FinApps::REST::Client do
   end
 
   context 'an instance of Client' do
-    subject { described_class.new(:company_token) }
+    subject(:client) { described_class.new(:company_token) }
 
     FinApps::REST::Client::RESOURCES.each do |method|
-      it("responds to #{method}") { expect(subject).to respond_to(method) }
+      it("responds to #{method}") { expect(client).to respond_to(method) }
 
       it "memoizes the result of #{method}" do
-        first = subject.send(method)
-        second = subject.send(method)
+        first = client.send(method)
+        second = client.send(method)
         expect(first.object_id).to eq(second.object_id)
       end
     end
 
     describe '#alert_definitions' do
       it do
-        expect(subject.alert_definitions).to be_an_instance_of(
+        expect(client.alert_definitions).to be_an_instance_of(
           FinApps::REST::AlertDefinitions
         )
       end
@@ -32,7 +32,7 @@ RSpec.describe FinApps::REST::Client do
 
     describe '#alert_occurrences' do
       it do
-        expect(subject.alert_occurrences).to be_an_instance_of(
+        expect(client.alert_occurrences).to be_an_instance_of(
           FinApps::REST::AlertOccurrences
         )
       end
@@ -40,33 +40,33 @@ RSpec.describe FinApps::REST::Client do
 
     describe '#version' do
       it do
-        expect(subject.version).to be_an_instance_of(FinApps::REST::Version)
+        expect(client.version).to be_an_instance_of(FinApps::REST::Version)
       end
     end
 
     describe '#consumers' do
       it do
-        expect(subject.consumers).to be_an_instance_of(FinApps::REST::Consumers)
+        expect(client.consumers).to be_an_instance_of(FinApps::REST::Consumers)
       end
     end
 
     describe '#plaid_webhooks' do
       it do
         expect(
-          subject.plaid_webhooks
+          client.plaid_webhooks
         ).to be_an_instance_of FinApps::REST::PlaidWebhooks
       end
     end
 
     describe '#sessions' do
       it do
-        expect(subject.sessions).to be_an_instance_of(FinApps::REST::Sessions)
+        expect(client.sessions).to be_an_instance_of(FinApps::REST::Sessions)
       end
     end
 
     describe '#order_assignments' do
       it do
-        expect(subject.order_assignments).to be_an_instance_of(
+        expect(client.order_assignments).to be_an_instance_of(
           FinApps::REST::OrderAssignments
         )
       end
@@ -74,7 +74,7 @@ RSpec.describe FinApps::REST::Client do
 
     describe '#order_statuses' do
       it do
-        expect(subject.order_notifications).to be_an_instance_of(
+        expect(client.order_notifications).to be_an_instance_of(
           FinApps::REST::OrderNotifications
         )
       end
@@ -82,7 +82,7 @@ RSpec.describe FinApps::REST::Client do
 
     describe '#order_statuses' do
       it do
-        expect(subject.order_statuses).to be_an_instance_of(
+        expect(client.order_statuses).to be_an_instance_of(
           FinApps::REST::OrderStatuses
         )
       end
@@ -90,7 +90,7 @@ RSpec.describe FinApps::REST::Client do
 
     describe '#order_refreshes' do
       it do
-        expect(subject.order_refreshes).to be_an_instance_of(
+        expect(client.order_refreshes).to be_an_instance_of(
           FinApps::REST::OrderRefreshes
         )
       end
@@ -98,7 +98,7 @@ RSpec.describe FinApps::REST::Client do
 
     describe '#order_reports' do
       it do
-        expect(subject.order_reports).to be_an_instance_of(
+        expect(client.order_reports).to be_an_instance_of(
           FinApps::REST::OrderReports
         )
       end
@@ -106,19 +106,19 @@ RSpec.describe FinApps::REST::Client do
 
     describe '#order_tokens' do
       it do
-        expect(subject.order_tokens).to be_an_instance_of(
+        expect(client.order_tokens).to be_an_instance_of(
           FinApps::REST::OrderTokens
         )
       end
     end
 
     describe '#orders' do
-      it { expect(subject.orders).to be_an_instance_of(FinApps::REST::Orders) }
+      it { expect(client.orders).to be_an_instance_of(FinApps::REST::Orders) }
     end
 
     describe '#password_resets' do
       it do
-        expect(subject.password_resets).to be_an_instance_of(
+        expect(client.password_resets).to be_an_instance_of(
           FinApps::REST::PasswordResets
         )
       end
@@ -126,7 +126,7 @@ RSpec.describe FinApps::REST::Client do
 
     describe '#operators_password_resets' do
       it do
-        expect(subject.operators_password_resets).to be_an_instance_of(
+        expect(client.operators_password_resets).to be_an_instance_of(
           FinApps::REST::OperatorsPasswordResets
         )
       end
@@ -134,19 +134,19 @@ RSpec.describe FinApps::REST::Client do
 
     describe '#operators' do
       it do
-        expect(subject.operators).to be_an_instance_of(FinApps::REST::Operators)
+        expect(client.operators).to be_an_instance_of(FinApps::REST::Operators)
       end
     end
 
     describe '#products' do
       it do
-        expect(subject.products).to be_an_instance_of(FinApps::REST::Products)
+        expect(client.products).to be_an_instance_of(FinApps::REST::Products)
       end
     end
 
     describe '#portfolios' do
       it do
-        expect(subject.portfolios).to be_an_instance_of(
+        expect(client.portfolios).to be_an_instance_of(
           FinApps::REST::Portfolios
         )
       end
@@ -154,7 +154,7 @@ RSpec.describe FinApps::REST::Client do
 
     describe '#portfolios_alerts' do
       it do
-        expect(subject.portfolios_alerts).to be_an_instance_of(
+        expect(client.portfolios_alerts).to be_an_instance_of(
           FinApps::REST::PortfoliosAlerts
         )
       end
@@ -162,7 +162,7 @@ RSpec.describe FinApps::REST::Client do
 
     describe '#portfolios_available_consumers' do
       it do
-        expect(subject.portfolios_available_consumers).to be_an_instance_of(
+        expect(client.portfolios_available_consumers).to be_an_instance_of(
           FinApps::REST::PortfoliosAvailableConsumers
         )
       end
@@ -170,7 +170,7 @@ RSpec.describe FinApps::REST::Client do
 
     describe '#portfolios_consumers' do
       it do
-        expect(subject.portfolios_consumers).to be_an_instance_of(
+        expect(client.portfolios_consumers).to be_an_instance_of(
           FinApps::REST::PortfoliosConsumers
         )
       end
@@ -178,7 +178,7 @@ RSpec.describe FinApps::REST::Client do
 
     describe '#consumers_portfolios' do
       it do
-        expect(subject.consumers_portfolios).to be_an_instance_of(
+        expect(client.consumers_portfolios).to be_an_instance_of(
           FinApps::REST::ConsumersPortfolios
         )
       end
@@ -186,7 +186,7 @@ RSpec.describe FinApps::REST::Client do
 
     describe '#portfolio_reports' do
       it do
-        expect(subject.portfolio_reports).to be_an_instance_of(
+        expect(client.portfolio_reports).to be_an_instance_of(
           FinApps::REST::PortfolioReports
         )
       end
@@ -194,7 +194,7 @@ RSpec.describe FinApps::REST::Client do
 
     describe '#tenant_settings' do
       it do
-        expect(subject.tenant_settings).to be_an_instance_of(
+        expect(client.tenant_settings).to be_an_instance_of(
           FinApps::REST::TenantSettings
         )
       end
@@ -202,7 +202,7 @@ RSpec.describe FinApps::REST::Client do
 
     describe '#tenant_app_settings' do
       it do
-        expect(subject.tenant_app_settings).to be_an_instance_of(
+        expect(client.tenant_app_settings).to be_an_instance_of(
           FinApps::REST::TenantAppSettings
         )
       end
@@ -210,7 +210,7 @@ RSpec.describe FinApps::REST::Client do
 
     describe '#plaid_webhooks' do
       it do
-        expect(subject.plaid_webhooks).to be_an_instance_of(
+        expect(client.plaid_webhooks).to be_an_instance_of(
           FinApps::REST::PlaidWebhooks
         )
       end
@@ -218,7 +218,7 @@ RSpec.describe FinApps::REST::Client do
 
     describe '#plaid_institution_logos' do
       it do
-        expect(subject.plaid_institution_logos).to be_an_instance_of(
+        expect(client.plaid_institution_logos).to be_an_instance_of(
           FinApps::REST::PlaidInstitutionLogos
         )
       end

@@ -78,25 +78,6 @@ RSpec/MessageSpies:
 RSpec/MultipleExpectations:
   Max: 3
 
-# Offense count: 114
-# Configuration parameters: IgnoreSharedExamples.
-RSpec/NamedSubject:
-  Exclude:
-    - 'spec/rest/client_spec.rb'
-    - 'spec/rest/consumers_spec.rb'
-    - 'spec/rest/documents_orders_spec.rb'
-    - 'spec/rest/order_reports_spec.rb'
-    - 'spec/rest/order_statuses_spec.rb'
-    - 'spec/rest/order_tokens_spec.rb'
-    - 'spec/rest/orders_spec.rb'
-    - 'spec/rest/password_resets_spec.rb'
-    - 'spec/rest/plaid/plaid_consumer_institutions_spec.rb'
-    - 'spec/rest/sessions_spec.rb'
-    - 'spec/rest/signed_documents_downloads_spec.rb'
-    - 'spec/rest/verix/verix_documents_spec.rb'
-    - 'spec/rest/verix/verix_pdf_documents_spec.rb'
-    - 'spec/rest/version_spec.rb'
-
 # Offense count: 6
 RSpec/RepeatedExample:
   Exclude:
