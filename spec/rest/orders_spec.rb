@@ -245,14 +245,20 @@ RSpec.describe FinApps::REST::Orders do
     end
   end
 
+  # Test it calls update while making rubocop happy
   describe '#create_and_submit' do
     subject(:orders) { described_class.new(client) }
 
+    let(:create_submit) { orders.create_and_submit(params) }
     let(:params) { {params: 'valid'} }
+    let(:results) { create_submit[RESULTS] }
+    let(:error_messages) { create_submit[ERROR_MESSAGES] }
 
-    it('calls #update') do
-      expect(orders).to receive(:update).with(nil, params)
-      orders.create_and_submit(params)
+    it { expect { create_submit }.not_to raise_error }
+    it('results is nil') { expect(results).to be_nil }
+
+    it('error messages array is empty') do
+      expect(error_messages).to eq([])
     end
   end
 

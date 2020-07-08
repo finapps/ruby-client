@@ -35,17 +35,6 @@ RSpec/ExampleLength:
     - 'spec/rest/documents_orders_spec.rb'
     - 'spec/rest/orders_spec.rb'
 
-# Offense count: 1
-# Configuration parameters: .
-# SupportedStyles: have_received, receive
-RSpec/MessageSpies:
-  EnforcedStyle: receive
-
 # Offense count: 13
 RSpec/MultipleExpectations:
   Max: 3
-
-# Offense count: 1
-RSpec/SubjectStub:
-  Exclude:
-    - 'spec/rest/orders_spec.rb'
