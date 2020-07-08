@@ -97,7 +97,7 @@ RSpec.describe FinApps::REST::PortfoliosConsumers do
       end
     end
 
-    context 'for bulk subscribe' do
+    context 'with bulk subscribe' do
       context 'when valid id and params are provided' do
         let(:portfolio_id) { 'valid_id' }
         let(:params) { %w[id1 id2 id3] }
@@ -130,7 +130,7 @@ RSpec.describe FinApps::REST::PortfoliosConsumers do
       end
     end
 
-    context 'for single subscribe' do
+    context 'with single subscribe' do
       context 'when valid ids are provided' do
         let(:portfolio_id) { 'valid_id' }
         let(:params) { portfolio_id }

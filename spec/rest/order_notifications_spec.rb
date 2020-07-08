@@ -29,7 +29,7 @@ RSpec.describe FinApps::REST::OrderNotifications do
       end
     end
 
-    context 'for valid id' do
+    context 'with valid id' do
       let(:update) { subject.update(:valid_id) }
       let(:results) { update[RESULTS] }
       let(:error_messages) { update[ERROR_MESSAGES] }

@@ -9,7 +9,7 @@ RSpec.describe FinApps::REST::Client do
     end
   end
 
-  context 'an instance of Client' do
+  context 'with an instance of Client' do
     subject(:client) { described_class.new(:company_token) }
 
     FinApps::REST::Client::RESOURCES.each do |method|

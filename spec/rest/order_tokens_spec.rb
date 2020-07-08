@@ -21,7 +21,7 @@ RSpec.describe FinApps::REST::OrderTokens,
       end
     end
 
-    context 'for valid token' do
+    context 'with valid token' do
       let(:show) { subject.show(:valid_token) }
 
       it { expect { show }.not_to raise_error }
@@ -34,7 +34,7 @@ RSpec.describe FinApps::REST::OrderTokens,
       it('error_messages array is empty') { expect(error_messages).to eq([]) }
     end
 
-    context 'for invalid token' do
+    context 'with invalid token' do
       let(:show) { subject.show(:invalid_token) }
 
       it { expect { show }.not_to raise_error }

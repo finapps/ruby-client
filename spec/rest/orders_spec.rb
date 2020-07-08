@@ -280,7 +280,7 @@ RSpec.describe FinApps::REST::Orders do
       end
     end
 
-    context 'for valid id' do
+    context 'with valid id' do
       let(:destroy) { orders.destroy(:valid_id) }
       let(:results) { destroy[RESULTS] }
       let(:error_messages) { destroy[ERROR_MESSAGES] }

@@ -20,7 +20,7 @@ RSpec.describe FinApps::REST::Consumers,
       end
     end
 
-    context 'for valid params' do
+    context 'with valid params' do
       let(:create) { subject.create(email: 'email', password: 'password') }
 
       it { expect { create }.not_to raise_error }
@@ -33,7 +33,7 @@ RSpec.describe FinApps::REST::Consumers,
       it('error_messages array is empty') { expect(error_messages).to eq([]) }
     end
 
-    context 'for invalid params' do
+    context 'with invalid params' do
       let(:create) { subject.create(email: 'email') }
 
       it { expect { create }.not_to raise_error }
@@ -161,7 +161,7 @@ RSpec.describe FinApps::REST::Consumers,
       end
     end
 
-    context 'for valid public_id' do
+    context 'with valid public_id' do
       let(:show) { users.show(:valid_public_id) }
       let(:results) { show[0] }
       let(:error_messages) { show[1] }
@@ -176,7 +176,7 @@ RSpec.describe FinApps::REST::Consumers,
       it('error_messages array is empty') { expect(error_messages).to eq([]) }
     end
 
-    context 'for invalid token' do
+    context 'with invalid token' do
       let(:show) { users.show(:invalid_public_id) }
       let(:results) { show[0] }
       let(:error_messages) { show[1] }
@@ -201,7 +201,7 @@ RSpec.describe FinApps::REST::Consumers,
     end
 
     context 'when updating user details' do
-      context 'for valid public_id' do
+      context 'with valid public_id' do
         let(:update) { users.update(:valid_public_id, postal_code: '33021') }
         let(:results) { update[0] }
         let(:error_messages) { update[1] }
@@ -211,7 +211,7 @@ RSpec.describe FinApps::REST::Consumers,
         it('error_messages array is empty') { expect(error_messages).to eq([]) }
       end
 
-      context 'for invalid public_id' do
+      context 'with invalid public_id' do
         let(:update) do
           subject.update(:invalid_public_id, postal_code: '33021')
         end
@@ -230,7 +230,7 @@ RSpec.describe FinApps::REST::Consumers,
     end
 
     context 'when updating password' do
-      context 'for valid public_id' do
+      context 'with valid public_id' do
         let(:update) do
           subject.update(
             :valid_public_id,
@@ -254,7 +254,7 @@ RSpec.describe FinApps::REST::Consumers,
         it('error_messages array is empty') { expect(error_messages).to eq([]) }
       end
 
-      context 'for invalid public_id' do
+      context 'with invalid public_id' do
         let(:update) do
           subject.update(
             :invalid_public_id,
@@ -283,7 +283,7 @@ RSpec.describe FinApps::REST::Consumers,
         end
       end
 
-      context 'for valid public_id' do
+      context 'with valid public_id' do
         let(:destroy) { users.destroy(:valid_public_id) }
         let(:results) { destroy[0] }
         let(:error_messages) { destroy[1] }
@@ -293,7 +293,7 @@ RSpec.describe FinApps::REST::Consumers,
         it('error_messages array is empty') { expect(error_messages).to eq([]) }
       end
 
-      context 'for invalid token' do
+      context 'with invalid token' do
         let(:destroy) { subject.destroy(:invalid_public_id) }
         let(:results) { destroy[0] }
         let(:error_messages) { destroy[1] }

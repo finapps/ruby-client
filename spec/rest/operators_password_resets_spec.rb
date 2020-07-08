@@ -21,7 +21,7 @@ RSpec.describe FinApps::REST::OperatorsPasswordResets,
       end
     end
 
-    context 'for invalid params' do
+    context 'with invalid params' do
       let(:create) { subject.create(params: 'invalid params') }
 
       it do
@@ -29,7 +29,7 @@ RSpec.describe FinApps::REST::OperatorsPasswordResets,
       end
     end
 
-    context 'for valid params' do
+    context 'with valid params' do
       let(:create) { subject.create(email: 'valid email') }
 
       it { expect { create }.not_to raise_error }
@@ -57,7 +57,7 @@ RSpec.describe FinApps::REST::OperatorsPasswordResets,
       end
     end
 
-    context 'for invalid params' do
+    context 'with invalid params' do
       let(:update) { subject.update(params: 'invalid') }
 
       it { expect { update }.not_to raise_error }
@@ -68,7 +68,7 @@ RSpec.describe FinApps::REST::OperatorsPasswordResets,
       end
     end
 
-    context 'for valid params' do
+    context 'with valid params' do
       let(:update) { subject.update(params: 'valid') }
 
       it { expect { update }.not_to raise_error }

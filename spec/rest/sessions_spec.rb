@@ -28,7 +28,7 @@ RSpec.describe FinApps::REST::Sessions,
       end
     end
 
-    context 'for invalid credentials' do
+    context 'with invalid credentials' do
       let(:credentials) do
         {email: 'email@domain.com', password: 'invalid_password'}
       end
@@ -42,7 +42,7 @@ RSpec.describe FinApps::REST::Sessions,
       end
     end
 
-    context 'for valid credentials' do
+    context 'with valid credentials' do
       let(:credentials) do
         {email: 'email@domain.com', password: 'valid_password'}
       end
@@ -52,7 +52,7 @@ RSpec.describe FinApps::REST::Sessions,
       it('error_messages is empty') { expect(error_messages).to be_empty }
     end
 
-    context 'for valid credentials & path argument' do
+    context 'with valid credentials & path argument' do
       let(:create) { subject.create(credentials, 'operators/login') }
       let(:credentials) do
         {email: 'email@domain.com', password: 'valid_password'}

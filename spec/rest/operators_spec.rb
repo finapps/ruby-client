@@ -77,7 +77,7 @@ RSpec.describe FinApps::REST::Operators,
       it { expect { show }.to raise_error(FinAppsCore::MissingArgumentsError) }
     end
 
-    context 'for invalid id' do
+    context 'with invalid id' do
       let(:show) { subject.show(:invalid_id) }
 
       it { expect { show }.not_to raise_error }
@@ -88,7 +88,7 @@ RSpec.describe FinApps::REST::Operators,
       end
     end
 
-    context 'for valid id' do
+    context 'with valid id' do
       let(:show) { subject.show(:valid_id) }
 
       it { expect { show }.not_to raise_error }
@@ -240,7 +240,7 @@ RSpec.describe FinApps::REST::Operators,
       end
     end
 
-    context 'for invalid id' do
+    context 'with invalid id' do
       let(:destroy) { subject.destroy(:invalid_id) }
 
       it { expect { destroy }.not_to raise_error }
@@ -251,7 +251,7 @@ RSpec.describe FinApps::REST::Operators,
       end
     end
 
-    context 'for valid id' do
+    context 'with valid id' do
       let(:destroy) { subject.destroy(:valid_id) }
 
       it { expect { destroy }.not_to raise_error }
