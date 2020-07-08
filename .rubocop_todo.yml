@@ -33,16 +33,6 @@ Metrics/ClassLength:
 Metrics/MethodLength:
   Max: 16
 
-# Offense count: 6
-RSpec/DescribeMethod:
-  Exclude:
-    - 'spec/rest/consumers_spec.rb'
-    - 'spec/rest/operators_password_resets_spec.rb'
-    - 'spec/rest/operators_spec.rb'
-    - 'spec/rest/order_tokens_spec.rb'
-    - 'spec/rest/products_spec.rb'
-    - 'spec/rest/sessions_spec.rb'
-
 # Offense count: 5
 # Configuration parameters: Max.
 RSpec/ExampleLength:
