@@ -72,10 +72,18 @@ RSpec.describe FinApps::REST::Client do
       end
     end
 
-    describe '#order_statuses' do
+    describe '#order_notifications' do
       it do
         expect(client.order_notifications).to be_an_instance_of(
           FinApps::REST::OrderNotifications
+        )
+      end
+    end
+
+    describe '#order_statuses' do
+      it do
+        expect(client.order_statuses).to be_an_instance_of(
+          FinApps::REST::OrderStatuses
         )
       end
     end
