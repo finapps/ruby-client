@@ -60,15 +60,16 @@ module FinApps
         if RESOURCES.include? symbol
           class_name = camelize(symbol.to_s)
           variable = "@#{class_name.downcase}"
-          unless instance_variable_defined? variable
-            klass =
-              Object.const_get('FinApps').const_get('REST').const_get class_name
-            instance_variable_set(variable, klass.new(self))
-          end
+          set_variable(class_name, variable) unless instance_variable_defined? variable
           instance_variable_get(variable)
         else
           super
         end
+      end
+
+      def set_variable(class_name, variable)
+        klass = Object.const_get('FinApps').const_get('REST').const_get class_name
+        instance_variable_set(variable, klass.new(self))
       end
 
       def respond_to_missing?(method_sym, include_private = false)

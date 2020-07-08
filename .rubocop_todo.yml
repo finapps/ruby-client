@@ -22,11 +22,6 @@ Metrics/BlockLength:
 Metrics/ClassLength:
   Max: 431
 
-# Offense count: 3
-# Configuration parameters: CountComments, ExcludedMethods.
-Metrics/MethodLength:
-  Max: 16
-
 # Offense count: 5
 # Configuration parameters: Max.
 RSpec/ExampleLength:
