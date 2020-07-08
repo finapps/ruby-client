@@ -45,18 +45,6 @@ RSpec/MessageSpies:
 RSpec/MultipleExpectations:
   Max: 3
 
-# Offense count: 6
-RSpec/RepeatedExample:
-  Exclude:
-    - 'spec/rest/signed_documents_downloads_spec.rb'
-    - 'spec/rest/verix/verix_documents_spec.rb'
-    - 'spec/rest/verix/verix_pdf_documents_spec.rb'
-
-# Offense count: 2
-RSpec/RepeatedExampleGroupBody:
-  Exclude:
-    - 'spec/rest/client_spec.rb'
-
 # Offense count: 1
 RSpec/SubjectStub:
   Exclude:
