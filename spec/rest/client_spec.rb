@@ -80,14 +80,6 @@ RSpec.describe FinApps::REST::Client do
       end
     end
 
-    describe '#order_statuses' do
-      it do
-        expect(client.order_statuses).to be_an_instance_of(
-          FinApps::REST::OrderStatuses
-        )
-      end
-    end
-
     describe '#order_refreshes' do
       it do
         expect(client.order_refreshes).to be_an_instance_of(
@@ -204,14 +196,6 @@ RSpec.describe FinApps::REST::Client do
       it do
         expect(client.tenant_app_settings).to be_an_instance_of(
           FinApps::REST::TenantAppSettings
-        )
-      end
-    end
-
-    describe '#plaid_webhooks' do
-      it do
-        expect(client.plaid_webhooks).to be_an_instance_of(
-          FinApps::REST::PlaidWebhooks
         )
       end
     end

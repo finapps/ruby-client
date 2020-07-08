@@ -6,12 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 12
-# Cop supports --auto-correct.
-# Configuration parameters: AutoCorrect, AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
-# URISchemes: http, https
-
-
 # Offense count: 1
 # Configuration parameters: IgnoredMethods.
 Metrics/AbcSize:
@@ -60,11 +54,6 @@ RSpec/RepeatedExample:
 
 # Offense count: 2
 RSpec/RepeatedExampleGroupBody:
-  Exclude:
-    - 'spec/rest/client_spec.rb'
-
-# Offense count: 4
-RSpec/RepeatedExampleGroupDescription:
   Exclude:
     - 'spec/rest/client_spec.rb'
 
