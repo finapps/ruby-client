@@ -7,11 +7,6 @@
 # versions of RuboCop, may require this file to be generated again.
 
 # Offense count: 1
-# Configuration parameters: IgnoredMethods.
-Metrics/AbcSize:
-  Max: 16
-
-# Offense count: 1
 # Configuration parameters: CountComments, ExcludedMethods.
 # ExcludedMethods: refine
 # finapps.gemspec - leaving as is intentionally
