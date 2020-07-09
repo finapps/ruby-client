@@ -9,49 +9,49 @@ RSpec.describe FinApps::REST::OrderReports do
 
   describe '#show' do
     context 'when missing id' do
-      subject { order_report.show(nil, :pdf) }
+      subject(:show) { order_report.show(nil, :pdf) }
 
       it do
-        expect { subject }.to raise_error(FinAppsCore::MissingArgumentsError)
+        expect { show }.to raise_error(FinAppsCore::MissingArgumentsError)
       end
     end
 
     context 'when missing format' do
-      subject { order_report.show(:valid_id, nil) }
+      subject(:show) { order_report.show(:valid_id, nil) }
 
       it do
-        expect { subject }.to raise_error(FinAppsCore::MissingArgumentsError)
+        expect { show }.to raise_error(FinAppsCore::MissingArgumentsError)
       end
     end
 
     context 'when invalid format is provided' do
-      subject { order_report.show(:valid_id, :xml) }
+      subject(:show) { order_report.show(:valid_id, :xml) }
 
       it do
-        expect { subject }.to raise_error(FinAppsCore::InvalidArgumentsError)
+        expect { show }.to raise_error(FinAppsCore::InvalidArgumentsError)
       end
     end
 
     context 'when valid params are provided' do
-      subject { order_report.show(:valid_id, :json) }
+      subject(:show) { order_report.show(:valid_id, :json) }
 
-      it { expect { subject }.not_to raise_error }
+      it { expect { show }.not_to raise_error }
 
       it('performs a get and returns the response') do
-        expect(subject[0]).to have_key(:days_requested)
+        expect(show[0]).to have_key(:days_requested)
       end
 
-      it('returns no error messages') { expect(subject[1]).to be_empty }
+      it('returns no error messages') { expect(show[1]).to be_empty }
     end
 
     context 'when invalid id is provided' do
-      subject { order_report.show(:invalid_id, :json) }
+      subject(:show) { order_report.show(:invalid_id, :json) }
 
-      it { expect { subject }.not_to raise_error }
-      it('results is nil') { expect(subject[0]).to be_nil }
+      it { expect { show }.not_to raise_error }
+      it('results is nil') { expect(show[0]).to be_nil }
 
       it('error messages array is populated') do
-        expect(subject[1].first.downcase).to eq('resource not found')
+        expect(show[1].first.downcase).to eq('resource not found')
       end
     end
   end

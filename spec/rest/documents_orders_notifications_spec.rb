@@ -29,7 +29,7 @@ RSpec.describe FinApps::REST::DocumentsOrdersNotifications do
       end
     end
 
-    context 'for valid id' do
+    context 'with valid id' do
       let(:create) { subject.create(:valid_id) }
       let(:results) { create[RESULTS] }
       let(:error_messages) { create[ERROR_MESSAGES] }

@@ -64,21 +64,23 @@ module FinApps
 
       def search_query(term)
         if term
-          {
-            "$or": [
-              {"public_id": {"$regex": "^#{term}", "$options": 'i'}},
-              {"applicant.last_name": term},
-              {"assignment.last_name": term},
-              {
-                "requestor.reference_no": {
-                  "$regex": "^#{term}", "$options": 'i'
-                }
-              }
-            ]
-          }
+          search_query_object(term)
         else
           {}
         end
+      end
+
+      def search_query_object(term)
+        {"$or": [
+          {"public_id": {"$regex": "^#{term}", "$options": 'i'}},
+          {"applicant.last_name": term},
+          {"assignment.last_name": term},
+          {
+            "requestor.reference_no": {
+              "$regex": "^#{term}", "$options": 'i'
+            }
+          }
+        ]}
       end
 
       def status_query(status)

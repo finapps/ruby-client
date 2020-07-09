@@ -67,12 +67,8 @@ RSpec.describe FinApps::REST::Portfolios do
 
       it { expect { show }.not_to raise_error }
       it('returns an array') { expect(show).to be_a(Array) }
-
-      it('performs a get and returns the response') do
-        expect(results).to have_key(:_id)
-        expect(results).to have_key(:product)
-      end
-
+      it { expect(results).to have_key(:_id) }
+      it { expect(results).to have_key(:product) }
       it('returns no error messages') { expect(errors).to be_empty }
     end
 
@@ -112,12 +108,8 @@ RSpec.describe FinApps::REST::Portfolios do
 
       it { expect { create }.not_to raise_error }
       it('returns an array') { expect(create).to be_a(Array) }
-
-      it('performs a get and returns the response') do
-        expect(results).to have_key(:_id)
-        expect(results).to have_key(:product)
-      end
-
+      it { expect(results).to have_key(:_id) }
+      it { expect(results).to have_key(:product) }
       it('returns no error messages') { expect(errors).to be_empty }
     end
 
@@ -180,12 +172,8 @@ RSpec.describe FinApps::REST::Portfolios do
 
       it { expect { update }.not_to raise_error }
       it('returns an array') { expect(update).to be_a(Array) }
-
-      it('performs a get and returns the response') do
-        expect(results).to have_key(:_id)
-        expect(results).to have_key(:product)
-      end
-
+      it { expect(results).to have_key(:_id) }
+      it { expect(results).to have_key(:product) }
       it('returns no error messages') { expect(errors).to be_empty }
     end
   end

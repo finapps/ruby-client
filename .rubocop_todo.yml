@@ -6,115 +6,24 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 12
-# Cop supports --auto-correct.
-# Configuration parameters: AutoCorrect, AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
-# URISchemes: http, https
-Layout/LineLength:
-  Max: 119
-
-# Offense count: 1
-# Configuration parameters: IgnoredMethods.
-Metrics/AbcSize:
-  Max: 16
-
 # Offense count: 1
 # Configuration parameters: CountComments, ExcludedMethods.
 # ExcludedMethods: refine
+# finapps.gemspec - leaving as is intentionally
 Metrics/BlockLength:
   Max: 28
 
 # Offense count: 1
 # Configuration parameters: CountComments.
+# fake_api.rb - leaving as is intentionally
 Metrics/ClassLength:
   Max: 431
 
-# Offense count: 3
-# Configuration parameters: CountComments, ExcludedMethods.
-Metrics/MethodLength:
-  Max: 16
-
-# Offense count: 29
-# Configuration parameters: Prefixes.
-# Prefixes: when, with, without
-RSpec/ContextWording:
-  Exclude:
-    - 'spec/rest/client_spec.rb'
-    - 'spec/rest/consumers_spec.rb'
-    - 'spec/rest/documents_orders_notifications_spec.rb'
-    - 'spec/rest/operators_password_resets_spec.rb'
-    - 'spec/rest/operators_spec.rb'
-    - 'spec/rest/order_notifications_spec.rb'
-    - 'spec/rest/order_tokens_spec.rb'
-    - 'spec/rest/orders_spec.rb'
-    - 'spec/rest/portfolios_consumers_spec.rb'
-    - 'spec/rest/sessions_spec.rb'
-
-# Offense count: 6
-RSpec/DescribeMethod:
-  Exclude:
-    - 'spec/rest/consumers_spec.rb'
-    - 'spec/rest/operators_password_resets_spec.rb'
-    - 'spec/rest/operators_spec.rb'
-    - 'spec/rest/order_tokens_spec.rb'
-    - 'spec/rest/products_spec.rb'
-    - 'spec/rest/sessions_spec.rb'
-
 # Offense count: 5
 # Configuration parameters: Max.
+# Leaving as is intentionally - url being tested takes up as many lines
 RSpec/ExampleLength:
   Exclude:
     - 'spec/rest/consumers_spec.rb'
     - 'spec/rest/documents_orders_spec.rb'
-    - 'spec/rest/orders_spec.rb'
-
-# Offense count: 1
-# Configuration parameters: .
-# SupportedStyles: have_received, receive
-RSpec/MessageSpies:
-  EnforcedStyle: receive
-
-# Offense count: 13
-RSpec/MultipleExpectations:
-  Max: 3
-
-# Offense count: 114
-# Configuration parameters: IgnoreSharedExamples.
-RSpec/NamedSubject:
-  Exclude:
-    - 'spec/rest/client_spec.rb'
-    - 'spec/rest/consumers_spec.rb'
-    - 'spec/rest/documents_orders_spec.rb'
-    - 'spec/rest/order_reports_spec.rb'
-    - 'spec/rest/order_statuses_spec.rb'
-    - 'spec/rest/order_tokens_spec.rb'
-    - 'spec/rest/orders_spec.rb'
-    - 'spec/rest/password_resets_spec.rb'
-    - 'spec/rest/plaid/plaid_consumer_institutions_spec.rb'
-    - 'spec/rest/sessions_spec.rb'
-    - 'spec/rest/signed_documents_downloads_spec.rb'
-    - 'spec/rest/verix/verix_documents_spec.rb'
-    - 'spec/rest/verix/verix_pdf_documents_spec.rb'
-    - 'spec/rest/version_spec.rb'
-
-# Offense count: 6
-RSpec/RepeatedExample:
-  Exclude:
-    - 'spec/rest/signed_documents_downloads_spec.rb'
-    - 'spec/rest/verix/verix_documents_spec.rb'
-    - 'spec/rest/verix/verix_pdf_documents_spec.rb'
-
-# Offense count: 2
-RSpec/RepeatedExampleGroupBody:
-  Exclude:
-    - 'spec/rest/client_spec.rb'
-
-# Offense count: 4
-RSpec/RepeatedExampleGroupDescription:
-  Exclude:
-    - 'spec/rest/client_spec.rb'
-
-# Offense count: 1
-RSpec/SubjectStub:
-  Exclude:
     - 'spec/rest/orders_spec.rb'
