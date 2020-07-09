@@ -1,3 +1,12 @@
+## [5.0.35] - 2020-07-09
+
+### Changed
+* Change code to match rubocop suggestions ([#232][i232])
+
+[i232]: https://github.com/finapps/ruby-client/issues/232
+
+[5.0.35]: https://github.com/finapps/ruby-client/compare/5.0.34...5.0.35
+
 ## [5.0.32] - 2020-06-11
 
 ### Fixed
