@@ -20,11 +20,8 @@ RSpec.describe FinApps::REST::OrderRefreshes do
 
       it { expect { create }.not_to raise_error }
       it('returns an array') { expect(create).to be_a(Array) }
-
-      it('performs a post and returns new refreshed order response') do
-        expect(create[RESULTS]).to have_key(:public_id)
-        expect(create[RESULTS]).to have_key(:original_order_id)
-      end
+      it { expect(create[RESULTS]).to have_key(:public_id) }
+      it { expect(create[RESULTS]).to have_key(:original_order_id) }
 
       it('returns no error messages') do
         expect(create[ERROR_MESSAGES]).to be_empty

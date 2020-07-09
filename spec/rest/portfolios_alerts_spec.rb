@@ -23,12 +23,12 @@ RSpec.describe FinApps::REST::PortfoliosAlerts do
       it { expect { list }.not_to raise_error }
       it('returns an array') { expect(list).to be_a(Array) }
 
-      it('performs a get and returns array of alert definitions') do
+      it('performs a get and returns a results array') do
         expect(results).to be_a(Array)
-        expect(results.first).to have_key(:_id)
-        expect(results.first).to have_key(:rule_name)
       end
 
+      it { expect(results.first).to have_key(:_id) }
+      it { expect(results.first).to have_key(:rule_name) }
       it('returns no error messages') { expect(errors).to be_empty }
     end
 

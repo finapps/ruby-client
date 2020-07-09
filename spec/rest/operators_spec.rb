@@ -130,12 +130,8 @@ RSpec.describe FinApps::REST::Operators do
 
         it { expect { create }.not_to raise_error }
         it('returns an array') { expect(create).to be_a(Array) }
-
-        it('performs a post and returns the response') do
-          expect(results).to have_key(:public_id)
-          expect(results).to have_key(:role)
-        end
-
+        it { expect(results).to have_key(:public_id) }
+        it { expect(results).to have_key(:role) }
         it('returns no error messages') { expect(error_messages).to be_empty }
       end
     end
@@ -176,12 +172,8 @@ RSpec.describe FinApps::REST::Operators do
 
         it { expect { update }.not_to raise_error }
         it('returns an array') { expect(update).to be_a(Array) }
-
-        it('performs a put and returns the response') do
-          expect(results).to have_key(:email)
-          expect(results).to have_key(:role)
-        end
-
+        it { expect(results).to have_key(:email) }
+        it { expect(results).to have_key(:role) }
         it('returns no error messages') { expect(error_messages).to be_empty }
       end
     end
@@ -218,12 +210,8 @@ RSpec.describe FinApps::REST::Operators do
 
         it { expect { update_password }.not_to raise_error }
         it('returns an array') { expect(update_password).to be_a(Array) }
-
-        it('performs a post and returns the response') do
-          expect(results).to have_key(:public_id)
-          expect(results).to have_key(:role)
-        end
-
+        it { expect(results).to have_key(:public_id) }
+        it { expect(results).to have_key(:role) }
         it('returns no error messages') { expect(error_messages).to be_empty }
       end
     end

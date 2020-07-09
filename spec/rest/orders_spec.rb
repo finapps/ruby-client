@@ -19,11 +19,8 @@ RSpec.describe FinApps::REST::Orders do
 
       it { expect { show }.not_to raise_error }
       it('returns an array') { expect(show).to be_a(Array) }
-
-      it('performs a get and returns the response') do
-        expect(show[RESULTS]).to have_key(:public_id)
-        expect(show[RESULTS]).to have_key(:consumer_id)
-      end
+      it { expect(show[RESULTS]).to have_key(:public_id) }
+      it { expect(show[RESULTS]).to have_key(:consumer_id) }
 
       it('returns no error messages') do
         expect(show[ERROR_MESSAGES]).to be_empty
@@ -49,11 +46,8 @@ RSpec.describe FinApps::REST::Orders do
 
       it { expect { create }.not_to raise_error }
       it('returns an array') { expect(create).to be_a(Array) }
-
-      it('performs a post and returns the response') do
-        expect(create[RESULTS]).to have_key(:public_id)
-        expect(create[RESULTS]).to have_key(:consumer_id)
-      end
+      it { expect(create[RESULTS]).to have_key(:public_id) }
+      it { expect(create[RESULTS]).to have_key(:consumer_id) }
 
       it('returns no error messages') do
         expect(create[ERROR_MESSAGES]).to be_empty

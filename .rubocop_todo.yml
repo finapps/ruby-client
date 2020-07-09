@@ -14,22 +14,21 @@ Metrics/AbcSize:
 # Offense count: 1
 # Configuration parameters: CountComments, ExcludedMethods.
 # ExcludedMethods: refine
+# finapps.gemspec - leaving as is intentionally
 Metrics/BlockLength:
   Max: 28
 
 # Offense count: 1
 # Configuration parameters: CountComments.
+# fake_api.rb - leaving as is intentionally
 Metrics/ClassLength:
   Max: 431
 
 # Offense count: 5
 # Configuration parameters: Max.
+# Leaving as is intentionally - url being tested takes up as many lines
 RSpec/ExampleLength:
   Exclude:
     - 'spec/rest/consumers_spec.rb'
     - 'spec/rest/documents_orders_spec.rb'
     - 'spec/rest/orders_spec.rb'
-
-# Offense count: 13
-RSpec/MultipleExpectations:
-  Max: 3

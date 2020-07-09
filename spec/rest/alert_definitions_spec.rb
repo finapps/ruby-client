@@ -68,12 +68,8 @@ RSpec.describe FinApps::REST::AlertDefinitions do
 
       it { expect { show }.not_to raise_error }
       it('returns an array') { expect(show).to be_a(Array) }
-
-      it('performs a get and returns the response') do
-        expect(results).to have_key(:_id)
-        expect(results).to have_key(:rule_name)
-      end
-
+      it { expect(results).to have_key(:_id) }
+      it { expect(results).to have_key(:rule_name) }
       it('returns no error messages') { expect(errors).to be_empty }
     end
 
