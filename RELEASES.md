@@ -2,8 +2,10 @@
 
 ### Changed
 * Change code to match rubocop suggestions ([#232][i232])
+* Add support for first name order search with space ([#404][i404])
 
 [i232]: https://github.com/finapps/ruby-client/issues/232
+[i404]: https://github.com/finapps/tenant-dashboard-react/issues/404
 
 [5.0.35]: https://github.com/finapps/ruby-client/compare/5.0.34...5.0.35
 
