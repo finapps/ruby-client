@@ -63,24 +63,33 @@ module FinApps
       end
 
       def search_query(term)
-        if term
-          search_query_object(term)
-        else
-          {}
+        return {} unless term
+
+        query = search_query_object(term).concat(consumer_name_query(term))
+        {"$or": query}
+      end
+
+      def consumer_name_query(term)
+        search_arr = []
+        if /\s/.match?(term)
+          term.split.each do |t|
+            search_arr.append("applicant.first_name": t)
+            search_arr.append("applicant.last_name": t)
+          end
         end
+        search_arr
       end
 
       def search_query_object(term)
-        {"$or": [
-          {"public_id": {"$regex": "^#{term}", "$options": 'i'}},
-          {"applicant.last_name": term},
-          {"assignment.last_name": term},
-          {
-            "requestor.reference_no": {
-              "$regex": "^#{term}", "$options": 'i'
-            }
-          }
-        ]}
+        [{"public_id": {"$regex": "^#{term}", "$options": 'i'}},
+         {"assignment.last_name": term},
+         {"applicant.first_name": term},
+         {"applicant.last_name": term},
+         {
+           "requestor.reference_no": {
+             "$regex": "^#{term}", "$options": 'i'
+           }
+         }]
       end
 
       def status_query(status)
