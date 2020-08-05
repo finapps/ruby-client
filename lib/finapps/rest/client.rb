@@ -14,6 +14,7 @@ module FinApps
         documents_orders
         documents_orders_notifications
         documents_upload_types
+        documents_uploads
         esign_templates
         orders
         order_assignments

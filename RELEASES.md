@@ -1,3 +1,12 @@
+## [5.0.36] - 2020-08-05
+
+### Changed
+* Add upload endpoints to support dashboard ([#309][i309])
+
+[i309]: https://github.com/finapps/tenant-dashboard-react/issues/309
+
+[5.0.36]: https://github.com/finapps/ruby-client/compare/5.0.35...5.0.36
+
 ## [5.0.35] - 2020-07-09
 
 ### Changed
