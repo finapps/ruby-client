@@ -17,12 +17,6 @@ jobs:
         with:
           ruby-version: '2.6'
 
-      - name: Verify labeled
-        uses: actions/verify-pr-label-action@v1.0.0
-        with:
-          github-token: '${{ secrets.GITHUB_TOKEN  }}'
-          valid-labels: 'bug, enhancement, change'
-
       - uses: actions/cache@v1
         with:
           path: vendor/bundle
