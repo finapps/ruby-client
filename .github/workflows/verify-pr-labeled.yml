@@ -2,15 +2,13 @@ name: "Require PR labels"
 
 on:
   pull_request:
-   types: [opened, labeled, unlabeled, synchronize]
-
+    types: [opened, labeled, unlabeled, synchronize]
 jobs:
-  verify_label:
+  label:
     runs-on: ubuntu-latest
-    name: Require labels
     steps:
-    - name: Verify Pull Request Labels
-      uses: jesusvasquez333/verify-pr-label-action@v1.1.0
-      with:
-        github-token: '${{ secrets.GITHUB_TOKEN }}'
-        valid-labels: 'bug, enhancement, change, documentation'          
+      - uses: mheap/github-action-required-labels@v1
+        with:
+          mode: exactly
+          count: 1
+          labels: "bug change enhancement"       
