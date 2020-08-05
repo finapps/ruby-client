@@ -11,4 +11,4 @@ jobs:
         with:
           mode: exactly
           count: 1
-          labels: "bug change enhancement"       
+          labels: "bug, change, enhancement"       
