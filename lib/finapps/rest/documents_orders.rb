@@ -33,7 +33,7 @@ module FinApps
 
       def destroy(id)
         not_blank(id, :order_id)
-        super(id, "documents/orders/#{id}")
+        super(nil, "documents/orders/#{id}")
       end
 
       def show_signing_url(order_id, signature_id)

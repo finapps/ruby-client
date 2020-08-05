@@ -10,6 +10,7 @@ AllCops:
     - "vendor/**/*"
     - "bin/**/*"
   CacheRootDirectory: tmp
+  NewCops: enable
 
 Layout/SpaceAroundMethodCallOperator:
   Enabled: true
@@ -68,6 +69,8 @@ Naming/PredicateName:
   - spec/**/*
 
 RSpec/FilePath:
+  Enabled: false
+Gemspec/RequiredRubyVersion:
   Enabled: false
     
 Style/RedundantRegexpCharacterClass:
@@ -150,6 +153,10 @@ Style/RedundantFetchBlock:
   Enabled: true
 Style/SlicingWithRange:
   Enabled: true
+Style/OptionalBooleanParameter:
+  Enabled: false
+Style/StringConcatenation:
+  Enabled: false
 
 RSpec/NestedGroups:
   Max: 5

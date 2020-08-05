@@ -251,6 +251,18 @@ class FakeApi < Sinatra::Base
     json_response 404, 'invalid_signature_id.json'
   end
 
+  # documents_uploads
+  get("/#{version}/consumers/:consumer_id/documents/:doc_id?thumbnail=false") do
+    pdf_response 'signed_document.pdf'
+  end
+  delete("/#{version}/documents/orders/valid_order_id/valid_doc_id") { status 204 }
+  delete("/#{version}/documents/orders/valid_order_id/invalid_doc_id") do
+    json_response 404, 'resource_not_found.json'
+  end
+  delete("/#{version}/documents/orders/invalid_order_id/valid_doc_id") do
+    json_response 404, 'resource_not_found.json'
+  end
+
   # documents orders notifications
   post("/#{version}/documents/orders/valid_id/notify") { status 204 }
   post("/#{version}/documents/orders/invalid_id/notify") do
@@ -264,6 +276,9 @@ class FakeApi < Sinatra::Base
 
   # esign_templates
   get("/#{version}/esign_templates") { json_response 200, 'esign_templates.json' }
+
+  # document_upload_types
+  get("/#{version}/documents/upload_types") { json_response 200, 'upload_types.json' }
 
   # consumers
   get("/#{version}/consumers") do
