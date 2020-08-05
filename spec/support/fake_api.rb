@@ -517,6 +517,6 @@ class FakeApi < Sinatra::Base
   def http_response(content_type, response_code, file_name)
     content_type content_type
     status response_code
-    File.open(File.dirname(__FILE__) + '/fixtures/' + file_name, 'rb').read
+    File.open("#{File.dirname(__FILE__)}/fixtures/#{file_name}").read
   end
 end
