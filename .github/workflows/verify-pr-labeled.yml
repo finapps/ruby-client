@@ -12,8 +12,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Verify PR label action
-        uses: ./
-        id: verify-pr-label
+        uses: actions/verify-pr-label-action@v1.0.0
         with:
           github-token: "${{ secrets.GITHUB_TOKEN }}"
           valid-labels: 'bug, enhancement, change'
