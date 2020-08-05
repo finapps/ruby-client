@@ -70,6 +70,8 @@ Naming/PredicateName:
 
 RSpec/FilePath:
   Enabled: false
+Gemspec/RequiredRubyVersion:
+  Enabled: false
     
 Style/RedundantRegexpCharacterClass:
   Enabled: true
@@ -151,6 +153,10 @@ Style/RedundantFetchBlock:
   Enabled: true
 Style/SlicingWithRange:
   Enabled: true
+Style/OptionalBooleanParameter:
+  Enabled: false
+Style/StringConcatenation:
+  Enabled: false
 
 RSpec/NestedGroups:
   Max: 5
