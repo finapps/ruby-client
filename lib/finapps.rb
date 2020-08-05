@@ -31,6 +31,7 @@ require 'finapps/rest/consumers_portfolios'
 require 'finapps/rest/portfolio_reports'
 require 'finapps/rest/documents_orders'
 require 'finapps/rest/esign_templates'
+require 'finapps/rest/documents_upload_types'
 require 'finapps/rest/signed_documents_downloads'
 require 'finapps/rest/documents_orders_notifications'
 

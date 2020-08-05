@@ -265,6 +265,9 @@ class FakeApi < Sinatra::Base
   # esign_templates
   get("/#{version}/esign_templates") { json_response 200, 'esign_templates.json' }
 
+  # document_upload_types
+  get("/#{version}/documents/upload_types") { json_response 200, 'upload_types.json' }
+
   # consumers
   get("/#{version}/consumers") do
     json_response 200, 'users.json'

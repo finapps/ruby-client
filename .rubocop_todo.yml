@@ -17,7 +17,7 @@ Metrics/BlockLength:
 # Configuration parameters: CountComments.
 # fake_api.rb - leaving as is intentionally
 Metrics/ClassLength:
-  Max: 431
+  Max: 432
 
 # Offense count: 5
 # Configuration parameters: Max.
