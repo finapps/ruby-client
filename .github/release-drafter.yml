@@ -1,0 +1,49 @@
+name-template: 'version $RESOLVED_VERSION'
+tag-template: '$RESOLVED_VERSION'
+categories:
+  - title: 'Added'
+    labels: 'enhancement'
+  - title: 'Changed'
+    labels: 'change' 
+  - title: 'Deprecated'
+    labels: 'deprecated' 
+  - title: 'Removed'
+    labels: 'removed'     
+  - title: 'Fixed'
+    labels: 'bug'
+  - title: 'Security'
+    label: 'dependencies'
+  - title: 'Documentation updates'
+    label: 'documentation'
+  - title: 'Maintenance'
+    labels: 'internal'  
+      
+change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
+
+version-resolver:
+  major:
+    labels:
+      - 'major'
+  minor:
+    labels:
+      - 'minor'
+  patch:
+    labels:
+      - 'patch'
+  default: patch
+  
+exclude-labels:
+  - reverted
+  - no-changelog
+  - skip-changelog
+  - invalid
+  
+template: |
+  ## [$RESOLVED_VERSION](https://github.com/finapps/ruby-client/compare/$PREVIOUS_TAG...$RESOLVED_VERSION)
+  $CHANGES
+
+replacers:
+  - search: '/CVE-(\d{4})-(\d+)/g'
+    replace: 'https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-$1-$2'
+  - search: '@dependabot-preview'
+    replace: '@dependabot'
