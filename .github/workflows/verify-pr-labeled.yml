@@ -1,18 +1,16 @@
-name: Label Verification
+name: "Require PR labels"
 
 on:
   pull_request:
    types: [opened, labeled, unlabeled, synchronize]
 
 jobs:
-  check_pr_labels:
+  verify_label:
     runs-on: ubuntu-latest
-    name: Verify that the PR has a valid label
+    name: Require labels
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Verify PR label action
-        uses: actions/verify-pr-label-action@v1.1.0
-        with:
-          github-token: "${{ secrets.GITHUB_TOKEN }}"
-          valid-labels: 'bug, enhancement, change'
+    - name: Verify Pull Request Labels
+      uses: jesusvasquez333/verify-pr-label-action@v1.1.0
+      with:
+        github-token: '${{ secrets.GITHUB_TOKEN }}'
+        valid-labels: 'bug, enhancement, change, documentation'          
