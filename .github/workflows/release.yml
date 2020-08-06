@@ -23,18 +23,22 @@ jobs:
       uses: battila7/get-version-action@v2
 
     - name: Bump version   
-      env:
-        # GitHub Actions token does not support pushing to protected branches.
-        # A manually populated`PERSONAL_ACCESS_TOKEN` environment variable 
-        # with permissions to push to a protected branch must be used.
-        # not ideal - keep eyes open for a better solution
-        GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }} 
       run: |
         gem install -N gem-release
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         gem bump --skip-ci --version ${{ steps.get_version.outputs.version-without-v }}
-        git push origin HEAD:master
+        
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        # GitHub Actions token does not support pushing to protected branches.
+        # github_token: ${{ secrets.GITHUB_TOKEN }}
+        #        
+        # A manually populated`PERSONAL_ACCESS_TOKEN` environment variable 
+        # with permissions to push to a protected branch must be used.
+        # not ideal - keep eyes open for a better solution
+        github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         
     - name: Release gem to rubygems.org    
       run: |
