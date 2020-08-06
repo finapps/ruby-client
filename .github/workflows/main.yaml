@@ -18,7 +18,7 @@ jobs:
         with:
           ruby-version: '2.6'
 
-      - uses: actions/cache@v1
+      - uses: actions/cache@v2
         with:
           path: vendor/bundle
           key: ${{ runner.os  }}-gems-${{ hashFiles('**/Gemfile.lock')  }}
@@ -27,7 +27,7 @@ jobs:
 
       - name: Install gems
         run: |
-          gem install bundler
+          gem install -N bundler
           bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
 
