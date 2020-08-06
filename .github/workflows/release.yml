@@ -1,4 +1,4 @@
-name: release
+name: Bump version and Release
 on:
   push:
     tags:
