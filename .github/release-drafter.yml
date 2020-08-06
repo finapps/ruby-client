@@ -1,5 +1,5 @@
 name-template: 'version $RESOLVED_VERSION'
-tag-template: '$RESOLVED_VERSION'
+tag-template: 'v$RESOLVED_VERSION'
 categories:
   - title: 'Added'
     labels: 'enhancement'
