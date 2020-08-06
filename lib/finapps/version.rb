@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
 module FinApps
-  VERSION = '5.0.36'
+  VERSION = '5.0.37'
 end
