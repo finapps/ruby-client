@@ -24,7 +24,6 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency 'bundler',                    '~> 2.0',   '>= 2.0.2'
   spec.add_development_dependency 'codeclimate-test-reporter',  '~> 1.0',   '>= 1.0.9'
-  spec.add_development_dependency 'gem-release',                '~> 2.1',   '>= 2.1.1'
   spec.add_development_dependency 'guard',                      '~> 2.16',  '>= 2.16.1'
   spec.add_development_dependency 'guard-rspec',                '~> 4.7',   '>= 4.7.3'
   spec.add_development_dependency 'rake',                       '~> 13.0',  '>= 13.0.1'
