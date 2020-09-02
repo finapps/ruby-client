@@ -10,6 +10,10 @@ RSpec.describe FinApps::REST::SignedDocumentsDownloads do
   let(:document) { described_class.new(api_client) }
 
   describe '#show' do
+    subject(:show) do
+      document.show(:consumer_id, :signature_request_id)
+    end
+
     context 'when missing signature request id' do
       subject(:show) { document.show(:consumer_id, nil) }
 
@@ -24,13 +28,6 @@ RSpec.describe FinApps::REST::SignedDocumentsDownloads do
       it 'raises an error when missing signature request id' do
         expect { show }.to raise_error(FinAppsCore::MissingArgumentsError)
       end
-    end
-
-    subject(:show) do
-      document.show(
-        :consumer_id,
-        :signature_request_id
-      )
     end
 
     it_behaves_like 'an API request'
