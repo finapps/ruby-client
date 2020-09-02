@@ -10,6 +10,8 @@ RSpec.describe FinApps::REST::VerixDocuments do
   let(:document) { described_class.new(api_client) }
 
   describe '#list' do
+    subject { document.list(:record_id) }
+
     context 'when missing parameters' do
       subject(:list) { document.list(nil) }
 
@@ -18,13 +20,13 @@ RSpec.describe FinApps::REST::VerixDocuments do
       end
     end
 
-    subject { document.list(:record_id) }
-
     it_behaves_like 'an API request'
     it_behaves_like 'a successful request'
   end
 
   describe '#show' do
+    subject { document.show(:record_id, :document_id) }
+
     context 'when missing record_id' do
       subject(:show) { document.show(nil, :document_id) }
 
@@ -36,8 +38,6 @@ RSpec.describe FinApps::REST::VerixDocuments do
 
       it { expect { show }.to raise_error(FinAppsCore::MissingArgumentsError) }
     end
-
-    subject { document.show(:record_id, :document_id) }
 
     it_behaves_like 'an API request'
     it_behaves_like 'a successful request'

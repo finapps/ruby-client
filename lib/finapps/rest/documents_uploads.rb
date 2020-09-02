@@ -18,6 +18,14 @@ module FinApps
         not_blank(doc_id, :doc_id)
         super(nil, "documents/orders/#{order_id}/#{doc_id}")
       end
+
+      def destroy_by_consumer(consumer_id, document_id)
+        not_blank(consumer_id, :consumer_id)
+        not_blank(document_id, :document_id)
+
+        path = "consumers/#{consumer_id}/documents/#{document_id}"
+        send_request path, :delete
+      end
     end
   end
 end

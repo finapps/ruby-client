@@ -32,7 +32,7 @@ RSpec.configure do |config|
   config.before do
     base_url =
       "#{FinAppsCore::REST::Defaults::DEFAULTS[:host]}/v#{FinAppsCore::REST::Defaults::API_VERSION}/"
-    stub_request(:any, /#{base_url}/).to_rack(::FakeApi)
+    stub_request(:any, /#{base_url}/).to_rack(::Fake::FakeApi)
   end
   WebMock.disable_net_connect!(allow: 'codeclimate.com')
 end

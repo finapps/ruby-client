@@ -101,4 +101,57 @@ RSpec.describe FinApps::REST::DocumentsUploads do
       end
     end
   end
+
+  describe '#destroy_by_consumer' do
+    subject(:destroy_by_consumer) do
+      described_class.new(client).destroy_by_consumer(consumer_id, document_id)
+    end
+
+    let(:results) { destroy_by_consumer[0] }
+    let(:error_messages) { destroy_by_consumer[1] }
+
+    context 'with valid params' do
+      let(:consumer_id) { :valid_consumer_id }
+      let(:document_id) { :valid_document_id }
+
+      it_behaves_like 'an API request'
+      it_behaves_like 'a successful request'
+      it('results is nil') { expect(results).to be_nil }
+    end
+
+    context 'with invalid consumer_id' do
+      let(:consumer_id) { :invalid_consumer_id }
+      let(:document_id) { :valid_document_id }
+
+      it_behaves_like 'an API request'
+      it('results is nil') { expect(results).to be_nil }
+
+      it('error messages array is populated') do
+        expect(error_messages.first.downcase).to eq('resource not found')
+      end
+    end
+
+    context 'with invalid document id' do
+      let(:consumer_id) { :valid_consumer_id }
+      let(:document_id) { :invalid_document_id }
+
+      it_behaves_like 'an API request'
+      it('results is nil') { expect(results).to be_nil }
+
+      it('error messages array is populated') do
+        expect(error_messages.first.downcase).to eq('resource not found')
+      end
+    end
+
+    context 'with missing id' do
+      let(:consumer_id) { nil }
+      let(:document_id) { nil }
+
+      it do
+        expect { destroy_by_consumer }.to raise_error(
+          FinAppsCore::MissingArgumentsError
+        )
+      end
+    end
+  end
 end
