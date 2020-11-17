@@ -63,7 +63,7 @@ company_token = 'my-company-token'
 ### Release
 
 For approved Pull Requests against the master branch, an aggregated release draft will be generated. This draft by default bumps the patch number of previous version.
-Please refer to the [Release Drafter] action documentation for information on this process, specifically and how to bump the major or minor numbers of the gem version.
+Please refer to the [Release Drafter] action documentation for information on this process, specifically how to bump the major or minor numbers of the gem version.
 
 As soon as this draft is converted into an actual release, an automated process also running on GitHub actions will be triggered to build the gem and release it to rubygems.org.
 
