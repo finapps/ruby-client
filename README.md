@@ -60,7 +60,7 @@ company_token = 'my-company-token'
 @client = FinApps::REST::Client.new company_identifier, company_token
 ```
 
-## Release
+### Release
 
 For approved Pull Requests against the master branch, an aggregated release draft will be generated. This draft by default bumps the patch number of previous version.
 Please refer to the [Release Drafter] action documentation for information on this process, specifically and how to bump the major or minor numbers of the gem version.
