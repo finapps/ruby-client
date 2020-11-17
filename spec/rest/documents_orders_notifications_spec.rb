@@ -17,7 +17,7 @@ RSpec.describe FinApps::REST::DocumentsOrdersNotifications do
     end
 
     context 'when invalid id is provided' do
-      let(:create) { subject.create(:invalid_id) }
+      let(:create) { subject.create(:invalid_id, ['1234']) }
       let(:results) { create[RESULTS] }
       let(:error_messages) { create[ERROR_MESSAGES] }
 
@@ -30,7 +30,7 @@ RSpec.describe FinApps::REST::DocumentsOrdersNotifications do
     end
 
     context 'with valid id' do
-      let(:create) { subject.create(:valid_id) }
+      let(:create) { subject.create(:valid_id, ['1234']) }
       let(:results) { create[RESULTS] }
       let(:error_messages) { create[ERROR_MESSAGES] }
 
