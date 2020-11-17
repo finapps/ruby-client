@@ -60,18 +60,20 @@ company_token = 'my-company-token'
 @client = FinApps::REST::Client.new company_identifier, company_token
 ```
 
-## More Information
+## Release
 
-Please check the [FinApps wiki][wiki] for extended documentation.
+For approved Pull Requests against the master branch, an aggregated release draft will be generated. This draft by default bumps the patch number of previous version.
+Please refer to the [Release Drafter] action documentation for information on this process, specifically and how to bump the major or minor numbers of the gem version.
+
+As soon as this draft is converted into an actual release, an automated process also running on GitHub actions will be triggered to build the gem and release it to rubygems.org.
 
 
 [FinancialApps.com][financialapps]
 
-
 [bundler]: http://bundler.io
 [financialapps]: https://financialapps.com
-[wiki]: https://github.com/finapps/ruby-client/wiki
 [builder]: http://builder.rubyforge.org/
 [bundler]: http://bundler.io
 [rubygems]: http://rubygems.org
 [build_status]: http://teamciti.powerwallet.com/viewType.html?buildTypeId=FaRuby_BuildMaster&guest=1
+[Release Drafter]: https://github.com/release-drafter/release-drafter
