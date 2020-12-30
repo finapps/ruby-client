@@ -152,6 +152,7 @@ RSpec.describe FinApps::REST::DocumentsOrders do
         it('has an order node in the response') do
           expect(results).to have_key(:order)
         end
+
         it('has a consumer node in the response') do
           expect(results).to have_key(:consumer)
         end
