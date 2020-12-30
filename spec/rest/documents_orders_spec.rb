@@ -134,14 +134,27 @@ RSpec.describe FinApps::REST::DocumentsOrders do
     let(:error_messages) { show[1] }
 
     context 'with valid id' do
-      let(:id) { :valid_order_id }
+      context 'when id is an identifier' do
+        let(:id) { :valid_order_id }
 
-      it_behaves_like 'an API request'
-      it_behaves_like 'a successful request'
-      it('results is a Hash') { expect(results).to be_a(Hash) }
+        it_behaves_like 'an API request'
+        it_behaves_like 'a successful request'
+        it('has an order_id node in the response') do
+          expect(results).to have_key(:order_id)
+        end
+      end
 
-      it('performs a get and returns the response') do
-        expect(results).to have_key(:order_id)
+      context 'when id is a token' do
+        let(:id) { '0123456abc.0123456abc.0123456abc' }
+
+        it_behaves_like 'an API request'
+        it_behaves_like 'a successful request'
+        it('has an order node in the response') do
+          expect(results).to have_key(:order)
+        end
+        it('has a consumer node in the response') do
+          expect(results).to have_key(:consumer)
+        end
       end
     end
 
