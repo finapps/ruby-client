@@ -17,7 +17,12 @@ module FinApps
 
       def show(id)
         not_blank(id, :order_id)
-        super(id, "documents/orders/#{id}")
+
+        if matches_token_format?(id)
+          show_by_token id
+        else
+          show_by_id id
+        end
       end
 
       def create(params)
@@ -44,6 +49,20 @@ module FinApps
       end
 
       private
+
+      def show_by_id(id)
+        path = "documents/orders/#{id}"
+        send_request path, :get
+      end
+
+      def show_by_token(jwt)
+        path = "documents/retrieve_order?token=#{jwt}"
+        send_request path, :get
+      end
+
+      def matches_token_format?(str)
+        str.match(/^.+\..+\..+$/)
+      end
 
       def build_filter(params)
         search_query(params[:searchTerm])

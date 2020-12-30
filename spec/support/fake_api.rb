@@ -214,6 +214,9 @@ module Fake
     get("/#{version}/documents/orders/valid_order_id") do
       json_response 200, 'documents_order.json'
     end
+    get("/#{version}/documents/retrieve_order") do
+      json_response 200, 'documents/retrieve_order.json'
+    end
     get("/#{version}/documents/orders/invalid_order_id") do
       json_response 404, 'resource_not_found.json'
     end
