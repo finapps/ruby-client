@@ -8,7 +8,7 @@ module FinApps
       include FinApps::Utils::QueryBuilder
 
       def show(id)
-        not_blank(id, :id)
+        not_blank(id, :session_id)
 
         path = "#{end_point}/#{ERB::Util.url_encode(id)}/resume"
         super(nil, path)
