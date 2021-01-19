@@ -37,6 +37,7 @@ module FinApps
         portfolios_consumers
         portfolio_reports
         products
+        screenings
         sessions
         signed_documents_downloads
         tenant_settings

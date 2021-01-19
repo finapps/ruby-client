@@ -16,3 +16,11 @@ RSpec.shared_examples 'a successful request' do |_parameter|
     expect(subject[ERROR_MESSAGES]).to be_empty
   end
 end
+
+RSpec.shared_examples 'a request that raises an error' do |_parameter|
+  it do
+    expect { subject }.to raise_error(
+                              FinAppsCore::MissingArgumentsError
+                          )
+  end
+end

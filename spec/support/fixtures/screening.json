@@ -1,0 +1,26 @@
+{
+  "question": {
+    "id": "result_2",
+    "group": "Eligibility",
+    "label": "Eligible",
+    "answer_type": ""
+  },
+  "session": {
+    "s_id": "a561e712-fddc-4f5d-ae0b-11e6f3f598b0",
+    "date_created": "2021-01-18T19:19:35.74Z",
+    "date_modified": "2021-01-18T20:12:30.257Z",
+    "consumer": {
+      "public_id": "2e807db3-3f95-4fc4-697b-2d62969b4667",
+      "email": "email@financialapps.com",
+      "first_name": "Colonel",
+      "last_name": "Mustard"
+    },
+    "operator_id": "6d64098a-a96a-40c3-4305-17ba485440ae",
+    "result": {
+      "status": "Eligible",
+      "documents": [
+        "Proof of Identity"
+      ]
+    }
+  }
+}
