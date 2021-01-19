@@ -20,7 +20,7 @@ Gem::Specification.new do |spec|
   spec.test_files = Dir['spec/**/*.rb']
   spec.require_paths = ['lib']
 
-  spec.add_runtime_dependency     'finapps_core',               '~> 5.0',   '>= 5.0.10'
+  spec.add_runtime_dependency     'finapps_core',               '~> 5.0',   '>= 5.0.13'
 
   spec.add_development_dependency 'bundler',                    '~> 2.0',   '>= 2.0.2'
   spec.add_development_dependency 'codeclimate-test-reporter',  '~> 1.0',   '>= 1.0.9'
@@ -28,9 +28,9 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'guard-rspec',                '~> 4.7',   '>= 4.7.3'
   spec.add_development_dependency 'rake',                       '~> 13.0',  '>= 13.0.1'
   spec.add_development_dependency 'rspec',                      '~> 3.9',   '>= 3.9.0'
-  spec.add_development_dependency 'rubocop',                    '~> 0.86',  '>= 0.86.0'
-  spec.add_development_dependency 'rubocop-performance',        '~> 1.6',   '>= 1.6.1'
-  spec.add_development_dependency 'rubocop-rspec',              '~> 1.40',  '>= 1.40.0'
+  spec.add_development_dependency 'rubocop',                    '~> 0.87',  '>= 0.87.0'
+  spec.add_development_dependency 'rubocop-performance',        '~> 1.7',   '>= 1.7.0'
+  spec.add_development_dependency 'rubocop-rspec',              '~> 1.41',  '>= 1.41.0'
   spec.add_development_dependency 'sinatra',                    '~> 2.0',   '>= 2.0.8'
   spec.add_development_dependency 'webmock',                    '~> 3.8',   '>= 3.8.0'
 

@@ -6,14 +6,6 @@ require 'rest/api_request'
 RSpec.describe FinApps::REST::DocumentsOrders do
   include SpecHelpers::Client
 
-  RSpec.shared_examples 'a request that raises an error' do |_parameter|
-    it do
-      expect { subject }.to raise_error(
-        FinAppsCore::MissingArgumentsError
-      )
-    end
-  end
-
   describe '#list' do
     subject(:list) { described_class.new(client).list(params) }
 
