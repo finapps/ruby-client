@@ -20,7 +20,7 @@ end
 RSpec.shared_examples 'a request that raises an error' do |_parameter|
   it do
     expect { subject }.to raise_error(
-                              FinAppsCore::MissingArgumentsError
-                          )
+      FinAppsCore::MissingArgumentsError
+    )
   end
 end
