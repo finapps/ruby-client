@@ -1,9 +1,16 @@
 name: Continuous Integration
 
-on: [push, pull_request]
-
+on: 
+  push: 
+    paths-ignore:
+      - ".github/**"
+      - ".VERSION"
+  pull_request:
+    paths-ignore:
+      - ".github/**"
+      - ".VERSION"
 jobs:
-  ci:
+  tests:
     if: "!contains(github.event.head_commit.message, 'skip ci')"
     runs-on: ubuntu-latest
 
@@ -11,26 +18,30 @@ jobs:
       fail-fast: true
 
     steps:
-      - uses: actions/checkout@v1
+      - name: Checkout source code
+        uses: actions/checkout@v2
 
       - name: Install required ruby
         uses: ruby/setup-ruby@v1
 
-      - uses: actions/cache@v2
+      - name: Setup cache key and directory for gems cache
+        uses: actions/cache@v2
         with:
           path: vendor/bundle
           key: ${{ runner.os  }}-gems-${{ hashFiles('**/Gemfile.lock')  }}
           restore-keys: |
             ${{ runner.os  }}-gems-
 
-      - name: Install gems
+      - name: Bundle install
         run: |
-          gem install -N bundler
           bundle config path vendor/bundle
-          bundle install --jobs 4 --retry 3
+          bundle config set jobs 4
+          bundle config set retry 3
+          bundle install
 
       - name: Run rubocop
-        run: bundle exec rubocop
+        run: | 
+          bundle exec rubocop --parallel
 
       - name: Run tests
         run: bundle exec rspec
