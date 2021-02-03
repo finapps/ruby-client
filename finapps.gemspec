@@ -20,19 +20,20 @@ Gem::Specification.new do |spec|
   spec.test_files = Dir['spec/**/*.rb']
   spec.require_paths = ['lib']
 
-  spec.add_runtime_dependency     'finapps_core',               '~> 5.0',   '>= 5.0.13'
+  spec.add_runtime_dependency     'finapps_core',               '~> 5.0',   '>= 5.0.15'
 
   spec.add_development_dependency 'bundler',                    '~> 2.0',   '>= 2.0.2'
   spec.add_development_dependency 'codeclimate-test-reporter',  '~> 1.0',   '>= 1.0.9'
   spec.add_development_dependency 'guard',                      '~> 2.16',  '>= 2.16.1'
   spec.add_development_dependency 'guard-rspec',                '~> 4.7',   '>= 4.7.3'
   spec.add_development_dependency 'rake',                       '~> 13.0',  '>= 13.0.1'
-  spec.add_development_dependency 'rspec',                      '~> 3.9',   '>= 3.9.0'
-  spec.add_development_dependency 'rubocop',                    '~> 0.87',  '>= 0.87.0'
-  spec.add_development_dependency 'rubocop-performance',        '~> 1.7',   '>= 1.7.0'
-  spec.add_development_dependency 'rubocop-rspec',              '~> 1.41',  '>= 1.41.0'
-  spec.add_development_dependency 'sinatra',                    '~> 2.0',   '>= 2.0.8'
-  spec.add_development_dependency 'webmock',                    '~> 3.8',   '>= 3.8.0'
+  spec.add_development_dependency 'rspec',                      '~> 3.10',  '>= 3.10.0'
+  spec.add_development_dependency 'rubocop',                    '~> 1.9',   '>= 1.9.1'
+  spec.add_development_dependency 'rubocop-performance',        '~> 1.9',   '>= 1.9.2'
+  spec.add_development_dependency 'rubocop-rake',               '~> 0.5',   '>= 0.5.1'
+  spec.add_development_dependency 'rubocop-rspec',              '~> 2.2',   '>= 2.2.0'
+  spec.add_development_dependency 'sinatra',                    '~> 2.1',   '>= 2.1.0'
+  spec.add_development_dependency 'webmock',                    '~> 3.11',  '>= 3.11.2'
 
   spec.extra_rdoc_files = %w[README.md LICENSE.txt]
   spec.rdoc_options = %w[--line-numbers --inline-source --title finapps-ruby --main README.md]
