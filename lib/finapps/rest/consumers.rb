@@ -62,9 +62,9 @@ module FinApps
 
       def with_space_search(term)
         [
-          {"email": term},
-          {"first_name": term},
-          {"last_name": term}
+          {email: term},
+          {first_name: term},
+          {last_name: term}
         ]
       end
 
@@ -72,8 +72,8 @@ module FinApps
         search_arr = []
         if /\s/.match?(term)
           term.split.each do |t|
-            search_arr.append("first_name": t)
-            search_arr.append("last_name": t)
+            search_arr.append(first_name: t)
+            search_arr.append(last_name: t)
           end
         end
         search_arr

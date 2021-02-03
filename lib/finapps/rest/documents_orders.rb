@@ -95,7 +95,7 @@ module FinApps
           {"applicant.first_name": term},
           {"applicant.last_name": term},
           {
-            "reference_no": {
+            reference_no: {
               "$regex": "^#{term}", "$options": 'i'
             }
           }
@@ -105,7 +105,7 @@ module FinApps
       def tag_query(tag)
         return {} unless tag
 
-        {"tag": tag.empty? ? nil : tag}
+        {tag: tag.empty? ? nil : tag}
       end
 
       def status_query(status)
@@ -117,7 +117,7 @@ module FinApps
       def consumer_query(consumer)
         return {} unless consumer
 
-        {"consumer_id": consumer.empty? ? nil : consumer}
+        {consumer_id: consumer.empty? ? nil : consumer}
       end
     end
   end
