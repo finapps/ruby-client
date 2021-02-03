@@ -62,7 +62,7 @@ RSpec.describe FinApps::REST::DocumentsOrders do
         end
 
         context 'with search term containing spaces' do
-          let(:params) { {"searchTerm": 'Blue Jay', "page": 2} }
+          let(:params) { {searchTerm: 'Blue Jay', page: 2} }
 
           it 'builds query and sends proper request' do
             list
@@ -174,17 +174,17 @@ RSpec.describe FinApps::REST::DocumentsOrders do
     context 'with valid params' do
       let(:params) do
         {
-          "applicant": {
-            "email": 'validemail@financialapps.com',
-            "first_name": 'Emily',
-            "last_name": 'Macs',
-            "role": 'patient'
+          applicant: {
+            email: 'validemail@financialapps.com',
+            first_name: 'Emily',
+            last_name: 'Macs',
+            role: 'patient'
           },
-          "esign_documents": [
+          esign_documents: [
             'temp-id'
           ],
-          "reference_no": 'REFNO',
-          "tag": 'new'
+          reference_no: 'REFNO',
+          tag: 'new'
         }
       end
 
@@ -200,13 +200,13 @@ RSpec.describe FinApps::REST::DocumentsOrders do
     context 'with invalid params' do
       let(:params) do
         {
-          "applicant": {
-            "email": 'validemail@financialapps.com',
-            "first_name": 'Emily',
-            "last_name": 'Macs',
-            "role": 'patient'
+          applicant: {
+            email: 'validemail@financialapps.com',
+            first_name: 'Emily',
+            last_name: 'Macs',
+            role: 'patient'
           },
-          "reference_no": 'REFNO'
+          reference_no: 'REFNO'
         }
       end
 
@@ -236,7 +236,7 @@ RSpec.describe FinApps::REST::DocumentsOrders do
       let(:id) { :valid_order_id }
 
       context 'with valid params' do
-        let(:params) { {"tag": 'pending'} }
+        let(:params) { {tag: 'pending'} }
 
         it_behaves_like 'an API request'
         it_behaves_like 'a successful request'
@@ -244,7 +244,7 @@ RSpec.describe FinApps::REST::DocumentsOrders do
       end
 
       context 'with invalid params' do
-        let(:params) { {"tag": 'invalid'} }
+        let(:params) { {tag: 'invalid'} }
 
         it_behaves_like 'an API request'
         it('results is nil') { expect(results).to be_nil }

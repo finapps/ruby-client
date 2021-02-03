@@ -115,10 +115,10 @@ RSpec.describe FinApps::REST::Screenings do
     context 'with valid params' do
       let(:params) do
         {
-          "email": 'validemail@financialapps.com',
-          "first_name": 'Geo',
-          "last_name": 'Metric',
-          "public_id": '1234'
+          email: 'validemail@financialapps.com',
+          first_name: 'Geo',
+          last_name: 'Metric',
+          public_id: '1234'
         }
       end
 
@@ -132,7 +132,7 @@ RSpec.describe FinApps::REST::Screenings do
     end
 
     context 'with invalid params' do
-      let(:params) { {"params": 'invalid'} }
+      let(:params) { {params: 'invalid'} }
 
       it { expect { create }.not_to raise_error }
       it('results is nil') { expect(results).to be_nil }
@@ -160,7 +160,7 @@ RSpec.describe FinApps::REST::Screenings do
       let(:id) { :valid_id }
 
       context 'with valid params' do
-        let(:params) { {"question_id": '1234'} }
+        let(:params) { {question_id: '1234'} }
 
         it_behaves_like 'an API request'
         it_behaves_like 'a successful request'
@@ -170,7 +170,7 @@ RSpec.describe FinApps::REST::Screenings do
       end
 
       context 'with invalid params' do
-        let(:params) { {"question_id": 'invalid'} }
+        let(:params) { {question_id: 'invalid'} }
 
         it_behaves_like 'an API request'
         it('results is nil') { expect(results).to be_nil }
@@ -183,7 +183,7 @@ RSpec.describe FinApps::REST::Screenings do
 
     context 'with invalid session id' do
       let(:id) { :invalid_id }
-      let(:params) { {"question_id": '1234'} }
+      let(:params) { {question_id: '1234'} }
 
       it_behaves_like 'an API request'
       it('results is nil') { expect(results).to be_nil }

@@ -64,14 +64,14 @@ module FinApps
       end
 
       def search_query(term)
-        {"last_name": term}
+        {last_name: term}
       end
 
       def role_query(role)
         if role.is_a?(Array)
-          {"role": {"$in": role.map(&:to_i)}}
+          {role: {"$in": role.map(&:to_i)}}
         else
-          {"role": role.to_i}
+          {role: role.to_i}
         end
       end
     end

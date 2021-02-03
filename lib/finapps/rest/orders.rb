@@ -81,7 +81,7 @@ module FinApps
       end
 
       def search_query_object(term)
-        [{"public_id": {"$regex": "^#{term}", "$options": 'i'}},
+        [{public_id: {"$regex": "^#{term}", "$options": 'i'}},
          {"assignment.last_name": term},
          {"applicant.first_name": term},
          {"applicant.last_name": term},
@@ -95,9 +95,9 @@ module FinApps
       def status_query(status)
         if status
           if status.is_a?(Array)
-            {"status": {"$in": status.map(&:to_i)}}
+            {status: {"$in": status.map(&:to_i)}}
           else
-            {"status": status.to_i}
+            {status: status.to_i}
           end
         else
           {}
@@ -115,7 +115,7 @@ module FinApps
 
       def consumer_query(consumer)
         if consumer
-          {"consumer_id": consumer.empty? ? nil : consumer}
+          {consumer_id: consumer.empty? ? nil : consumer}
         else
           {}
         end
@@ -125,8 +125,8 @@ module FinApps
         if !search_term && !nil_or_empty?(relation)
           {
             "$or": [
-              {"public_id": {"$in": relation}},
-              {"original_order_id": {"$in": relation}}
+              {public_id: {"$in": relation}},
+              {original_order_id: {"$in": relation}}
             ]
           }
         else
