@@ -16,7 +16,7 @@ module Fake
       def list_routes(base, resource)
         base.get(resource) { json_response 200, 'screening_list.json' }
         base.get("#{resource}/:consumer_id/consumer") do
-          if params[:consumer_id] == 'invalid_id'
+          if params[:consumer_id] == 'invalid_consumer_id'
             json_response 404, 'session_not_found.json'
           else
             json_response 200, 'screenings/last_session.json'
