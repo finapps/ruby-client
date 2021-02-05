@@ -64,7 +64,7 @@ module Fake
           if params[:session_id] == 'valid_id'
             status 200
           else
-            json_response 404, 'resource_not_found.json'
+            json_response 404, 'session_not_found.json'
           end
         end
       end

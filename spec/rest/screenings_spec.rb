@@ -228,7 +228,7 @@ RSpec.describe FinApps::REST::Screenings do
       end
 
       it('error messages array is populated') do
-        expect(error_messages.first.downcase).to eq('resource not found')
+        expect(error_messages.first.downcase).to eq('session not found')
       end
     end
   end
