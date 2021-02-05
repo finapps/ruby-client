@@ -222,9 +222,11 @@ RSpec.describe FinApps::REST::Screenings do
 
       it_behaves_like 'an API request'
       it('results is nil') { expect(results).to be_nil }
+
       it('error_messages is not empty') do
         expect(error_messages).not_to be_empty
       end
+
       it('error messages array is populated') do
         expect(error_messages.first.downcase).to eq('resource not found')
       end

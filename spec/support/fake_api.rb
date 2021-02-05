@@ -5,7 +5,6 @@ require_relative 'documents_uploads_routes'
 require_relative 'screenings_routes'
 
 module Fake
-  # rubocop:disable Metrics/ClassLength
   # the FakeApi class is used to mock API requests while testing.
   class FakeApi < Sinatra::Base
     def self.version
@@ -521,5 +520,4 @@ module Fake
       File.open("#{File.dirname(__FILE__)}/fixtures/#{file_name}").read
     end
   end
-  # rubocop:enable Metrics/ClassLength
 end
