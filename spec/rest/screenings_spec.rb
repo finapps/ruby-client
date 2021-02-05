@@ -195,4 +195,39 @@ RSpec.describe FinApps::REST::Screenings do
       end
     end
   end
+
+  describe '#destroy' do
+    subject(:destroy) { described_class.new(client).destroy(id) }
+
+    let(:results) { destroy[0] }
+    let(:error_messages) { destroy[1] }
+
+    context 'with valid session id' do
+      let(:id) { :valid_id }
+
+      it_behaves_like 'an API request'
+      it_behaves_like 'a successful request'
+      it('results is nil') { expect(results).to be_nil }
+      it('error_messages is empty') { expect(error_messages).to be_empty }
+    end
+
+    context 'when missing session id' do
+      let(:id) { nil }
+
+      it_behaves_like 'a request that raises an error'
+    end
+
+    context 'with invalid session id' do
+      let(:id) { :invalid_id }
+
+      it_behaves_like 'an API request'
+      it('results is nil') { expect(results).to be_nil }
+      it('error_messages is not empty') do
+        expect(error_messages).not_to be_empty
+      end
+      it('error messages array is populated') do
+        expect(error_messages.first.downcase).to eq('resource not found')
+      end
+    end
+  end
 end
