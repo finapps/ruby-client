@@ -34,6 +34,12 @@ module FinApps
         super params, path
       end
 
+      def destroy(id)
+        not_blank(id, :session_id)
+
+        super
+      end
+
       private
 
       def build_filter(params)

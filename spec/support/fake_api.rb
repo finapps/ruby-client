@@ -2,9 +2,9 @@
 
 require 'sinatra/base'
 require_relative 'documents_uploads_routes'
+require_relative 'screenings_routes'
 
 module Fake
-  # rubocop:disable Metrics/ClassLength
   # the FakeApi class is used to mock API requests while testing.
   class FakeApi < Sinatra::Base
     def self.version
@@ -278,33 +278,7 @@ module Fake
     get("/#{version}/documents/upload_types") { json_response 200, 'upload_types.json' }
 
     # screenings
-    get("/#{version}/screenings") { json_response 200, 'screening_list.json' }
-    get("/#{version}/screenings/invalid_id/resume") do
-      json_response 404, 'resource_not_found.json'
-    end
-    get("/#{version}/screenings/valid_id/resume") { json_response 200, 'screening.json' }
-    put("/#{version}/screenings/invalid_id") do
-      json_response 404, 'resource_not_found.json'
-    end
-    put("/#{version}/screenings/valid_id") do
-      request.body.rewind
-      request_payload = JSON.parse request.body.read
-      if request_payload['question_id'] == 'invalid'
-        json_response 400, 'screening_invalid_update.json'
-      else
-        json_response 200, 'screening.json'
-      end
-    end
-
-    post("/#{version}/screenings") do
-      request.body.rewind
-      request_payload = JSON.parse request.body.read
-      if request_payload.key? 'email'
-        json_response 201, 'screening.json'
-      else
-        json_response 400, 'invalid_request_body.json'
-      end
-    end
+    include ScreeningsRoutes
 
     # consumers
     get("/#{version}/consumers") do
@@ -546,5 +520,4 @@ module Fake
       File.open("#{File.dirname(__FILE__)}/fixtures/#{file_name}").read
     end
   end
-  # rubocop:enable Metrics/ClassLength
 end
