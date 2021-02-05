@@ -6,6 +6,7 @@ module Fake
       def included(base)
         list_routes base
         resume_routes base
+        update_routes_invalid_id base
         update_routes base
         destroy_routes base
         create_routes base
@@ -28,23 +29,21 @@ module Fake
         end
       end
 
-      def update_routes(base)
-        base.put("/#{base.version}/screenings/:session_id") do
-          if params[:session_id] == 'valid_id'
-            request.body.rewind
-            request_payload = JSON.parse request.body.read
-            update_valid_session request_payload['question_id']
-          else
-            json_response 404, 'resource_not_found.json'
-          end
+      def update_routes_invalid_id(base)
+        base.put("/#{base.version}/screenings/invalid_id") do
+          json_response 404, 'resource_not_found.json'
         end
       end
 
-      def update_valid_session(question_id)
-        if question_id == 'invalid'
-          json_response 400, 'screening_invalid_update.json'
-        else
-          json_response 200, 'screening.json'
+      def update_routes(base)
+        base.put("/#{base.version}/screenings/valid_id") do
+          request.body.rewind
+          request_payload = JSON.parse request.body.read
+          if request_payload['question_id'] == 'invalid'
+            json_response 400, 'screening_invalid_update.json'
+          else
+            json_response 200, 'screening.json'
+          end
         end
       end
 
