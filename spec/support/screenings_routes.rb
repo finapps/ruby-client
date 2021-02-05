@@ -4,39 +4,38 @@ module Fake
   module ScreeningsRoutes
     class << self
       def included(base)
-        list_routes base
-        resume_routes base
-        update_routes_invalid_id base
-        update_routes base
-        destroy_routes base
-        create_routes base
+        resource = "/#{base.version}/screenings"
 
-        super
+        list_routes base, resource
+        resume_routes base, resource
+        update_routes base, resource
+        destroy_routes base, resource
+        create_routes base, resource
       end
 
-      def list_routes(base)
-        base.get("/#{base.version}/screenings") do
-          json_response 200, 'screening_list.json'
+      def list_routes(base, resource)
+        base.get(resource) { json_response 200, 'screening_list.json' }
+        base.get("#{resource}/:consumer_id/consumer") do
+          if params[:consumer_id] == 'invalid_id'
+            json_response 404, 'session_not_found.json'
+          else
+            json_response 200, 'screenings/last_session.json'
+          end
         end
       end
 
-      def resume_routes(base)
-        base.get("/#{base.version}/screenings/invalid_id/resume") do
-          json_response 404, 'resource_not_found.json'
-        end
-        base.get("/#{base.version}/screenings/valid_id/resume") do
+      def resume_routes(base, resource)
+        base.get("#{resource}/:session_id/resume") do
+          return resource_not_found if params[:session_id] == 'invalid_id'
+
           json_response 200, 'screening.json'
         end
       end
 
-      def update_routes_invalid_id(base)
-        base.put("/#{base.version}/screenings/invalid_id") do
-          json_response 404, 'resource_not_found.json'
-        end
-      end
+      def update_routes(base, resource)
+        base.put("#{resource}/:session_id") do
+          return resource_not_found if params[:session_id] == 'invalid_id'
 
-      def update_routes(base)
-        base.put("/#{base.version}/screenings/valid_id") do
           request.body.rewind
           request_payload = JSON.parse request.body.read
           if request_payload['question_id'] == 'invalid'
@@ -47,8 +46,8 @@ module Fake
         end
       end
 
-      def create_routes(base)
-        base.post("/#{base.version}/screenings") do
+      def create_routes(base, resource)
+        base.post(resource) do
           request.body.rewind
           request_payload = JSON.parse request.body.read
           if request_payload.key? 'email'
@@ -59,8 +58,8 @@ module Fake
         end
       end
 
-      def destroy_routes(base)
-        base.delete("/#{base.version}/screenings/:session_id") do
+      def destroy_routes(base, resource)
+        base.delete("#{resource}/:session_id") do
           if params[:session_id] == 'valid_id'
             status 200
           else
