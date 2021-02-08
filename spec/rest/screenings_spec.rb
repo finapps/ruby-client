@@ -6,11 +6,11 @@ require 'rest/api_request'
 RSpec.describe FinApps::REST::Screenings do
   include SpecHelpers::Client
 
+  let(:results) { subject[0] }
+  let(:error_messages) { subject[1] }
+
   describe '#list' do
     subject(:list) { described_class.new(client).list(params) }
-
-    let(:results) { list[0] }
-    let(:error_messages) { list[1] }
 
     context 'with valid params' do
       let(:params) do
@@ -79,9 +79,6 @@ RSpec.describe FinApps::REST::Screenings do
   describe '#show' do
     subject(:show) { described_class.new(client).show(id) }
 
-    let(:results) { show[0] }
-    let(:error_messages) { show[1] }
-
     context 'with valid id' do
       let(:id) { :valid_id }
 
@@ -106,11 +103,35 @@ RSpec.describe FinApps::REST::Screenings do
     end
   end
 
+  describe '#last' do
+    subject(:last) { described_class.new(client).last(consumer_id) }
+
+    context 'with valid consumer_id' do
+      let(:consumer_id) { :valid_consumer_id }
+
+      it_behaves_like 'an API request'
+      it_behaves_like 'a successful request'
+      it('results have an :s_id node') do
+        expect(results).to have_key(:s_id)
+      end
+    end
+
+    context 'with invalid consumer_id' do
+      let(:consumer_id) { :invalid_consumer_id }
+
+      it { expect(results).to be_nil }
+      it { expect(error_messages).not_to be_empty }
+    end
+
+    context 'when missing consumer_id' do
+      let(:consumer_id) { nil }
+
+      it_behaves_like 'a request that raises an error'
+    end
+  end
+
   describe '#create' do
     subject(:create) { described_class.new(client).create(params) }
-
-    let(:results) { create[0] }
-    let(:error_messages) { create[1] }
 
     context 'with valid params' do
       let(:params) do
@@ -153,8 +174,6 @@ RSpec.describe FinApps::REST::Screenings do
     subject(:update) { described_class.new(client).update(id, params) }
 
     let(:params) { {} }
-    let(:results) { update[0] }
-    let(:error_messages) { update[1] }
 
     context 'with valid session id' do
       let(:id) { :valid_id }
@@ -198,9 +217,6 @@ RSpec.describe FinApps::REST::Screenings do
 
   describe '#destroy' do
     subject(:destroy) { described_class.new(client).destroy(id) }
-
-    let(:results) { destroy[0] }
-    let(:error_messages) { destroy[1] }
 
     context 'with valid session id' do
       let(:id) { :valid_id }

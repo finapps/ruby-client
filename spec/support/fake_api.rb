@@ -502,6 +502,10 @@ module Fake
 
     private
 
+    def resource_not_found
+      json_response 404, 'resource_not_found.json'
+    end
+
     def json_response(response_code, file_name)
       http_response :json, response_code, file_name
     end

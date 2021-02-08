@@ -14,6 +14,13 @@ module FinApps
         super(nil, path)
       end
 
+      def last(consumer_id)
+        not_blank(consumer_id, :consumer_id)
+
+        path = "#{end_point}/#{ERB::Util.url_encode(consumer_id)}/consumer"
+        send_request_for_id path, :get, nil
+      end
+
       def create(params)
         not_blank(params, :params)
         super params
