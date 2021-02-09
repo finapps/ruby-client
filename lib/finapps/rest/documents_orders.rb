@@ -90,16 +90,15 @@ module FinApps
       end
 
       def with_space_search(term)
-        [
-          {"applicant.email": term},
-          {"applicant.first_name": term},
-          {"applicant.last_name": term},
-          {
-            reference_no: {
-              "$regex": "^#{term}", "$options": 'i'
-            }
-          }
-        ]
+        [{"applicant.email": term},
+         {"applicant.first_name": term},
+         {"applicant.last_name": term},
+         {"applicant.external_id": term},
+         {
+           reference_no: {
+             "$regex": "^#{term}", "$options": 'i'
+           }
+         }]
       end
 
       def tag_query(tag)
