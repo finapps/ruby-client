@@ -62,6 +62,7 @@ module FinApps
 
       def with_space_search(term)
         [
+          {external_id: term},
           {email: term},
           {first_name: term},
           {last_name: term}
