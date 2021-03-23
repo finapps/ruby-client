@@ -76,6 +76,22 @@ RSpec.describe FinApps::REST::Screenings do
     end
   end
 
+  describe '#tenant_schemas' do
+    subject(:tenant_schemas) { described_class.new(client).tenant_schemas }
+
+    it_behaves_like 'an API request'
+    it_behaves_like 'a successful request'
+    it 'performs a get and returns the response' do
+      expect(results[0]).to have_key(:external_url)
+    end
+    it 'sends proper request' do
+      tenant_schemas
+      url = "#{versioned_api_path}/schemas"
+
+      expect(WebMock).to have_requested(:get, url)
+    end
+  end
+
   describe '#show' do
     subject(:show) { described_class.new(client).show(id) }
 
