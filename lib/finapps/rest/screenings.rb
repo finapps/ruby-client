@@ -14,6 +14,11 @@ module FinApps
         super(nil, path)
       end
 
+      def tenant_schemas
+        path = 'schemas'
+        send_request path, :get
+      end
+
       def last(consumer_id)
         not_blank(consumer_id, :consumer_id)
 
