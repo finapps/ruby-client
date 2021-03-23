@@ -15,7 +15,7 @@ module FinApps
       end
 
       def tenant_schemas
-        path = "schemas"
+        path = 'schemas'
         send_request path, :get
       end
 

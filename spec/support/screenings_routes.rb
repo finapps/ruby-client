@@ -13,6 +13,7 @@ module Fake
         create_routes base, resource
       end
 
+      # rubocop:disable Metrics/MethodLength
       def list_routes(base, resource)
         base.get(resource) { json_response 200, 'screening_list.json' }
         base.get(resource.gsub('screenings', 'schemas')) do
@@ -26,6 +27,7 @@ module Fake
           end
         end
       end
+      # rubocop:enable Metrics/MethodLength
 
       def resume_routes(base, resource)
         base.get("#{resource}/:session_id/resume") do

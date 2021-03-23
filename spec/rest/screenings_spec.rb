@@ -84,6 +84,7 @@ RSpec.describe FinApps::REST::Screenings do
     it 'performs a get and returns the response' do
       expect(results[0]).to have_key(:external_url)
     end
+
     it 'sends proper request' do
       tenant_schemas
       url = "#{versioned_api_path}/schemas"
