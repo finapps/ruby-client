@@ -1,10 +1,19 @@
 # frozen_string_literal: true
 
-if ENV['CODECLIMATE_REPO_TOKEN']
-  # require 'codeclimate-test-reporter'
-  # CodeClimate::TestReporter.start
+if ENV['COVERAGE'] == 'true'
   require 'simplecov'
-  SimpleCov.start
+  require 'simplecov-console'
+
+  SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
+        SimpleCov::Formatter::HTMLFormatter,
+        SimpleCov::Formatter::Console,
+  ]
+
+  SimpleCov.start do
+    track_files 'lib/**/*.rb'
+  end
+
+  puts "Using SimpleCov v#{SimpleCov::VERSION}"
 end
 
 require 'bundler/setup'
