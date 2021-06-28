@@ -66,28 +66,28 @@ module FinApps
         return {} unless term
 
         query = search_query_object(term).concat(consumer_name_query(term))
-        {"$or": query}
+        {'$or': query}
       end
 
       def consumer_name_query(term)
         search_arr = []
         if /\s/.match?(term)
           term.split.each do |t|
-            search_arr.append("applicant.first_name": t)
-            search_arr.append("applicant.last_name": t)
+            search_arr.append('applicant.first_name': t)
+            search_arr.append('applicant.last_name': t)
           end
         end
         search_arr
       end
 
       def search_query_object(term)
-        [{public_id: {"$regex": "^#{term}", "$options": 'i'}},
-         {"assignment.last_name": term},
-         {"applicant.first_name": term},
-         {"applicant.last_name": term},
+        [{public_id: {'$regex': "^#{term}", '$options': 'i'}},
+         {'assignment.last_name': term},
+         {'applicant.first_name': term},
+         {'applicant.last_name': term},
          {
-           "requestor.reference_no": {
-             "$regex": "^#{term}", "$options": 'i'
+           'requestor.reference_no': {
+             '$regex': "^#{term}", '$options': 'i'
            }
          }]
       end
@@ -95,7 +95,7 @@ module FinApps
       def status_query(status)
         if status
           if status.is_a?(Array)
-            {status: {"$in": status.map(&:to_i)}}
+            {status: {'$in': status.map(&:to_i)}}
           else
             {status: status.to_i}
           end
@@ -107,7 +107,7 @@ module FinApps
       def assignment_query(assignment)
         # translate "" to null assignment
         if assignment
-          {"assignment.operator_id": assignment.empty? ? nil : assignment}
+          {'assignment.operator_id': assignment.empty? ? nil : assignment}
         else
           {}
         end
@@ -124,9 +124,9 @@ module FinApps
       def relation_query(relation, search_term)
         if !search_term && !nil_or_empty?(relation)
           {
-            "$or": [
-              {public_id: {"$in": relation}},
-              {original_order_id: {"$in": relation}}
+            '$or': [
+              {public_id: {'$in': relation}},
+              {original_order_id: {'$in': relation}}
             ]
           }
         else

@@ -56,7 +56,7 @@ module FinApps
       def search_query(term)
         query = with_space_search(term).concat(name_search(term))
         {
-          "$or": query
+          '$or': query
         }
       end
 

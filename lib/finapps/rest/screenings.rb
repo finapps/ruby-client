@@ -62,13 +62,13 @@ module FinApps
         return {} unless term
 
         query = search_query_object(term)
-        {"$or": query}
+        {'$or': query}
       end
 
       def search_query_object(term)
         [
-          {"consumer.public_id": term},
-          {"consumer.email": term}
+          {'consumer.public_id': term},
+          {'consumer.email': term}
         ]
       end
     end

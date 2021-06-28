@@ -75,28 +75,28 @@ module FinApps
         return {} unless term
 
         query = with_space_search(term).concat(name_search(term))
-        {"$or": query}
+        {'$or': query}
       end
 
       def name_search(term)
         search_arr = []
         if /\s/.match?(term)
           term.split.each do |t|
-            search_arr.append("applicant.first_name": t)
-            search_arr.append("applicant.last_name": t)
+            search_arr.append('applicant.first_name': t)
+            search_arr.append('applicant.last_name': t)
           end
         end
         search_arr
       end
 
       def with_space_search(term)
-        [{"applicant.email": term},
-         {"applicant.first_name": term},
-         {"applicant.last_name": term},
-         {"applicant.external_id": term},
+        [{'applicant.email': term},
+         {'applicant.first_name': term},
+         {'applicant.last_name': term},
+         {'applicant.external_id': term},
          {
            reference_no: {
-             "$regex": "^#{term}", "$options": 'i'
+             '$regex': "^#{term}", '$options': 'i'
            }
          }]
       end
