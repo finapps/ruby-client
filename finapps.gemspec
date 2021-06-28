@@ -20,15 +20,14 @@ Gem::Specification.new do |spec|
   spec.test_files = Dir['spec/**/*.rb']
   spec.require_paths = ['lib']
 
-  spec.add_runtime_dependency     'finapps_core',               '~> 5.0',   '>= 5.0.16'
+  spec.add_runtime_dependency     'finapps_core',               '~> 6.0',   '>= 6.0.0'
 
   spec.add_development_dependency 'bundler',                    '~> 2.2',   '>= 2.2.16'
   spec.add_development_dependency 'rake',                       '~> 13.0',  '>= 13.0.1'
   spec.add_development_dependency 'rspec',                      '~> 3.10',  '>= 3.10.0'
-  spec.add_development_dependency 'rubocop',                    '~> 1.9',   '>= 1.9.1'
   spec.add_development_dependency 'rubocop-performance',        '~> 1.9',   '>= 1.9.2'
   spec.add_development_dependency 'rubocop-rake',               '~> 0.5',   '>= 0.5.1'
-  spec.add_development_dependency 'rubocop-rspec',              '~> 2.2',   '>= 2.2.0'
+  spec.add_development_dependency 'rubocop-rspec',              '~> 2.4',   '>= 2.4.0'
   spec.add_development_dependency 'simplecov',                  '~> 0.21',  '>= 0.21.2'
   spec.add_development_dependency 'simplecov-console',          '~> 0.9'
   spec.add_development_dependency 'sinatra',                    '~> 2.1',   '>= 2.1.0'
