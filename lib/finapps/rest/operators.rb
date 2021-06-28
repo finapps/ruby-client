@@ -69,7 +69,7 @@ module FinApps
 
       def role_query(role)
         if role.is_a?(Array)
-          {role: {"$in": role.map(&:to_i)}}
+          {role: {'$in': role.map(&:to_i)}}
         else
           {role: role.to_i}
         end
