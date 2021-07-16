@@ -56,7 +56,7 @@ RSpec.describe FinApps::REST::ConsumersPortfolios do
         list
         url =
           "#{versioned_api_path}/consumers/#{id}/portfolios?page=2&" \
-            'requested=25&sort=-created_date'
+          'requested=25&sort=-created_date'
         expect(WebMock).to have_requested(:get, url)
       end
     end

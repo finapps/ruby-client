@@ -24,6 +24,7 @@ module FinApps
         order_statuses
         order_tokens
         operators
+        operator_login_tokens
         operators_password_resets
         password_resets
         plaid_webhooks

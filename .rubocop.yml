@@ -47,6 +47,7 @@ Metrics/ClassLength:
   Exclude:
     - app/controllers/orders_controller.rb
     - app/models/order.rb
+    - spec/support/fake_api.rb
 Metrics/BlockLength:
   IgnoredMethods: ['describe', 'context']
   Exclude:
