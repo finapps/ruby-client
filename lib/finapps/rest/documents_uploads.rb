@@ -9,7 +9,7 @@ module FinApps
 
         path =
           "consumers/#{ERB::Util.url_encode(consumer_id)}/"\
-        "documents/#{ERB::Util.url_encode(doc_id)}?thumbnail=#{thumbnail}"
+          "documents/#{ERB::Util.url_encode(doc_id)}?thumbnail=#{thumbnail}"
         super(nil, path)
       end
 
