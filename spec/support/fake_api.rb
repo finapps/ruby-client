@@ -358,6 +358,17 @@ module Fake
       end
     end
 
+    # operators login tokens
+    post("/#{version}/login/operators/token") do
+      request.body.rewind
+      request_payload = JSON.parse request.body.read
+      if request_payload['params'] == 'valid'
+        json_response 200, 'operator_login_token.json'
+      else
+        json_response 400, 'invalid_request_body.json'
+      end
+    end
+
     # session
     post("/#{version}/login") do
       request.body.rewind
