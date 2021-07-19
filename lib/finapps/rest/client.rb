@@ -10,6 +10,7 @@ module FinApps
         alert_definitions
         alert_occurrences
         consumers
+        consumer_login_tokens
         consumers_portfolios
         documents_orders
         documents_orders_notifications
