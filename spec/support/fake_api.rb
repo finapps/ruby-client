@@ -380,11 +380,11 @@ module Fake
       end
     end
 
-    #operators change password email 
-    post("#{version}/login/change_password_email") do
+    #operator change password email 
+    post("/#{version}/login/change_password_email") do
       request.body.rewind
       request_payload = JSON.parse request.body.read
-      if request_payload['email'] == 'valid_email'
+      if request_payload['email'] == 'valid email'
         status 200
       else
         json_response 404, 'resource_not_found.json'
