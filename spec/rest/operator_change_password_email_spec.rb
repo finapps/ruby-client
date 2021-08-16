@@ -23,10 +23,11 @@ RSpec.describe FinApps::REST::OperatorChangePasswordEmail do
 
       context 'with valid params' do
         let(:create) { subject.create(email: 'valid email') }
+
         it('doesn\'t raise an error') { expect { create }.not_to raise_error }
         it('doesn\'t have a response') { expect(results).to be_nil }
         it('returns no error messages') { expect(error_messages).to be_empty }
-      end 
+      end
     end
   end
 end

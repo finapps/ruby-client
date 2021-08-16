@@ -380,7 +380,7 @@ module Fake
       end
     end
 
-    #operator change password email 
+    # operator change password email
     post("/#{version}/login/change_password_email") do
       request.body.rewind
       request_payload = JSON.parse request.body.read
