@@ -20,7 +20,7 @@ Gem::Specification.new do |spec|
   spec.test_files = Dir['spec/**/*.rb']
   spec.require_paths = ['lib']
 
-  spec.add_runtime_dependency     'finapps_core',               '~> 6.0',   '>= 6.0.0'
+  spec.add_runtime_dependency     'finapps_core',               '~> 6.0',   '>= 6.0.1'
 
   spec.add_development_dependency 'bundler',                    '~> 2.2',   '>= 2.2.16'
   spec.add_development_dependency 'rake',                       '~> 13.0',  '>= 13.0.1'
