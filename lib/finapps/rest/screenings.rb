@@ -63,19 +63,23 @@ module FinApps
       def term_filter(term)
         return {} unless term
 
-        {'$or': build_array(term)}
+        {'$or': term_array(term) + split_term_array(term)}
       end
 
-      def build_array(term)
-        arr = [
+      def term_array(term)
+        [
           {'consumer.public_id': term},
           {'consumer.email': term},
           {'consumer.first_name': term},
           {'consumer.last_name': term},
           {'consumer.external_id': term}
         ]
-        return arr unless has_space?(term)
+      end
 
+      def split_term_array(term)
+        return [] unless has_space?(term)
+
+        arr = []
         term.split.each do |t|
           arr.append('consumer.first_name': t)
           arr.append('consumer.last_name': t)
@@ -87,7 +91,7 @@ module FinApps
       def progress_filter(progress)
         return {} unless progress
 
-        {'progress': progress}
+        {progress: progress}
       end
 
       def has_space?(string)
