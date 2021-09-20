@@ -55,21 +55,43 @@ module FinApps
       private
 
       def build_filter(params)
-        search_query(params[:searchTerm])
+        term = params[:searchTerm]
+        progress = params[:progress]
+        term_filter(term).merge(progress_filter(progress))
       end
 
-      def search_query(term)
+      def term_filter(term)
         return {} unless term
 
-        query = search_query_object(term)
-        {'$or': query}
+        {'$or': build_array(term)}
       end
 
-      def search_query_object(term)
-        [
+      def build_array(term)
+        arr = [
           {'consumer.public_id': term},
-          {'consumer.email': term}
+          {'consumer.email': term},
+          {'consumer.first_name': term},
+          {'consumer.last_name': term},
+          {'consumer.external_id': term}
         ]
+        return arr unless has_space?(term)
+
+        term.split.each do |t|
+          arr.append('consumer.first_name': t)
+          arr.append('consumer.last_name': t)
+        end
+
+        arr
+      end
+
+      def progress_filter(progress)
+        return {} unless progress
+
+        {'progress': progress}
+      end
+
+      def has_space?(string)
+        /\s/.match?(string)
       end
     end
   end

@@ -49,9 +49,9 @@ RSpec.describe FinApps::REST::Screenings do
         it 'builds query and sends proper request' do
           list
           url =
-            "#{versioned_api_path}/screenings?filter=%7B%22$or%22:%5B%7B%22" \
-            'consumer.public_id%22:%22term%22%7D,%7B%22consumer.email%22:%22' \
-            'term%22%7D%5D%7D&page=2&requested=25&sort=date_created'
+            "#{versioned_api_path}/screenings?"\
+            'filter=%7B%22$or%22:%5B%7B%22consumer.public_id%22:%22term%22%7D,%7B%22consumer.email%22:%22term%22%7D,%7B%22consumer.first_name%22:%22term%22%7D,%7B%22consumer.last_name%22:%22term%22%7D,%7B%22consumer.external_id%22:%22term%22%7D%5D%7D'\
+            '&page=2&requested=25&sort=date_created'
 
           expect(WebMock).to have_requested(:get, url)
         end
