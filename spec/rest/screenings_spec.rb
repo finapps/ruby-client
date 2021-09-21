@@ -39,6 +39,30 @@ RSpec.describe FinApps::REST::Screenings do
       end
 
       # rubocop:disable RSpec/ExampleLength
+      context 'with date range' do
+        let(:params) { {fromDate: '08/01/2021', toDate: '09/01/2021'} }
+
+        it_behaves_like 'an API request'
+        it_behaves_like 'a successful request'
+        it 'performs a get and returns the response' do
+          expect(results).to have_key(:records)
+        end
+
+        it 'builds query and sends proper request' do
+          list
+          json_filter = {
+            '*date_created': {'$gte': '2021-01-08T00:00:00%2B00:00',
+                              '$lt': '2021-01-09T00:00:00%2B00:00'}
+          }.to_json
+          encoded_filter = ERB::Util.url_encode json_filter
+          url = "#{versioned_api_path}/screenings?filter=#{encoded_filter}"
+
+          expect(WebMock).to have_requested(:get, url)
+        end
+      end
+      # rubocop:enable RSpec/ExampleLength
+
+      # rubocop:disable RSpec/ExampleLength
       context 'with searchTerm' do
         it_behaves_like 'an API request'
         it_behaves_like 'a successful request'

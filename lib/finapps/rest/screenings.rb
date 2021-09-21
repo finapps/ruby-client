@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'date'
 require_relative '../utils/query_builder'
 
 module FinApps
@@ -55,9 +56,9 @@ module FinApps
       private
 
       def build_filter(params)
-        term = params[:searchTerm]
-        progress = params[:progress]
-        term_filter(term).merge(progress_filter(progress))
+        term_filter(params[:searchTerm])
+          .merge(date_range_filter(params[:fromDate], params[:toDate]))
+          .merge(progress_filter(params[:progress]))
       end
 
       def term_filter(term)
@@ -86,6 +87,29 @@ module FinApps
         end
 
         arr
+      end
+
+      def date_range_filter(from_date, to_date)
+        return {} unless from_date || to_date
+
+        {'*date_created': from_filter(from_date).merge(to_filter(to_date))}
+      end
+
+      def from_filter(from_date)
+        return {} unless from_date
+
+        {'$gte': to_rfc_date(from_date.to_s)}
+      end
+
+      def to_filter(to_date)
+        return {} unless to_date
+
+        {'$lt': to_rfc_date(to_date.to_s)}
+      end
+
+      def to_rfc_date(str)
+        date = DateTime.parse(str)
+        date.rfc3339
       end
 
       def progress_filter(progress)
