@@ -13,15 +13,6 @@ RSpec.describe FinApps::REST::Screenings do
     subject(:list) { described_class.new(client).list(params) }
 
     context 'with valid params' do
-      let(:params) do
-        {
-          page: 2,
-          sort: 'date_created',
-          requested: 25,
-          searchTerm: 'term'
-        }
-      end
-
       context 'without searchTerm' do
         let(:params) { {searchTerm: nil, page: 2} }
 
@@ -39,7 +30,9 @@ RSpec.describe FinApps::REST::Screenings do
       end
 
       # rubocop:disable RSpec/ExampleLength
-      context 'with searchTerm' do
+      context 'with date range' do
+        let(:params) { {fromDate: '08/01/2021', toDate: '09/01/2021'} }
+
         it_behaves_like 'an API request'
         it_behaves_like 'a successful request'
         it 'performs a get and returns the response' do
@@ -48,10 +41,41 @@ RSpec.describe FinApps::REST::Screenings do
 
         it 'builds query and sends proper request' do
           list
-          url =
-            "#{versioned_api_path}/screenings?filter=%7B%22$or%22:%5B%7B%22" \
-            'consumer.public_id%22:%22term%22%7D,%7B%22consumer.email%22:%22' \
-            'term%22%7D%5D%7D&page=2&requested=25&sort=date_created'
+          json_filter = {
+            '*date_created': {'$gte': '2021-01-08T00:00:00%2B00:00',
+                              '$lt': '2021-01-09T00:00:00%2B00:00'}
+          }.to_json
+          encoded_filter = ERB::Util.url_encode json_filter
+          url = "#{versioned_api_path}/screenings?filter=#{encoded_filter}"
+
+          expect(WebMock).to have_requested(:get, url)
+        end
+      end
+      # rubocop:enable RSpec/ExampleLength
+
+      # rubocop:disable RSpec/ExampleLength
+      context 'with searchTerm' do
+        let(:params) { {searchTerm: 'le term'} }
+
+        it_behaves_like 'an API request'
+        it_behaves_like 'a successful request'
+        it 'performs a get and returns the response' do
+          expect(results).to have_key(:records)
+        end
+
+        it 'builds query and sends proper request' do
+          list
+          json_filter = {'$or': [{'consumer.public_id': 'le term'},
+                                 {'consumer.email': 'le term'},
+                                 {'consumer.first_name': 'le term'},
+                                 {'consumer.last_name': 'le term'},
+                                 {'consumer.external_id': 'le term'},
+                                 {'consumer.first_name': 'le'},
+                                 {'consumer.last_name': 'le'},
+                                 {'consumer.first_name': 'term'},
+                                 {'consumer.last_name': 'term'}]}.to_json
+          encoded_filter = ERB::Util.url_encode json_filter
+          url = "#{versioned_api_path}/screenings?filter=#{encoded_filter}"
 
           expect(WebMock).to have_requested(:get, url)
         end

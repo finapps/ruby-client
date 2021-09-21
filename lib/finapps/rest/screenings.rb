@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'date'
 require_relative '../utils/query_builder'
 
 module FinApps
@@ -55,21 +56,70 @@ module FinApps
       private
 
       def build_filter(params)
-        search_query(params[:searchTerm])
+        term_filter(params[:searchTerm])
+          .merge(date_range_filter(params[:fromDate], params[:toDate]))
+          .merge(progress_filter(params[:progress]))
       end
 
-      def search_query(term)
+      def term_filter(term)
         return {} unless term
 
-        query = search_query_object(term)
-        {'$or': query}
+        {'$or': term_array(term) + split_term_array(term)}
       end
 
-      def search_query_object(term)
+      def term_array(term)
         [
           {'consumer.public_id': term},
-          {'consumer.email': term}
+          {'consumer.email': term},
+          {'consumer.first_name': term},
+          {'consumer.last_name': term},
+          {'consumer.external_id': term}
         ]
+      end
+
+      def split_term_array(term)
+        return [] unless space?(term)
+
+        arr = []
+        term.split.each do |t|
+          arr.append('consumer.first_name': t)
+          arr.append('consumer.last_name': t)
+        end
+
+        arr
+      end
+
+      def date_range_filter(from_date, to_date)
+        return {} unless from_date || to_date
+
+        {'*date_created': from_filter(from_date).merge(to_filter(to_date))}
+      end
+
+      def from_filter(from_date)
+        return {} unless from_date
+
+        {'$gte': to_rfc_date(from_date.to_s)}
+      end
+
+      def to_filter(to_date)
+        return {} unless to_date
+
+        {'$lt': to_rfc_date(to_date.to_s)}
+      end
+
+      def to_rfc_date(str)
+        date = DateTime.parse(str)
+        date.rfc3339
+      end
+
+      def progress_filter(progress)
+        return {} unless progress
+
+        {progress: progress}
+      end
+
+      def space?(string)
+        /\s/.match?(string)
       end
     end
   end
