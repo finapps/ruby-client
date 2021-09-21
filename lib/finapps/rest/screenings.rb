@@ -78,7 +78,7 @@ module FinApps
       end
 
       def split_term_array(term)
-        return [] unless has_space?(term)
+        return [] unless space?(term)
 
         arr = []
         term.split.each do |t|
@@ -118,7 +118,7 @@ module FinApps
         {progress: progress}
       end
 
-      def has_space?(string)
+      def space?(string)
         /\s/.match?(string)
       end
     end
