@@ -115,7 +115,7 @@ module FinApps
       def progress_filter(progress)
         return {} unless progress
 
-        {progress: progress}
+        {progress: progress.to_int}
       end
 
       def space?(string)
