@@ -215,7 +215,7 @@ RSpec.describe FinApps::REST::DocumentsOrders do
       end
     end
 
-    context 'with missing  params' do
+    context 'with missing params' do
       let(:params) { nil }
 
       it_behaves_like 'a request that raises an error'
