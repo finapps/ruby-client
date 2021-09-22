@@ -13,74 +13,73 @@ RSpec.describe FinApps::REST::Screenings do
     subject(:list) { described_class.new(client).list(params) }
 
     context 'with valid params' do
+      let(:params) { {} }
+
+      RSpec.shared_examples 'performs a GET request' do 
+        it { expect(results).to have_key(:records) }
+      end
+
+      RSpec.shared_examples 'a correct query builder' do |filter|
+        it 'builds query and sends proper request' do
+          list
+          encoded_filter = ERB::Util.url_encode filter.to_json
+          url = "#{versioned_api_path}/screenings?filter=#{encoded_filter}"
+
+          expect(WebMock).to have_requested(:get, url)
+        end
+      end
+
       context 'without searchTerm' do
         let(:params) { {searchTerm: nil, page: 2} }
 
         it_behaves_like 'an API request'
         it_behaves_like 'a successful request'
-        it 'performs a get and returns the response' do
-          expect(results).to have_key(:records)
-        end
-
+        it_behaves_like 'performs a GET request'
         it 'builds query and sends proper request' do
           list
           url = "#{versioned_api_path}/screenings?page=2"
+
           expect(WebMock).to have_requested(:get, url)
         end
       end
 
-      # rubocop:disable RSpec/ExampleLength
       context 'with date range' do
-        let(:params) { {fromDate: '08/01/2021', toDate: '09/01/2021'} }
+        let(:params) { {fromDate: '08/01/2021', toDate: '09/01/2021'}  }
 
         it_behaves_like 'an API request'
         it_behaves_like 'a successful request'
-        it 'performs a get and returns the response' do
-          expect(results).to have_key(:records)
-        end
-
-        it 'builds query and sends proper request' do
-          list
-          json_filter = {
-            '*date_created': {'$gte': '2021-01-08T00:00:00%2B00:00',
-                              '$lt': '2021-01-09T00:00:00%2B00:00'}
-          }.to_json
-          encoded_filter = ERB::Util.url_encode json_filter
-          url = "#{versioned_api_path}/screenings?filter=#{encoded_filter}"
-
-          expect(WebMock).to have_requested(:get, url)
-        end
+        it_behaves_like 'performs a GET request'
+        it_behaves_like 'a correct query builder', {
+          '*date_created': {'$gte': '2021-01-08T00:00:00%2B00:00',
+                            '$lt': '2021-01-09T00:00:00%2B00:00'}}
       end
-      # rubocop:enable RSpec/ExampleLength
 
-      # rubocop:disable RSpec/ExampleLength
+      context 'with progress' do
+        let(:params) { {progress: 10}  }
+
+        it_behaves_like 'an API request'
+        it_behaves_like 'a successful request'
+        it_behaves_like 'performs a GET request'
+        it_behaves_like 'a correct query builder', { 'progress': 10 }
+      end
+
       context 'with searchTerm' do
-        let(:params) { {searchTerm: 'le term'} }
+        let(:params) { {searchTerm: 'le term'}  }
 
         it_behaves_like 'an API request'
         it_behaves_like 'a successful request'
-        it 'performs a get and returns the response' do
-          expect(results).to have_key(:records)
-        end
-
-        it 'builds query and sends proper request' do
-          list
-          json_filter = {'$or': [{'consumer.public_id': 'le term'},
-                                 {'consumer.email': 'le term'},
-                                 {'consumer.first_name': 'le term'},
-                                 {'consumer.last_name': 'le term'},
-                                 {'consumer.external_id': 'le term'},
-                                 {'consumer.first_name': 'le'},
-                                 {'consumer.last_name': 'le'},
-                                 {'consumer.first_name': 'term'},
-                                 {'consumer.last_name': 'term'}]}.to_json
-          encoded_filter = ERB::Util.url_encode json_filter
-          url = "#{versioned_api_path}/screenings?filter=#{encoded_filter}"
-
-          expect(WebMock).to have_requested(:get, url)
-        end
+        it_behaves_like 'performs a GET request'
+        it_behaves_like 'a correct query builder', {
+          '$or': [{'consumer.public_id': 'le term'},
+                  {'consumer.email': 'le term'},
+                  {'consumer.first_name': 'le term'},
+                  {'consumer.last_name': 'le term'},
+                  {'consumer.external_id': 'le term'},
+                  {'consumer.first_name': 'le'},
+                  {'consumer.last_name': 'le'},
+                  {'consumer.first_name': 'term'},
+                  {'consumer.last_name': 'term'}]}
       end
-      # rubocop:enable RSpec/ExampleLength
     end
 
     context 'with invalid params' do
@@ -94,9 +93,7 @@ RSpec.describe FinApps::REST::Screenings do
 
       it_behaves_like 'an API request'
       it_behaves_like 'a successful request'
-      it('performs a get and returns the response') do
-        expect(results).to have_key(:records)
-      end
+      it_behaves_like 'performs a GET request'
     end
   end
 
