@@ -15,7 +15,7 @@ RSpec.describe FinApps::REST::Screenings do
     context 'with valid params' do
       let(:params) { {} }
 
-      RSpec.shared_examples 'performs a GET request' do 
+      RSpec.shared_examples 'performs a GET request' do
         it { expect(results).to have_key(:records) }
       end
 
@@ -44,27 +44,28 @@ RSpec.describe FinApps::REST::Screenings do
       end
 
       context 'with date range' do
-        let(:params) { {fromDate: '08/01/2021', toDate: '09/01/2021'}  }
+        let(:params) { {fromDate: '08/01/2021', toDate: '09/01/2021'} }
 
         it_behaves_like 'an API request'
         it_behaves_like 'a successful request'
         it_behaves_like 'performs a GET request'
         it_behaves_like 'a correct query builder', {
           '*date_created': {'$gte': '2021-01-08T00:00:00%2B00:00',
-                            '$lt': '2021-01-09T00:00:00%2B00:00'}}
+                            '$lt': '2021-01-09T00:00:00%2B00:00'}
+        }
       end
 
       context 'with progress' do
-        let(:params) { {progress: 10}  }
+        let(:params) { {progress: 10} }
 
         it_behaves_like 'an API request'
         it_behaves_like 'a successful request'
         it_behaves_like 'performs a GET request'
-        it_behaves_like 'a correct query builder', { 'progress': 10 }
+        it_behaves_like 'a correct query builder', {progress: 10}
       end
 
       context 'with searchTerm' do
-        let(:params) { {searchTerm: 'le term'}  }
+        let(:params) { {searchTerm: 'le term'} }
 
         it_behaves_like 'an API request'
         it_behaves_like 'a successful request'
@@ -78,7 +79,8 @@ RSpec.describe FinApps::REST::Screenings do
                   {'consumer.first_name': 'le'},
                   {'consumer.last_name': 'le'},
                   {'consumer.first_name': 'term'},
-                  {'consumer.last_name': 'term'}]}
+                  {'consumer.last_name': 'term'}]
+        }
       end
     end
 
