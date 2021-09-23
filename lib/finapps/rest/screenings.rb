@@ -98,18 +98,13 @@ module FinApps
       def from_filter(from_date)
         return {} unless from_date
 
-        {'$gte': to_rfc_date(from_date.to_s)}
+        {'$gte': from_date}
       end
 
       def to_filter(to_date)
         return {} unless to_date
 
-        {'$lt': to_rfc_date(to_date.to_s)}
-      end
-
-      def to_rfc_date(str)
-        date = DateTime.parse(str)
-        date.rfc3339
+        {'$lt': to_date}
       end
 
       def progress_filter(progress)
