@@ -108,13 +108,19 @@ module FinApps
       end
 
       def progress_filter(progress)
-        return {} unless progress
+        value = integer_or_nil(progress)
+        return {} unless value
 
-        {progress: progress.to_i}
+        {progress: value}
       end
 
       def space?(string)
         /\s/.match?(string)
+      end
+
+      def integer_or_nil(string)
+        int = string.to_i
+        int if int.to_s == string
       end
     end
   end
