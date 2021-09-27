@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 require 'spec_helpers/client'
-require 'rest/api_request'
+require 'spec_helpers/api_request'
 
 RSpec.describe FinApps::REST::Screenings do
   include SpecHelpers::Client
 
-  let(:results) { subject[0] }
-  let(:error_messages) { subject[1] }
+  let(:results) { subject[RESULTS] }
+  let(:error_messages) { subject[ERROR_MESSAGES] }
 
   describe '#list' do
     subject(:list) { described_class.new(client).list(params) }
@@ -15,14 +15,10 @@ RSpec.describe FinApps::REST::Screenings do
     context 'with valid params' do
       let(:params) { {} }
 
-      RSpec.shared_examples 'a GET request' do
-        it { expect(results).to have_key(:records) }
-      end
-
       RSpec.shared_examples 'a correct query builder' do |filter|
         it_behaves_like 'an API request'
         it_behaves_like 'a successful request'
-        it_behaves_like 'a GET request'
+        it_behaves_like 'a GET index request'
         it 'builds query and sends proper request' do
           list
           encoded_filter = ERB::Util.url_encode filter.to_json
@@ -68,13 +64,13 @@ RSpec.describe FinApps::REST::Screenings do
       end
 
       context 'with invalid progress' do
-        let(:params) { {progress: 'xyz'} }
+        let(:params) { {progress: 'not-an-integer'} }
 
-        it_behaves_like 'a correct query builder', {progress: 0}
+        it { expect { list }.to raise_error(ArgumentError) }
       end
 
       context 'with valid progress' do
-        let(:params) { {progress: 10} }
+        let(:params) { {progress: '10'} }
 
         it_behaves_like 'a correct query builder', {progress: 10}
       end
@@ -107,7 +103,7 @@ RSpec.describe FinApps::REST::Screenings do
 
       it_behaves_like 'an API request'
       it_behaves_like 'a successful request'
-      it_behaves_like 'a GET request'
+      it_behaves_like 'a GET index request'
     end
   end
 

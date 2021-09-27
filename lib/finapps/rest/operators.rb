@@ -57,22 +57,33 @@ module FinApps
       end
 
       def build_filter(params)
-        filter = {}
-        filter.merge!(search_query(params[:searchTerm])) if params[:searchTerm]
-        filter.merge!(role_query(params[:role])) if params[:role]
-        filter
+        term_filter(params[:searchTerm]).merge(role_filter(params[:role]))
       end
 
-      def search_query(term)
-        {last_name: term}
+      def term_filter(term)
+        return {} unless term
+
+        {'$or': term_array(term)}
       end
 
-      def role_query(role)
-        if role.is_a?(Array)
-          {role: {'$in': role.map(&:to_i)}}
-        else
-          {role: role.to_i}
-        end
+      def term_array(term)
+        [
+          {email: term},
+          {last_name: term}
+        ]
+      end
+
+      def role_filter(role)
+        return {} unless role
+
+        roles = to_integers_array(role)
+        return {} if roles.empty?
+
+        {role: {'$in': roles}}
+      end
+
+      def to_integers_array(role)
+        (role.respond_to?(:map) ? role : [role]).map {|i| Integer(i) }.compact
       end
     end
   end
