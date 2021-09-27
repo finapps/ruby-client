@@ -3,8 +3,6 @@
 require 'faraday'
 require 'faraday_middleware'
 
-require 'core_extensions/string/to_int'
-
 require 'finapps_core'
 require 'finapps/rest/version'
 require 'finapps/rest/consumers'
