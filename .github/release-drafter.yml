@@ -39,7 +39,7 @@ exclude-labels:
   - invalid
   
 template: |
-  ## [$RESOLVED_VERSION](https://github.com/finapps/ruby-client/compare/$PREVIOUS_TAG...$RESOLVED_VERSION)
+  ## [$RESOLVED_VERSION](https://github.com/finapps/ruby-client/compare/$PREVIOUS_TAG...v$RESOLVED_VERSION)
   $CHANGES
 
 replacers:
