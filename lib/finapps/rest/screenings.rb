@@ -3,8 +3,6 @@
 require 'date'
 require_relative '../utils/query_builder'
 
-using StringExtensions
-
 module FinApps
   module REST
     class Screenings < FinAppsCore::REST::Resources # :nodoc:
@@ -110,10 +108,9 @@ module FinApps
       end
 
       def progress_filter(progress)
-        value = progress.to_int
-        return {} unless value
+        return {} unless progress
 
-        {progress: value}
+        {progress: Integer(progress)}
       end
 
       def space?(string)

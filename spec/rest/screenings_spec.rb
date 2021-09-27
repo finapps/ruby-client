@@ -64,14 +64,9 @@ RSpec.describe FinApps::REST::Screenings do
       end
 
       context 'with invalid progress' do
-        let(:params) { {progress: 'xyz'} }
+        let(:params) { {progress: 'not-an-integer'} }
 
-        it 'builds query and sends proper request' do
-          list
-          url = "#{versioned_api_path}/screenings"
-
-          expect(WebMock).to have_requested(:get, url)
-        end
+        it { expect { list }.to raise_error(ArgumentError) }
       end
 
       context 'with valid progress' do
