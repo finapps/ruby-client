@@ -76,10 +76,14 @@ module FinApps
       def role_filter(role)
         return {} unless role
 
-        roles = (role.respond_to?(:map) ? role : [role]).map {|i| Integer(i) }.compact
+        roles = to_integers_array(role)
         return {} if roles.empty?
 
         {role: {'$in': roles}}
+      end
+
+      def to_integers_array(role)
+        (role.respond_to?(:map) ? role : [role]).map {|i| Integer(i) }.compact
       end
     end
   end
