@@ -1,0 +1,19 @@
+{
+  "auth0_id": "string",
+  "date_created": "2021-10-27T02:36:01Z",
+  "date_modified": "2021-10-27T02:36:01Z",
+  "email": "string",
+  "external_id": "string",
+  "first_name": "string",
+  "language": "string",
+  "last_name": "string",
+  "locked": true,
+  "memo": "string",
+  "phone": "string",
+  "phone_country_code": "string",
+  "public_id": "string",
+  "role": 0,
+  "status": 0,
+  "tenant_id": "string",
+  "token": "string"
+}
