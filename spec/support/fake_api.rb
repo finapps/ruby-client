@@ -3,6 +3,7 @@
 require 'sinatra/base'
 require_relative 'documents_uploads_routes'
 require_relative 'screenings_routes'
+require_relative 'routes/actors'
 
 module Fake
   # the FakeApi class is used to mock API requests while testing.
@@ -17,6 +18,10 @@ module Fake
     get("/#{version}/resources") { json_response 200, 'resources.json' }
     put("/#{version}/resources") { json_response 201, 'resource.json' }
     delete("/#{version}/resources/:id") { status 202 }
+
+    include ActorsRoutes
+    include DocumentsUploadsRoutes
+    include ScreeningsRoutes
 
     # verix_metadata
     get("/#{version}/v/metadata") do
@@ -257,9 +262,6 @@ module Fake
       json_response 404, 'invalid_signature_id.json'
     end
 
-    # documents_uploads
-    include DocumentsUploadsRoutes
-
     # documents orders notifications
     post("/#{version}/documents/orders/valid_id/notify") { status 204 }
     post("/#{version}/documents/orders/invalid_id/notify") do
@@ -276,9 +278,6 @@ module Fake
 
     # document_upload_types
     get("/#{version}/documents/upload_types") { json_response 200, 'upload_types.json' }
-
-    # screenings
-    include ScreeningsRoutes
 
     # consumers
     get("/#{version}/consumers") do

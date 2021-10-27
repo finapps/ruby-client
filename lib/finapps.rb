@@ -4,6 +4,7 @@ require 'faraday'
 require 'faraday_middleware'
 
 require 'finapps_core'
+require 'finapps/rest/actors'
 require 'finapps/rest/version'
 require 'finapps/rest/consumers'
 require 'finapps/rest/consumer_login_tokens'

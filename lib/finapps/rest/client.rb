@@ -7,6 +7,7 @@ module FinApps
   module REST
     class Client < FinAppsCore::REST::BaseClient # :nodoc:
       RESOURCES = %i[
+        actors
         alert_definitions
         alert_occurrences
         consumers
