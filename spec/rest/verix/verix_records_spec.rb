@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helpers/client'
-require 'rest/api_request'
+require 'spec_helpers/api_request'
 
 RSpec.describe FinApps::REST::VerixRecords do
   include SpecHelpers::Client

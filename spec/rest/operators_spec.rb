@@ -1,251 +1,245 @@
 # frozen_string_literal: true
 
 require 'spec_helpers/client'
+require 'spec_helpers/api_request'
 
 RSpec.describe FinApps::REST::Operators do
-  context 'when initialized with valid FinApps::Client object' do
-    include SpecHelpers::Client
-    subject(:operators) { described_class.new(client) }
+  include SpecHelpers::Client
 
-    describe '#list' do
-      let(:list) { subject.list(params) }
-      let(:results) { list[0] }
-      let(:error_messages) { list[1] }
+  let(:results) { subject[RESULTS] }
+  let(:error_messages) { subject[ERROR_MESSAGES] }
 
-      context 'when missing params' do
+  describe '#list' do
+    subject(:list) { described_class.new(client).list(params) }
+
+    context 'with valid params' do
+      RSpec.shared_examples 'a filtereable GET index request' do |filter|
+        it_behaves_like 'an API request'
+        it_behaves_like 'a successful request'
+        it_behaves_like 'a GET index request'
+        it 'builds query and sends proper request' do
+          query_string = ("?filter=#{ERB::Util.url_encode filter.to_json}" if filter)
+          url = "#{versioned_api_path}/operators#{query_string}"
+          list
+          expect(WebMock).to have_requested(:get, url)
+        end
+      end
+
+      context 'with searchTerm' do
+        let(:params) { {searchTerm: 'le term'} }
+
+        it_behaves_like 'a filtereable GET index request', {
+          '$or': [
+            {email: 'le term'},
+            {last_name: 'le term'}
+          ]
+        }
+      end
+
+      context 'with valid role' do
+        let(:params) { {role: 1} }
+
+        it_behaves_like 'a filtereable GET index request', {role: {'$in': [1]}}
+      end
+
+      context 'with empty params' do
         let(:params) { nil }
 
-        it { expect { list }.not_to raise_error }
-
-        it('performs a get and returns the response') do
-          expect(results).to have_key(:records)
-        end
-
-        it('returns an array of records') do
-          expect(results[:records]).to be_a(Array)
-        end
-
-        it('returns no error messages') { expect(error_messages).to be_empty }
+        it_behaves_like 'a filtereable GET index request', nil
       end
 
-      context 'when invalid params are provided' do
-        let(:params) { ['invalid array'] }
-
-        it { expect { list }.to raise_error(FinAppsCore::InvalidArgumentsError) }
-      end
-
-      context 'when including valid params' do
+      context 'with searchTerm, page, sort, requested and role' do
         let(:params) do
           {
+            searchTerm: 't',
             page: 2,
             sort: 'date_created',
             requested: 25,
-            searchTerm: 'term',
             role: 2
           }
         end
 
-        it { expect { list }.not_to raise_error }
-
-        it('performs a get and returns the response') do
-          expect(results).to have_key(:records)
-        end
-
-        it('returns an array of records') do
-          expect(results[:records]).to be_a(Array)
-        end
-
-        it('returns no error messages') { expect(error_messages).to be_empty }
-
-        it 'builds query and sends proper request' do
+        it_behaves_like 'an API request'
+        it_behaves_like 'a successful request'
+        it_behaves_like 'a GET index request'
+        it 'builds a full filter and query and sends the request' do
           list
-          url =
-            "#{versioned_api_path}/operators?filter=%7B%22last_name%22:%22term%22," \
-            '%22role%22:2%7D&page=2&requested=25&sort=date_created'
-          expect(WebMock).to have_requested(:get, url)
+
+          filter = {'$or': [{email: 't'}, {last_name: 't'}], role: {'$in': [2]}}
+          expect(WebMock).to have_requested(:get, "#{versioned_api_path}/operators"\
+                                                  "?filter=#{ERB::Util.url_encode filter.to_json}"\
+                                                  '&page=2&requested=25&sort=date_created')
         end
       end
     end
 
-    describe '#show' do
-      let(:results) { show[0] }
-      let(:error_messages) { show[1] }
+    context 'with invalid role' do
+      let(:params) { {role: 'ADMIN'} }
 
-      context 'when missing id' do
-        let(:show) { subject.show(nil) }
+      it { expect { list }.to raise_error(ArgumentError) }
+    end
 
-        it { expect { show }.to raise_error(FinAppsCore::MissingArgumentsError) }
+    context 'with invalid params' do
+      let(:params) { :anything_but_a_hash }
+
+      it { expect { list }.to raise_error(FinAppsCore::InvalidArgumentsError) }
+    end
+  end
+
+  RSpec.shared_examples 'a missing id' do
+    it { expect { subject }.to raise_error(FinAppsCore::MissingArgumentsError) }
+  end
+
+  RSpec.shared_examples 'an invalid id' do
+    it { expect { subject }.not_to raise_error }
+    it('results is nil') { expect(results).to be_nil }
+
+    it('error messages array is populated') do
+      expect(error_messages.first.downcase).to eq('resource not found')
+    end
+  end
+
+  RSpec.shared_examples 'a missing params' do
+    it { expect { subject }.to raise_error(FinAppsCore::MissingArgumentsError) }
+  end
+
+  describe '#show' do
+    subject(:show) { described_class.new(client).show(id) }
+
+    context 'when missing id' do
+      let(:id) { nil }
+
+      it_behaves_like 'a missing id'
+    end
+
+    context 'with invalid id' do
+      let(:id) { :invalid_id }
+
+      it_behaves_like 'an invalid id'
+    end
+
+    context 'with valid id' do
+      let(:id) { :valid_id }
+
+      it_behaves_like 'an API request'
+      it_behaves_like 'a successful request'
+      it('performs a get and returns the response') do
+        expect(results).to have_key(:public_id)
       end
+    end
+  end
 
-      context 'with invalid id' do
-        let(:show) { subject.show(:invalid_id) }
+  describe '#create' do
+    subject(:create) { described_class.new(client).create(params) }
 
-        it { expect { show }.not_to raise_error }
-        it('results is nil') { expect(results).to be_nil }
+    context 'when missing params' do
+      let(:params) { nil }
 
-        it('error messages array is populated') do
-          expect(error_messages.first.downcase).to eq('resource not found')
-        end
-      end
+      it_behaves_like 'a missing params'
+    end
 
-      context 'with valid id' do
-        let(:show) { subject.show(:valid_id) }
+    context 'when invalid params are provided' do
+      let(:params) { :invalid }
 
-        it { expect { show }.not_to raise_error }
-        it('returns an array') { expect(show).to be_a(Array) }
+      it_behaves_like 'an API request'
+      it('results is nil') { expect(results).to be_nil }
 
-        it('performs a get and returns the response') do
-          expect(results).to have_key(:public_id)
-        end
-
-        it('returns no error messages') { expect(error_messages).to be_empty }
+      it('error messages array is populated') do
+        expect(error_messages.first.downcase).to eq('invalid request body')
       end
     end
 
-    describe '#create' do
-      let(:results) { create[0] }
-      let(:error_messages) { create[1] }
+    context 'when valid params are provided' do
+      let(:params) { {params: :valid} }
 
-      context 'when missing params' do
-        let(:create) { subject.create(nil) }
+      it_behaves_like 'an API request'
+      it_behaves_like 'a successful request'
+      it { expect(results).to have_key(:public_id) }
+      it { expect(results).to have_key(:role) }
+    end
+  end
 
-        it do
-          expect { create }.to raise_error(FinAppsCore::MissingArgumentsError)
-        end
-      end
+  describe '#update' do
+    subject(:update) { described_class.new(client).update(id, params) }
 
-      context 'when invalid params are provided' do
-        let(:create) { subject.create(params: 'invalid') }
+    context 'when missing id' do
+      let(:id) { nil }
+      let(:params) { {params: :valid} }
 
-        it { expect { create }.not_to raise_error }
-        it('results is nil') { expect(results).to be_nil }
-
-        it('error messages array is populated') do
-          expect(error_messages.first.downcase).to eq('invalid request body')
-        end
-      end
-
-      context 'when valid params are provided' do
-        let(:create) { subject.create(params: 'valid') }
-
-        it { expect { create }.not_to raise_error }
-        it('returns an array') { expect(create).to be_a(Array) }
-        it { expect(results).to have_key(:public_id) }
-        it { expect(results).to have_key(:role) }
-        it('returns no error messages') { expect(error_messages).to be_empty }
-      end
+      it_behaves_like 'a missing id'
     end
 
-    describe '#update' do
-      let(:results) { update[0] }
-      let(:error_messages) { update[1] }
+    context 'when missing params' do
+      let(:id) { :id }
+      let(:params) { nil }
 
-      context 'when missing id' do
-        let(:update) { subject.update(nil, params: 'params') }
-
-        it do
-          expect { update }.to raise_error(FinAppsCore::MissingArgumentsError)
-        end
-      end
-
-      context 'when missing params' do
-        let(:update) { subject.update(:valid_id, nil) }
-
-        it do
-          expect { update }.to raise_error(FinAppsCore::MissingArgumentsError)
-        end
-      end
-
-      context 'with invalid params' do
-        let(:update) { subject.update(:invalid_id, params: 'params') }
-
-        it { expect { update }.not_to raise_error }
-        it('results is nil') { expect(results).to be_nil }
-
-        it('error messages array is populated') do
-          expect(error_messages.first.downcase).to eq('resource not found')
-        end
-      end
-
-      context 'with valid params' do
-        let(:update) { subject.update(:valid_id, params: 'valid params') }
-
-        it { expect { update }.not_to raise_error }
-        it('returns an array') { expect(update).to be_a(Array) }
-        it { expect(results).to have_key(:email) }
-        it { expect(results).to have_key(:role) }
-        it('returns no error messages') { expect(error_messages).to be_empty }
-      end
+      it_behaves_like 'a missing params'
     end
 
-    describe '#update_password' do
-      let(:results) { update_password[0] }
-      let(:error_messages) { update_password[1] }
+    context 'with invalid id' do
+      let(:id) { :invalid_id }
+      let(:params) { {params: :valid} }
 
-      context 'when missing params' do
-        let(:update_password) { subject.update_password(nil) }
-
-        it do
-          expect { update_password }.to raise_error(
-            FinAppsCore::MissingArgumentsError
-          )
-        end
-      end
-
-      context 'with invalid params' do
-        let(:update_password) { subject.update_password(password: 'invalid') }
-
-        it do
-          expect { update_password }.to raise_error(
-            FinAppsCore::InvalidArgumentsError
-          )
-        end
-      end
-
-      context 'with valid params' do
-        let(:valid_params) do
-          {password: 'valid password', password_confirm: 'valid_password'}
-        end
-        let(:update_password) { subject.update_password(valid_params) }
-
-        it { expect { update_password }.not_to raise_error }
-        it('returns an array') { expect(update_password).to be_a(Array) }
-        it { expect(results).to have_key(:public_id) }
-        it { expect(results).to have_key(:role) }
-        it('returns no error messages') { expect(error_messages).to be_empty }
-      end
+      it_behaves_like 'an invalid id'
     end
 
-    describe '#destroy' do
-      let(:results) { destroy[0] }
-      let(:error_messages) { destroy[1] }
+    context 'with valid params' do
+      let(:id) { :valid_id }
+      let(:params) { {params: :valid} }
 
-      context 'when missing id' do
-        let(:destroy) { subject.destroy(nil) }
+      it_behaves_like 'an API request'
+      it_behaves_like 'a successful request'
+      it { expect(results).to have_key(:email) }
+      it { expect(results).to have_key(:role) }
+    end
+  end
 
-        it do
-          expect { destroy }.to raise_error(FinAppsCore::MissingArgumentsError)
-        end
-      end
+  describe '#update_password' do
+    subject(:update_password) { described_class.new(client).update_password(params) }
 
-      context 'with invalid id' do
-        let(:destroy) { subject.destroy(:invalid_id) }
+    context 'when missing params' do
+      let(:params) { nil }
 
-        it { expect { destroy }.not_to raise_error }
-        it('results is nil') { expect(results).to be_nil }
+      it_behaves_like 'a missing params'
+    end
 
-        it('error messages array is populated') do
-          expect(error_messages.first.downcase).to eq('resource not found')
-        end
-      end
+    context 'with invalid params' do
+      let(:params) { {foo: :bar} }
 
-      context 'with valid id' do
-        let(:destroy) { subject.destroy(:valid_id) }
+      it { expect { update_password }.to raise_error(FinAppsCore::InvalidArgumentsError) }
+    end
 
-        it { expect { destroy }.not_to raise_error }
-        it('results is nil') { expect(results).to be_nil }
-        it('error_messages array is empty') { expect(error_messages).to eq([]) }
-      end
+    context 'with valid params' do
+      let(:params) { {password: 'valid', password_confirm: 'valid'} }
+
+      it_behaves_like 'an API request'
+      it_behaves_like 'a successful request'
+      it { expect(results).to have_key(:email) }
+      it { expect(results).to have_key(:role) }
+    end
+  end
+
+  describe '#destroy' do
+    subject(:destroy) { described_class.new(client).destroy(id) }
+
+    context 'when missing id' do
+      let(:id) { nil }
+
+      it_behaves_like 'a missing id'
+    end
+
+    context 'with invalid id' do
+      let(:id) { :invalid_id }
+
+      it_behaves_like 'an invalid id'
+    end
+
+    context 'with valid id' do
+      let(:id) { :valid_id }
+
+      it_behaves_like 'an API request'
+      it_behaves_like 'a successful request'
+      it('results is nil') { expect(results).to be_nil }
     end
   end
 end

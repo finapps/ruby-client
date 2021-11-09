@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 require 'spec_helpers/client'
-require 'rest/api_request'
+require 'spec_helpers/api_request'
 
 RSpec.describe FinApps::REST::Screenings do
   include SpecHelpers::Client
 
-  let(:results) { subject[0] }
-  let(:error_messages) { subject[1] }
+  let(:results) { subject[RESULTS] }
+  let(:error_messages) { subject[ERROR_MESSAGES] }
 
   describe '#list' do
     subject(:list) { described_class.new(client).list(params) }
@@ -15,11 +15,10 @@ RSpec.describe FinApps::REST::Screenings do
     context 'with valid params' do
       let(:params) { {} }
 
-      RSpec.shared_examples 'performs a GET request' do
-        it { expect(results).to have_key(:records) }
-      end
-
       RSpec.shared_examples 'a correct query builder' do |filter|
+        it_behaves_like 'an API request'
+        it_behaves_like 'a successful request'
+        it_behaves_like 'a GET index request'
         it 'builds query and sends proper request' do
           list
           encoded_filter = ERB::Util.url_encode filter.to_json
@@ -32,9 +31,6 @@ RSpec.describe FinApps::REST::Screenings do
       context 'without searchTerm' do
         let(:params) { {searchTerm: nil, page: 2} }
 
-        it_behaves_like 'an API request'
-        it_behaves_like 'a successful request'
-        it_behaves_like 'performs a GET request'
         it 'builds query and sends proper request' do
           list
           url = "#{versioned_api_path}/screenings?page=2"
@@ -43,33 +39,45 @@ RSpec.describe FinApps::REST::Screenings do
         end
       end
 
-      context 'with date range' do
-        let(:params) { {fromDate: '08/01/2021', toDate: '09/01/2021'} }
+      context 'with from date' do
+        let(:params) { {fromDate: 'from'} }
 
-        it_behaves_like 'an API request'
-        it_behaves_like 'a successful request'
-        it_behaves_like 'performs a GET request'
         it_behaves_like 'a correct query builder', {
-          '*date_created': {'$gte': '2021-01-08T00:00:00%2B00:00',
-                            '$lt': '2021-01-09T00:00:00%2B00:00'}
+          '*date_created': {'$gte': 'from'}
         }
       end
 
-      context 'with progress' do
-        let(:params) { {progress: 10} }
+      context 'with to date' do
+        let(:params) { {toDate: 'to'} }
 
-        it_behaves_like 'an API request'
-        it_behaves_like 'a successful request'
-        it_behaves_like 'performs a GET request'
+        it_behaves_like 'a correct query builder', {
+          '*date_created': {'$lt': 'to'}
+        }
+      end
+
+      context 'with date range' do
+        let(:params) { {fromDate: 'from', toDate: 'to'} }
+
+        it_behaves_like 'a correct query builder', {
+          '*date_created': {'$gte': 'from', '$lt': 'to'}
+        }
+      end
+
+      context 'with invalid progress' do
+        let(:params) { {progress: 'not-an-integer'} }
+
+        it { expect { list }.to raise_error(ArgumentError) }
+      end
+
+      context 'with valid progress' do
+        let(:params) { {progress: '10'} }
+
         it_behaves_like 'a correct query builder', {progress: 10}
       end
 
       context 'with searchTerm' do
         let(:params) { {searchTerm: 'le term'} }
 
-        it_behaves_like 'an API request'
-        it_behaves_like 'a successful request'
-        it_behaves_like 'performs a GET request'
         it_behaves_like 'a correct query builder', {
           '$or': [{'consumer.public_id': 'le term'},
                   {'consumer.email': 'le term'},
@@ -95,7 +103,7 @@ RSpec.describe FinApps::REST::Screenings do
 
       it_behaves_like 'an API request'
       it_behaves_like 'a successful request'
-      it_behaves_like 'performs a GET request'
+      it_behaves_like 'a GET index request'
     end
   end
 
