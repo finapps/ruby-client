@@ -27,7 +27,7 @@ module FinApps
         operators
         operator_login_tokens
         operators_password_resets
-        operator_change_password_email
+        change_password_email
         password_resets
         plaid_webhooks
         plaid_consumer_institutions

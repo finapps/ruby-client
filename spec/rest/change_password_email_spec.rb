@@ -2,10 +2,10 @@
 
 require 'spec_helpers/client'
 
-RSpec.describe FinApps::REST::OperatorChangePasswordEmail do
+RSpec.describe FinApps::REST::ChangePasswordEmail do
   context 'when initialized with valid FinApps::Client object' do
     include SpecHelpers::Client
-    subject(:operators_change_password_email) do
+    subject(:change_password_email) do
       described_class.new(client)
     end
 
