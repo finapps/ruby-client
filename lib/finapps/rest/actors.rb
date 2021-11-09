@@ -3,7 +3,7 @@
 module FinApps
   module REST
     class Actors < FinAppsCore::REST::Resources
-      END_POINT = 'actors/details'
+      END_POINT = 'actor/details'
 
       def show
         super nil, END_POINT
