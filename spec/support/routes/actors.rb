@@ -4,7 +4,7 @@ module Fake
   module ActorsRoutes
     class << self
       def included(base)
-        base.get("/#{base.version}/actors/details") do
+        base.get("/#{base.version}/actor/details") do
           json_response 200, 'actors/details.json'
         end
         super

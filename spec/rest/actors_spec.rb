@@ -27,7 +27,7 @@ RSpec.describe FinApps::REST::Actors do
   end
 
   def stub_unauthorized_request
-    stub_request(:get, %r{/actors/details}).to_return(
+    stub_request(:get, %r{/actor/details}).to_return(
       status: 401,
       body: {
         error_messages: ['Unauthorized'],
