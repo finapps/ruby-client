@@ -57,6 +57,7 @@ module FinApps
 
       def build_filter(params)
         term_filter(params[:searchTerm])
+          .merge(operator_filter(params[:operatorID]))
           .merge(date_range_filter(params[:fromDate], params[:toDate]))
           .merge(progress_filter(params[:progress]))
       end
@@ -73,7 +74,9 @@ module FinApps
           {'consumer.email': term},
           {'consumer.first_name': term},
           {'consumer.last_name': term},
-          {'consumer.external_id': term}
+          {'consumer.external_id': term},
+          {'operator.first_name': term},
+          {'operator.last_name': term}
         ]
       end
 
@@ -84,9 +87,17 @@ module FinApps
         term.split.each do |t|
           arr.append('consumer.first_name': t)
           arr.append('consumer.last_name': t)
+          arr.append('operator.first_name': t)
+          arr.append('operator.last_name': t)
         end
 
         arr
+      end
+
+      def operator_filter(operator_id)
+        return {} unless operator_id
+
+        {operator_id: operator_id}
       end
 
       def date_range_filter(from_date, to_date)
