@@ -4,6 +4,7 @@ require 'sinatra/base'
 require_relative 'documents_uploads_routes'
 require_relative 'screenings_routes'
 require_relative 'routes/actors'
+require_relative 'routes/screening_metadatas'
 
 module Fake
   # the FakeApi class is used to mock API requests while testing.
@@ -22,6 +23,7 @@ module Fake
     include ActorsRoutes
     include DocumentsUploadsRoutes
     include ScreeningsRoutes
+    include ScreeningMetadatasRoutes
 
     # verix_metadata
     get("/#{version}/v/metadata") do
@@ -553,7 +555,7 @@ module Fake
     def http_response(content_type, response_code, file_name)
       content_type content_type
       status response_code
-      File.open("#{File.dirname(__FILE__)}/fixtures/#{file_name}").read
+      File.read("#{File.dirname(__FILE__)}/fixtures/#{file_name}")
     end
   end
 end

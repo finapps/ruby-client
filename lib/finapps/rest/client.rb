@@ -42,6 +42,7 @@ module FinApps
         portfolio_reports
         products
         screenings
+        screening_metadatas
         sessions
         signed_documents_downloads
         tenant_settings
@@ -75,7 +76,7 @@ module FinApps
       end
 
       def set_variable(class_name, variable)
-        klass = Object.const_get('FinApps').const_get('REST').const_get class_name
+        klass = Object.const_get(:FinApps).const_get(:REST).const_get class_name
         instance_variable_set(variable, klass.new(self))
       end
 
