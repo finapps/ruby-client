@@ -12,6 +12,9 @@ AllCops:
   CacheRootDirectory: tmp
   NewCops: enable
 
+Gemspec/RequireMFA:
+  Enabled: false
+
 Layout/SpaceAroundMethodCallOperator:
   Enabled: true
 Layout/EmptyLinesAroundAttributeAccessor:

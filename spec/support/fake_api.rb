@@ -555,7 +555,7 @@ module Fake
     def http_response(content_type, response_code, file_name)
       content_type content_type
       status response_code
-      File.open("#{File.dirname(__FILE__)}/fixtures/#{file_name}").read
+      File.read("#{File.dirname(__FILE__)}/fixtures/#{file_name}")
     end
   end
 end
