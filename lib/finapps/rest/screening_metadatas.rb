@@ -17,7 +17,7 @@ module FinApps
         not_blank(value, :value)
 
         path = "screenings/#{ERB::Util.url_encode(id)}/meta"
-        super({key => value}, path)
+        super({key: key, value: value}, path)
       end
 
       def destroy(id, key)
