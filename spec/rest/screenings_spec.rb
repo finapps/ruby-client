@@ -101,7 +101,7 @@ RSpec.describe FinApps::REST::Screenings do
         let(:params) { {operatorID: '123abc'} }
 
         it_behaves_like 'a correct query builder', {
-          'operator_id': '123abc'
+          operator_id: '123abc'
         }
       end
     end

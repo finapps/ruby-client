@@ -95,9 +95,9 @@ module FinApps
       end
 
       def operator_filter(operator_id)
-        return {} unless operator_id 
-        
-        {'operator_id': operator_id}
+        return {} unless operator_id
+
+        {operator_id: operator_id}
       end
 
       def date_range_filter(from_date, to_date)
