@@ -96,6 +96,14 @@ RSpec.describe FinApps::REST::Screenings do
                   {'operator.last_name': 'term'}]
         }
       end
+
+      context 'with operator' do
+        let(:params) { {operatorID: '123abc'} }
+
+        it_behaves_like 'a correct query builder', {
+          'operator_id': '123abc'
+        }
+      end
     end
 
     context 'with invalid params' do

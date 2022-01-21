@@ -57,6 +57,7 @@ module FinApps
 
       def build_filter(params)
         term_filter(params[:searchTerm])
+          .merge(operator_filter(params[:operatorID]))
           .merge(date_range_filter(params[:fromDate], params[:toDate]))
           .merge(progress_filter(params[:progress]))
       end
@@ -91,6 +92,12 @@ module FinApps
         end
 
         arr
+      end
+
+      def operator_filter(operator_id)
+        return {} unless operator_id 
+        
+        {'operator_id': operator_id}
       end
 
       def date_range_filter(from_date, to_date)
