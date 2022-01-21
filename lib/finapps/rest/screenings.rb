@@ -86,6 +86,8 @@ module FinApps
         term.split.each do |t|
           arr.append('consumer.first_name': t)
           arr.append('consumer.last_name': t)
+          arr.append('operator.first_name': t)
+          arr.append('operator.last_name': t)
         end
 
         arr

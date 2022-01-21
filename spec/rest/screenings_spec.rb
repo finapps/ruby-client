@@ -84,10 +84,16 @@ RSpec.describe FinApps::REST::Screenings do
                   {'consumer.first_name': 'le term'},
                   {'consumer.last_name': 'le term'},
                   {'consumer.external_id': 'le term'},
+                  {'operator.first_name': 'le term'},
+                  {'operator.last_name': 'le term'},
                   {'consumer.first_name': 'le'},
                   {'consumer.last_name': 'le'},
+                  {'operator.first_name': 'le'},
+                  {'operator.last_name': 'le'},
                   {'consumer.first_name': 'term'},
-                  {'consumer.last_name': 'term'}]
+                  {'consumer.last_name': 'term'},
+                  {'operator.first_name': 'term'},
+                  {'operator.last_name': 'term'}]
         }
       end
     end
