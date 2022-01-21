@@ -73,7 +73,9 @@ module FinApps
           {'consumer.email': term},
           {'consumer.first_name': term},
           {'consumer.last_name': term},
-          {'consumer.external_id': term}
+          {'consumer.external_id': term},
+          {'operator.first_name': term},
+          {'operator.last_name': term}
         ]
       end
 
