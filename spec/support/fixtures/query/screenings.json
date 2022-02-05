@@ -1,0 +1,68 @@
+[
+  {
+    "answered_questions": [
+      {
+        "additional_label": "string",
+        "answer_type": "string",
+        "answers": [
+          {
+            "documents": [
+              {
+                "name": "string",
+                "type": 0
+              }
+            ],
+            "id": "string",
+            "input_value": "string",
+            "label": "string",
+            "next_question_id": "string",
+            "type": "string",
+            "value": "string"
+          }
+        ],
+        "group": "string",
+        "id": "string",
+        "label": "string",
+        "summary": "string"
+      }
+    ],
+    "consumer": {
+      "email": "string",
+      "external_id": "string",
+      "first_name": "string",
+      "last_name": "string",
+      "public_id": "string"
+    },
+    "date_created": "2022-02-04T14:29:03Z",
+    "date_modified": "2022-02-04T14:29:03Z",
+    "metadata": {
+      "property1": "string",
+      "property2": "string"
+    },
+    "operator": {
+      "email": "string",
+      "first_name": "string",
+      "last_name": "string"
+    },
+    "operator_id": "string",
+    "original_consumer": {
+      "email": "string",
+      "external_id": "string",
+      "first_name": "string",
+      "last_name": "string",
+      "public_id": "string"
+    },
+    "progress": 0,
+    "result": {
+      "documents": [
+        {
+          "name": "string",
+          "type": 0
+        }
+      ],
+      "status": "string"
+    },
+    "s_id": "string",
+    "schema_id": "string"
+  }
+]

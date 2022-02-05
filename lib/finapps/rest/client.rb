@@ -54,6 +54,32 @@ module FinApps
         version
       ].freeze
 
+      RESOURCES.each do |method|
+        define_method(method) do
+          method_definition(method) do |class_name|
+            Object.const_get(:FinApps)
+                  .const_get(:REST)
+                  .const_get(class_name)
+          end
+        end
+      end
+
+      QUERY_RESOURCES = [:query_screenings].freeze
+
+      QUERY_RESOURCES.each do |method|
+        define_method(method) do
+          class_name = capitalize(method.to_s.gsub(/query_/, ''))
+          variable = "@#{method}"
+
+          method_definition(method, class_name, variable) do |_|
+            Object.const_get(:FinApps)
+                  .const_get(:REST)
+                  .const_get(:Query)
+                  .const_get(class_name)
+          end
+        end
+      end
+
       # @param [String] tenant_token
       # @param [Hash] options
       # @return [FinApps::REST::Client]
@@ -64,34 +90,23 @@ module FinApps
         super(options, logger)
       end
 
-      def method_missing(symbol, *arguments, &block)
-        if RESOURCES.include? symbol
-          class_name = camelize(symbol.to_s)
-          variable = "@#{class_name.downcase}"
-          set_variable(class_name, variable) unless instance_variable_defined? variable
-          instance_variable_get(variable)
-        else
-          super
-        end
-      end
-
-      def set_variable(class_name, variable)
-        klass = Object.const_get(:FinApps).const_get(:REST).const_get class_name
-        instance_variable_set(variable, klass.new(self))
-      end
-
-      def respond_to_missing?(method_sym, include_private = false)
-        RESOURCES.include?(method_sym) ? true : super
-      end
-
       private
+
+      def method_definition(method, class_name = nil, variable = nil)
+        class_name = camelize(method.to_s) if class_name.nil?
+        variable = "@#{class_name.downcase}" if variable.nil?
+
+        unless instance_variable_defined?(variable)
+          klass = yield class_name
+          instance_variable_set(variable, klass.new(self))
+        end
+        instance_variable_get(variable)
+      end
 
       def camelize(term)
         string = term.to_s
         string = string.sub(/^[a-z\d]*/) { Regexp.last_match(0).capitalize }
-        string.gsub(%r{(?:_|(/))([a-z\d]*)}) do
-          Regexp.last_match(2).capitalize.to_s
-        end
+        string.gsub(%r{(?:_|(/))([a-z\d]*)}) { Regexp.last_match(2).capitalize }
       end
     end
   end

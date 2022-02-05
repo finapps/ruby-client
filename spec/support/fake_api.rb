@@ -5,6 +5,7 @@ require_relative 'documents_uploads_routes'
 require_relative 'screenings_routes'
 require_relative 'routes/actors'
 require_relative 'routes/screening_metadatas'
+require_relative 'routes/query_screenings'
 
 module Fake
   # the FakeApi class is used to mock API requests while testing.
@@ -24,6 +25,7 @@ module Fake
     include DocumentsUploadsRoutes
     include ScreeningsRoutes
     include ScreeningMetadatasRoutes
+    include QueryScreeningRoutes
 
     # verix_metadata
     get("/#{version}/v/metadata") do
