@@ -68,7 +68,7 @@ module FinApps
 
       QUERY_RESOURCES.each do |method|
         define_method(method) do
-          class_name = capitalize(method.to_s.gsub(/query_/, ''))
+          class_name = method.to_s.gsub(/query_/, '').capitalize
           variable = "@#{method}"
 
           method_definition(method, class_name, variable) do |_|
