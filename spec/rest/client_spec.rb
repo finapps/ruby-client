@@ -12,7 +12,8 @@ RSpec.describe FinApps::REST::Client do
   context 'with an instance of Client' do
     subject(:client) { described_class.new(:company_token) }
 
-    FinApps::REST::Client::RESOURCES.each do |method|
+    (FinApps::REST::Client::RESOURCES +
+     FinApps::REST::Client::QUERY_RESOURCES).each do |method|
       it("responds to #{method}") { expect(client).to respond_to(method) }
 
       it "memoizes the result of #{method}" do
