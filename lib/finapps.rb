@@ -40,6 +40,7 @@ require 'finapps/rest/documents_upload_types'
 require 'finapps/rest/signed_documents_downloads'
 require 'finapps/rest/documents_orders_notifications'
 require 'finapps/rest/screenings'
+require 'finapps/rest/states'
 require 'finapps/rest/screening_metadatas'
 
 require 'finapps/rest/plaid/plaid_resources'

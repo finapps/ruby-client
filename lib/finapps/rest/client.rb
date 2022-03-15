@@ -45,6 +45,7 @@ module FinApps
         screening_metadatas
         sessions
         signed_documents_downloads
+        states
         tenant_settings
         tenant_app_settings
         verix_metadata
