@@ -6,7 +6,7 @@ cache:
   bundler: true
 
 rvm:
-  - 2.6
+  - 2.7
 
 before_install:
   - "echo 'gem: --no-document' > ~/.gemrc"
