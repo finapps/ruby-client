@@ -83,7 +83,7 @@ module FinApps
       end
 
       def to_integers_array(role)
-        (role.respond_to?(:map) ? role : [role]).map {|i| Integer(i) }.compact
+        (role.respond_to?(:map) ? role : [role]).filter_map {|i| Integer(i) }
       end
     end
   end
