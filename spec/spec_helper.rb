@@ -24,6 +24,8 @@ require 'webmock/rspec'
 
 # noinspection RubyResolve
 require File.join(File.dirname(__dir__), 'spec/support/fake_api')
+require File.join(File.dirname(__dir__), 'spec/spec_helpers/client')
+require File.join(File.dirname(__dir__), 'spec/spec_helpers/api_request')
 
 RSpec.configure do |config|
   config.expect_with(:rspec) do |expectations|
