@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 require 'sinatra/base'
+
 require_relative 'documents_uploads_routes'
 require_relative 'screenings_routes'
 require_relative 'routes/actors'
+require_relative 'routes/locations'
 require_relative 'routes/screening_metadatas'
 require_relative 'routes/query_screenings'
 require_relative 'routes/states'
@@ -24,9 +26,10 @@ module Fake
 
     include ActorsRoutes
     include DocumentsUploadsRoutes
+    include LocationsRoutes
+    include QueryScreeningRoutes
     include ScreeningsRoutes
     include ScreeningMetadatasRoutes
-    include QueryScreeningRoutes
     include StateRoutes
 
     # verix_metadata

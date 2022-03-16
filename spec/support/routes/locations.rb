@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 module Fake
-  module ActorsRoutes
+  module LocationsRoutes
     class << self
       def included(base)
-        base.get("/#{base.version}/actor/details") do
-          json_response 200, 'actors/details.json'
+        base.get("/#{base.version}/locations") do
+          json_response 200, 'locations/get_locations.json'
         end
         super
       end
