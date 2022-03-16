@@ -11,6 +11,11 @@ RSpec.shared_examples 'a successful request' do
   end
 end
 
+RSpec.shared_examples 'a failed request' do
+  it { expect(subject[RESULTS]).to be_nil }
+  it { expect(subject[ERROR_MESSAGES]).not_to be_empty }
+end
+
 RSpec.shared_examples 'a request that raises an error' do |err|
   err = FinAppsCore::MissingArgumentsError if err.nil?
   it { expect { subject }.to raise_error(err) }
