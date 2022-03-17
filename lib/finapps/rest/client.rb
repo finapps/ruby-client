@@ -19,6 +19,7 @@ module FinApps
         documents_uploads
         esign_templates
         orders
+        locations
         order_assignments
         order_notifications
         order_refreshes
@@ -45,6 +46,7 @@ module FinApps
         screening_metadatas
         sessions
         signed_documents_downloads
+        states
         tenant_settings
         tenant_app_settings
         verix_metadata

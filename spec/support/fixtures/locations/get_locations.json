@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Quick Mart Urgent Care",
+    "state": {
+      "code": "MD",
+      "label": "Maryland",
+      "type": "state"
+    }
+  },
+  {
+    "name": "Quick Mart Emergency Room",
+    "state": {
+      "code": "MD",
+      "label": "Maryland",
+      "type": "state"
+    }
+  },
+  {
+    "name": "Quick Mart - Folsom Business Office",
+    "state": {
+      "code": "CA",
+      "label": "California",
+      "type": "state"
+    }
+  }
+]
