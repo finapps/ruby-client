@@ -15,9 +15,12 @@ jobs:
       matrix:
         os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
-    env:
-      BRANCH_NAME: ${{ github.head_ref }} | tr / -
     steps:
+      - name: Set env
+        run: echo "BRANCH_NAME=$(echo $GITHUB_HEAD_REF | tr / -)" >> $GITHUB_ENV
+      - name: Test
+        run: echo $BRANCH_NAME
+        
       - name: Checkout source code
         uses: actions/checkout@v3
 
