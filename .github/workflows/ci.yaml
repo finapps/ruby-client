@@ -3,11 +3,9 @@ name: Continuous Integration
 on: 
   push: 
     paths-ignore:
-      - ".github/**"
       - ".VERSION"
   pull_request:
     paths-ignore:
-      - ".github/**"
       - ".VERSION"
 jobs:
   test:
@@ -17,6 +15,8 @@ jobs:
       matrix:
         os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
+    env:
+      BRANCH_NAME: ${{ github.head_ref | tr / - }}
     steps:
       - name: Checkout source code
         uses: actions/checkout@v3
