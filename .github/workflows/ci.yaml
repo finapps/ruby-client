@@ -19,7 +19,11 @@ jobs:
       - name: Set env
         run: echo "BRANCH_NAME=$(echo $GITHUB_HEAD_REF | tr / -)" >> $GITHUB_ENV
       - name: Test
-        run: echo $BRANCH_NAME
+        run: |
+          echo "Full branch name:" 
+          echo $GITHUB_HEAD_REF
+          echo "Branch name, no slash:"
+          echo $BRANCH_NAME
         
       - name: Checkout source code
         uses: actions/checkout@v3
