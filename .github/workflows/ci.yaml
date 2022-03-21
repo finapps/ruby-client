@@ -16,7 +16,7 @@ jobs:
         os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
     env:
-      BRANCH_NAME: ${{ github.head_ref | tr / - }}
+      BRANCH_NAME: ${{ github.head_ref }} | tr / -
     steps:
       - name: Checkout source code
         uses: actions/checkout@v3
