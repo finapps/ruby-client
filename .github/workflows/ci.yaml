@@ -29,6 +29,7 @@ jobs:
       - name: Run rspec with coverage
         run: |
           COVERAGE=true bundle exec rspec
+          echo $BRANCH_NAME
 
       - name: Run rubocop
         run: |
