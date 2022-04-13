@@ -19,18 +19,16 @@ module Fake
       end
 
       def delete_routes(base)
-        base.delete("/#{base.version}/locations/:key") do
-          return status(404) if params[:key] == 'not_found'
-          return status(400) unless sha256?(params[:key])
+        base.delete("/#{base.version}/locations/:id") do
+          return status(404) if params[:id] == 'not_found'
 
           status 204
         end
       end
 
       def put_routes(base)
-        base.put("/#{base.version}/locations/:key") do
-          return status(404) if params[:key] == 'not_found'
-          return status(400) unless sha256?(params[:key])
+        base.put("/#{base.version}/locations/:id") do
+          return status(404) if params[:id] == 'not_found'
 
           status 204
         end
@@ -42,17 +40,12 @@ module Fake
 
           json_response 200, 'locations/get_locations.json'
         end
-        base.get("/#{base.version}/locations/:key") do
-          return status(404) if params[:key] == 'not_found'
-          return status(400) unless sha256?(params[:key])
+        base.get("/#{base.version}/locations/:id") do
+          return status(404) if params[:id] == 'not_found'
 
           json_response 200, 'locations/get_location.json'
         end
       end
-    end
-
-    def sha256?(key)
-      key.length == 64 && key.match(/^[0-9a-f]+$/)
     end
   end
 end

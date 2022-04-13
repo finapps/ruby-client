@@ -5,6 +5,8 @@ require 'digest'
 RSpec.describe FinApps::REST::Locations do
   include SpecHelpers::Client
 
+  let(:id) { :id }
+
   describe '#list' do
     subject(:list) { described_class.new(client).list filter }
 
@@ -12,6 +14,7 @@ RSpec.describe FinApps::REST::Locations do
 
     it_behaves_like 'an API request'
     it_behaves_like 'a successful request'
+    it { expect(list[RESULTS]).to all(have_key(:id)) }
     it { expect(list[RESULTS]).to all(have_key(:name)) }
     it { expect(list[RESULTS]).to all(have_key(:state)) }
 
@@ -41,72 +44,47 @@ RSpec.describe FinApps::REST::Locations do
   end
 
   describe '#show' do
-    subject(:show) { described_class.new(client).show(key) }
-
-    let(:key) { Digest::SHA256.hexdigest('Quick Mart Urgent CareMD,MD') }
+    subject(:show) { described_class.new(client).show(id) }
 
     it_behaves_like 'an API request'
     it_behaves_like 'a successful request'
+    it { expect(show[RESULTS]).to have_key(:id) }
     it { expect(show[RESULTS]).to have_key(:name) }
     it { expect(show[RESULTS]).to have_key(:state) }
 
-    context 'when key is not a valid SHA256' do
-      let(:key) { 'invalid_SHA256' }
+    context 'when id does not match any location' do
+      let(:id) { 'not_found' }
 
-      it_behaves_like 'a failed request'
-    end
-
-    context 'when key does not match any location' do
-      let(:key) { 'not_found' }
-
-      it_behaves_like 'a failed request'
       it_behaves_like 'a request to a not found resource'
     end
   end
 
   describe '#update' do
-    subject(:update) { described_class.new(client).update(key, params) }
+    subject(:update) { described_class.new(client).update(id, params) }
 
-    let(:key) { Digest::SHA256.hexdigest('Quick Mart Urgent CareMD,MD') }
     let(:params) { {name: 'Quick Mart Non-Urgent Care', state: {code: 'MD'}} }
 
     it_behaves_like 'an API request'
     it_behaves_like 'a successful request'
     it { expect(update[RESULTS]).to be_nil }
 
-    context 'when key is not a valid SHA256' do
-      let(:key) { 'invalid_SHA256' }
+    context 'when id does not match any location' do
+      let(:id) { 'not_found' }
 
-      it_behaves_like 'a failed request'
-    end
-
-    context 'when key does not match any location' do
-      let(:key) { 'not_found' }
-
-      it_behaves_like 'a failed request'
       it_behaves_like 'a request to a not found resource'
     end
   end
 
   describe '#destroy' do
-    subject(:destroy) { described_class.new(client).destroy(key) }
-
-    let(:key) { Digest::SHA256.hexdigest('Quick Mart Urgent CareMD,MD') }
+    subject(:destroy) { described_class.new(client).destroy(id) }
 
     it_behaves_like 'an API request'
     it_behaves_like 'a successful request'
     it { expect(destroy[RESULTS]).to be_nil }
 
-    context 'when key is not a valid SHA256' do
-      let(:key) { 'invalid_SHA256' }
+    context 'when id does not match any location' do
+      let(:id) { 'not_found' }
 
-      it_behaves_like 'a failed request'
-    end
-
-    context 'when key does not match any location' do
-      let(:key) { 'not_found' }
-
-      it_behaves_like 'a failed request'
       it_behaves_like 'a request to a not found resource'
     end
   end
