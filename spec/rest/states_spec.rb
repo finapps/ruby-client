@@ -9,6 +9,8 @@ RSpec.describe FinApps::REST::States do
     it_behaves_like 'an API request'
     it_behaves_like 'a successful request'
 
-    it('returns a list') { expect(list[RESULTS]).to be_a(Array) }
+    it('returns a list of hashes with the following keys: code, label, type') do
+      expect(list[RESULTS].first.keys).to match_array(%i[code label type])
+    end
   end
 end

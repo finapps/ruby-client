@@ -1,5 +1,6 @@
 [
   {
+    "id": "2c0c2951-0a5e-463f-abd3-d315e63a62b2",
     "name": "Quick Mart Urgent Care",
     "state": {
       "code": "MD",
@@ -8,6 +9,7 @@
     }
   },
   {
+    "id": "2c0c2951-0a5e-463f-abd3-d315e63a62b3",
     "name": "Quick Mart Emergency Room",
     "state": {
       "code": "MD",
@@ -16,6 +18,7 @@
     }
   },
   {
+    "id": "2c0c2951-0a5e-463f-abd3-d315e63a62b4",
     "name": "Quick Mart - Folsom Business Office",
     "state": {
       "code": "CA",

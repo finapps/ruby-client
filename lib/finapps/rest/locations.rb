@@ -8,9 +8,9 @@ module FinApps
         super path
       end
 
-      def update(key, params = {})
-        path = resource_path(key)
-        send_request path, :put, params
+      def update(id, params)
+        path = resource_path(id)
+        super params, path
       end
     end
   end
