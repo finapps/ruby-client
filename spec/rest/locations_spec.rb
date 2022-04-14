@@ -21,7 +21,7 @@ RSpec.describe FinApps::REST::Locations do
     end
   end
 
-  RSpec.shared_examples 'a successful request returning an empty body' do
+  RSpec.shared_examples 'a successful API request returning an empty body' do
     it_behaves_like 'an API request'
     it_behaves_like 'a successful request'
     it { expect(subject[RESULTS]).to be_nil }
@@ -62,14 +62,14 @@ RSpec.describe FinApps::REST::Locations do
   describe '#create' do
     subject(:create) { described_class.new(client).create(params) }
 
-    it_behaves_like 'a successful request returning an empty body'
+    it_behaves_like 'a successful API request returning an empty body'
   end
 
   describe '#update' do
     subject(:update) { described_class.new(client).update(id, params) }
 
     context 'when the location exists' do
-      it_behaves_like 'a successful request returning an empty body'
+      it_behaves_like 'a successful API request returning an empty body'
     end
 
     context 'when id does not match any location' do
@@ -83,7 +83,7 @@ RSpec.describe FinApps::REST::Locations do
     subject(:destroy) { described_class.new(client).destroy(id) }
 
     context 'when the location exists' do
-      it_behaves_like 'a successful request returning an empty body'
+      it_behaves_like 'a successful API request returning an empty body'
     end
 
     context 'when id does not match any location' do
