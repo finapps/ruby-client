@@ -7,32 +7,10 @@ RSpec.describe FinApps::REST::Locations do
 
   let(:id) { :id }
 
-  describe '#list' do
-    subject(:list) { described_class.new(client).list filter }
+  params = {name: 'Quick Mart Non-Urgent Care', state: {code: 'MD'}}
 
-    let(:filter) { nil }
-
-    it_behaves_like 'an API request'
-    it_behaves_like 'a successful request'
-    it { expect(list[RESULTS]).to all(have_key(:id)) }
-    it { expect(list[RESULTS]).to all(have_key(:name)) }
-    it { expect(list[RESULTS]).to all(have_key(:state)) }
-
-    context 'when the JMESPath filter is invalid' do
-      let(:filter) { 'invalid' }
-
-      it_behaves_like 'a failed request'
-    end
-  end
-
-  describe '#create' do
-    subject(:create) { described_class.new(client).create(params) }
-
-    let(:params) { {name: 'Quick Mart Urgent Care', state: {code: 'MD'}} }
-
-    it_behaves_like 'an API request'
-    it_behaves_like 'a successful request'
-    it { expect(create[RESULTS]).to be_nil }
+  RSpec::Matchers.define :have_keys do |*keys|
+    match {|actual| keys.all? {|key| actual.key? key } }
   end
 
   RSpec.shared_examples 'a request to a not found resource' do
@@ -43,14 +21,36 @@ RSpec.describe FinApps::REST::Locations do
     end
   end
 
-  describe '#show' do
-    subject(:show) { described_class.new(client).show(id) }
+  RSpec.shared_examples 'a successful request returning an empty body' do
+    it_behaves_like 'an API request'
+    it_behaves_like 'a successful request'
+    it { expect(subject[RESULTS]).to be_nil }
+  end
+
+  describe '#list' do
+    subject(:list) { described_class.new(client).list filter }
+
+    let(:filter) { nil }
 
     it_behaves_like 'an API request'
     it_behaves_like 'a successful request'
-    it { expect(show[RESULTS]).to have_key(:id) }
-    it { expect(show[RESULTS]).to have_key(:name) }
-    it { expect(show[RESULTS]).to have_key(:state) }
+    it { expect(list[RESULTS]).to all(have_keys(:id, :name, :state)) }
+
+    context 'when the JMESPath filter is invalid' do
+      let(:filter) { 'invalid' }
+
+      it_behaves_like 'a failed request'
+    end
+  end
+
+  describe '#show' do
+    subject(:show) { described_class.new(client).show(id) }
+
+    context 'when the location exists' do
+      it_behaves_like 'an API request'
+      it_behaves_like 'a successful request'
+      it { expect(show[RESULTS]).to have_keys(:id, :name, :state) }
+    end
 
     context 'when id does not match any location' do
       let(:id) { 'not_found' }
@@ -59,14 +59,18 @@ RSpec.describe FinApps::REST::Locations do
     end
   end
 
+  describe '#create' do
+    subject(:create) { described_class.new(client).create(params) }
+
+    it_behaves_like 'a successful request returning an empty body'
+  end
+
   describe '#update' do
     subject(:update) { described_class.new(client).update(id, params) }
 
-    let(:params) { {name: 'Quick Mart Non-Urgent Care', state: {code: 'MD'}} }
-
-    it_behaves_like 'an API request'
-    it_behaves_like 'a successful request'
-    it { expect(update[RESULTS]).to be_nil }
+    context 'when the location exists' do
+      it_behaves_like 'a successful request returning an empty body'
+    end
 
     context 'when id does not match any location' do
       let(:id) { 'not_found' }
@@ -78,9 +82,9 @@ RSpec.describe FinApps::REST::Locations do
   describe '#destroy' do
     subject(:destroy) { described_class.new(client).destroy(id) }
 
-    it_behaves_like 'an API request'
-    it_behaves_like 'a successful request'
-    it { expect(destroy[RESULTS]).to be_nil }
+    context 'when the location exists' do
+      it_behaves_like 'a successful request returning an empty body'
+    end
 
     context 'when id does not match any location' do
       let(:id) { 'not_found' }
