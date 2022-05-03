@@ -67,10 +67,11 @@ module FinApps
       end
 
       def term_array(term)
-        [
-          {email: term},
-          {last_name: term}
-        ]
+        if term.include?('@')
+          [{email: term}]
+        else
+          [{last_name: term}]
+        end
       end
 
       def role_filter(role)
