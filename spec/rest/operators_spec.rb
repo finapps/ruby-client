@@ -25,12 +25,21 @@ RSpec.describe FinApps::REST::Operators do
         end
       end
 
-      context 'with searchTerm' do
+      context 'with email searchTerm' do
+        let(:params) { {searchTerm: 'term@example.com'} }
+
+        it_behaves_like 'a filtereable GET index request', {
+          '$or': [
+            {email: 'term@example.com'}
+          ]
+        }
+      end
+
+      context 'with non email searchTerm' do
         let(:params) { {searchTerm: 'le term'} }
 
         it_behaves_like 'a filtereable GET index request', {
           '$or': [
-            {email: 'le term'},
             {last_name: 'le term'}
           ]
         }
@@ -65,7 +74,7 @@ RSpec.describe FinApps::REST::Operators do
         it 'builds a full filter and query and sends the request' do
           list
 
-          filter = {'$or': [{email: 't'}, {last_name: 't'}], role: {'$in': [2]}}
+          filter = {'$or': [{last_name: 't'}], role: {'$in': [2]}}
           expect(WebMock).to have_requested(:get, "#{versioned_api_path}/operators"\
                                                   "?filter=#{ERB::Util.url_encode filter.to_json}"\
                                                   '&page=2&requested=25&sort=date_created')
