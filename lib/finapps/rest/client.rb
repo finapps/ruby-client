@@ -17,6 +17,7 @@ module FinApps
         documents_orders_notifications
         documents_upload_types
         documents_uploads
+        edm_transmissions
         esign_templates
         orders
         locations

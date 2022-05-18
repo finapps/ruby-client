@@ -5,6 +5,7 @@ require 'sinatra/base'
 require_relative 'documents_uploads_routes'
 require_relative 'screenings_routes'
 require_relative 'routes/actors'
+require_relative 'routes/edm_transmissions'
 require_relative 'routes/locations'
 require_relative 'routes/screening_metadatas'
 require_relative 'routes/query_screenings'
@@ -25,6 +26,7 @@ module Fake
     delete("/#{version}/resources/:id") { status 202 }
 
     include ActorsRoutes
+    include EdmTransmissionsRoutes
     include DocumentsUploadsRoutes
     include LocationsRoutes
     include QueryScreeningRoutes

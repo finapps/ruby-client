@@ -1,0 +1,17 @@
+{
+    "transmission_id": "7829e171-4d39-4270-8969-7729038953d2",
+    "date_created": "2022-05-18T21:05:48.076809156Z",
+    "date_modified": "2022-05-18T21:05:48.07680924Z",
+    "status": 0,
+    "document_order_id": "0c272b3d-3c8c-43ab-beff-f5964835a591",
+    "documents": [
+        {
+            "template_data": null,
+            "path": "",
+            "file_id": "",
+            "status": 0,
+            "edm_filename": "",
+            "date_modified": "0001-01-01T00:00:00Z"
+        }
+    ]
+}
