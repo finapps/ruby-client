@@ -5,6 +5,7 @@ require 'faraday_middleware'
 
 require 'finapps_core'
 require 'finapps/rest/actors'
+require 'finapps/rest/edm_transmissions'
 require 'finapps/rest/version'
 require 'finapps/rest/locations'
 require 'finapps/rest/consumers'
