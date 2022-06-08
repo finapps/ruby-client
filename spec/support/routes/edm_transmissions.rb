@@ -4,9 +4,16 @@ module Fake
   module EdmTransmissionsRoutes
     class << self
       def included(base)
+        get_routes base
         post_routes base
 
         super
+      end
+
+      def get_routes(base)
+        base.get("/#{base.version}/documents/edm/:transmission_id") do
+          json_response 200, 'edm_transmissions/show.json'
+        end
       end
 
       def post_routes(base)
