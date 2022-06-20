@@ -1,0 +1,21 @@
+[
+  {
+    "auth0_id": "string",
+    "date_created": "2022-06-20T21:02:25Z",
+    "date_modified": "2022-06-20T21:02:25Z",
+    "email": "string",
+    "external_id": "string",
+    "first_name": "string",
+    "language": "string",
+    "last_name": "string",
+    "locations": [],
+    "memo": "string",
+    "metadata": {},
+    "phone": [],
+    "postal_code": "string",
+    "public_id": "string",
+    "role": 0,
+    "tenant_id": "string",
+    "type": "string"
+  }
+]
