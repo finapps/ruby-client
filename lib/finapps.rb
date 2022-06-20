@@ -59,6 +59,7 @@ require 'finapps/rest/verix/verix_documents'
 
 require 'finapps/rest/query/base'
 require 'finapps/rest/query/screenings'
+require 'finapps/rest/query/users'
 
 require 'finapps/utils/query_builder'
 require 'finapps/version' unless defined?(FinApps::VERSION)

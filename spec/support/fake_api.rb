@@ -9,6 +9,7 @@ require_relative 'routes/edm_transmissions'
 require_relative 'routes/locations'
 require_relative 'routes/screening_metadatas'
 require_relative 'routes/query_screenings'
+require_relative 'routes/query_users'
 require_relative 'routes/states'
 
 module Fake
@@ -30,6 +31,7 @@ module Fake
     include DocumentsUploadsRoutes
     include LocationsRoutes
     include QueryScreeningRoutes
+    include QueryUserRoutes
     include ScreeningsRoutes
     include ScreeningMetadatasRoutes
     include StateRoutes

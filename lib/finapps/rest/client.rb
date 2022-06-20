@@ -67,7 +67,7 @@ module FinApps
         end
       end
 
-      QUERY_RESOURCES = [:query_screenings].freeze
+      QUERY_RESOURCES = %i(query_screenings query_users).freeze
 
       QUERY_RESOURCES.each do |method|
         define_method(method) do
