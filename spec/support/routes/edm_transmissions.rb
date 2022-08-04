@@ -14,6 +14,9 @@ module Fake
         base.get("/#{base.version}/documents/edm/:transmission_id") do
           json_response 200, 'edm_transmissions/show.json'
         end
+        base.get("/#{base.version}/documents/edm/:order_id/status") do
+          json_response 200, 'edm_transmissions/show_by_order.json'
+        end
       end
 
       def post_routes(base)

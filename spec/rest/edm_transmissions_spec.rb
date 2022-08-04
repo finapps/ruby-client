@@ -27,4 +27,13 @@ RSpec.describe FinApps::REST::EdmTransmissions do
 
     it_behaves_like 'an EdmTransmission response'
   end
+
+  describe '#show_by_order' do
+    subject(:show) { described_class.new(client).show_by_order(:order_id) }
+
+    it_behaves_like 'an API request'
+    it_behaves_like 'a successful request'
+
+    it_behaves_like 'an EdmTransmission response'
+  end
 end
