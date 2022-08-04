@@ -52,7 +52,7 @@ Metrics/ClassLength:
     - app/models/order.rb
     - spec/support/fake_api.rb
 Metrics/BlockLength:
-  IgnoredMethods: ['describe', 'context']
+  AllowedMethods: ['describe', 'context']
   Exclude:
     - config/environments/**/**
     - Guardfile

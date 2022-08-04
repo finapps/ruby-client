@@ -132,13 +132,13 @@ RSpec.describe FinApps::REST::Orders do
 
       it 'builds query and sends proper request' do
         list
-        url = "#{versioned_api_path}/orders?"\
-              'filter=%7B%22$or%22:%5B%7B%22public_id%22:%7B%22$regex%22:%22%5E'\
-              'term%22,%22$options%22:%22i%22%7D%7D,%7B%22assignment.last_name%22:%22'\
-              'term%22%7D,%7B%22applicant.first_name%22:%22term%22%7D,%7B%22'\
-              'applicant.last_name%22:%22term%22%7D,%7B%22requestor.reference_no'\
-              '%22:%7B%22$regex%22:%22%5Eterm%22,%22$options%22:%22i%22%7D%7D%5D,%22'\
-              'status%22:%7B%22$in%22:%5B1,7%5D%7D,%22assignment.operator_id%22:%22'\
+        url = "#{versioned_api_path}/orders?" \
+              'filter=%7B%22$or%22:%5B%7B%22public_id%22:%7B%22$regex%22:%22%5E' \
+              'term%22,%22$options%22:%22i%22%7D%7D,%7B%22assignment.last_name%22:%22' \
+              'term%22%7D,%7B%22applicant.first_name%22:%22term%22%7D,%7B%22' \
+              'applicant.last_name%22:%22term%22%7D,%7B%22requestor.reference_no' \
+              '%22:%7B%22$regex%22:%22%5Eterm%22,%22$options%22:%22i%22%7D%7D%5D,%22' \
+              'status%22:%7B%22$in%22:%5B1,7%5D%7D,%22assignment.operator_id%22:%22' \
               'valid_operator%22,%22consumer_id%22:%22valid_consumer_id%22%7D&page=2&requested=25&sort=status'
         expect(WebMock).to have_requested(:get, url)
       end
@@ -146,12 +146,12 @@ RSpec.describe FinApps::REST::Orders do
       it 'builds query and sends proper request with searchTerm/relation exclusivity' do
         params[:searchTerm] = nil
         list
-        url = "#{versioned_api_path}/orders?"\
+        url = "#{versioned_api_path}/orders?" \
               'filter=%7B%22status%22:%7B%22$in%22:%5B1,7%5D%7D,' \
-              '%22assignment.operator_id%22:%22valid_operator%22,'\
+              '%22assignment.operator_id%22:%22valid_operator%22,' \
               '%22consumer_id%22:%22valid_consumer_id%22,' \
-              '%22$or%22:%5B%7B%22public_id%22:%7B%22$in%22:%5B%22valid_order_id%22%5D%7D%7D,'\
-              '%7B%22original_order_id%22:%7B%22$in%22:%5B%22valid_order_id%22%5D%7D%7D%5D%7D&'\
+              '%22$or%22:%5B%7B%22public_id%22:%7B%22$in%22:%5B%22valid_order_id%22%5D%7D%7D,' \
+              '%7B%22original_order_id%22:%7B%22$in%22:%5B%22valid_order_id%22%5D%7D%7D%5D%7D&' \
               'page=2&requested=25&sort=status'
         expect(WebMock).to have_requested(:get, url)
       end
@@ -159,16 +159,16 @@ RSpec.describe FinApps::REST::Orders do
       it 'handles space in search term for consumer' do
         params[:searchTerm] = 'Spacing Out'
         list
-        url = "#{versioned_api_path}/orders?"\
-              'filter=%7B%22$or%22:%5B%7B%22public_id%22:%7B%22$regex%22:%22%5E'\
-              'Spacing%20Out%22,%22$options%22:%22i%22%7D%7D,%7B%22assignment.last_name'\
-              '%22:%22Spacing%20Out%22%7D,%7B%22applicant.first_name%22:%22'\
-              'Spacing%20Out%22%7D,%7B%22applicant.last_name%22:%22Spacing%20Out'\
-              '%22%7D,%7B%22requestor.reference_no%22:%7B%22$regex%22:%22%5ESpacing%20Out'\
-              '%22,%22$options%22:%22i%22%7D%7D,%7B%22applicant.first_name%22:%22Spacing'\
-              '%22%7D,%7B%22applicant.last_name%22:%22Spacing%22%7D,%7B%22applicant.first_name'\
-              '%22:%22Out%22%7D,%7B%22applicant.last_name%22:%22Out%22%7D%5D,%22status'\
-              '%22:%7B%22$in%22:%5B1,7%5D%7D,%22assignment.operator_id%22:%22valid_operator'\
+        url = "#{versioned_api_path}/orders?" \
+              'filter=%7B%22$or%22:%5B%7B%22public_id%22:%7B%22$regex%22:%22%5E' \
+              'Spacing%20Out%22,%22$options%22:%22i%22%7D%7D,%7B%22assignment.last_name' \
+              '%22:%22Spacing%20Out%22%7D,%7B%22applicant.first_name%22:%22' \
+              'Spacing%20Out%22%7D,%7B%22applicant.last_name%22:%22Spacing%20Out' \
+              '%22%7D,%7B%22requestor.reference_no%22:%7B%22$regex%22:%22%5ESpacing%20Out' \
+              '%22,%22$options%22:%22i%22%7D%7D,%7B%22applicant.first_name%22:%22Spacing' \
+              '%22%7D,%7B%22applicant.last_name%22:%22Spacing%22%7D,%7B%22applicant.first_name' \
+              '%22:%22Out%22%7D,%7B%22applicant.last_name%22:%22Out%22%7D%5D,%22status' \
+              '%22:%7B%22$in%22:%5B1,7%5D%7D,%22assignment.operator_id%22:%22valid_operator' \
               '%22,%22consumer_id%22:%22valid_consumer_id%22%7D&page=2&requested=25&sort=status'
         expect(WebMock).to have_requested(:get, url)
       end
@@ -176,7 +176,7 @@ RSpec.describe FinApps::REST::Orders do
       it 'builds null assignment query properly when supplied w/ empty string' do
         described_class.new(client).list(assignment: '')
 
-        url = "#{versioned_api_path}/orders?"\
+        url = "#{versioned_api_path}/orders?" \
               'filter=%7B%22assignment.operator_id%22:null%7D'
         expect(WebMock).to have_requested(:get, url)
       end
