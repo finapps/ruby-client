@@ -16,6 +16,13 @@ module FinApps
         path = "documents/edm/#{ERB::Util.url_encode(transmission_id)}"
         super transmission_id, path
       end
+
+      def show_by_order(order_id)
+        not_blank(order_id, :order_id)
+
+        path = "documents/edm/#{ERB::Util.url_encode(order_id)}/status"
+        send_request_for_id path, :get, order_id
+      end
     end
   end
 end

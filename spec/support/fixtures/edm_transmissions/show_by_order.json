@@ -1,0 +1,20 @@
+{
+  "date_created": "2022-08-04T19:52:32Z",
+  "date_modified": "2022-08-04T19:52:32Z",
+  "document_order_id": "0c272b3d-3c8c-43ab-beff-f5964835a591",
+  "documents": [
+    {
+      "date_modified": "2022-08-04T19:52:32Z",
+      "document_id": "string",
+      "edm_filename": "string",
+      "file_id": "string",
+      "path": "string",
+      "status": 1,
+      "template_data": {
+        "external_id": "28489213"
+      }
+    }
+  ],
+  "status": 1,
+  "transmission_id": "7829e171-4d39-4270-8969-7729038953d2"
+}

@@ -75,8 +75,8 @@ RSpec.describe FinApps::REST::Operators do
           list
 
           filter = {'$or': [{last_name: 't'}], role: {'$in': [2]}}
-          expect(WebMock).to have_requested(:get, "#{versioned_api_path}/operators"\
-                                                  "?filter=#{ERB::Util.url_encode filter.to_json}"\
+          expect(WebMock).to have_requested(:get, "#{versioned_api_path}/operators" \
+                                                  "?filter=#{ERB::Util.url_encode filter.to_json}" \
                                                   '&page=2&requested=25&sort=date_created')
         end
       end

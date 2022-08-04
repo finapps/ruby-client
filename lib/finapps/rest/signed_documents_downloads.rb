@@ -8,7 +8,7 @@ module FinApps
         not_blank(signature_request_id, :signature_request_id)
 
         path =
-          "consumers/#{ERB::Util.url_encode(consumer_id)}/"\
+          "consumers/#{ERB::Util.url_encode(consumer_id)}/" \
           "documents/#{ERB::Util.url_encode(signature_request_id)}"
         super(nil, path)
       end

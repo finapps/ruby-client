@@ -8,7 +8,7 @@ module FinApps
         not_blank(doc_id, :doc_id)
 
         path =
-          "consumers/#{ERB::Util.url_encode(consumer_id)}/"\
+          "consumers/#{ERB::Util.url_encode(consumer_id)}/" \
           "documents/#{ERB::Util.url_encode(doc_id)}?thumbnail=#{thumbnail}"
         super(nil, path)
       end
